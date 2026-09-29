@@ -1,0 +1,83 @@
+<svg class="mapa" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapa de la Provincia de Río Negro con las 26 sedes de la ESRN Rural Virtual" viewBox="0 0 1201.6 688.3">
+<path class="mapa__provincia" d="M544.8,82.7L589.5,93.4L598.9,116.9L593.7,126.5L582.2,125.5L581.2,132.9L587.4,147.8L597.8,142.5L604.1,161.7L630.1,172.3L646.7,161.7L659.2,183.9L676.8,195.6L703.9,201.9L696.6,220.9L718.4,231.5L735.1,232.5L743.4,227.3L751.7,223.1L762.1,225.2L770.4,233.6L777.7,238.9L787.1,242.0L794.3,238.9L801.6,231.5L818.3,239.9L827.6,244.1L835.9,238.9L838.0,229.4L863.0,242.0L880.6,238.9L896.2,239.9L913.9,245.2L927.4,253.6L951.3,266.2L961.7,272.5L972.1,273.5L973.2,283.0L981.5,285.1L990.8,290.3L999.2,297.6L1005.4,299.7L1007.5,472.6L1020.0,470.5L1035.6,474.6L1052.2,491.0L1063.6,505.3L1047.5,517.5L1037.6,523.6L1025.2,526.7L1008.0,525.7L988.8,525.2L972.1,525.7L962.3,524.2L956.5,522.1L951.3,514.5L942.0,510.9L940.4,505.3L937.3,503.3L934.2,508.9L921.7,503.8L907.7,496.1L896.2,489.5L883.8,484.9L876.0,483.3L866.6,485.9L863.5,482.3L874.9,479.2L871.8,474.1L865.0,472.1L860.4,473.1L862.4,478.2L855.2,476.7L845.8,480.3L841.1,489.5L839.0,498.7L838.5,506.3L838.0,522.6L839.6,531.3L843.2,539.9L846.8,552.6L849.4,561.2L852.6,566.8L855.2,576.4L851.0,582.0L850.5,590.0L850.5,595.6L851.5,601.1L852.6,606.7L848.4,606.7L850.0,611.7L847.9,620.3L847.9,628.3L211.6,627.3L211.1,616.2L210.0,610.7L214.2,607.2L214.2,600.1L209.5,596.6L209.0,591.1L206.4,588.5L202.7,582.5L206.9,575.4L205.9,567.3L205.9,560.7L201.2,551.6L201.7,543.0L199.1,538.4L204.3,532.8L200.1,526.7L205.9,521.6L206.4,515.5L204.3,510.9L202.7,507.3L217.0,509.4L228.2,511.2L232.9,509.4L238.9,510.9L244.8,512.2L251.6,518.3L261.0,519.1L270.6,514.5L271.6,510.7L277.1,507.6L276.8,505.0L280.2,503.5L282.8,501.0L280.7,492.8L279.4,487.7L276.3,486.7L277.1,483.8L274.7,480.5L274.0,477.7L276.3,473.1L282.8,473.4L285.9,466.9L287.7,463.6L292.4,461.1L296.1,460.0L298.4,456.9L303.9,455.9L308.5,454.4L316.1,456.4L319.4,455.7L322.0,451.6L328.3,446.4L331.7,444.9L340.2,448.7L352.7,444.9L359.0,446.7L364.2,442.8L362.6,436.7L371.2,429.4L372.2,411.9L384.7,402.6L380.5,390.2L379.5,381.9L393.0,371.6L412.8,365.4L432.5,358.1L441.9,349.8L455.4,333.1L474.1,321.7L490.7,307.0L500.1,293.5L511.5,284.0L524.0,268.3L540.6,261.0L550.0,258.9L562.5,258.9L569.2,257.8L553.1,227.3L543.8,219.9L544.8,82.7Z"/>
+<line class="mapa__leader" x1="566.3" y1="90.2" x2="553.3" y2="90.2"/>
+<line class="mapa__leader" x1="581.5" y1="99.9" x2="594.5" y2="99.9"/>
+<line class="mapa__leader" x1="568.1" y1="220.7" x2="581.1" y2="220.7"/>
+<line class="mapa__leader" x1="709.1" y1="271.4" x2="722.1" y2="271.4"/>
+<line class="mapa__leader" x1="520.3" y1="350.9" x2="533.3" y2="350.9"/>
+<line class="mapa__leader" x1="487.2" y1="381.7" x2="500.2" y2="381.7"/>
+<line class="mapa__leader" x1="426.4" y1="362.6" x2="439.4" y2="362.6"/>
+<line class="mapa__leader" x1="400.9" y1="428.7" x2="413.9" y2="428.7"/>
+<line class="mapa__leader" x1="416.5" y1="435.7" x2="403.5" y2="435.7"/>
+<line class="mapa__leader" x1="312.8" y1="472.9" x2="325.8" y2="472.9"/>
+<line class="mapa__leader" x1="281.8" y1="493.9" x2="294.8" y2="493.9"/>
+<line class="mapa__leader" x1="394.1" y1="473.9" x2="407.1" y2="473.9"/>
+<line class="mapa__leader" x1="464.6" y1="465.8" x2="464.6" y2="452.8"/>
+<line class="mapa__leader" x1="658.9" y1="500.9" x2="658.9" y2="487.9"/>
+<line class="mapa__leader" x1="773.7" y1="488.1" x2="786.7" y2="488.1"/>
+<line class="mapa__leader" x1="763.2" y1="525.2" x2="776.2" y2="525.2"/>
+<line class="mapa__leader" x1="1053.6" y1="505.4" x2="1066.6" y2="505.4"/>
+<line class="mapa__leader" x1="213.4" y1="576.9" x2="226.4" y2="576.9"/>
+<line class="mapa__leader" x1="332.6" y1="594.9" x2="332.6" y2="607.9"/>
+<line class="mapa__leader" x1="367.0" y1="601.6" x2="380.0" y2="601.6"/>
+<line class="mapa__leader" x1="539.3" y1="584.7" x2="552.3" y2="584.7"/>
+<line class="mapa__leader" x1="533.0" y1="514.9" x2="546.0" y2="514.9"/>
+<line class="mapa__leader" x1="618.6" y1="515.5" x2="611.7" y2="541.5"/>
+<line class="mapa__leader" x1="645.7" y1="503.8" x2="645.7" y2="545.8"/>
+<line class="mapa__leader" x1="749.3" y1="560.4" x2="762.3" y2="560.4"/>
+<line class="mapa__leader" x1="669.7" y1="613.3" x2="682.7" y2="613.3"/>
+<circle class="mapa__punto" cx="566.3" cy="90.2" r="7.5"><title>Valle Verde</title></circle>
+<text class="mapa__etiqueta" x="553.3" y="90.2" text-anchor="end">Valle Verde</text>
+<circle class="mapa__punto" cx="581.5" cy="99.9" r="7.5"><title>Peñas Blancas</title></circle>
+<text class="mapa__etiqueta" x="594.5" y="99.9" text-anchor="start">Peñas Blancas</text>
+<circle class="mapa__punto" cx="568.1" cy="220.7" r="7.5"><title>Lago Pellegrini</title></circle>
+<text class="mapa__etiqueta" x="581.1" y="220.7" text-anchor="start">Lago Pellegrini</text>
+<circle class="mapa__punto" cx="709.1" cy="271.4" r="7.5"><title>Chelforó</title></circle>
+<text class="mapa__etiqueta" x="722.1" y="271.4" text-anchor="start">Chelforó</text>
+<circle class="mapa__punto" cx="520.3" cy="350.9" r="7.5"><title>Cerro Policía</title></circle>
+<text class="mapa__etiqueta" x="533.3" y="350.9" text-anchor="start">Cerro Policía</text>
+<circle class="mapa__punto" cx="487.2" cy="381.7" r="7.5"><title>Aguada Guzmán</title></circle>
+<text class="mapa__etiqueta" x="500.2" y="381.7" text-anchor="start">Aguada Guzmán</text>
+<circle class="mapa__punto" cx="426.4" cy="362.6" r="7.5"><title>Naupa Huen</title></circle>
+<text class="mapa__etiqueta" x="439.4" y="362.6" text-anchor="start">Naupa Huen</text>
+<circle class="mapa__punto" cx="400.9" cy="428.7" r="7.5"><title>Blancura Centro</title></circle>
+<text class="mapa__etiqueta" x="413.9" y="428.7" text-anchor="start">Blancura Centro</text>
+<circle class="mapa__punto" cx="416.5" cy="435.7" r="7.5"><title>Mencué</title></circle>
+<text class="mapa__etiqueta" x="403.5" y="435.7" text-anchor="end">Mencué</text>
+<circle class="mapa__punto" cx="312.8" cy="472.9" r="7.5"><title>Corralito</title></circle>
+<text class="mapa__etiqueta" x="325.8" y="472.9" text-anchor="start">Corralito</text>
+<circle class="mapa__punto" cx="281.8" cy="493.9" r="7.5"><title>Villa Llanquín</title></circle>
+<text class="mapa__etiqueta" x="294.8" y="493.9" text-anchor="start">Villa Llanquín</text>
+<circle class="mapa__punto" cx="394.1" cy="473.9" r="7.5"><title>Laguna Blanca</title></circle>
+<text class="mapa__etiqueta" x="407.1" y="473.9" text-anchor="start">Laguna Blanca</text>
+<circle class="mapa__punto" cx="464.6" cy="465.8" r="7.5"><title>Colan Conhué</title></circle>
+<text class="mapa__etiqueta" x="464.6" y="452.8" text-anchor="middle">Colan Conhué</text>
+<circle class="mapa__punto" cx="658.9" cy="500.9" r="7.5"><title>Rincón Treneta</title></circle>
+<text class="mapa__etiqueta" x="658.9" y="487.9" text-anchor="middle">Rincón Treneta</text>
+<circle class="mapa__punto" cx="773.7" cy="488.1" r="7.5"><title>Aguada Cecilio</title></circle>
+<text class="mapa__etiqueta" x="786.7" y="488.1" text-anchor="start">Aguada Cecilio</text>
+<circle class="mapa__punto" cx="763.2" cy="525.2" r="7.5"><title>Sierra Pailemán</title></circle>
+<text class="mapa__etiqueta" x="776.2" y="525.2" text-anchor="start">Sierra Pailemán</text>
+<circle class="mapa__punto" cx="1053.6" cy="505.4" r="7.5"><title>El Cóndor</title></circle>
+<text class="mapa__etiqueta" x="1066.6" y="505.4" text-anchor="start">El Cóndor</text>
+<circle class="mapa__punto" cx="213.4" cy="576.9" r="7.5"><title>El Manso</title></circle>
+<text class="mapa__etiqueta" x="226.4" y="576.9" text-anchor="start">El Manso</text>
+<circle class="mapa__punto" cx="332.6" cy="594.9" r="7.5"><title>Río Chico</title></circle>
+<text class="mapa__etiqueta" x="332.6" y="607.9" text-anchor="middle">Río Chico</text>
+<circle class="mapa__punto" cx="367.0" cy="601.6" r="7.5"><title>Mamuel Choique</title></circle>
+<text class="mapa__etiqueta" x="380.0" y="601.6" text-anchor="start">Mamuel Choique</text>
+<circle class="mapa__punto" cx="539.3" cy="584.7" r="7.5"><title>El Caín</title></circle>
+<text class="mapa__etiqueta" x="552.3" y="584.7" text-anchor="start">El Caín</text>
+<circle class="mapa__punto" cx="533.0" cy="514.9" r="7.5"><title>Aguada de Guerra</title></circle>
+<text class="mapa__etiqueta" x="546.0" y="514.9" text-anchor="start">Aguada de Guerra</text>
+<circle class="mapa__punto" cx="618.6" cy="515.5" r="7.5"><title>Comicó</title></circle>
+<text class="mapa__etiqueta" x="611.7" y="541.5" text-anchor="end">Comicó</text>
+<circle class="mapa__punto" cx="645.7" cy="503.8" r="7.5"><title>Yaminué</title></circle>
+<text class="mapa__etiqueta" x="645.7" y="545.8" text-anchor="middle">Yaminué</text>
+<circle class="mapa__punto" cx="749.3" cy="560.4" r="7.5"><title>Arroyo los Berros</title></circle>
+<text class="mapa__etiqueta" x="762.3" y="560.4" text-anchor="start">Arroyo los Berros</text>
+<circle class="mapa__punto" cx="669.7" cy="613.3" r="7.5"><title>Cona Niyeu</title></circle>
+<text class="mapa__etiqueta" x="682.7" y="613.3" text-anchor="start">Cona Niyeu</text>
+<text class="mapa__mar" x="1056.6" y="344.2" text-anchor="middle" transform="rotate(-90 1056.6 344.2)">Mar Argentino</text>
+<g class="mapa__rosa" transform="translate(1146.6 88.0)"><circle r="10" class="mapa__rosa_c"/><path class="mapa__rosa_n" d="M0 -9 L3.4 6 L0 3 L-3.4 6 Z"/><text class="mapa__rosa_t" x="13" y="5">N</text></g>
+</svg>

@@ -1,0 +1,9 @@
+# Cachés de Python
+__pycache__/
+*.pyc
+
+# Copias de respaldo
+*.bak
+
+# Originales de trabajos (peso y privacidad de estudiantes)
+odt/

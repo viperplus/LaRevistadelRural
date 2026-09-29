@@ -1,0 +1,129 @@
+/* =========================================================================
+   RURAL · css — Editorial · Dirección de arte del sistema (puntos 4/5/6/11)
+   Paleta, retícula de 12 columnas, tipografía (2 familias), espacio en
+   blanco, ritmo vertical, estilo de borde/sombra restringido (punto 34).
+   ========================================================================= */
+:root{
+  /* ---- PALETA (puntos 1-12/14): color = identidad + sección + territorio.
+       Verde petróleo rionegrino (principal), papel cálido, acentos ocre y
+       verde-tierra. Sobrio, contemporáneo, sin efectos decorativos. ---- */
+  --petroleo:#14542e;   /* principal · verde petróleo rionegrino */
+  --petroleo-2:#0e3f23; /* profundo (titulares grandes/portada) */
+  --petroleo-3:#09301b; /* más profundo (fill de franjas)       */
+  --ocre:#c9822d;       /* acento · ocre del valle              */
+  --ocre-2:#9c6218;     /* ocre profundo                        */
+  --papel:#f4f0e8;      /* fondo general · papel cálido         */
+  --papel-2:#ece6d9;    /* alterno (franjas/secciones impares)  */
+  --tinta:#121a15;      /* texto principal                      */
+  --tinta-2:#46564c;    /* texto secundario                     */
+  --tinta-3:#7c8a80;    /* metadatos/epigrafes                  */
+  --linea:#cfc8b9;      /* reglas editoriales                   */
+  --blanco:#fffdf7;     /* superficies/estribos                 */
+
+  /* ---- TIPOGRAFÍA: 2 familias máx (punto 13).
+       Archivo → titulares/UI (display, peso variable).
+       Source Serif 4 → cuerpo (lectura editorial, serif contemporánea). */
+  --f-display:"Archivo","Archivo Black","Helvetica Neue",system-ui,sans-serif;
+  --f-texto:"Source Serif 4","Source Serif 4","Iowan Old Style",Georgia,serifdebops;
+  --f-ui:"Archivo",system-ui,-apple-system,sans-serif;
+
+  /* ---- ESCALA EDITORIAL (punto 15): escala de octavas amplias + mín.
+       Base cuerpo 17px · h1 portada 5rem · titulote clamp | ritmo 1.5. */
+  --t0:.6875rem;   /* 11 · micro (etiquetas/deptos)     */
+  --t1:.75rem;     /* 12 · epigrafes, metadata          */
+  --t2:.875rem;    /* 14 · bajadas chicas, entradas     */
+  --t3:1.0625rem;  /* 17 · CUERPO de lectura            */
+  --t4:1.1875rem;  /* 19 · lead / destacados            */
+  --t5:1.46875rem; /* 23.5 · h3 titulotes                */
+  --t6:1.8rem;     /* 28.8 · h2                         */
+  --t7:2.3rem;     /* 36.8 · h1                          */
+  --t8:2.9rem;     /* portada / chrónicas               */
+  --rh:1.58;       /* ritmo vertical de lectura          */
+
+  /* ---- RETÍCULA (puntos 6-10): 12 columnas, gutter 2rem.
+       Un ancho de página, márgenes generosos (punto 15). ---- */
+  --col:repeat(12,minmax(0,1fr));
+  --gut:1.7rem;
+  --medida:calc(min(90rem,100vw - 2*var(--marg)));
+  --marg:clamp(1rem,4.5vw,4.5rem);
+
+  /* ---- Movimiento (punto 23): sutil, solo estados. ---- */
+  --e-trans:cubic-bezier(.22,.61,.36,1);
+  --t-fast:.16s;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;
+    scroll-behavior:auto!important}
+}
+body{margin:0;background:var(--papel);color:var(--tinta);
+  font-family:var(--f-texto);font-size:var(--t3);line-height:var(--rh);
+  -webkit-font-smoothing:antialiased}
+img,svg,video{display:block;max-width:100%;height:auto}
+a{color:var(--petroleo);text-decoration-thickness:1px;text-underline-offset:.18em}
+a:hover{color:var(--ocre-2)}
+p{margin-top:0;margin-bottom:1.25em}
+h1,h2,h3,h4,h5,h6{font-family:var(--f-display);font-weight:590;
+  line-height:1.05;letter-spacing:-.016em;margin:0 0 .4em}
+:focus-visible{outline:3px solid var(--ocre);outline-offset:3px}
+[hidden]{display:none!important}
+
+/* ---- Retícula / envolturas (punto 6) ---- */
+.contenedor{width:var(--medida);margin-inline:auto;
+  padding-inline:var(--marg);max-width:none}
+.grid-12{display:grid;grid-template-columns:var(--col);gap:var(--gut)}
+.grid-12>*{grid-column:auto/auto;min-width:0}
+@media(max-width:64rem){
+  .grid-12{grid-template-columns:repeat(6,1fr)}
+}
+@media(max-width:40rem){
+  .grid-12{grid-template-columns:1fr}
+}
+
+/* ---- Cabecera / masthead (punto 7) ---- */
+.masthead{border-top:6px solid var(--petroleo);
+  border-bottom:1px solid var(--linea);
+  padding-block:.8rem 1rem;position:relative;z-index:50}
+.masthead--interior{display:flex;align-items:baseline;justify-content:space-between;
+  gap:2rem;flex-wrap:wrap}
+.marca{font-family:var(--f-display);font-weight:750;font-size:1.6rem;
+  letter-spacing:-.02em;line-height:1;text-decoration:none;color:var(--petroleo);
+  display:flex;align-items:baseline;gap:.55rem}
+.marca small{font-family:var(--f-ui);font-size:.66rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-2)}
+.nav-ed{display:flex;gap:clamp(.8rem,2.4vw,1.7rem);flex-wrap:wrap;list-style:none;
+  margin:0;padding:0;font-family:var(--f-ui)}
+.nav-ed a{font-size:.78rem;font-weight:580;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--tinta-2);text-decoration:none;
+  padding-block:.25rem;border-block-end:2px solid transparent}
+.nav-ed a:hover,.nav-ed [aria-current]{color:var(--petroleo);
+  border-block-end-color:var(--ocre)}
+
+/* ---- Cabecera móvil (punto 28): menú con datos en línea ---- */
+.cab-movil{background:var(--petroleo-3);color:var(--blanco);
+  padding:.35rem var(--marg);font-family:var(--f-ui);font-size:.7rem;
+  letter-spacing:.09em;text-transform:uppercase;display:flex;
+  justify-content:space-between;gap:1rem}
+.cab-movil span{opacity:.85}
+
+/* ---- Portada (punto 7/8): protagonismo de la foto principal ---- */
+.portada{position:relative;display:grid;min-height:min(92vh,60rem)}
+.portada::after{border:6rem solid;} /* pausa visual (punto 37) */
+.portada__foto{align-self:stretch;overflow:hidden;position:relative;min-height:0}
+.portada__foto img,.portada__foto picture{width:100%;height:100%;
+  object-fit:cover}
+.portada__texto{align-self:end;padding:var(--marg) 0 var(--marg);
+  max-width:41rem}
+.portada__sec{font-family:var(--f-ui);font-size:var(--t0);
+  letter-spacing:.18em;text-transform:uppercase;color:var(--ocre);font-weight:700;
+  margin-bottom:1.1rem}
+.portada h1{font-size:clamp(2.35rem,7.2vw,4.9rem);color:var(--petroleo-2);
+  margin-bottom:.35em;text-wrap:balance}
+.portada p{font-size:clamp(1.05rem,2.1vw,1.3rem);line-height:1.45;
+  color:var(--tinta-2);max-width:34em}
+.portada a{font-family:var(--f-ui);font-size:.82rem;font-weight:650;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--petroleo);
+  text-decoration:none;border-bottom:2px solid var(--ocre);padding-bottom:.28rem;
+  margin-top:1.4rem;display:inline-block}
+.portada a:hover{color:var(--ocre-2)}

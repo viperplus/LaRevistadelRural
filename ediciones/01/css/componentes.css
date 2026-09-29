@@ -1,0 +1,44 @@
+/* =========================================================================
+   RURAL · componentes.css — COMPONENTES EDITORIALES REUTILIZABLES (punto 16)
+   Cada componente cumple UNA función editorial; se usan solo cuando aportan
+   jerarquía/lectura (no como relleno ni como "tarjetas" — punto 3).
+   ========================================================================= */
+
+/* ---- Fotografía protagonista + epígrafe (puntos 11 y 16: "figura") ----
+   La foto ES el contenido; la figura la acompaña sin cajearla. */
+.fig-foto { margin-block: var(--ritmo); }
+.fig-foto img { width: 100%; }
+.fig-foto--h4-3 { display: grid; grid-template-columns: 1fr; gap: 0; }
+@media (min-width: 820px) {
+  .fig-foto--h4-3 { grid-template-columns: 4fr 3fr; }
+  .fig-foto--h4-3 img { height: 100%; object-fit: cover; }
+}
+.fig-foto--panoramica img { aspect-ratio: 21/9; object-fit: cover; }
+.fig-foto--lateral img { aspect-ratio: 4/3; object-fit: cover; }
+.fig-foto--cuadrada img { aspect-ratio: 1/1; object-fit: cover; }
+.fig-foto--doble { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gut); }
+.fig-foto figure + figure { margin-top: var(--ritmo); }
+
+.eps { font:""; }
+figcaption, .eps { font-family: var(--f-ui); font-size: var(--t-cap);
+  color: var(--tinta2); line-height: var(--rh-tito-2); padding-top: .62em; }
+figcaption b, .eps b { color: var(--petroleo); }
+figcaption::before, .eps::before { content: "foto — "; text-transform: uppercase;
+  letter-spacing: .08em; font-size: .92em; color: var(--sal); }
+
+/* ---- Sumario editorial (punto 5: índice de revista, no menú) ---- */
+.sumario { padding-block: var(--ritmo) calc(var(--ritmo)*2); }
+
+/* ---- Cita destacada (punto 16) ---- */
+.cita-destacada { grid-column: 2 / 12; margin-block: var(--ritmo);
+  padding-left: 1em; border-left: .25rem solid var(--ocre);
+  font-size: var(--t-h3); font-weight: 540; line-height: var(--rh-h};
+  color: var(--petroleo); }
+.cita-destacada footer { margin-top: .9em; font-size: var(--t-cap);
+  line-height: 1.5; color: var(--sal); font-weight: 400; }
+@media (min-width: 820px) {
+  .cita-destacada { grid-column: 3 / 12; }
+}
+@media (min-width: 1080px) {
+  .cita-destacada { grid-column: 1 / 12; padding-left: 1.4em; }
+}

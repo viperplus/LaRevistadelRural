@@ -1,0 +1,3827 @@
+{
+  "edicion": {
+    "numero": "05",
+    "titulo": "Rural",
+    "subtitulo": "Revista digital de la ESRN Rural Virtual",
+    "epigrafe": "Ciencia, territorio y comunidad desde los parajes de Río Negro",
+    "fecha": "Diciembre 2026",
+    "edicion_etiqueta": "Edición N.º 05 — Diciembre 2026"
+  },
+  "secciones": [
+    {
+      "id": "escuela",
+      "n": "01",
+      "titulo": "Escuela",
+      "bajada": "Encuentros, festejos y experiencias que cuentan la vida de nuestra ESRN Rural."
+    },
+    {
+      "id": "ciencia",
+      "n": "02",
+      "titulo": "Ciencia y tecnología",
+      "bajada": "Física, biología, ambiente y fútbol: investigaciones que nacen en el aula."
+    },
+    {
+      "id": "territorio",
+      "n": "03",
+      "titulo": "Territorio",
+      "bajada": "Parajes, comunidades y ambiente de la Patagonia rionegrina."
+    },
+    {
+      "id": "voces",
+      "n": "04",
+      "titulo": "Voces",
+      "bajada": "Entrevistas, testimonios y conversaciones con nuestra comunidad."
+    },
+    {
+      "id": "estudiantes",
+      "n": "05",
+      "titulo": "Estudiantes",
+      "bajada": "Producciones y proyectos de quienes hacen la revista."
+    },
+    {
+      "id": "cultura",
+      "n": "06",
+      "titulo": "Cultura",
+      "bajada": "Arte, fotografía, paisajes y costumbres desde el territorio."
+    },
+    {
+      "id": "futuro",
+      "n": "07",
+      "titulo": "Futuro",
+      "bajada": "Cuidar el presente para pensar el futuro: ambiente y proyectos de vida."
+    }
+  ],
+  "articulos": [
+    {
+      "id": "el-chip-en-la-cancha",
+      "seccion": "ciencia",
+      "clase": "portada-principal",
+      "titulo": "El Chip en la Cancha: la ciencia dentro de la pelota",
+      "bajada": "¿Cómo saben los árbitros si una pelota cruzó la línea por un milímetro? Abrimos el balón para descubrir la física, la electrónica y la matemática que se esconden detrás de cada pase.",
+      "autor": "Julián Echegoy",
+      "rol": "Estudiante 4.º año — Taller de Educación Científica y Tecnológica",
+      "sede": "Aguada de Guerra",
+      "fecha": "Noviembre 2026",
+      "foto_principal": "ciencia/el-chip-en-la-cancha/foto_01.png",
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png"
+      ],
+      "epigrafes": [
+        "",
+        ""
+      ],
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "¿Alguna vez te preguntaste cómo hacen los árbitros para saber si una pelota cruzó la línea de gol por un milímetro, o si hubo un fuera de juego invisible al ojo humano? En el fútbol actual, las decisiones ya no dependen solo de la intuición de las personas. Hoy, el corazón del juego es tecnológico: las pelotas oficiales de los torneos más importantes llevan un sensor inteligente en su interior que revoluciona el arbitraje y la ciencia del deporte."
+        },
+        {
+          "t": "p",
+          "v": "Conocer cómo funciona esta tecnología nos permite descubrir que una simple pelota es, en realidad, un complejo dispositivo científico. A continuación, abrimos el balón para explorar la física, la electrónica y la matemática que se esconden detrás de cada pase."
+        },
+        {
+          "t": "h3",
+          "v": "Tecnología invisible: el sensor CTR-CORE"
+        },
+        {
+          "t": "p",
+          "v": "En el centro geométrico de la pelota se suspende un pequeño chip mediante un sistema de tensores elásticos para que el peso no afecte su trayectoria. Este dispositivo contiene una Unidad de Medición Inercial (IMU) que envía datos de posición y movimiento a una velocidad asombrosa de 500 veces por segundo. Funciona con una pequeña batería recargable por inducción (sin cables) y transmite ondas de radiofrecuencia hacia las antenas instaladas alrededor de la cancha para rastrear el balón en tiempo real."
+        },
+        {
+          "t": "h3",
+          "v": "La física de los datos y el fuera de juego"
+        },
+        {
+          "t": "p",
+          "v": "Este chip trabaja en equipo con cámaras de alta velocidad distribuidas en el estadio. Cuando un jugador patea, el sensor detecta el impacto exacto (el milisegundo exacto del “contacto”). Al cruzar estos datos con los algoritmos informáticos, el sistema del VAR puede determinar si había una posición adelantada en el momento preciso del pase. Además, el chip mide la velocidad del disparo, la aceleración y las revoluciones por minuto del giro de la pelota, aplicando principios de cinemática y dinámica física."
+        },
+        {
+          "t": "h3",
+          "v": "Impacto en la salud y el rendimiento"
+        },
+        {
+          "t": "p",
+          "v": "Más allá de cobrar un gol, los datos del sensor se usan para la salud de los atletas. Al medir la fuerza de los impactos, los cuerpos médicos analizan el desgaste muscular y la potencia acumulada de los jugadores. Esto ayuda a diseñar entrenamientos personalizados, regular las cargas de esfuerzo físico para prevenir lesiones graves y planificar una nutrición celular adecuada para la recuperación del plantel."
+        },
+        {
+          "t": "h3",
+          "v": "Conclusión"
+        },
+        {
+          "t": "p",
+          "v": "La tecnología en la pelota nos demuestra que la ciencia no se queda encerrada en un laboratorio con tubos de ensayo, sino que rueda con nosotros en el patio y en la cancha. Analizar estas innovaciones en nuestra escuela nos invita a pensar cómo las herramientas digitales transforman nuestras actividades cotidianas, transformando la pasión del juego en una oportunidad para aprender y explorar el mundo técnico que nos rodea."
+        }
+      ],
+      "odt": "clase_9_art_culo_para_la_revista_milton_",
+      "anio": "4.º año"
+    },
+    {
+      "id": "el-partido-por-el-ambiente",
+      "seccion": "ciencia",
+      "titulo": "El partido por el ambiente",
+      "bajada": "¿Alguna vez pensaste que una cancha de fútbol también puede ser un espacio para aprender a cuidar el ambiente?",
+      "autor": "Leandro Yanca · Milena Yanca · Alma Maidana · Leonardo Maidana",
+      "rol": "Estudiantes de 1.º, 3.º, 4.º y 5.º año",
+      "sede": "ESRN Rural Anexo 21 — Río Chico",
+      "fecha": "Noviembre 2026",
+      "foto_principal": "ciencia/el-partido-por-el-ambiente/foto_01.jpg",
+      "fotos": [
+        "foto-01.jpg",
+        "foto-02.jpg"
+      ],
+      "epigrafes": [
+        "",
+        ""
+      ],
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "A partir de esta pregunta, nos propusimos realizar una actividad diferente en la clase de segundas lenguas: construir una maqueta de una cancha de fútbol como parte de “El partido por el ambiente”."
+        },
+        {
+          "t": "h3",
+          "v": "Construimos nuestra maqueta"
+        },
+        {
+          "t": "p",
+          "v": "Durante esta experiencia trabajamos en equipo, utilizamos nuestra creatividad y reflexionamos sobre el cuidado de nuestro entorno. A través de la construcción de nuestra maqueta, descubrimos que el deporte también puede ser una oportunidad de aprender, compartir ideas y promover acciones que ayuden a proteger el ambiente. En nuestra revista digital queremos compartir nuestro trabajo, mostrar cómo fue el proceso de construcción y contar qué aprendimos durante esta experiencia."
+        },
+        {
+          "t": "p",
+          "v": "Algunos de los materiales que utilizamos fueron: cartón, cinta de papel, plasticola, hojas rayadas y, por último, colores."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "Aprender a cuidar el ambiente"
+        },
+        {
+          "t": "p",
+          "v": "Conocer más sobre las canchas de fútbol que existen en nuestro planeta es el primer paso para aprender a cuidar nuestro ambiente. Es importante reflexionar sobre lo que sucede en estos espacios y pensar qué podemos hacer para evitar seguir contaminando y dañando nuestro planeta."
+        },
+        {
+          "t": "p",
+          "v": "De esta manera, descubrimos que una cancha de fútbol también puede convertirse en un espacio para aprender a cuidar el ambiente y pensar juntos cómo podemos protegerlo. Podemos mantener la cancha limpia, separar los residuos, reciclar y evitar desperdiciar agua. Así, mientras jugamos, compartimos y nos divertimos, también aprendemos a respetar, cuidar y proteger nuestro planeta."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "cita",
+          "v": "Ser cuidadosos con nuestras canchas siempre nos ayudará a jugar, compartir y divertirnos de manera más tranquila, segura y saludable. Cuidar estos espacios es una responsabilidad de todos. Porque cuando cuidamos nuestra cancha, también cuidamos a quienes la disfrutan y a nuestro planeta. Cada pequeña acción cuenta."
+        }
+      ],
+      "odt": "el_partido_por_el_ambiente"
+    },
+    {
+      "id": "la-fiesta-del-paraje-treneta",
+      "seccion": "territorio",
+      "titulo": "Tradición, encuentro y raíces de nuestra comunidad",
+      "bajada": "Cada mes de febrero, el paraje Treneta se prepara para vivir una de las celebraciones más esperadas: la Fiesta del Paraje Treneta.",
+      "autor": "ESRN Rural — Anexo Treneta",
+      "rol": "Comunidad y estudiantes",
+      "sede": "Paraje Treneta",
+      "fecha": "Febrero (edición especial)",
+      "foto_principal": "territorio/fiestas-y-tradiciones-mundialistas/foto_01.jpg",
+      "fotos": [
+        "foto-04.jpg",
+        "foto-02.jpg",
+        "foto-01.jpg",
+        "foto-05.jpg",
+        "foto-03.jpg"
+      ],
+      "epigrafes": [
+        "El acto protocolar abre la jornada de la fiesta.",
+        "El desfile criollo llena las calles de color y tradición.",
+        "El almuerzo popular, una gran mesa comunitaria con asado para todos.",
+        "La jineteada, con destrezas criollas de jinetes y caballos.",
+        "Cierre con baile al aire libre, chamamé y cumbia en el paraje."
+      ],
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "Cada mes de febrero, el paraje Treneta se prepara para vivir una de las celebraciones más esperadas por su comunidad: una fiesta que reúne a familias, vecinos, instituciones y visitantes para compartir, celebrar y mantener vivas las costumbres que forman parte de nuestra identidad rural."
+        },
+        {
+          "t": "p",
+          "v": "La jornada comienza con el acto protocolar, un momento de reconocimiento y encuentro en el que se pone en valor la historia del paraje y el trabajo de quienes, día a día, construyen y sostienen la vida de la comunidad."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "Desfiles, tradición y encuentro"
+        },
+        {
+          "t": "p",
+          "v": "Uno de los momentos más esperados es el desfile cívico de las instituciones, donde escuelas, organizaciones y diferentes actores de la comunidad participan mostrando con orgullo su pertenencia. Luego, el desfile criollo llena las calles de una colorida muestra de tradiciones, caballos y agrupaciones que representan nuestra cultura rural."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "p",
+          "v": "La celebración continúa con el almuerzo popular, una gran mesa comunitaria donde se comparte el tradicional asado para todos. Es el momento del encuentro, de la charla y de la alegría compartida."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "p",
+          "v": "Cuando cae la tarde, llega la jineteada, con las destrezas criollas que ponen en escena la habilidad de jinetes y caballos: la monta con encimera y bastos, la gurupa sureña y otras categorías que reúnen a participantes de toda la región."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "p",
+          "v": "La fiesta del Paraje Treneta es mucho más que una celebración: es un momento en el que la comunidad se encuentra, se reconoce y renueva sus lazos. Las tradiciones se transmiten de generación en generación."
+        },
+        {
+          "t": "fig"
+        }
+      ],
+      "odt": "fiestas_y_tradiciones_mundialistas"
+    },
+    {
+      "id": "próxima-parada-atractivos-mundialistas",
+      "seccion": "territorio",
+      "titulo": "Próxima parada: atractivos mundialistas",
+      "bajada": "Un recorrido por los puntos más interesantes que esperan ser visitados en la gran cita deportiva.",
+      "autor": "Estudiantes 4.º año",
+      "rol": "Taller de Educación Científica y Tecnológica",
+      "sede": "ESRN Rural",
+      "fecha": "Noviembre 2026",
+      "foto_principal": "territorio/proxima-parada-atractivos-mundialistas/foto_02.png",
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png",
+        "foto-03.png",
+        "foto-04.png",
+        "foto-05.png",
+        "foto-06.png"
+      ],
+      "epigrafes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "Fue entonces momento de planificar el trayecto que la Selección Argentina recorrería por el país. Así surgió la idea de pensar el mundial como un viaje: cada estadio, cada ciudad, cada atractivo es una parada de un recorrido que une el deporte con la geografía y el turismo de nuestro territorio."
+        },
+        {
+          "t": "p",
+          "v": "En el taller nos propusimos armar un itinerario propio, eligiendo los puntos que consideramos imperdibles. El resultado es una guía pensada desde la mirada de los estudiantes: qué ver, dónde quedarse y qué hace especial a cada lugar."
+        },
+        {
+          "t": "h3",
+          "v": "Una agenda para descubrir"
+        },
+        {
+          "t": "p",
+          "v": "Cada parada incluye un dato curioso, una recomendación y una foto. Así, la revista se transforma en una herramienta para conocer el país a través del mundial, uniendo propuestas turísticas, cultura y deporte."
+        }
+      ]
+    },
+    {
+      "id": "potabilizacion-aguada-guzman",
+      "seccion": "ciencia",
+      "titulo": "¿Cómo es la potabilización en el paraje Aguada Guzmán?",
+      "bajada": "Salimos al paraje para saber de dónde viene el agua que consumimos todos los días en nuestras casas… y descubrimos que la comunidad coopera entre todos para que no nos falte.",
+      "autor": "Samira Curaqueo · Milagros Cruz Pérez",
+      "rol": "Estudiantes — Taller de Educación Científica y Tecnológica",
+      "sede": "Aguada Guzmán",
+      "fecha": "Noviembre 2026",
+      "odt": "c_mo_es_la_potabilizaci_n_en_el_paraje_a",
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "En el paraje Aguada Guzmán, el agua que utiliza la población se obtiene de una perforación subterránea. Para que pueda ser utilizada de manera segura, pasa por un proceso de potabilización mediante una planta de ósmosis inversa."
+        },
+        {
+          "t": "p",
+          "v": "Este sistema permite tratar el agua y reducir la cantidad de sales y otras sustancias presentes en ella, logrando un agua adecuada para el consumo."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "¿De dónde proviene el agua?"
+        },
+        {
+          "t": "p",
+          "v": "El agua proviene del subsuelo, a través de una perforación y cisterna. Luego es conducida hasta la planta de tratamiento, donde comienza el proceso de potabilización."
+        },
+        {
+          "t": "p",
+          "v": "El agua subterránea es muy importante para las comunidades rurales: en muchos lugares no existen grandes redes de agua provenientes de ríos o lagos, por eso en varios pueblos hay una perforación subterránea de donde sale agua constantemente."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "¿Qué es la ósmosis inversa?"
+        },
+        {
+          "t": "p",
+          "v": "La ósmosis inversa es un método de tratamiento del agua que utiliza una membrana especial para separar las sales, los minerales y otras sustancias. De esta manera, el agua pasa por diferentes etapas de tratamiento antes de ser almacenada y distribuida para su utilización. Con esta planta cuenta el paraje en la actualidad."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "Cuidamos el agua que es utilizada por el pueblo"
+        },
+        {
+          "t": "p",
+          "v": "De esta casilla de abastecimiento público es donde saca agua la comunidad para consumir y almacenar en sus casas, ya que el agua que sale en los hogares de la gente es salada y no se puede consumir de forma natural."
+        },
+        {
+          "t": "p",
+          "v": "La gente de esta comunidad coopera entre todos para mantener este espacio público limpio y seguro, para que no nos falte el agua."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "p",
+          "v": "En la fotografía se observa parte de la instalación utilizada para el tratamiento del agua y purificación, para que el agua ya se pueda consumir: la planta de ósmosis inversa."
+        }
+      ],
+      "epigrafes": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "fotos": [
+        "../imagenes/potabilizacion-aguada-guzman/image1.jpeg",
+        "../imagenes/potabilizacion-aguada-guzman/image2.jpeg",
+        "../imagenes/potabilizacion-aguada-guzman/image3.jpeg",
+        "../imagenes/potabilizacion-aguada-guzman/image4.jpeg"
+      ],
+      "anio": "",
+      "tutora": ""
+    },
+    {
+      "id": "una-mirada-sobre-la-realidad",
+      "seccion": "cultura",
+      "titulo": "Una mirada sobre la realidad",
+      "bajada": "La reflexión a través de fotografías: detener el tiempo y observar lo que muchas veces pasa desapercibido.",
+      "autor": "Matías Ñanco · Joaquín Bobadilla",
+      "rol": "Estudiantes — Taller de Educación Científica y Tecnológica",
+      "sede": "Río Chico",
+      "fecha": "Noviembre 2026",
+      "odt": "clase_9_cientifica_4_a_o_matias_anco_joa",
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "¿Alguna vez se han detenido a mirar una foto? Pero no solo un simple vistazo rápido: hay que tomarse el tiempo de fijar detenidamente cada detalle, cada cambio de tono o cada transición de color. Ver cómo en una foto puede terminar una inmensa arboleda en un cálido verde y empezar un vibrante celeste de un cielo, o cómo en una penumbrosa noche se alcanza a ver destellos de luz a lo lejos. Una simple imagen de un paisaje te puede invitar a reflexionar y, a la vez, evocar sentimientos. A continuación, les presentamos algunos ejemplos."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "p",
+          "v": "Podemos apreciar que, en esta fotografía, un tramo de la calle está cubierto por una fina capa de nieve, un día casi nublado que acompaña esa estética fría. ¿Cómo no querer cuidar semejante vista y paisaje?"
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "p",
+          "v": "En esta imagen se observa un río rodeado de montañas y un paisaje natural muy amplio. El lugar transmite tranquilidad y muestra la belleza de la naturaleza, siendo ideal para disfrutar del aire libre."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "p",
+          "v": "En esta imagen se ve un paisaje con cerros, un pequeño espejo de agua y árboles. La luz del atardecer hace que el lugar se vea muy bonito y resalta la importancia de cuidar estos espacios naturales."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "p",
+          "v": "La foto nos hace reflexionar sobre la importancia de cuidar el ambiente y valorar tanto los recursos naturales como las construcciones que forman parte de la historia de una comunidad. Es un lugar donde la naturaleza y el trabajo humano conviven en armonía."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "p",
+          "v": "Este paisaje nos recuerda la belleza y la tranquilidad que ofrece la naturaleza. El río, el pasto verde, la roca y el día soleado forman un lugar de paz que invita a detenernos, respirar y valorar el entorno que nos rodea. Cuidar estos espacios es responsabilidad de todos para que las futuras generaciones también puedan disfrutarlo."
+        },
+        {
+          "t": "h3",
+          "v": "Reflexión"
+        },
+        {
+          "t": "p",
+          "v": "Las fotografías nos permiten detener el tiempo y observar momentos que muchas veces pasan desapercibidos. Cada imagen cuenta una historia, transmite emociones y nos invita a mirar la realidad desde otra perspectiva."
+        }
+      ],
+      "epigrafes": [],
+      "fotos": [
+        "foto-01.jpeg",
+        "foto-02.jpeg",
+        "foto-03.jpeg",
+        "foto-04.jpeg",
+        "foto-05.jpeg",
+        "foto-06.jpeg"
+      ],
+      "anio": "4.º año"
+    },
+    {
+      "id": "los-festejos-de-una-localidad",
+      "seccion": "cultura",
+      "titulo": "Los festejos de una localidad",
+      "bajada": "Así se vivió el Mundial 2026 en Río Chico: la pasión de la Scaloneta, la final contra España y los festejos que unieron a toda la comunidad.",
+      "autor": "Aarón Gaminao · Rodrigo Fhaile · Enrique González · Gonzalo Osuna · Brandon Muñoz · Aldana Railaf · Misael Castañeda · Geremías González · Benicio Sepúlveda",
+      "rol": "Estudiantes de 1.º a 5.º año",
+      "sede": "Río Chico, Anexo N.º 14",
+      "fecha": "Noviembre 2026",
+      "odt": "clase_9_cientifica_4_a_o_rodrigo_fhaile_",
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Alguna vez pensaste cómo un deporte puede unir tanto a una comunidad?"
+        },
+        {
+          "t": "p",
+          "v": "A lo largo del tiempo podemos ver cómo los festejos argentinos han sido eufóricos y cargados de una pasión inexplicable, que podemos decir que al día de hoy ya es propia de nosotros como nación."
+        },
+        {
+          "t": "p",
+          "v": "Esto se ha trasladado a distintas zonas del país, algunas más eufóricas que otras, y otras un tanto calmadas. A continuación les contaremos detalladamente los festejos de nuestra localidad."
+        },
+        {
+          "t": "h3",
+          "v": "La Scaloneta nos unió"
+        },
+        {
+          "t": "p",
+          "v": "Durante el Mundial de Fútbol FIFA World Cup 2026, en Río Chico se vivió el fútbol con mucha emoción y entusiasmo."
+        },
+        {
+          "t": "p",
+          "v": "Cada partido de la Selección Argentina se esperaba con muchas ganas y todos queríamos que la Scaloneta ganara. Había nervios cuando el partido estaba parejo y mucha alegría cuando Argentina lograba ganar."
+        },
+        {
+          "t": "p",
+          "v": "A medida que la Scaloneta avanzaba de ronda, aumentaba la emoción y las ganas de verla llegar a la final. Hasta que llegó el momento de jugar contra los ingleses: ese partido se vivió de una manera diferente, había nervios, ansiedad y preocupación, pero después de los 90 minutos logró ganar la Scaloneta."
+        },
+        {
+          "t": "p",
+          "v": "Esa tarde salimos a festejar todo el pueblo. Llorábamos, pero no de tristeza sino de alegría: ese festejo se vivió como si Argentina hubiera ganado la final."
+        },
+        {
+          "t": "h3",
+          "v": "La final contra España"
+        },
+        {
+          "t": "p",
+          "v": "Era todo perfecto hasta que llegó la final contra España. Se vivió con muchos nervios, ilusión y orgullo por todo el camino recorrido. Aunque Argentina haya perdido la final, quedó la tristeza por no conseguir el campeonato, pero también mucho orgullo."
+        },
+        {
+          "t": "h3",
+          "v": "Recuerdos inolvidables"
+        },
+        {
+          "t": "p",
+          "v": "Del Mundial 2026 en Río Chico conseguimos muchos recuerdos, emociones y momentos compartidos con la familia y la comunidad."
+        },
+        {
+          "t": "cita",
+          "v": "En conclusión, el Mundial 2026 se vivió con mucha fe y emoción en Río Chico. Fue una oportunidad para compartir con la familia y los amigos, sentir orgullo por nuestra selección y disfrutar juntos de cada partido."
+        },
+        {
+          "t": "firma",
+          "v": "Aarón Gaminao · Rodrigo Fhaile · Enrique González · Gonzalo Osuna · Brandon Muñoz · Aldana Railaf · Misael Castañeda · Geremías González · Benicio Sepúlveda · Sede Río Chico, Anexo N.º 14"
+        }
+      ],
+      "epigrafes": [
+        "",
+        "",
+        ""
+      ],
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png",
+        "foto-03.png"
+      ],
+      "anio": "1.º a 5.º año",
+      "fotos_disposicion": [
+        "seccion",
+        "seccion",
+        "seccion"
+      ]
+    },
+    {
+      "id": "medio-ambiente-sierra-paileman",
+      "seccion": "territorio",
+      "titulo": "La problemática del medio ambiente en mi pueblo",
+      "bajada": "Inundaciones, explotación de la caliza y el cuidado del ambiente en Sierra Pailemán.",
+      "autor": "Kevin Nahuel",
+      "rol": "Estudiante — Taller de Educación Científica y Tecnológica",
+      "sede": "Sierra Pailemán",
+      "fecha": "Noviembre 2026",
+      "odt": "kevin_nahuel_sierra_paileman_clase_9_cie",
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Qué problemas ambientales sufre hoy el lugar donde vivimos?"
+        },
+        {
+          "t": "p",
+          "v": "El planeta Tierra está sufriendo grandes problemas ambientales como consecuencia de la sobreexplotación de sus recursos naturales, tanto renovables como no renovables, para satisfacer el consumo del ser humano. Ese consumo está basado en la adquisición de cualquier producto material, la obtención de productos alimenticios o sanitarios y en cualquier acción que consuma agua o energía, entre otras."
+        },
+        {
+          "t": "h3",
+          "v": "Problemas de inundación en Sierra Pailemán"
+        },
+        {
+          "t": "p",
+          "v": "En los últimos años, las lluvias fuertes han causado inundaciones y han complicado la vida de los habitantes. También pueden dejar los caminos y rutas en mal estado, haciendo difícil entrar o salir de la zona."
+        },
+        {
+          "t": "p",
+          "v": "Para mejorar esta situación, sería importante arreglar y mantener los caminos, hacer lugares para que el agua pueda salir y tener máquinas preparadas para cuando haya tormentas fuertes. Así se podría evitar que la comunidad quede aislada y reducir los problemas que causan las inundaciones."
+        },
+        {
+          "t": "h3",
+          "v": "La explotación de la caliza y la minería"
+        },
+        {
+          "t": "p",
+          "v": "El problema ambiental se relaciona también con la explotación de la caliza, porque podría generar un impacto en el ambiente de la zona. La minería sirve para sacar minerales, pero también puede dañar la naturaleza, arruinar el suelo y contaminar el agua, afectando a los animales, las plantas y las personas."
+        },
+        {
+          "t": "p",
+          "v": "Por eso hay que controlar la minería y cuidar el ambiente para evitar estos problemas."
+        },
+        {
+          "t": "cita",
+          "v": "Tenemos que cuidar más el lugar donde vivimos porque la minería y las inundaciones pueden traer problemas para la naturaleza y para las personas. Es importante buscar soluciones y prevenir esos problemas para vivir en un lugar mejor."
+        }
+      ],
+      "epigrafes": [
+        ""
+      ],
+      "fotos": [
+        "foto-01.jpeg"
+      ],
+      "anio": "4.º año",
+      "fotos_disposicion": [
+        "seccion"
+      ]
+    },
+    {
+      "id": "la-llegada-de-la-primavera",
+      "seccion": "cultura",
+      "titulo": "La llegada de la primavera",
+      "bajada": "Una obra colectiva: un árbol que se llena de vida y mariposas para anunciar nuevos comienzos.",
+      "autor": "Fernanda Taquí · Jazmín Cardozo · Katerina Maggioni · Deysi Taquí · Agostina Schivndt · Aixa Cardozo · Noelia Gabriel · Kiara Mamaní",
+      "rol": "Estudiantes — Taller de Educación Científica y Tecnológica",
+      "sede": "ESRN Rural",
+      "fecha": "Noviembre 2026",
+      "odt": "la_llegada_de_la_primavera",
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "Con esta obra intentamos representar que la primavera ya se acerca y que todo a nuestro alrededor empieza a cambiar."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "El árbol y las mariposas"
+        },
+        {
+          "t": "p",
+          "v": "Elegimos un árbol porque representa la vida y el crecimiento. En sus ramas colocamos mariposas de muchos colores para mostrar que la naturaleza comienza a llenarse de vida. Queremos transmitir que, con la llegada de la primavera, todo se vuelve más colorido, alegre y luminoso. Las mariposas representan los cambios y las cosas nuevas que están por llegar. También representan la libertad y la posibilidad de comenzar una nueva etapa."
+        },
+        {
+          "t": "h3",
+          "v": "Nuevas oportunidades"
+        },
+        {
+          "t": "p",
+          "v": "Para nosotros, la primavera no solo significa el cambio de estación, sino también nuevas oportunidades para todos. Así como el árbol vuelve a llenarse de vida, nosotros también podemos dejar atrás los momentos difíciles y empezar de nuevo."
+        },
+        {
+          "t": "p",
+          "v": "Con esta obra queremos transmitir esperanza, alegría y que podemos aprovechar cada nueva oportunidad. Creemos que la llegada de la primavera nos recuerda que siempre podemos crecer, cambiar y volver a empezar. Por eso, las mariposas llenan el árbol de color y representan todas las cosas buenas que pueden llegar."
+        }
+      ],
+      "epigrafes": [
+        ""
+      ],
+      "fotos": [
+        "foto-01.jpeg"
+      ]
+    },
+    {
+      "id": "gol-de-ciencia",
+      "seccion": "ciencia",
+      "titulo": "¡Gol de Ciencia! La química detrás del Mundial",
+      "bajada": "La química está en el cuerpo de los jugadores, en los materiales y hasta en la Copa del Mundo.",
+      "autor": "Estefanía Manuel",
+      "rol": "Estudiantes · Científica y Tecnología",
+      "sede": "Río Chico",
+      "fecha": "Noviembre 2026",
+      "odt": "rio_chico_estefania_manuel_4_a_o_cientif",
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "El Mundial de fútbol es uno de los eventos deportivos más importantes del mundo. Pero detrás de cada gol, cada carrera y cada esfuerzo de los jugadores también se encuentra la ciencia."
+        },
+        {
+          "t": "p",
+          "v": "Aunque el fútbol parece ser solamente un deporte, muchos procesos químicos están presentes durante un partido y ayudan a que los jugadores puedan dar lo mejor de sí."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "1. La energía de los jugadores"
+        },
+        {
+          "t": "p",
+          "v": "Los jugadores necesitan energía para correr, saltar y patear. Esta energía se obtiene de la glucosa, una molécula proveniente de los alimentos que el cuerpo transforma en energía a través de reacciones químicas."
+        },
+        {
+          "t": "h3",
+          "v": "2. El sudor"
+        },
+        {
+          "t": "p",
+          "v": "El sudor está formado principalmente por agua y sales minerales. Al evaporarse, ayuda a regular la temperatura del cuerpo y evita el sobrecalentamiento durante la actividad física."
+        },
+        {
+          "t": "h3",
+          "v": "3. Los materiales"
+        },
+        {
+          "t": "p",
+          "v": "La pelota, las camisetas y los botines están fabricados con materiales como los polímeros, que les brindan resistencia, comodidad y mejor rendimiento durante el juego."
+        },
+        {
+          "t": "h3",
+          "v": "4. La Copa del Mundo"
+        },
+        {
+          "t": "p",
+          "v": "La Copa del Mundo contiene oro (Au), un metal valioso, brillante y resistente a la corrosión. Por estas características, es un símbolo perfecto para representar el máximo premio del deporte mundial."
+        },
+        {
+          "t": "cita",
+          "v": "En conclusión, la química está presente en muchos aspectos del Mundial. Esto demuestra que detrás de la emoción y la pasión del fútbol también existe la ciencia."
+        }
+      ],
+      "epigrafes": [
+        ""
+      ],
+      "fotos": [
+        "../imagenes/gol-de-ciencia/est1.jpg"
+      ],
+      "anio": "4.º año",
+      "tutora": "",
+      "fecha_iso": "2026-11-01",
+      "body": null
+    },
+    {
+      "id": "el-cuidado-del-agua",
+      "seccion": "ciencia",
+      "titulo": "El cuidado del agua",
+      "bajada": "Por qué debemos cuidarla y qué podemos hacer desde nuestras casas para evitar su desperdicio.",
+      "autor": "Suazo Stefania",
+      "rol": "Estudiante — Taller de Educación Científica y Tecnológica",
+      "sede": "Valle Verde A32",
+      "fecha": "Noviembre 2026",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "¿Alguna vez pensaste cuánta agua usamos en nuestra vida cotidiana? El agua es un recurso vital, pero no siempre la cuidamos como debemos."
+        },
+        {
+          "t": "h3",
+          "v": "¿Por qué debemos cuidar el agua?"
+        },
+        {
+          "t": "p",
+          "v": "El agua es esencial para la vida. La usamos para beber, cocinar, bañarnos, lavar y muchas cosas más. Pero el agua no es infinita, y en muchas comunidades rurales es difícil de obtener. Por eso, debemos valorarla y cuidarla."
+        },
+        {
+          "t": "h3",
+          "v": "¿Qué podemos hacer desde casa?"
+        },
+        {
+          "t": "p",
+          "v": "Cerrar la canilla mientras nos lavamos los dientes o las manos. No dejar que el agua corra sin necesidad. Reparar las fugas de agua en las cañerías. Usar menos agua al lavar los platos o la ropa."
+        },
+        {
+          "t": "h3",
+          "v": "Cuidar el agua en la comunidad"
+        },
+        {
+          "t": "p",
+          "v": "No tirar basura ni productos químicos al río o al arroyo. Mantener limpios los lugares donde se encuentra el agua. Participar de campañas de cuidado del agua en la escuela y la comunidad."
+        },
+        {
+          "t": "p",
+          "v": "El agua es un recurso que debemos cuidar todos los días. Cada pequeña acción cuenta para que todos puedan acceder a agua limpia y segura."
+        },
+        {
+          "t": "p",
+          "v": "— Suazo Stefania. Sede: Valle Verde A32."
+        }
+      ],
+      "epigrafes": [],
+      "fotos": [
+        "Agua-Medio-Ambiente-1.jpg"
+      ]
+    },
+    {
+      "id": "tecnologia-mundialista",
+      "seccion": "ciencia",
+      "titulo": "La tecnologia en el Mundial 2026",
+      "bajada": "Camaras corporales, sensores, inteligencia artificial y GPS: la tecnologia que uso el arbitraje en el Mundial.",
+      "autor": "Hector Leonel Chico - Adrian Mateo Lopez",
+      "rol": "Estudiantes 4.° ano",
+      "sede": "Aguada de Guerra",
+      "fecha": "Noviembre 2026",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "En el Mundial 2026, los árbitros utilizaron un sistema avanzado de tecnología que incluye cámaras corporales, sensores y conexión permanente con inteligencia artificial."
+        },
+        {
+          "t": "h3",
+          "v": "Cámaras corporales"
+        },
+        {
+          "t": "p",
+          "v": "Una cámara corporal compacta integrada con el uniforme del juez principal, estabilizada por inteligencia artificial. También usaban auriculares y micrófonos incorporados y relojes inteligentes para mantener contacto directo con el VAR."
+        },
+        {
+          "t": "h3",
+          "v": "GPS y dispositivos corporales"
+        },
+        {
+          "t": "p",
+          "v": "Dispositivo de posicionamiento global para registrar el movimiento del juez en tiempo real. Esta tecnología permite que las decisiones arbitrales sean más precisas y rápidas."
+        },
+        {
+          "t": "h3",
+          "v": "Inteligencia artificial"
+        },
+        {
+          "t": "p",
+          "v": "El sistema de IA analiza las imágenes de las cámaras y los datos del GPS para detectar jugadas polémicas como el fuera de juego, las manos y las faltas. Esto ayuda a los árbitros a tomar mejores decisiones."
+        },
+        {
+          "t": "p",
+          "v": "La tecnología en el Mundial demuestra que el fútbol moderno combina pasión deportiva con innovación científica, haciendo que el juego sea más justo y emocionante para todos."
+        }
+      ],
+      "epigrafes": [],
+      "fotos": [
+        "FIFA-copa-del-mundo-2026-mundial-tecnologia-IA.jpg"
+      ]
+    },
+    {
+      "id": "la-contaminacion",
+      "seccion": "ciencia",
+      "titulo": "La contaminacion",
+      "bajada": "Un problema que nos afecta a todos: como la contaminacion afecta el agua, el aire y el suelo.",
+      "autor": "Guadalupe Centeno",
+      "rol": "Estudiante 4.° ano",
+      "sede": "Lago Pellegrini",
+      "fecha": "Noviembre 2026",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "La contaminación es un problema que nos afecta a todos. ¿Alguna vez pensaste cómo afecta la contaminación al lugar donde vivimos? La contaminación está presente en nuestro ambiente y puede afectar el agua, el aire y el suelo."
+        },
+        {
+          "t": "h3",
+          "v": "Causas de la contaminación"
+        },
+        {
+          "t": "p",
+          "v": "Una de las principales causas es la acumulación de residuos. Cuando la basura se arroja en lugares incorrectos, puede contaminar el suelo y el agua. También la contaminación del aire puede producirse por el humo de los vehículos, las industrias y la quema de residuos."
+        },
+        {
+          "t": "h3",
+          "v": "¿Qué podemos hacer?"
+        },
+        {
+          "t": "p",
+          "v": "Para cuidar nuestro ambiente podemos separar los residuos, evitar tirar basura en la calle, reutilizar materiales y reducir el uso innecesario de productos descartables. También es importante cuidar el agua y los espacios naturales de nuestra comunidad."
+        },
+        {
+          "t": "h3",
+          "v": "La educación es clave"
+        },
+        {
+          "t": "p",
+          "v": "La educación y la participación de todas las personas son fundamentales para generar hábitos más responsables. Si cada uno aporta desde su lugar, podemos lograr cambios positivos en nuestro entorno."
+        },
+        {
+          "t": "p",
+          "v": "La contaminación es un problema que nos involucra a todos. Cuidar el ambiente no significa hacer grandes cosas, sino comenzar con pequeñas acciones todos los días. ¡Cuidar el planeta es cuidar nuestro futuro!"
+        }
+      ],
+      "epigrafes": [],
+      "fotos": [
+        "6278658.jpg"
+      ]
+    },
+    {
+      "id": "que-pasaria-sin-agua",
+      "seccion": "ciencia",
+      "titulo": "¿Qué pasaría si un día nos quedáramos sin agua?",
+      "bajada": "El agua es muy importante para nuestra vida. ¿Qué pasaría si un día faltara?",
+      "autor": "Julieta Medrano",
+      "rol": "Estudiante 4.° ano",
+      "sede": "Lago Pellegrini",
+      "fecha": "Noviembre 2026",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Alguna vez pensaste qué pasaría si un día abrieras la canilla y no sale agua?"
+        },
+        {
+          "t": "p",
+          "v": "El agua es muy importante para nuestra vida, ya que la usamos todos los días para tomar, cocinar, bañarnos y muchas otras cosas. En este artículo vamos a hablar sobre por qué tenemos que cuidarla y qué pasaría si algún día faltara."
+        },
+        {
+          "t": "p",
+          "v": "A veces usamos el agua sin pensar que es un recurso que no se termina nunca. Por eso, es importante conocer para qué la necesitamos y aprender algunas formas sencillas de cuidarla."
+        },
+        {
+          "t": "h3",
+          "v": "La importancia del agua"
+        },
+        {
+          "t": "p",
+          "v": "El agua es necesaria para todos los seres vivos. Las personas la necesitamos para hidratarnos, cocinar, bañarnos y mantener nuestra higiene. También es importante para los animales y las plantas, ya que sin agua no podrían vivir."
+        },
+        {
+          "t": "h3",
+          "v": "¿Qué pasaría si faltara?"
+        },
+        {
+          "t": "p",
+          "v": "Si algún día nos quedáramos sin agua, nuestra vida cambiaría mucho. No podríamos tomar agua, preparar alimentos ni realizar las actividades que hacemos todos los días. Además, las plantas se secarían y muchos animales tendrían dificultades para sobrevivir."
+        },
+        {
+          "t": "h3",
+          "v": "Cómo cuidarla"
+        },
+        {
+          "t": "p",
+          "v": "Es importante no desperdiciarla. Podemos cuidarla cerrando la canilla mientras nos lavamos los dientes, tomando duchas más cortas y evitando dejar correr el agua sin necesidad. Aunque parezcan acciones pequeñas, entre todos podemos hacer una gran diferencia."
+        },
+        {
+          "t": "h3",
+          "v": "El problema de la contaminación"
+        },
+        {
+          "t": "p",
+          "v": "Cuando se tiran residuos, basura o sustancias contaminantes en los ríos, lagos y mares, el agua puede dejar de ser segura para las personas, los animales y las plantas. Por eso, también es importante no tirar basura en lugares donde pueda llegar al agua y cuidar los espacios naturales."
+        },
+        {
+          "t": "cita",
+          "v": "El agua es un recurso muy importante para la vida y debemos cuidarla todos los días. Cada pequeña acción cuenta y, si todos ponemos de nuestra parte, podemos evitar desperdiciarla. ¡Cuidar el agua es cuidar nuestro futuro!"
+        }
+      ],
+      "epigrafes": [
+        "",
+        ""
+      ],
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png"
+      ],
+      "anio": "4.º año",
+      "fotos_disposicion": [
+        "seccion-m",
+        "seccion-m"
+      ]
+    },
+    {
+      "id": "monoxido-de-carbono-aguada-cecilio",
+      "seccion": "ciencia",
+      "titulo": "El monóxido de carbono: un enemigo invisible",
+      "bajada": "¿Por qué decimos que el monóxido de carbono es un enemigo invisible en nuestro hogar? ¿Qué artefactos debemos tener en cuenta para prevenir desgracias?",
+      "autor": "Fatima Hernández · Erika Pil",
+      "rol": "Estudiantes 4.° ano",
+      "sede": "Aguada Cecilio",
+      "fecha": "Noviembre 2026",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "Estar más prevenidos ante el gas inodoro e incoloro es el primer paso para cuidar de nuestra salud y bienestar. A continuación, daremos a conocer información importante sobre la prevención del monóxido de carbono."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "Un enemigo invisible"
+        },
+        {
+          "t": "p",
+          "v": "El monóxido de carbono es un enemigo invisible, ya que no tiene olor, no tiene sabor ni color. Las personas que se calefaccionan con hornos y hornallas, calefactores y estufas están más propensas a inhalar monóxido de carbono y podrían estar en peligro."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "Síntomas por el monóxido"
+        },
+        {
+          "t": "p",
+          "v": "Dolor de cabeza, mareos, náuseas, debilidad y visión borrosa."
+        },
+        {
+          "t": "h3",
+          "v": "Precauciones que debes tomar"
+        },
+        {
+          "t": "p",
+          "v": "No calefaccionarse con hornos u hornallas, limpiar el calefactor cada un año, tener la rejilla ventilada y no usar estufas en espacios cerrados. En el caso de que estés en esa situación, debes abrir ventanas y puertas, salir afuera, apagar los artefactos y llamar a emergencias."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "cita",
+          "v": "Estar atentos ante el monóxido de carbono no es vivir asustados, sino cuidar mejor nuestra vida cada día. Estar informados e informar a otras personas hace que todos vivamos tranquilos y seguros: nos ayudamos entre todos."
+        }
+      ],
+      "epigrafes": [
+        "",
+        "",
+        ""
+      ],
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png",
+        "foto-03.png"
+      ],
+      "anio": "4.º año",
+      "tutora": "César Casas",
+      "fecha_iso": "2026-11-01"
+    },
+    {
+      "id": "no-solo-un-encuentro-de-sedes",
+      "seccion": "escuela",
+      "titulo": "No solo un encuentro de sedes...",
+      "bajada": "Más de 120 personas de todas las sedes se juntaron en Viedma y El Cóndor para convivir, compartir y demostrar que unidos somos una gran comunidad.",
+      "autor": "Milagros Martínez / Noé Palma Rama",
+      "rol": "Estudiantes 4. ano",
+      "sede": "El Cóndor",
+      "fecha": "Noviembre 2026",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Cuánta gente junta puede convivir en paz?"
+        },
+        {
+          "t": "p",
+          "v": "Más de 120 personas de todas las sedes de la ESRN Rural Virtual se reunieron en Viedma y el balneario El Cóndor para convivir, compartir experiencias y demostrar que la comunidad educativa está más unida que nunca."
+        },
+        {
+          "t": "p",
+          "v": "Durante cuatro días, estudiantes, tutores y familias recorrieron la costa, participaron de actividades recreativas, disfrutaron del cine móvil y vivieron momentos que quedarán en la memoria de todos."
+        },
+        {
+          "t": "h3",
+          "v": "Día 1: Llegada y costanera"
+        },
+        {
+          "t": "p",
+          "v": "Un colectivo llevó a todas las sedes hasta la costa de Viedma. Lo primero fue un paseo por la costanera, donde el aire del mar y las primeras caras conocidas hicieron que la emoción comenzara a crecer. Después, un chapuzón en la pileta compartido por todos."
+        },
+        {
+          "t": "h3",
+          "v": "Día 2: Cine y escuela"
+        },
+        {
+          "t": "p",
+          "v": "El segundo día fue para recorrer Viedma. Un paseo exhaustivo terminó en la escuela Paulo Sexto, donde todos compartieron el almuerzo y pudimos ver la película Yamka y el espíritu del volcán gracias al cine móvil. Una experiencia que nos unió aún más."
+        },
+        {
+          "t": "h3",
+          "v": "Día 3: Playa y chorizada"
+        },
+        {
+          "t": "p",
+          "v": "Al tercer día, todas las sedes convivimos en la playa de El Cóndor. Minijuegos, actividades y el sol de la costa hicieron que todos se divirtieran como nunca. Para cerrar la noche, una gran chorizada donde todos compartimos y nos despedimos antes del último día."
+        },
+        {
+          "t": "h3",
+          "v": "Día 4: Centro Cultural y despedida"
+        },
+        {
+          "t": "p",
+          "v": "El cuarto y último día, la mañana fue para el Centro Cultural de Viedma, donde presenciamos varios bailes y coros de niños a temas populares. Luego, cada sede se fue a su lugar natal, llevando consigo recuerdos inolvidables."
+        },
+        {
+          "t": "cita",
+          "v": "Más de 120 personas demostraron que la convivencia, el respeto y la alegría son posibles cuando compartimos un mismo camino. Porque cada sede dejó un poco de sí misma en Viedma y El Cóndor, este encuentro no fue solo un viaje, sino el recordatorio de que unidos somos una gran comunidad."
+        }
+      ],
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png"
+      ],
+      "epigrafes": [
+        "",
+        ""
+      ],
+      "anio": "4.º año",
+      "fotos_disposicion": [
+        "seccion",
+        "seccion"
+      ]
+    },
+    {
+      "id": "hay-algo-mas-en-las-fotos",
+      "seccion": "cultura",
+      "titulo": "Hay algo más en las fotos",
+      "bajada": "Una foto de un paisaje o un retrato va más allá de un simple recuerdo. ¿Qué hay detrás de cada imagen?",
+      "autor": "Bianca Guaiquian",
+      "rol": "Estudiante 4. ano",
+      "sede": "Yaminué",
+      "fecha": "Noviembre 2026",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Has pensado alguna vez qué más puede haber en una foto de paisaje o retrato?"
+        },
+        {
+          "t": "p",
+          "v": "Una foto de un lugar o el retrato de alguien va mucho más allá de lo que muestra: detrás de la imagen hay más que un simple recuerdo, y en este artículo lo vamos a descubrir."
+        },
+        {
+          "t": "h3",
+          "v": "Más allá del recuerdo"
+        },
+        {
+          "t": "p",
+          "v": "Las fotos, además de mostrarnos un recuerdo que decidimos inmortalizar con una imagen, nos llevan a pensar en lo que sentimos en el momento de tomarla. Las utilizamos para recordar algo o porque un paisaje nos pareció lindo, pero si lo pensamos mejor está la emoción: puede que hayamos sentido felicidad al tomarla, o nostalgia también."
+        },
+        {
+          "t": "p",
+          "v": "Si nos sentamos a pensar en lo que hay más allá de la fotografía, podemos hacer una descripción mucho más detallada: qué hay en esa imagen, árboles, animales, agua, insectos, entre otras cosas. Nosotros también habitamos esa naturaleza: la observamos, la tocamos, sentimos el olor de un ambiente natural."
+        },
+        {
+          "t": "h3",
+          "v": "Fotografiar y preservar la naturaleza"
+        },
+        {
+          "t": "p",
+          "v": "Si queremos seguir viendo la naturaleza viva como en las imágenes, podemos empezar a ayudar a preservarla para los que en ella habitan. Los animales se extinguen por la contaminación, la basura, la caza o la tala de árboles, que son fundamentales para la vida silvestre y también para nosotros."
+        },
+        {
+          "t": "p",
+          "v": "Por eso es necesario que preservemos la naturaleza: aunque sea un poco, estaremos ayudando."
+        },
+        {
+          "t": "cita",
+          "v": "Estar en un entorno de naturaleza y tomar fotos nos ayuda a concientizar sobre ella y a sentir la emoción de seguir conociéndola."
+        },
+        {
+          "t": "firma",
+          "v": "Bianca Guaiquian · Sede Yaminué"
+        }
+      ],
+      "epigrafes": [
+        "",
+        ""
+      ],
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png"
+      ],
+      "tutora": "Natalia Cerro",
+      "anio": "4.º año",
+      "fotos_disposicion": [
+        "seccion",
+        "seccion"
+      ]
+    },
+    {
+      "id": "no-a-la-basura",
+      "seccion": "ciencia",
+      "titulo": "¡No a la basura...!",
+      "bajada": "La basura que vemos en rutas y bardas tiene causas concretas: conocelas y aplicala los tips para mejorar nuestro ambiente.",
+      "autor": "Giuliano Prospitti · Sahira Contreras · Valentino Velazquez Hueravilo",
+      "rol": "Estudiantes 4. ano",
+      "sede": "Lago Pellegrini",
+      "fecha": "Noviembre 2026",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿No te molesta la basura a tu alrededor?"
+        },
+        {
+          "t": "p",
+          "v": "Cada vez que vas por la ruta o caminas por las bardas siempre te encontrás con basura. En este artículo vamos a investigar sus causas, sus consecuencias y qué podemos hacer con este problema."
+        },
+        {
+          "t": "p",
+          "v": "Si querés cambiar esta realidad, a continuación te dejamos tips para mejorar nuestro ambiente."
+        },
+        {
+          "t": "h3",
+          "v": "¿De dónde viene la basura?"
+        },
+        {
+          "t": "p",
+          "v": "La basura corresponde a los camiones que llevan cargas volátiles que viajan descubiertos: con el viento que genera la velocidad, los residuos quedan en las banquinas o en los arbustos de la ruta."
+        },
+        {
+          "t": "p",
+          "v": "A veces las personas que circulan por la ruta van tirando residuos por las ventanillas, y eso hace que con el viento se acumulen en los arbustos o en las jarillas."
+        },
+        {
+          "t": "p",
+          "v": "Por la ruta se encuentra un basural donde la gente va a dejar sus residuos en camiones o camionetas, y mientras viajan algunos se van perdiendo en el camino."
+        },
+        {
+          "t": "h3",
+          "v": "La quema de basura"
+        },
+        {
+          "t": "p",
+          "v": "Otro factor contaminante es la quema y el humo de la basura. La quema puede extenderse por la zona y eso lleva a un gran problema del campo; el humo puede ser más o menos contaminante según la basura que se quema."
+        },
+        {
+          "t": "h3",
+          "v": "¿Querés cambiar esta realidad?"
+        },
+        {
+          "t": "li",
+          "v": "Clasificar la basura en casa: orgánicos (podemos hacer compost), plásticos (juntar todo el nylon en una botella), vidrios y papeles para reciclar."
+        },
+        {
+          "t": "li",
+          "v": "Asegurarse de que, al transportar la basura, no se vuele nada."
+        },
+        {
+          "t": "li",
+          "v": "Tirar la basura donde corresponde."
+        },
+        {
+          "t": "li",
+          "v": "Hacer campañas de concientización social."
+        }
+      ],
+      "epigrafes": [
+        "",
+        ""
+      ],
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png"
+      ],
+      "anio": "4.º año",
+      "fotos_disposicion": [
+        "seccion",
+        "final"
+      ]
+    },
+    {
+      "id": "yaminue-conexion-naturaleza",
+      "seccion": "territorio",
+      "titulo": "Yaminué: conexión con la naturaleza",
+      "bajada": "Un recorrido por los espacios más destacados de Yaminué: el barrio, las viviendas, el puente y el arroyo.",
+      "sede": "Yaminué",
+      "fecha": "Noviembre 2026",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "Yaminué es un lugar donde la naturaleza y la vida cotidiana se encuentran. En este articulo, podemos ver algunos de los espacios que hacen especial a este paraje."
+        },
+        {
+          "t": "h3",
+          "v": "Conexion con la naturaleza"
+        },
+        {
+          "t": "p",
+          "v": "Aca podemos ver como Yaminué tiene conexion con la naturaleza."
+        },
+        {
+          "t": "h3",
+          "v": "Barrio local"
+        },
+        {
+          "t": "p",
+          "v": "Aca se localiza uno de los barrios de Yaminué."
+        },
+        {
+          "t": "h3",
+          "v": "Viviendas de los habitantes"
+        },
+        {
+          "t": "p",
+          "v": "En esta foto se puede apreciar como algunas casas de sus habitantes se ven, tambien se alcanza a ver como estos humildes vecinos acceden a sus casas."
+        },
+        {
+          "t": "h3",
+          "v": "El puente"
+        },
+        {
+          "t": "p",
+          "v": "Este es el puente de Yaminué, uno de los lugares mas destacados."
+        },
+        {
+          "t": "h3",
+          "v": "El arroyo"
+        },
+        {
+          "t": "p",
+          "v": "Este es el arroyo, pero aca le decimos catarata; es uno de los lugares donde en el verano mas se disfruta."
+        }
+      ],
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png",
+        "foto-03.png",
+        "foto-04.png",
+        "foto-05.png"
+      ],
+      "epigrafes": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "anio": "4.º año"
+    },
+    {
+      "id": "la_primera_ley_de_newton",
+      "titulo": "La primera ley de Newton",
+      "bajada": "Todo permanece quieto, salvo que una fuerza lo cambie. De esto tratará el siguiente artículo.",
+      "autor": "Estudiantes",
+      "seccion": "ciencia",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "La ley de inercia es uno de los principios fundamentales de la física que permite comprender cómo se comportan los objetos cuando no actúan fuerzas sobre ellos y es la base para estudiar el movimiento en mecánica."
+        },
+        {
+          "t": "h3",
+          "v": "¿Qué es la ley de inercia?"
+        },
+        {
+          "t": "p",
+          "v": "Esta ley dice que si una fuerza actúa, el cuerpo cambia su velocidad o dirección."
+        },
+        {
+          "t": "p",
+          "v": "Un objeto quieto se queda quieto y un objeto en movimiento sigue moviéndose en línea recta y a la misma velocidad. Esto pasa siempre, a menos que una fuerza de afuera actúe sobre él."
+        },
+        {
+          "t": "h3",
+          "v": "¿Dónde se aplica?"
+        },
+        {
+          "t": "p",
+          "v": "La inercia es la tendencia de los objetos a mantener su estado de reposo o de movimiento a menos que una fuerza externa actúe sobre ellos. Se observa en situaciones comunes como el frenado brusco de un auto, donde el cuerpo se va hacia adelante, o cuando un objeto quieto en una mesa no se mueve solo."
+        },
+        {
+          "t": "h3",
+          "v": "Importancia"
+        },
+        {
+          "t": "p",
+          "v": "Esta ley es fundamental en la mecánica clásica y sienta las bases para comprender el comportamiento de los objetos bajo la influencia de las fuerzas, siendo crucial para la física y la ingeniería."
+        },
+        {
+          "t": "p",
+          "v": "Para demostrar esta ley, les dejamos el video del experimento de la ley de la inercia."
+        },
+        {
+          "t": "video",
+          "v": "https://drive.google.com/file/d/1VthPAbKMkBnAOysaE9kSaqjbnfMBxxPk/view?usp=drivesdk"
+        }
+      ],
+      "fotos": [
+        "foto-01.jpg",
+        "foto-02.jpg"
+      ],
+      "epigrafes": [
+        "",
+        ""
+      ],
+      "sede": "Peñas Blancas",
+      "anio": "4.º año"
+    },
+    {
+      "id": "latido_del_equilibrio_ambiental_en_naupa_huen",
+      "titulo": "Latido del equilibrio ambiental en Naupa Huén",
+      "bajada": "El ambiente es el espacio donde vivimos. Cuidarlo es responsabilidad de todos.",
+      "autor": "Nicolás Bustamante",
+      "seccion": "ciencia",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "El ambiente es el espacio donde vivimos, donde se encuentran los seres vivos, el agua, el suelo, el aire y las plantas. Por eso es muy importante cuidarlo y protegerlo de la contaminación."
+        },
+        {
+          "t": "h3",
+          "v": "¿Por qué es importante cuidar el ambiente?"
+        },
+        {
+          "t": "p",
+          "v": "Para comprender mejor la importancia del cuidado ambiental, a continuación veremos algunas acciones que podemos realizar todos los días."
+        },
+        {
+          "t": "h3",
+          "v": "¿Qué podemos hacer?"
+        },
+        {
+          "t": "p",
+          "v": "Una de las formas más importantes de cuidar el ambiente es reciclar. Separamos los residuos orgánicos de los inorgánicos y colocamos los plásticos, papeles y vidrios en los contenedores correspondientes."
+        },
+        {
+          "t": "p",
+          "v": "Además, debemos ahorrar energía apagando las luces y los aparatos electrodomésticos cuando no los usamos. También es importante ahorrar agua cerrando bien las canillas."
+        },
+        {
+          "t": "p",
+          "v": "Plantar árboles es otra forma de cuidar el ambiente. Los árboles nos dan oxígeno y ayudan a reducir la contaminación del aire."
+        },
+        {
+          "t": "p",
+          "v": "En conclusión, cuidar el ambiente es responsabilidad de todos. Con pequeñas acciones podemos hacer una gran diferencia para nuestro planeta."
+        }
+      ],
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png"
+      ],
+      "epigrafes": [
+        "",
+        ""
+      ],
+      "sede": "Naupa Huén",
+      "anio": "1.º año",
+      "fotos_disposicion": [
+        "seccion-m",
+        "seccion-m"
+      ]
+    },
+    {
+      "id": "acciones_peque_as_para_un_mundo_grande",
+      "titulo": "Acciones pequeñas para un mundo grande",
+      "bajada": "Los microbasurales se han vuelto muy comunes en nuestra región: qué son, qué daños causan y cómo podemos evitarlos.",
+      "autor": "Lauti, Fran y Gabi",
+      "seccion": "ciencia",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Alguna vez te has preguntado en qué afectan los microbasurales?"
+        },
+        {
+          "t": "p",
+          "v": "Los microbasurales se han vuelto muy comunes últimamente en nuestra región. En este artículo vamos a explorar sus consecuencias y qué podemos hacer para prevenirlos."
+        },
+        {
+          "t": "h3",
+          "v": "¿Qué son los microbasurales?"
+        },
+        {
+          "t": "p",
+          "v": "Un microbasural es un terreno baldío o un espacio público de menos de una hectárea donde se arroja basura de forma ilegal y desorganizada. Conocer cómo se forman es el primer paso para cuidar nuestro entorno."
+        },
+        {
+          "t": "h3",
+          "v": "¿Qué daños causan?"
+        },
+        {
+          "t": "p",
+          "v": "Los daños que generan son ambientales: contaminan el suelo y el agua subterránea con líquidos tóxicos llamados **lixiviados**."
+        },
+        {
+          "t": "li",
+          "v": "Riesgo para la salud: atraen ratas, insectos y otros animales que transmiten enfermedades."
+        },
+        {
+          "t": "li",
+          "v": "Problemas urbanos: generan malos olores y arruinan el paisaje."
+        },
+        {
+          "t": "h3",
+          "v": "¿Cómo podemos evitarlo?"
+        },
+        {
+          "t": "p",
+          "v": "Reciclar y organizar la basura en casa para reducir el volumen en la calle."
+        },
+        {
+          "t": "p",
+          "v": "Denunciar: avisar a las autoridades locales si se detecta a personas arrojando basura en lugares prohibidos."
+        },
+        {
+          "t": "cita",
+          "v": "Puede que evitar un microbasural para algunos sea una acción pequeña, pero para otros, para nosotros, es una acción grande."
+        }
+      ],
+      "fotos": [
+        "foto-01.jpg"
+      ],
+      "epigrafes": [
+        ""
+      ],
+      "sede": "Peñas Blancas",
+      "anio": "1.º año",
+      "fotos_disposicion": [
+        "seccion"
+      ]
+    },
+    {
+      "id": "reflexi_n_a_trav_s_de_fotograf_a",
+      "titulo": "Reflexión a través de la fotografía",
+      "bajada": "Aguada Cecilio: un paraje para visitar y admirar. Tres postales que muestran la riqueza de la Línea Sur.",
+      "autor": "Yago Maza · Lucas Ramón Niripil",
+      "seccion": "cultura",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Conocés los rincones más lindos de Aguada Cecilio? El cerrito amarillo, el manantial que dio origen al paraje y un puente donde se comparte la tarde: tres postales que muestran la riqueza de la Línea Sur."
+        },
+        {
+          "t": "h3",
+          "v": "El Cerrito Amarillo"
+        },
+        {
+          "t": "p",
+          "v": "Una de las mejores vistas es la del Cerrito Amarillo, uno de los 5 cerritos amarillos de Argentina. Está compuesto principalmente por rocas sedimentarias calcáreas y areniscas, y la presencia de azufre o limonita (óxido de hierro hidratado) le da ese color tan particular."
+        },
+        {
+          "t": "h3",
+          "v": "La Aguadita"
+        },
+        {
+          "t": "p",
+          "v": "La Aguadita es el manantial natural de agua dulce que dio origen al paraje y convirtió a Aguada Cecilio en un lugar para vivir."
+        },
+        {
+          "t": "h3",
+          "v": "El Puente Colorado"
+        },
+        {
+          "t": "p",
+          "v": "El Puente Colorado es un lugar donde la gente va y disfruta de una tarde hermosa, acompañada de unos mates o un tereré, dependiendo el día. Cuando terminan y se van, dejan grabado su nombre en el puente y todo limpio, para cuidar ese lugar hermoso."
+        }
+      ],
+      "fotos": [
+        "foto-03.jpg",
+        "foto-02.jpg",
+        "foto-01.png"
+      ],
+      "epigrafes": [
+        "El Puente Colorado, lugar de encuentro para compartir unos mates o un tereré",
+        "El Cerrito Amarillo, uno de los 5 cerritos amarillos de Argentina",
+        "La Aguadita: el manantial natural de agua dulce que dio origen al paraje"
+      ],
+      "fotos_disposicion": [
+        "final",
+        "seccion",
+        "seccion"
+      ],
+      "sede": "Aguada Cecilio",
+      "anio": "1.º año"
+    },
+    {
+      "id": "arroyo_los_berros",
+      "titulo": "Nuestro paraje, nuestra responsabilidad",
+      "bajada": "La contaminación en Arroyo Los Berros y propuestas para mejorar.",
+      "autor": "Yuliana Liempi · Viviana Ñancucheo",
+      "seccion": "territorio",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "cuerpo": [
+        {
+          "t": "h3",
+          "v": "Nuestro Paraje, Nuestra Responsabilidad"
+        },
+        {
+          "t": "p",
+          "v": "Un entorno limpio hoy, un futuro mejor mañana. Arroyo Los Berros es mucho más que un paraje: es nuestro hogar, nuestro lugar en el mundo. Sin embargo, la contaminación, la basura y la falta de organización están dañando su belleza natural y el bienestar de todos. Es momento de reflexionar y actuar juntos."
+        },
+        {
+          "t": "p",
+          "v": "Cada acción que realizamos deja una huella en el ambiente. Cada basura que tiramos, cada descuido, cada \"no es problema mío\" se convierte en un problema de todos. Pero también, cada pequeño cambio puede transformar la realidad."
+        },
+        {
+          "t": "p",
+          "v": "La contaminación en nuestro paraje: En Arroyo Los Berros, la basura se acumula en las orillas, en los caminos y en los espacios naturales. Plásticos, vidrios, latas y residuos orgánicos contaminan el suelo, el agua y el aire. Esto no solo arruina la belleza del lugar, sino que también afecta la salud de las personas, los animales y las plantas."
+        },
+        {
+          "t": "p",
+          "v": "¿Qué problemas nos trae?:"
+        },
+        {
+          "t": "li",
+          "v": "Agua contaminada que puede provocar enfermedades."
+        },
+        {
+          "t": "li",
+          "v": "Malos olores e insectos que afectan nuestra calidad de vida."
+        },
+        {
+          "t": "li",
+          "v": "Pérdida de flora y fauna nativa."
+        },
+        {
+          "t": "li",
+          "v": "Suelos dañados que tardan años en recuperarse."
+        },
+        {
+          "t": "p",
+          "v": "¿Por qué es importante la limpieza y la organización?: Mantener limpio nuestro paraje no es solo una cuestión estética, es una cuestión de respeto y amor por la vida. La organización comunitaria es clave para lograr cambios reales y duraderos."
+        },
+        {
+          "t": "h3",
+          "v": "Propuestas Y Acciones:"
+        },
+        {
+          "t": "li",
+          "v": "No tires basura: llevemos siempre una bolsa y depositemos los residuos en los lugares adecuados."
+        },
+        {
+          "t": "li",
+          "v": "Participemos en jornadas de limpieza comunitaria."
+        },
+        {
+          "t": "li",
+          "v": "Respetemos la naturaleza: cuidemos las plantas, los animales y el agua."
+        },
+        {
+          "t": "li",
+          "v": "Eduquemos y concienticemos: hablemos en casa, en la escuela y con amigos sobre la importancia de cuidar nuestro entorno."
+        },
+        {
+          "t": "h3",
+          "v": "Final / Reflexión:"
+        },
+        {
+          "t": "p",
+          "v": "Arroyo Los Berros puede volver a ser ese lugar limpio, sano y hermoso que todos soñamos, pero depende de nosotros. Cuidar nuestro paraje es cuidar nuestro presente y nuestro futuro. Pequeñas acciones, grandes cambios. ¡CUIDEMOS LO QUE ES NUESTRO!"
+        }
+      ],
+      "fotos": [
+        "foto-01.png"
+      ],
+      "epigrafes": [
+        ""
+      ],
+      "rol": "2.º año · Taller de Educación Científica y Tecnológica",
+      "sede": "Arroyo Los Berros",
+      "anio": "2.º año"
+    },
+    {
+      "id": "clase_n_10_cient_fica_y_tecnol_gica",
+      "titulo": "Cuidado del ambiente",
+      "bajada": "Acciones simples que podemos hacer desde casa y desde la escuela para tener un planeta más limpio.",
+      "autor": "Luciana Sánchez",
+      "seccion": "ciencia",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Por qué es importante cuidar el ambiente?"
+        },
+        {
+          "t": "p",
+          "v": "El cuidado del ambiente es muy importante para todos, porque vivimos en el mismo planeta. Hoy en día hay problemas como la contaminación, el cambio climático y la basura. Por eso es importante cuidar la naturaleza y usar los recursos de manera responsable para tener un lugar mejor donde vivir."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "Acciones cotidianas y simples"
+        },
+        {
+          "t": "p",
+          "v": "Cuidar el ambiente es algo que todos podemos hacer desde nuestra casa o la escuela."
+        },
+        {
+          "t": "p",
+          "v": "Podemos realizar acciones simples como separar la basura, reciclar, ahorrar agua y apagar las luces cuando no las necesitamos."
+        },
+        {
+          "t": "p",
+          "v": "También podemos evitar usar tanto plástico y reutilizar las cosas antes de tirarlas."
+        },
+        {
+          "t": "p",
+          "v": "Es fundamental cuidar los árboles, las plantas y los animales, y no tirar basura en lugares donde no corresponde."
+        },
+        {
+          "t": "p",
+          "v": "Caminar, andar en bicicleta o usar el transporte público también ayuda a disminuir la contaminación."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "cita",
+          "v": "Si todos hacemos un poco, podemos lograr un cambio importante. Aunque algunas acciones parezcan pequeñas, ayudan a cuidar nuestro planeta y a tener un ambiente más limpio para todos."
+        }
+      ],
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png"
+      ],
+      "epigrafes": [
+        "",
+        ""
+      ],
+      "sede": "Chelforo",
+      "anio": "1.º año"
+    },
+    {
+      "id": "nueva_carpeta_12",
+      "titulo": "Prevención y concientización comunitaria",
+      "bajada": "¿Qué es el monóxido? Un gas invisible y peligroso que podemos prevenir entre todos.",
+      "autor": "Jaz y Kate",
+      "seccion": "ciencia",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "cuerpo": [
+        {
+          "t": "dato",
+          "v": "El monóxido de carbono es un gas altamente tóxico, incoloro, inodoro y sin sabor, que se produce por la combustión incompleta de materiales como gas, madera, carbón o queroseno. Se genera en artefactos de calefacción o cocina (estufas, calefones, calderos, cocina o brasero) en mal estado o con mala ventilación."
+        },
+        {
+          "t": "h3",
+          "v": "¿Cómo afecta al cuerpo?"
+        },
+        {
+          "t": "p",
+          "v": "Al respirar, el gas pasa a la sangre y se une a la hemoglobina, lo que impide que el oxígeno llegue a los órganos vitales. Entre los síntomas de intoxicación se encuentran el dolor de cabeza, los mareos y las náuseas."
+        },
+        {
+          "t": "h3",
+          "v": "El uso del zeppelin en nuestro paraje"
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "p",
+          "v": "En nuestro paraje utilizamos zeppelins que se extienden desde el tanque exterior hasta los artefactos de los hogares, que almacenan gas licuado. A diferencia de las ciudades con gas natural, estos tanques son físicamente más peligrosos ante una fuga debido a su densidad."
+        },
+        {
+          "t": "h3",
+          "v": "Consejos útiles para prevenir accidentes"
+        },
+        {
+          "t": "li",
+          "v": "Si sentís olor a gas, llamá a un gasista."
+        },
+        {
+          "t": "li",
+          "v": "Ventilá diariamente tu casa (abrí ventanas y puertas)."
+        },
+        {
+          "t": "li",
+          "v": "Cerrá las llaves de paso de los artefactos."
+        },
+        {
+          "t": "li",
+          "v": "Evitá hacer fuego y no fumes."
+        },
+        {
+          "t": "li",
+          "v": "Si te vas, cerrá las llaves de gas."
+        },
+        {
+          "t": "cita",
+          "v": "Hasta acá llegamos, por eso tenemos que tener cuidado con el gas, que produce muchos accidentes."
+        },
+        {
+          "t": "fig"
+        }
+      ],
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png"
+      ],
+      "epigrafes": [
+        "Tanque zeppelin de YPF GAS del paraje.",
+        "Artefacto de calefacción con revestimiento de madera."
+      ],
+      "sede": "Peñas Blancas",
+      "anio": "1.º año"
+    },
+    {
+      "id": "nueva_carpeta_2",
+      "titulo": "Un pequeño descanso, una gran importancia",
+      "bajada": "En este artículo hablamos sobre la pausa de hidratación y la importancia que tiene. Tiene múltiples beneficios aunque su duración es corta.",
+      "autor": "Tomás · Ramiro · Jonathan",
+      "seccion": "ciencia",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "cuerpo": [
+        {
+          "t": "h3",
+          "v": "¿Qué es la pausa de hidratación?"
+        },
+        {
+          "t": "p",
+          "v": "La pausa de hidratación en el fútbol dura exactamente 3 minutos de silbato a silbato y se realiza dos veces por partido reglamentario."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "Beneficios para la salud"
+        },
+        {
+          "t": "p",
+          "v": "La pausa de hidratación sirve para proteger la salud de los deportistas durante el partido de alta intensidad. Permite bajar la temperatura del cuerpo, reponer líquidos y electrolitos, prevenir golpes de calor y retrasar la fatiga física."
+        },
+        {
+          "t": "h3",
+          "v": "¿Qué ocurre si no se realiza?"
+        },
+        {
+          "t": "p",
+          "v": "En contextos de alta exigencia física y calor, el cuerpo sufre un aumento rápido de la temperatura interna y una pérdida excesiva de líquidos. Esto provoca fatiga prematura, calambres musculares y una caída en el rendimiento físico y mental."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "Nuestra opinión"
+        },
+        {
+          "t": "cita",
+          "v": "En nuestra opinión, la pausa de hidratación es muy importante para cuidar la salud de los jugadores y para prevenir lesiones graves y calambres musculares."
+        }
+      ],
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png"
+      ],
+      "epigrafes": [
+        "Futbolistas hidratándose en pleno partido.",
+        "El arquero Pickford solicitando la pausa de hidratación."
+      ],
+      "sede": "Peñas Blancas",
+      "anio": "1.º y 2.º año"
+    },
+    {
+      "id": "nueva_carpeta_3",
+      "titulo": "Las células",
+      "bajada": "Todos estamos formados por células: la unidad básica de la vida.",
+      "autor": "Gabriel Loncoman",
+      "seccion": "ciencia",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Alguna vez te preguntaste qué tenemos en común los seres humanos, los animales y las plantas? Aunque somos muy diferentes, todos estamos formados por células."
+        },
+        {
+          "t": "p",
+          "v": "En este artículo vamos a conocer qué son las células, cuáles son sus partes y por qué son tan importantes para los seres vivos."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "¿Qué es la célula?"
+        },
+        {
+          "t": "p",
+          "v": "Es la unidad básica de todos los seres vivos. Algunos organismos están formados por una única célula, mientras que otros, como los seres humanos, los animales y las plantas, están formados por muchas."
+        },
+        {
+          "t": "h3",
+          "v": "Tipos de células"
+        },
+        {
+          "t": "p",
+          "v": "Existen dos grandes tipos: procariota y eucariota. Las células procariotas son más simples y no poseen un núcleo definido. Las células eucariotas, en cambio, tienen un núcleo donde se encuentra el material genético."
+        },
+        {
+          "t": "h3",
+          "v": "Diferencias entre célula animal y vegetal"
+        },
+        {
+          "t": "p",
+          "v": "Las células animales y vegetales son eucariotas, pero presentan algunas diferencias. La célula vegetal posee una pared celular y cloroplastos, que le permiten realizar la fotosíntesis. La célula animal no tiene estas estructuras."
+        },
+        {
+          "t": "h3",
+          "v": "Partes principales de una célula"
+        },
+        {
+          "t": "li",
+          "b": "Membrana celular: ",
+          "v": "controla el ingreso y la salida de sustancias."
+        },
+        {
+          "t": "li",
+          "b": "Citoplasma: ",
+          "v": "aquí se encuentran las diferentes estructuras celulares."
+        },
+        {
+          "t": "li",
+          "b": "Núcleo: ",
+          "v": "contiene el material genético y dirige muchas de las actividades de las células."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "Funciones"
+        },
+        {
+          "t": "p",
+          "v": "Las células cumplen funciones vitales, como obtener energía, crecer, reproducirse y responder a diferentes estímulos. Por eso, aunque son microscópicas, tienen una enorme importancia."
+        },
+        {
+          "t": "cita",
+          "v": "Las células son pequeñas, pero cumplen funciones fundamentales para todos los seres vivos. Estudiarlas nos ayuda a comprender cómo funciona la vida desde su unidad más básica."
+        }
+      ],
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png"
+      ],
+      "epigrafes": [
+        "",
+        ""
+      ],
+      "sede": "Mencué",
+      "anio": "1.º año"
+    },
+    {
+      "id": "clase_n_10_espacio_curricular_ed_cient_fica_y_tecn",
+      "titulo": "Sembrando conciencia, cosechando un paraje limpio",
+      "bajada": "La separación de residuos es otro de los proyectos para reducir la contaminación, dar una segunda utilidad a los materiales y mantener la limpieza en el paraje.",
+      "autor": "Aluhe Cardozo",
+      "seccion": "territorio",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "Si miramos a nuestro alrededor, la belleza de nuestro paraje es innegable. Sin embargo, mantener esa belleza requiere un trabajo constante. Hasta hace un tiempo era ver botellas tiradas por todos lados; hoy la realidad es otra: se han colocado contenedores exclusivamente para el almacenamiento de las botellas de plástico, que luego son llevadas a la ciudad para su reciclado."
+        },
+        {
+          "t": "p",
+          "v": "En este artículo hablamos de la transformación que estamos viviendo gracias a los proyectos de reciclaje y la jornada de limpieza comunitaria. A continuación les comparto las diferentes acciones que se llevan a cabo en nuestro pueblo para mantenerlo limpio."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "Acciones comunitarias"
+        },
+        {
+          "t": "p",
+          "v": "Habitantes de nuestro pueblo se reúnen para realizar una limpieza comunitaria en diferentes puntos del paraje; recorrieron los principales espacios públicos para recolectar, limpiar y embellecer nuestro entorno."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "cita",
+          "v": "Con estas diferentes iniciativas no sólo se busca mejorar la imagen de nuestro pueblo, sino también concientizar sobre la importancia de no tirar la basura en la vía pública, reciclar y cuidar el medio ambiente. Queda demostrado que el bienestar de nuestro pueblo depende de toda la comunidad en general."
+        }
+      ],
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png",
+        "foto-03.png",
+        "foto-04.png"
+      ],
+      "epigrafes": [
+        "Plaza y espacios públicos del paraje.",
+        "Contenedor metálico rojo para la recolección de botellas plásticas.",
+        "Imagen panorámica del paraje y sus instalaciones.",
+        "Vista del entorno y las instalaciones locales."
+      ],
+      "sede": "Arroyo Los Berros",
+      "tutora": "Nazarena",
+      "anio": "1.º año",
+      "fotos_disposicion": [
+        "seccion",
+        "seccion",
+        "galeria",
+        "galeria"
+      ]
+    },
+    {
+      "id": "clase_n_10_cient_fica_y_tecnol_gicaintegrantes_agu",
+      "titulo": "Nuestro Mundial 2026",
+      "bajada": "La experiencia del Mundial 2026 en la escuela.",
+      "autor": "Agustina Fernández · Priscila García Casanova · Deysi Taqui Cormar",
+      "seccion": "escuela",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "El Mundial 2026 fue una experiencia increíble para toda la comunidad de Peñas Blancas."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "La preparación"
+        },
+        {
+          "t": "p",
+          "v": "Decoramos la escuela con banderas argentinas y preparamos todo para ver los partidos juntos. Fue una experiencia muy emotiva."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "El día del partido"
+        },
+        {
+          "t": "p",
+          "v": "El 22 de junio vimos el partido todos juntos. La emoción se sentía en el aire. Cada gol era celebrado por toda la comunidad."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "Los festejos"
+        },
+        {
+          "t": "p",
+          "v": "Después de cada victoria, salimos a festejar a las calles. Compartimos mates, abrazos y lágrimas de alegría."
+        },
+        {
+          "t": "p",
+          "v": "El Mundial 2026 nos enseñó que el deporte une a las personas y crea lazos que duran toda la vida."
+        },
+        {
+          "t": "fig"
+        }
+      ],
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png",
+        "foto-03.png",
+        "foto-04.png"
+      ],
+      "epigrafes": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "sede": "Peñas Blancas",
+      "anio": "1.º año"
+    },
+    {
+      "id": "nueva_carpeta_8",
+      "titulo": "Los paisajes de Cerro Policía",
+      "bajada": "Dos de los paisajes más conocidos de Cerro Policía, contados a través de la fotografía.",
+      "autor": "Samira Ñanco · Angi Pelliza · Mariel Vilche Bustos",
+      "seccion": "cultura",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "Muchas veces, no nos paramos a analizar las fotografías. Así que a ti, querido lector, te invitamos a que analices dos de los paisajes más conocidos en Cerro Policía con nosotras."
+        },
+        {
+          "t": "h3",
+          "v": "El icónico Cerro Policía"
+        },
+        {
+          "t": "p",
+          "v": "Cerro Policía es un pueblo que muchos conocerán por su icónico cerro, el cual tiene la forma de “gorra de policía”. Es increíble cómo la fotografía puede transmitir tanto a los ojos indicados y tan poco a los no indicados; cuando observamos la foto de ese cerro, vemos mucho más que eso: se transmite una historia. Para muchos una foto no puede valer nada, pero para otros lo es todo."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "Las bardas y el entorno natural"
+        },
+        {
+          "t": "p",
+          "v": "Por otro lado, Cerro Policía está rodeado de bardas, y la más conocida es la que lleva a Santa Lucía. Es un lugar hermoso, único para despejar la mente. Se observan esas hermosas lomas donde vas y te sentís fuera de la realidad con ese hermoso paisaje, con suelo de tonos claros y oscuros, y plantas bajas que crecen solas porque saben resistir el viento y a las pocas precipitaciones."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "cita",
+          "v": "Por eso, una foto, por más simple que sea, refleja un sentimiento, una historia y la identidad de una comunidad."
+        }
+      ],
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png"
+      ],
+      "epigrafes": [
+        "Cerro Policía, con su relieve en forma de “gorra de policía”.",
+        "Panorámica del camino hacia Santa Lucía, las bardas y la estepa."
+      ],
+      "sede": "Cerro Policía",
+      "anio": "1.º y 2.º año",
+      "tutora": "Antonela Verón"
+    },
+    {
+      "id": "como-hacer-tortas-fritas",
+      "titulo": "Cómo hacer tortas fritas",
+      "bajada": "De la cocina de El Cándor: ingredientes, materiales y el procedimiento paso a paso para hacer tortas fritas.",
+      "autor": "Emanuel Prost y Bruno Tomás Lagarrigue",
+      "sede": "El Cándor",
+      "anio": "2.º año",
+      "seccion": "cultura",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png"
+      ],
+      "epigrafes": [
+        "",
+        ""
+      ],
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "En este artículo vamos a enseñar a cómo hacer tortas fritas y a continuación la manera de cómo hacerlo."
+        },
+        {
+          "t": "h3",
+          "v": "Ingredientes"
+        },
+        {
+          "t": "li",
+          "v": "Levadura"
+        },
+        {
+          "t": "li",
+          "v": "Harina 0000"
+        },
+        {
+          "t": "li",
+          "v": "Agua tibia"
+        },
+        {
+          "t": "li",
+          "v": "Sal"
+        },
+        {
+          "t": "li",
+          "v": "Grasa"
+        },
+        {
+          "t": "h3",
+          "v": "Materiales"
+        },
+        {
+          "t": "li",
+          "v": "Taper muy grande"
+        },
+        {
+          "t": "li",
+          "v": "Palo para masa"
+        },
+        {
+          "t": "li",
+          "v": "Cuchillo"
+        },
+        {
+          "t": "li",
+          "v": "Olla con grasa"
+        },
+        {
+          "t": "li",
+          "v": "Plato con servilletas"
+        },
+        {
+          "t": "li",
+          "v": "Tenedor (opcional)"
+        },
+        {
+          "t": "h3",
+          "v": "Procedimiento"
+        },
+        {
+          "t": "ol",
+          "v": "Primero debemos hacer la masa. Agarras el Taper grande y le pones harina a la masa, pero debes dejar un agujero."
+        },
+        {
+          "t": "ol",
+          "v": "Después debes dar sal alrededor de la harina y darle un chorro de agua tibia en el medio, también la levadura."
+        },
+        {
+          "t": "ol",
+          "v": "Tienes que esperar un rato y comenzarás a amasar para que se vea como una masa, debes dar un poco de harina para que no se pegue tanto a la mano y esperar 2 o 1 minutos."
+        },
+        {
+          "t": "ol",
+          "v": "Cuando terminen esos minutos tienes que amasar un rato y cambiarás con el palo de amasar, para que la masa esté aplastada."
+        },
+        {
+          "t": "ol",
+          "v": "Cortas la masa en diagonal y prendes la cocina, pones la olla de grasa que se derrite, para poner los pedazos de masa cortadas y deberás esperar que se pongan dorados."
+        },
+        {
+          "t": "ol",
+          "v": "Sacas la masa con el tenedor, las pones en un plato y luego esperas unos segundos a que se enfríe y has hecho las tortas fritas."
+        },
+        {
+          "t": "h3",
+          "v": "Cierre"
+        },
+        {
+          "t": "p",
+          "v": "Hasta aquí llega el artículo sobre la receta de las tortas fritas y espero que les haya servido."
+        }
+      ]
+    },
+    {
+      "id": "cuando-vemos-mas-alla-de-lo-superficial",
+      "titulo": "Cuando vemos más allá de lo superficial, la belleza de la meseta aparece",
+      "bajada": "La meseta parece vacía, pero si se mira más allá de lo superficial hay vida en cada rincón: animales, plantas y uno de los cielos más limpios del lugar.",
+      "autor": "Debora Lleiful",
+      "sede": "El Caín, Anexo N° 22",
+      "anio": "2.º año",
+      "seccion": "territorio",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "fotos": [
+        "foto-01.png"
+      ],
+      "epigrafes": [
+        ""
+      ],
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "La gente mira la meseta y piensa que no hay nada, que solo es viento y tierra, pero si miramos más allá de eso, hay vida en cada rincón de la meseta. Por eso es que debemos cuidarla y conservarla."
+        },
+        {
+          "t": "p",
+          "v": "Porque en ella hay animales y plantas que solo crecen ahí, personas, y uno de los cielos estrellados más lindos porque no están contaminados por luz eléctrica."
+        },
+        {
+          "t": "p",
+          "v": "Pero para poder cuidarla primero hay que entender qué tiene y por qué es tan importante."
+        },
+        {
+          "t": "p",
+          "v": "Por eso las cosas que debemos tener en cuenta para cuidarla son:"
+        },
+        {
+          "t": "li",
+          "v": "No a la contaminación lumínica innecesaria."
+        },
+        {
+          "t": "li",
+          "v": "No a la caza furtiva de animales."
+        },
+        {
+          "t": "li",
+          "v": "No a la contaminación por basura."
+        },
+        {
+          "t": "p",
+          "v": "Si no tiramos basura y no se caza de manera irresponsable, la belleza de la meseta se conservará, pero si hacemos lo contrario esa belleza irá desapareciendo hasta no quedar nada."
+        },
+        {
+          "t": "p",
+          "v": "En la meseta viven diversos tipos de animales como el guanaco, puma, gato montés, lagartijas. También hay plantas como el coirón que resisten a pesar del viento, el frío y la escasez de agua."
+        },
+        {
+          "t": "p",
+          "v": "Además de eso, en ella vive gente que trabaja con la ganadería, mayormente ovina."
+        },
+        {
+          "t": "p",
+          "v": "En la noche la meseta tiene uno de los cielos más lindos porque al no estar contaminado por luces se ven claramente las estrellas en su mayor esplendor."
+        }
+      ]
+    },
+    {
+      "id": "cuidar-el-ambiente-tambien-esta-en-nuestras-manos",
+      "titulo": "Cuidar el ambiente también está en nuestras manos",
+      "bajada": "Qué problemas ambientales nos afectan y qué acciones sencillas podemos realizar todos los días, también desde la escuela.",
+      "autor": "Milena Kral",
+      "sede": "Lago Pellegrini",
+      "anio": "4.º año",
+      "seccion": "ciencia",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png",
+        "foto-03.png"
+      ],
+      "epigrafes": [
+        "",
+        "",
+        ""
+      ],
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "¿Alguna vez pensaste qué pasaría si todos dejáramos de cuidar el ambiente? El planeta nos brinda agua, aire, alimentos y muchos recursos que necesitamos para vivir. Sin embargo, nuestras acciones pueden afectar de manera positiva o negativa a la naturaleza."
+        },
+        {
+          "t": "p",
+          "v": "Por eso, conocer los problemas ambientales y aprender cómo podemos prevenirlos es un paso importante para cuidar nuestro entorno. A continuación, veremos algunas acciones sencillas que podemos realizar todos los días."
+        },
+        {
+          "t": "h3",
+          "v": "Contaminación"
+        },
+        {
+          "t": "p",
+          "v": "Uno de los principales problemas ambientales es la contaminación. La basura que arrojamos en lugares incorrectos, el exceso de plástico, el humo de los vehículos y la contaminación del agua pueden perjudicar a los animales, las plantas y también a las personas."
+        },
+        {
+          "t": "h3",
+          "v": "Reducir, reutilizar y reciclar"
+        },
+        {
+          "t": "p",
+          "v": "Una forma de ayudar es reducir la cantidad de residuos que producimos. Podemos reutilizar objetos, separar los residuos y reciclar materiales como papel, cartón, vidrio y plástico."
+        },
+        {
+          "t": "h3",
+          "v": "Cuidemos el agua"
+        },
+        {
+          "t": "p",
+          "v": "Algunas acciones simples son cerrar la canilla mientras nos cepillamos los dientes, evitar dejarla correr innecesariamente y no arrojar basura ni productos contaminantes en ríos, lagos o desagües."
+        },
+        {
+          "t": "h3",
+          "v": "Protejamos los espacios verdes"
+        },
+        {
+          "t": "p",
+          "v": "Plantar árboles, no dañar las plantas y mantener limpios los parques y plazas ayuda a conservar la biodiversidad y mejora la calidad del aire."
+        },
+        {
+          "t": "h3",
+          "v": "¿Qué podemos hacer desde la escuela?"
+        },
+        {
+          "t": "p",
+          "v": "Además, desde la escuela podemos realizar campañas de concientización, colocar recipientes para separar residuos y compartir información con nuestras familias y con la comunidad."
+        },
+        {
+          "t": "li",
+          "b": "Campañas de concientización:",
+          "v": "Informar y sensibilizar a nuestra comunidad sobre la importancia de cuidar el ambiente."
+        },
+        {
+          "t": "li",
+          "b": "Separar residuos:",
+          "v": "Colocar recipientes diferenciados para papel, plástico, vidrio y orgánicos en la escuela."
+        },
+        {
+          "t": "li",
+          "b": "Compartir información:",
+          "v": "Llevar lo aprendido a nuestras familias y vecinos para que cada vez seamos más personas comprometidas."
+        },
+        {
+          "t": "p",
+          "v": "Juntos podemos lograr un ambiente más limpio y saludable para todos. El planeta es nuestro hogar, cuidémoslo hoy para tener un mejor mañana."
+        },
+        {
+          "t": "h3",
+          "v": "Cierre"
+        },
+        {
+          "t": "p",
+          "v": "Cuidar el ambiente no depende solamente de grandes acciones. Cada pequeño cambio puede hacer una diferencia. Si aprendemos a utilizar los recursos de manera responsable y ayudamos a que otras personas también lo hagan, estaremos colaborando para construir un ambiente más limpio y saludable para todos."
+        }
+      ]
+    },
+    {
+      "id": "cuidar-nuestro-ambiente-es-cuidar-nuestro-futuro",
+      "titulo": "Cuidar nuestro ambiente también es cuidar nuestro futuro",
+      "bajada": "Agua, suelo, aire y residuos: cuatro cuidados sencillos que reachan a toda la comunidad y a las generaciones que vienen.",
+      "autor": "Gabriela Seco",
+      "sede": "Aguada de Guerra",
+      "anio": "4.º año",
+      "seccion": "futuro",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "fotos": [
+        "foto-02.png"
+      ],
+      "epigrafes": [
+        ""
+      ],
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "¿Alguna vez pensamos en cómo nuestras acciones afectan el ambiente? Cuidar el agua, el suelo, el aire y los seres vivos es importante para nuestra comunidad y para las generaciones futuras."
+        },
+        {
+          "t": "tarjeta",
+          "titulo": "Cuidar el agua",
+          "texto": "Evitar desperdiciarla y mantener limpios los lugares donde se encuentra."
+        },
+        {
+          "t": "tarjeta",
+          "titulo": "Cuidar el suelo",
+          "texto": "Con pequeños cambios en nuestras actividades diarias podemos ayudar a cuidar los recursos naturales. Evitar tirar residuos y proteger la vegetación."
+        },
+        {
+          "t": "tarjeta",
+          "titulo": "Cuidar el aire",
+          "texto": "Reducir la contaminación y evitar quemas innecesarias."
+        },
+        {
+          "t": "tarjeta",
+          "titulo": "Reducir los residuos",
+          "texto": "Reutilizar, separar y reciclar cuando sea posible."
+        },
+        {
+          "t": "h3",
+          "v": "¿Por qué es importante?"
+        },
+        {
+          "t": "p",
+          "v": "Porque el ambiente nos da aire para respirar, agua, alimentos, materiales y un lugar donde habitan miles de especies. También cuidamos nuestra salud, comunidad y el futuro de las próximas generaciones."
+        },
+        {
+          "t": "p",
+          "v": "Cuidar el ambiente es una responsabilidad de todos. Con acciones simples podemos construir y mantener nuestro entorno más limpio."
+        }
+      ],
+      "fotos_disposicion": [
+        "portada"
+      ]
+    },
+    {
+      "id": "cuidemos-nuestro-ambiente",
+      "titulo": "Cuidemos nuestro ambiente",
+      "bajada": "Reciclar, ahorrar y reducir: cinco ideas para cuidar el ambiente todos los días, y entenderse con la sostenibilidad.",
+      "autor": "Saira Linares",
+      "sede": "Lago Pellegrini",
+      "anio": "4.º año",
+      "seccion": "ciencia",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "fotos": [
+        "foto-01.png"
+      ],
+      "epigrafes": [
+        ""
+      ],
+      "cuerpo": [
+        {
+          "t": "h3",
+          "v": "Responsabilidad compartida"
+        },
+        {
+          "t": "p",
+          "v": "Cuidar el ambiente es responsabilidad de todos. La sostenibilidad busca proteger los recursos naturales y satisfacer nuestras necesidades sin perjudicar a las futuras generaciones. Con acciones simples, como reciclar, ahorrar agua y energía y reducir los residuos, podemos ayudar a construir un planeta más saludable."
+        },
+        {
+          "t": "h3",
+          "v": "Importancia del cuidado"
+        },
+        {
+          "t": "p",
+          "v": "Cuidar el ambiente es fundamental para lograr una vida más saludable y un futuro mejor. Por eso, es importante relacionar el cuidado de la naturaleza con la sostenibilidad, buscando formas de utilizar los recursos de manera responsable y reducir el impacto que generamos en el planeta."
+        },
+        {
+          "t": "h3",
+          "v": "Acciones cotidianas"
+        },
+        {
+          "t": "p",
+          "v": "El cuidado del ambiente implica adoptar acciones que ayuden a reducir el daño que provocamos en la naturaleza. Algunas de las más importantes son separar y reciclar los residuos, reducir el uso de plástico, ahorrar agua y energía, y mantener limpios los espacios públicos."
+        },
+        {
+          "t": "h3",
+          "v": "El rol de la sostenibilidad"
+        },
+        {
+          "t": "p",
+          "v": "La sostenibilidad también es fundamental, porque busca utilizar los recursos naturales de manera responsable. Esto significa aprovechar lo que necesitamos sin desperdiciar ni agotar los recursos del planeta. De esta manera, podemos satisfacer nuestras necesidades actuales y al mismo tiempo, cuidar el ambiente para las futuras generaciones."
+        },
+        {
+          "t": "h3",
+          "v": "Compromiso colectivo"
+        },
+        {
+          "t": "p",
+          "v": "Cada persona puede contribuir realizando pequeños cambios en su vida cotidiana. Si todos asumimos responsabilidad y trabajamos juntos, podemos disminuir la contaminación y construir un ambiente más saludable y sostenible."
+        }
+      ]
+    },
+    {
+      "id": "pequenas-acciones-grandes-cambios",
+      "titulo": "Cuidemos nuestro ambiente: pequeñas acciones, grandes cambios",
+      "bajada": "Sostenibilidad, reciclaje, agua y naturaleza: cuatro ideas concretas para cuidar el planeta con lo que hacemos todos los días.",
+      "autor": "Maia Osés",
+      "sede": "Lago Pellegrini",
+      "tutora": "Lucrecia Angeli",
+      "anio": "4.º año",
+      "seccion": "ciencia",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "fotos": [
+        "foto-01.png"
+      ],
+      "epigrafes": [
+        ""
+      ],
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "¿Alguna vez pensaste cuánto podemos ayudar al ambiente con nuestras acciones de todos los días? Cuidar nuestro planeta es responsabilidad de todos. Con pequeños cambios podemos reducir la contaminación y proteger la naturaleza."
+        },
+        {
+          "t": "h3",
+          "v": "Ejes principales y propuestas"
+        },
+        {
+          "t": "h4",
+          "v": "Sostenibilidad"
+        },
+        {
+          "t": "p",
+          "v": "La sostenibilidad significa utilizar los recursos de la naturaleza de manera responsable, pensando también en las futuras generaciones."
+        },
+        {
+          "t": "h4",
+          "v": "Reducir, reutilizar y reciclar"
+        },
+        {
+          "t": "p",
+          "v": "Evitemos comprar cosas que no necesitemos, reutilicemos para darles otra vida y separemos los residuos para reciclar."
+        },
+        {
+          "t": "h4",
+          "v": "Cuidar el agua"
+        },
+        {
+          "t": "p",
+          "v": "Cerremos las canillas cuando no las usemos y evitemos desperdiciar agua."
+        },
+        {
+          "t": "h4",
+          "v": "Proteger la naturaleza"
+        },
+        {
+          "t": "p",
+          "v": "No arrojemos basura en espacios naturales y cuidemos los árboles, plantas y animales."
+        },
+        {
+          "t": "cita",
+          "v": "¡Cuidar el planeta hoy es cuidar nuestro futuro!"
+        }
+      ]
+    },
+    {
+      "id": "el-monoxido-de-carbono",
+      "titulo": "El monóxido de carbono: el asesino invisible",
+      "bajada": "No se ve, no se huele y puede ser mortal. Conocé qué es, cómo aparece en casa y cómo prevenirlo.",
+      "autor": "Pame Loncoman",
+      "sede": "Mencué",
+      "tutora": "Carlos Guarino",
+      "anio": "4.º año",
+      "seccion": "ciencia",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png"
+      ],
+      "epigrafes": [
+        "",
+        ""
+      ],
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "¿Te imaginas un peligro en tu casa que no lo puedas ver, ni oler, ni saborear pero puede ser muy peligroso para tu salud? ¡Ese peligro existe y se llama monóxido de carbono! En este artículo vamos a explorar sus causas así lo podemos prevenir para cuidarnos a nosotros mismos, a nuestras familias y vecinos."
+        },
+        {
+          "t": "p",
+          "v": "Antes de hablar de cómo prevenirlo, primero vamos a entender qué es este gas, de dónde sale y por qué es tan peligroso. ¡Vamos a conocerlo!"
+        },
+        {
+          "t": "h3",
+          "v": "¿Qué es el monóxido de carbono?"
+        },
+        {
+          "t": "p",
+          "v": "Es un gas incoloro (no tiene color), inodoro (no tiene olor) e insípido (no tiene sabor), por eso se dice que es el asesino invisible. Esto se forma cuando se queman cosas como por ejemplo: gas, leña, nafta o carbón sin que tengan suficiente oxígeno. Cuando lo respiramos entra a la sangre y evita que el oxígeno se transporte a nuestro cuerpo, y esto puede dañar a nuestros órganos más importantes como el corazón y el cerebro."
+        },
+        {
+          "t": "h3",
+          "v": "¿Qué prácticas del hogar pueden ser peligrosas?"
+        },
+        {
+          "t": "li",
+          "v": "Dormir con brasas o llamas encendidas."
+        },
+        {
+          "t": "li",
+          "v": "Usar el horno o las hornallas para calefaccionarse."
+        },
+        {
+          "t": "li",
+          "v": "Colocar calefones en espacios cerrados."
+        },
+        {
+          "t": "li",
+          "v": "Encender motores de combustibles en garajes o en espacios sin ventilación."
+        },
+        {
+          "t": "h3",
+          "v": "¿Cómo nos damos cuenta de que está presente?"
+        },
+        {
+          "t": "dato",
+          "v": "Síntomas"
+        },
+        {
+          "t": "li",
+          "v": "Dolor de cabeza"
+        },
+        {
+          "t": "li",
+          "v": "Mareos"
+        },
+        {
+          "t": "li",
+          "v": "Náuseas"
+        },
+        {
+          "t": "li",
+          "v": "Cansancio"
+        },
+        {
+          "t": "li",
+          "v": "Dolor de pecho"
+        },
+        {
+          "t": "li",
+          "v": "Dificultad para respirar"
+        },
+        {
+          "t": "li",
+          "v": "Vómitos"
+        },
+        {
+          "t": "dato",
+          "v": "Señales que avisan que hay un problema"
+        },
+        {
+          "t": "li",
+          "v": "Las llamas de las cocinas de gas son amarillas o anaranjadas (deben estar celestes o azules)."
+        },
+        {
+          "t": "li",
+          "v": "Apareción de hollín o tiznado alrededor del artefacto."
+        },
+        {
+          "t": "h3",
+          "v": "¿Cómo protegernos?"
+        },
+        {
+          "t": "li",
+          "v": "Revisar los aparatos de gas una vez al año por un profesional."
+        },
+        {
+          "t": "li",
+          "v": "Mantener la ventilación."
+        },
+        {
+          "t": "li",
+          "v": "No calefaccionarse con el horno ni las hornallas."
+        },
+        {
+          "t": "li",
+          "v": "No dejar el vehículo encendido en el garaje."
+        },
+        {
+          "t": "cita",
+          "v": "El monóxido de carbono es un peligro real, ¡pero se puede prevenir!"
+        }
+      ]
+    },
+    {
+      "id": "el-enemigo-invisible-de-invierno",
+      "titulo": "El enemigo invisible de invierno",
+      "bajada": "En el campo se usa mucho fuego para calentarse, y con él llega un gas que no se ve ni se huele: el **monóxido de carbono**.",
+      "autor": "Agustina Pedrero",
+      "sede": "Lago Pellegrini",
+      "tutora": "Profe Marco",
+      "anio": "2.º año",
+      "seccion": "ciencia",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png"
+      ],
+      "epigrafes": [
+        "",
+        ""
+      ],
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Te dolió la cabeza alguna vez con la estufa prendida?"
+        },
+        {
+          "t": "p",
+          "v": "En invierno, en el campo usamos mucho fuego para calentarnos, pero hay un gas peligroso que no se ve y no tiene olor: el **monóxido de carbono**."
+        },
+        {
+          "t": "h3",
+          "v": "Cómo evitar intoxicarte sin darte cuenta"
+        },
+        {
+          "t": "li",
+          "v": "Dejar siempre una ventana un poco abierta."
+        },
+        {
+          "t": "li",
+          "v": "Hacer que un gasista revise tu estufa."
+        },
+        {
+          "t": "li",
+          "v": "No usar el horno para calentar."
+        },
+        {
+          "t": "li",
+          "v": "Si la llama no es azul, apagar todo."
+        }
+      ],
+      "fotos_disposicion": [
+        "galeria",
+        "galeria"
+      ]
+    },
+    {
+      "id": "sierra-paileman-el-pueblo-y-su-escuela",
+      "titulo": "Sierra Pailemán: el pueblo y su escuela",
+      "bajada": "Río Negro, la meseta de Somuncurá y la Escuela Rural N.º 69: el paraje contado por una estudiante de la ESRN Rural Virtual.",
+      "autor": "Araceli Nahuel",
+      "sede": "Sierra Pailemán",
+      "anio": "2.º año",
+      "seccion": "territorio",
+      "cuerpo": [
+        {
+          "t": "h3",
+          "v": "Contexto geográfico"
+        },
+        {
+          "t": "p",
+          "v": "Río Negro es una de las seis provincias que integran la Patagonia Argentina, con una superficie de 203.013 km² dividida en 13 departamentos. Destaca el río Negro (color verde oscuro), uno de los 5 más grandes del país y el más caudaloso de la Patagonia."
+        },
+        {
+          "t": "h3",
+          "v": "La meseta y Somuncurá"
+        },
+        {
+          "t": "p",
+          "v": "Las mesetas presentan un contraste escalonado que desciende hacia el mar. Su mayor exponente es la meseta de Somuncurá (\"piedra que suena o habla\" en lengua de los pueblos originarios), con cañadones, arroyos, lagunas, conos volcánicos y sierras."
+        },
+        {
+          "t": "h3",
+          "v": "Sierra Pailemán"
+        },
+        {
+          "t": "p",
+          "v": "Paraje de 86 habitantes reconocido por la conservación del Cóndor Andino y su ecosistema. Es considerado un ave sagrada y mensajero espiritual por las comunidades originarias. Es escenario de la liberación de cóndores andinos más grande del país, un ritual ancestral."
+        },
+        {
+          "t": "h3",
+          "v": "La Escuela Rural N.º 69"
+        },
+        {
+          "t": "p",
+          "v": "La Escuela Rural N.º 69 \"Lorenzo Llanqueleo\" fue fundada en 1927. Comparte edificio con la ESRN Rural Virtual Anexo 17, fundada en 2010 con el plan Conectar Igualdad. Su objetivo es brindar la oportunidad de educación secundaria a los adolescentes del paraje sin necesidad de trasladarse a otra ciudad."
+        }
+      ],
+      "fotos": [
+        "foto-01.png",
+        "foto-03.png",
+        "foto-05.png"
+      ],
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "epigrafes": [
+        "",
+        "",
+        ""
+      ],
+      "fotos_disposicion": [
+        "seccion",
+        "seccion",
+        "seccion"
+      ]
+    },
+    {
+      "id": "la-ciencia-detras-del-mundial",
+      "titulo": "La ciencia detrás del Mundial · Sierra Pailemán",
+      "bajada": "Colágeno, polímeros, caucho y sudor: qué hay detrás del equipamiento de los jugadores.",
+      "autor": "Nicolás Antenao",
+      "sede": "Sierra Pailemán",
+      "anio": "2.º año",
+      "seccion": "ciencia",
+      "cuerpo": [
+        {
+          "t": "h3",
+          "v": "Materiales de los botines"
+        },
+        {
+          "t": "p",
+          "v": "Están fabricados mediante procesos químicos. Pueden ser de cuero natural (con la proteína colágeno) o sintéticos (poliuretano y polímeros). La suela suele ser de caucho o plásticos para dar resistencia y flexibilidad, y los tapones de plástico o sintéticos mejoran el agarre en el césped."
+        },
+        {
+          "t": "h3",
+          "v": "Termorregulación y sudoración"
+        },
+        {
+          "t": "p",
+          "v": "Durante un partido los músculos producen calor. Para mantener la temperatura corporal, el cuerpo suda (agua y sales minerales). Al evaporarse en la piel, el sudor absorbe calor y enfría el cuerpo."
+        }
+      ],
+      "fotos": [
+        "foto-06.png",
+        "foto-07.png"
+      ],
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "epigrafes": [
+        "",
+        ""
+      ],
+      "fotos_disposicion": [
+        "seccion",
+        "galeria"
+      ]
+    },
+    {
+      "id": "cuidar-el-ambiente-en-sierra-paileman",
+      "titulo": "Cuidar el ambiente en Sierra Pailemán",
+      "bajada": "Siete acciones, cuatro propuestas comunitarias y una reflexión para mantener limpio el entorno del paraje.",
+      "autor": "Agustín Huinca",
+      "sede": "Sierra Pailemán",
+      "anio": "2.º año",
+      "seccion": "ciencia",
+      "cuerpo": [
+        {
+          "t": "h3",
+          "v": "Acciones importantes"
+        },
+        {
+          "t": "li",
+          "v": "No tirar basura."
+        },
+        {
+          "t": "li",
+          "v": "Separar y reciclar los residuos."
+        },
+        {
+          "t": "li",
+          "v": "Reducir el uso de plástico."
+        },
+        {
+          "t": "li",
+          "v": "Cuidar el agua."
+        },
+        {
+          "t": "li",
+          "v": "Proteger la flora y la fauna nativa."
+        },
+        {
+          "t": "li",
+          "v": "Evitar los incendios."
+        },
+        {
+          "t": "li",
+          "v": "Mantener limpios los espacios naturales."
+        },
+        {
+          "t": "h3",
+          "v": "Propuestas comunitarias"
+        },
+        {
+          "t": "li",
+          "v": "Campañas de limpieza."
+        },
+        {
+          "t": "li",
+          "v": "Reciclaje."
+        },
+        {
+          "t": "li",
+          "v": "Plantación de especies nativas."
+        },
+        {
+          "t": "li",
+          "v": "Promoción de un turismo responsable."
+        },
+        {
+          "t": "h3",
+          "v": "Reflexión"
+        },
+        {
+          "t": "p",
+          "v": "Cuidar el entorno hoy asegura un lugar mejor para las generaciones futuras."
+        }
+      ],
+      "fotos": [
+        "foto-08.png"
+      ],
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "epigrafes": [
+        ""
+      ],
+      "fotos_disposicion": [
+        "galeria"
+      ]
+    },
+    {
+      "id": "incendios-forestales-una-realidad",
+      "titulo": "Incendios forestales: una realidad que no podemos ignorar",
+      "bajada": "Un incendio no solo quema árboles: destruye plantas, afecta a los animales y pone en riesgo a las personas. Conoce sus causas y cómo prevenirlo.",
+      "autor": "Alexis Rosas",
+      "sede": "Río Chico",
+      "anio": "2.º año",
+      "seccion": "ciencia",
+      "fecha": "Noviembre 2026",
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png",
+        "foto-03.png",
+        "foto-04.png"
+      ],
+      "epigrafes": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "fotos_disposicion": [
+        "seccion",
+        "seccion",
+        "seccion",
+        "final"
+      ],
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Alguna vez pensaste qué sucede cuando un incendio afecta un bosque o un campo?"
+        },
+        {
+          "t": "p",
+          "v": "Los incendios forestales pueden provocar grandes daños en el ambiente, afectar a los animales y las plantas, y poner en riesgo a las personas. Por eso, es importante conocer sus causas, sus consecuencias y cómo podemos prevenirlos."
+        },
+        {
+          "t": "h3",
+          "v": "¿Cómo se producen?"
+        },
+        {
+          "t": "p",
+          "v": "Los incendios pueden comenzar por causas naturales o por acciones humanas, como encender fuego en lugares no permitidos o arrojar colillas."
+        },
+        {
+          "t": "h3",
+          "v": "¿Qué consecuencias tienen?"
+        },
+        {
+          "t": "p",
+          "v": "Pueden destruir plantas, afectar a los animales y perjudicar a las personas y al ambiente."
+        },
+        {
+          "t": "h3",
+          "v": "¿Cómo podemos prevenirlos?"
+        },
+        {
+          "t": "li",
+          "v": "No encender fuego en lugares prohibidos."
+        },
+        {
+          "t": "li",
+          "v": "Apagar completamente las fogatas."
+        },
+        {
+          "t": "li",
+          "v": "No arrojar colillas ni materiales encendidos."
+        },
+        {
+          "t": "li",
+          "v": "Respetar las recomendaciones de nuestra comunidad."
+        },
+        {
+          "t": "cita",
+          "v": "Prevenir los incendios forestales es responsabilidad de todos. Cuidar la naturaleza también es cuidar nuestra comunidad."
+        }
+      ]
+    },
+    {
+      "id": "la-contaminacion-un-problema-que-nos-afecta",
+      "titulo": "La contaminación: un problema que nos afecta a todos",
+      "bajada": "La contaminación afecta el agua, el aire y el suelo. Conocé sus causas y las pequeñas acciones diarias que ayudan a cuidar el ambiente.",
+      "autor": "Guadalupe Centeno",
+      "sede": "Lago Pellegrini",
+      "anio": "4.º año",
+      "seccion": "ciencia",
+      "fecha": "Noviembre 2026",
+      "fotos": [
+        "foto-02.png",
+        "foto-03.png",
+        "foto-04.png",
+        "foto-05.png",
+        "foto-06.png"
+      ],
+      "epigrafes": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "fotos_disposicion": [
+        "seccion",
+        "seccion",
+        "seccion",
+        "galeria",
+        "galeria"
+      ],
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Alguna vez pensaste cómo afecta la contaminación al lugar donde vivimos?"
+        },
+        {
+          "t": "p",
+          "v": "La contaminación es un problema que está presente en nuestro ambiente y puede afectar el agua, el aire y el suelo. Por eso, es importante conocer sus causas y pensar qué podemos hacer para reducirla."
+        },
+        {
+          "t": "h3",
+          "v": "Responsabilidad compartida"
+        },
+        {
+          "t": "p",
+          "v": "Cuidar el ambiente es una responsabilidad de todos. Con pequeños cambios en nuestras acciones cotidianas podemos contribuir a mantener un entorno más limpio y saludable."
+        },
+        {
+          "t": "h3",
+          "v": "Causas principales"
+        },
+        {
+          "t": "p",
+          "v": "Una de las principales causas de la contaminación es la acumulación de residuos. Cuando la basura se arroja en lugares incorrectos, puede contaminar el suelo y el agua."
+        },
+        {
+          "t": "p",
+          "v": "También la contaminación del aire puede producirse por el humo de los vehículos, las industrias y la quema de residuos."
+        },
+        {
+          "t": "h3",
+          "v": "¿Qué podemos hacer para cuidarlo?"
+        },
+        {
+          "t": "p",
+          "v": "Para cuidar nuestro ambiente podemos separar los residuos, evitar tirar basura en la calle, reutilizar materiales y reducir el uso innecesario de productos descartables."
+        },
+        {
+          "t": "p",
+          "v": "También es importante cuidar el agua y los espacios naturales de nuestra comunidad."
+        },
+        {
+          "t": "p",
+          "v": "La educación y la participación de todas las personas son fundamentales para generar hábitos más responsables. Si cada uno aporta desde su lugar, podemos lograr cambios positivos en nuestro entorno."
+        },
+        {
+          "t": "h3",
+          "v": "Cierre y reflexión"
+        },
+        {
+          "t": "p",
+          "v": "La contaminación es un problema que nos involucra a todos. Cuidar el ambiente no significa hacer grandes cosas, sino comenzar con pequeñas acciones todos los días."
+        },
+        {
+          "t": "cita",
+          "v": "¡Cuidar el planeta es cuidar nuestro futuro!"
+        }
+      ]
+    },
+    {
+      "id": "la-copa-del-mundo-mucho-mas-que-un-trofeo",
+      "titulo": "La Copa del Mundo: mucho más que un trofeo",
+      "bajada": "El trofeo más famoso del fútbol no es oro macizo: mide 36,5 centímetros, pesa 6,175 kilos y esconde mucha química. Descubrí por qué se eligió el oro.",
+      "autor": "Antonela Ancatruz · Thaiel Cayul · Mauro Cayu",
+      "sede": "Laguna Blanca",
+      "anio": "2.º año",
+      "seccion": "ciencia",
+      "fecha": "Noviembre 2026",
+      "fotos": [
+        "foto-01.png",
+        "foto-04.png",
+        "foto-03.png"
+      ],
+      "epigrafes": [
+        "",
+        "",
+        ""
+      ],
+      "fotos_disposicion": [
+        "seccion",
+        "seccion",
+        "final"
+      ],
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Por qué la Copa del Mundo es de oro?"
+        },
+        {
+          "t": "p",
+          "v": "A continuación compartimos información importante para entender por qué es de oro y no de otro material."
+        },
+        {
+          "t": "h3",
+          "v": "No es oro macizo"
+        },
+        {
+          "t": "p",
+          "v": "El trofeo mide 36,5 centímetros y pesa exactamente 6,175 kilogramos. Es fundamental aclarar que no es de oro macizo en su totalidad: en ese caso pesaría unos 75 kilos y sería imposible de levantar."
+        },
+        {
+          "t": "p",
+          "v": "En realidad, es una estructura hueca fundida con 5 kilogramos de oro sólido de 18 quilates (75% de oro puro, aleado con cobre y plata para evitar deformaciones)."
+        },
+        {
+          "t": "h3",
+          "v": "La malaquita de la base"
+        },
+        {
+          "t": "p",
+          "v": "Sus dos franjas verdes de la base son de malaquita, un mineral de cobre que representa los continentes."
+        },
+        {
+          "t": "h3",
+          "v": "Composición química del trofeo"
+        },
+        {
+          "t": "li",
+          "v": "Oro (Au): constituye el 75% de la aleación principal de la estructura del trofeo (18 quilates), lo que le otorga su brillo y evita que sea demasiado blando."
+        },
+        {
+          "t": "li",
+          "v": "Aleación metálica de soporte: el 25% restante se compone de otros metales comunes de transición para aportar resistencia mecánica."
+        },
+        {
+          "t": "li",
+          "v": "Malaquita Cu₂CO₃(OH)₂: mineral semiprecioso de cobre, presente en la base con anillos de característico tono verde."
+        },
+        {
+          "t": "firma",
+          "v": "Antonela Ancatruz · Thaiel Cayul · Mauro Cayu · Sede Laguna Blanca"
+        }
+      ]
+    },
+    {
+      "id": "potabilizacion-en-el-paraje-treneta",
+      "seccion": "ciencia",
+      "titulo": "Nuestro paraje y su potabilización",
+      "bajada": "En Treneta encontramos plantas, tierra, animales y agua: conocemos de dónde sale el agua que tomamos y cómo la tierra fértil sostiene nuestros cultivos.",
+      "autor": "Dylan y Segundo",
+      "sede": "Paraje Treneta",
+      "anio": "1.º y 2.º año",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "fotos": [
+        "foto-01.jpg",
+        "foto-02.jpg"
+      ],
+      "epigrafes": [
+        "",
+        ""
+      ],
+      "fotos_disposicion": [
+        "seccion",
+        "seccion"
+      ],
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿De dónde sale el agua que tomamos en nuestro paraje?"
+        },
+        {
+          "t": "p",
+          "v": "La naturaleza es muy importante en nuestras vidas. En nuestro paraje Treneta encontramos plantas, tierra, animales y agua; esto nos brinda los recursos necesarios para poder vivir. Por eso es necesario reconocer la importancia de la naturaleza y cuidarla entre todos."
+        },
+        {
+          "t": "p",
+          "v": "Este paraje está muy unido a la naturaleza: cuenta con un arroyo que brinda el agua que se potabiliza en el tanque de nuestro paraje para su consumo. El agua se origina en las nacientes de la meseta que rodea el paraje y le da reparo al lugar."
+        },
+        {
+          "t": "p",
+          "v": "Las plantas, los animales y la tierra son parte fundamental de la vida diaria de todos nosotros."
+        },
+        {
+          "t": "h3",
+          "v": "El agua: el corazón del paraje"
+        },
+        {
+          "t": "p",
+          "v": "El arroyo es el corazón del paraje. Si lo mantenemos limpio, sin basura ni químicos, el agua seguirá sirviendo para tomar, regar y para que vivan los peces y las plantas."
+        },
+        {
+          "t": "h3",
+          "v": "La tierra fértil"
+        },
+        {
+          "t": "p",
+          "v": "Algunos vecinos aprovechan la tierra para cultivar sus propias verduras, demostrando la importancia de cuidar y aprovechar los recursos naturales. Además, la tierra ayuda mucho para los cultivos porque es muy fértil: se pueden cosechar lechuga, tomate y acelga, y gracias al arroyo se pueden regar muy bien."
+        },
+        {
+          "t": "p",
+          "v": "Nuestro paraje tiene una tierra muy fértil y el arroyo es muy bueno para regar los cultivos; se pueden cultivar diferentes tipos de plantas y verduras, por ejemplo papa, zapallo y lechuga."
+        }
+      ]
+    },
+    {
+      "id": "pausa-de-hidratacion",
+      "seccion": "ciencia",
+      "titulo": "Pausa de hidratación",
+      "bajada": "Todos necesitamos nuestro cooling break: lo que el Mundial nos está enseñando sobre el cuerpo.",
+      "autor": "Lautaro José Cayunao",
+      "sede": "Aguada de Guerra",
+      "anio": "2.º año",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "fotos": [
+        "foto-01.png"
+      ],
+      "epigrafes": [
+        ""
+      ],
+      "fotos_disposicion": [
+        "seccion"
+      ],
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Por qué los jugadores tienen una pausa de tres minutos a mitad del partido?"
+        },
+        {
+          "t": "p",
+          "v": "Este artículo trata sobre la pausa de hidratación que se comenzó a implementar en el Mundial 2026. Todos necesitamos nuestro cooling break: esto es lo que el Mundial nos está enseñando sobre el cuerpo."
+        },
+        {
+          "t": "p",
+          "v": "La pausa de hidratación se propone para el cuidado de la salud de los jugadores ante el clima extremo."
+        },
+        {
+          "t": "p",
+          "v": "Tiene una duración de 3 minutos y es reglamentaria. Se convirtió en una regla esencial del fútbol moderno, introducida oficialmente por la FIFA durante el Mundial de Brasil 2014."
+        },
+        {
+          "t": "h3",
+          "v": "¿Qué consumen los jugadores durante la pausa?"
+        },
+        {
+          "t": "li",
+          "v": "**Agua:** para reponer el líquido que se pierde al sudar."
+        },
+        {
+          "t": "li",
+          "v": "**Bebidas isotónicas con electrolitos:** aportan sodio para retener mejor los líquidos y evitar calambres."
+        },
+        {
+          "t": "li",
+          "v": "**Carbohidratos:** devuelven la energía a los músculos durante esos tres minutos de pausa."
+        }
+      ]
+    },
+    {
+      "id": "como-entrena-la-seleccion-con-calor",
+      "seccion": "ciencia",
+      "titulo": "¿Cómo entrena la Selección con el calor del Mundial 2026?",
+      "bajada": "En el Mundial 2026 hubo temperaturas de hasta 46 °C. Adidas creó una tecnología para que los jugadores puedan entrenar sin complicaciones.",
+      "autor": "Milton Chico",
+      "sede": "Aguada de Guerra",
+      "anio": "4.º año",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "fotos": [
+        "foto-02.png",
+        "foto-01.png"
+      ],
+      "epigrafes": [
+        "",
+        ""
+      ],
+      "fotos_disposicion": [
+        "seccion-m",
+        "seccion-m"
+      ],
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Te has puesto a pensar cómo hizo la Selección Argentina para poder entrenar en el Mundial 2026 con el calor que hacía? Se reportaron temperaturas muy altas, de hasta 46 °C."
+        },
+        {
+          "t": "h3",
+          "v": "El chaleco refrigerante"
+        },
+        {
+          "t": "p",
+          "v": "La Selección Argentina habría tenido muchas complicaciones para lograr entrenar y prepararse para los partidos, pero Adidas ingenió una tecnología con un chaleco de tejido microscópico que permite la entrada de aire fresco y la salida de calor. Es muy refrescante por dentro y eso ayudaba a los jugadores a soportar el calor extremo."
+        },
+        {
+          "t": "h3",
+          "v": "Zapatillas ultralivianas"
+        },
+        {
+          "t": "p",
+          "v": "Además, usaban zapatillas de modelos ligeros y ultra respirables. La Ciencia nos demuestra que nada es imposible: solo usando la mente podemos hacer cosas grandes."
+        }
+      ]
+    },
+    {
+      "id": "un-enemigo-silencioso",
+      "seccion": "ciencia",
+      "titulo": "Un enemigo silencioso",
+      "bajada": "El monóxido de carbono puede causar tragedias en el hogar: consejos para prevenirlas.",
+      "autor": "Juan Cruz Ávila · Gabriel Parra",
+      "sede": "Cerro Policía",
+      "anio": "2.º año",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png"
+      ],
+      "epigrafes": [
+        "",
+        ""
+      ],
+      "fotos_disposicion": [
+        "seccion-m",
+        "seccion-m"
+      ],
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Sabías que una pérdida de gas puede provocar una tragedia en casa sin que lo notemos?"
+        },
+        {
+          "t": "h3",
+          "v": "Consejos de prevención"
+        },
+        {
+          "t": "p",
+          "v": "Para prevenir estas tragedias hay que tener en cuenta los siguientes consejos:"
+        },
+        {
+          "t": "li",
+          "v": "Estar alerta siempre al momento de una instalación de gas o garrafón."
+        },
+        {
+          "t": "li",
+          "v": "Fijarse si no hay ninguna pérdida de gas o falla; esto se puede detectar a través del olfato."
+        },
+        {
+          "t": "li",
+          "v": "Tener cuidado al momento de usar cualquier cosa que produzca gas."
+        },
+        {
+          "t": "h3",
+          "v": "Tragedias"
+        },
+        {
+          "t": "p",
+          "v": "Ya hablamos de algunos consejos de prevención; ahora hablaremos de las tragedias donde personas fallecen por inhalación de monóxido de carbono."
+        },
+        {
+          "t": "p",
+          "v": "Inhalar el monóxido de carbono puede afectar a tu salud."
+        },
+        {
+          "t": "p",
+          "v": "La pérdida de gas (monóxido de carbono) puede alterar el fuego, provocando desastres."
+        },
+        {
+          "t": "p",
+          "v": "Por el gas a veces se pueden producir explosiones en el hogar, por la garrafa, el calefactor, etc."
+        },
+        {
+          "t": "p",
+          "v": "En fin, siempre hay que tener cuidado al momento de usar algo que produzca monóxido de carbono."
+        }
+      ]
+    },
+    {
+      "id": "un-problema-que-nos-afecta-a-todos",
+      "seccion": "ciencia",
+      "titulo": "Un problema que nos afecta a todos",
+      "bajada": "El basurero de Cerro Policía contamina el ambiente y la salud de nuestra comunidad: conocemos el problema y proponemos soluciones.",
+      "autor": "Isaías Raninqueo · Isaías Quiroga · Sofía Achares",
+      "sede": "Cerro Policía",
+      "tutora": "Antonela Verón",
+      "anio": "1.º y 2.º año",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png",
+        "foto-03.png",
+        "foto-04.png"
+      ],
+      "epigrafes": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "fotos_disposicion": [
+        "seccion",
+        "seccion",
+        "final",
+        "final"
+      ],
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Alguna vez pensaste en cómo la basura puede afectar a nuestra salud y al medio ambiente?"
+        },
+        {
+          "t": "h3",
+          "v": "Un problema que nos preocupa"
+        },
+        {
+          "t": "p",
+          "v": "En Cerro Policía tenemos un basurero donde se acumula mucha basura. Esto hace que se contamine el ambiente y que aparezcan problemas de salud, como problemas para respirar o irritación en la piel y en los ojos. El basurero no recibe el tratamiento que necesita, así que la basura se junta y hay mal olor, contaminación, insectos y animales."
+        },
+        {
+          "t": "p",
+          "v": "El basurero de Cerro Policía es algo que nos preocupa porque afecta al lugar donde vivimos. La acumulación de basura contamina el suelo, hace que el lugar se vea sucio y trae muchas moscas y otros animales que pueden transmitir enfermedades."
+        },
+        {
+          "t": "h3",
+          "v": "Cuando se quema la basura"
+        },
+        {
+          "t": "p",
+          "v": "Otro de los problemas es cuando se quema la basura: el humo contamina el aire y puede provocar problemas para respirar."
+        },
+        {
+          "t": "h3",
+          "v": "¿Qué podemos hacer?"
+        },
+        {
+          "t": "p",
+          "v": "Nosotros creemos que el basurero debería recibir el tratamiento que necesita para evitar que la basura siga trayendo problemas. También es importante no generar tantos residuos y no tirar la basura en cualquier lado. El basurero de Cerro Policía no es solamente un problema de la basura, sino un problema que afecta al ambiente y a toda nuestra comunidad: por eso es importante que busquemos una solución y que cuidemos entre todos el lugar donde vivimos."
+        }
+      ]
+    },
+    {
+      "id": "te-invito-a-visitar-mi-paraje",
+      "seccion": "territorio",
+      "titulo": "Yaminué: ¡te invito a visitar mi paraje!",
+      "bajada": "Un lugar tranquilo con un arroyo y paisajes que se disfrutan en verano.",
+      "autor": "Zaira Guaiquian",
+      "sede": "Yaminué",
+      "anio": "2.º año",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png"
+      ],
+      "epigrafes": [
+        "",
+        ""
+      ],
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Qué hace especial al paraje de Yaminué?"
+        },
+        {
+          "t": "p",
+          "v": "Yaminué es un lugar tranquilo. Su época en la que más se disfruta es el verano, ya que tiene un arroyo y unos bonitos paisajes."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "cita",
+          "v": "¡Te invito a visitar mi paraje!"
+        }
+      ]
+    },
+    {
+      "id": "ilustracion-del-planeta-tierra",
+      "titulo": "Ilustración: nuestro planeta Tierra",
+      "bajada": "El planeta Tierra rodeado de símbolos ecológicos: reciclaje, energía limpia, tacho de residuos y prohibido de plásticos.",
+      "autor": "Lucas Orellano",
+      "sede": "El Cáin",
+      "anio": "1.º año",
+      "seccion": "cultura",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "fotos": [
+        "foto-01.png"
+      ],
+      "epigrafes": [
+        ""
+      ],
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "Una ilustración que muestra al planeta Tierra protegido por los símbolos del cuidado ambiental: el reciclaje, la energía limpia, el tacho de residuos y la prohibición de los plásticos."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "cita",
+          "v": "“La naturaleza es la parte más increíble de la vida.”"
+        }
+      ]
+    },
+    {
+      "id": "la-ciencia-detras-del-mundial-xiomara-soto",
+      "seccion": "ciencia",
+      "titulo": "La ciencia detrás del Mundial · Cerro Policía",
+      "bajada": "¿Qué pasa en el cuerpo de un jugador cuando corre los noventa minutos? ¿Y por qué la Copa es de oro? Detrás de cada partido del Mundial hay una reacción química.",
+      "autor": "Xiomara Soto",
+      "rol": "Estudiantes · Científica y Tecnología",
+      "sede": "Cerro Policía",
+      "fecha": "Noviembre 2026",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "Cada cuatro años el mundo se para por el Mundial de fútbol. Millones de personas gritan, festejan y sufren por un partido. Pero detrás de toda esa pasión que vemos en la tele hay algo que no se ve a simple vista: la química. Desde la copa que levantan los campeones, todo tiene una explicación."
+        },
+        {
+          "t": "p",
+          "v": "Aunque parezca que el fútbol es solo un deporte, si lo miramos con ojos de científicas y científicos nos damos cuenta de que en cada jugada, en cada corrida y en cada objeto del juego está pasando una reacción química."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "La energía de los jugadores: ¿de dónde sale la fuerza para correr los 90 minutos del partido?"
+        },
+        {
+          "t": "p",
+          "v": "Cuando un jugador corre, su cuerpo necesita energía. Esa energía viene de lo que comió en el día, sobre todo de la glucosa, que es un tipo de azúcar."
+        },
+        {
+          "t": "p",
+          "v": "Dentro de nuestras células pasa una reacción química llamada respiración celular. La fórmula es simple: **GLUCOSA + OXÍGENO → ENERGÍA (ATP) + DIÓXIDO DE CARBONO + AGUA**."
+        },
+        {
+          "t": "p",
+          "v": "Cuando el esfuerzo es muy grande y no llega suficiente oxígeno, el cuerpo realiza otra reacción y se produce ácido láctico. Por eso sentimos calambres y cansancio muscular."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "La Copa del Mundo: ¿por qué es de oro?"
+        },
+        {
+          "t": "p",
+          "v": "La Copa del Mundo no es de oro macizo porque sería demasiado pesada, pero está cubierta de oro de 18 quilates. ¿Por qué oro y no otro metal? Porque el oro es un metal muy especial: no se oxida, no se mancha ni se pone feo con el tiempo, como el hierro; es muy brillante y no pierde su color, por eso representa algo valioso y eterno; y se puede moldear para hacer la forma de la Copa sin romperse."
+        },
+        {
+          "t": "p",
+          "v": "Si fuera de hierro o de plata, con los años se oxidaría y perdería el brillo. El oro simboliza que el título de campeón del mundo no se mancha nunca."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "cita",
+          "v": "La química está en todos lados, y también en el fútbol. Sin la energía de la glucosa los jugadores no podrían correr, y sin las propiedades del oro la Copa no brillaría para siempre. El Mundial muestra que la ciencia también entra en la cancha."
+        }
+      ],
+      "epigrafes": [
+        "",
+        "",
+        ""
+      ],
+      "fotos": [
+        "../imagenes/la-ciencia-detras-del-mundial-xiomara-soto/xiom1.png",
+        "../imagenes/la-ciencia-detras-del-mundial-xiomara-soto/xiom2.png",
+        "../imagenes/la-ciencia-detras-del-mundial-xiomara-soto/xiom3.png"
+      ],
+      "anio": "",
+      "tutora": "",
+      "fecha_iso": "2026-11-01"
+    },
+    {
+      "id": "la-ciencia-detras-del-mundial-mariana-catriel",
+      "seccion": "ciencia",
+      "titulo": "La ciencia detrás del Mundial · El Cáin",
+      "bajada": "¿Alguna vez te preguntaste qué pasa en nuestro cuerpo cuando jugamos al fútbol? Cuando corremos, saltamos y pateamos, la ciencia también está presente.",
+      "autor": "Mariana Catriel",
+      "rol": "Estudiantes · Científica y Tecnología",
+      "sede": "El Cáin",
+      "fecha": "Noviembre 2026",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "Cuando jugamos, corremos, saltamos, pateamos y hacemos mucho esfuerzo. Para poder hacer todo esto, nuestro cuerpo necesita energía. Aunque parezca que en el fútbol solamente hay que correr y jugar, la ciencia también está presente: en nuestro cuerpo ocurren diferentes procesos que nos ayudan a poder seguir jugando."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "p",
+          "v": "Cuando corremos o hacemos ejercicio, nuestros músculos necesitan energía para funcionar. Esta energía se obtiene principalmente de los alimentos que comemos. Uno de ellos es la glucosa, que nuestro cuerpo utiliza para obtener energía."
+        },
+        {
+          "t": "p",
+          "v": "También respiramos más rápido y nuestro corazón late más rápido cuando hacemos ejercicio. Esto pasa porque nuestros músculos necesitan más oxígeno para poder trabajar."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "p",
+          "v": "Además, cuando jugamos durante bastante tiempo, transpiramos y perdemos agua. Por eso es importante tomar agua para mantenernos hidratados."
+        },
+        {
+          "t": "p",
+          "v": "La ciencia también está presente en los elementos que usamos para jugar. Por ejemplo, la pelota está hecha con materiales que hacen que pueda rebotar, ser resistente y mantener su forma."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "cita",
+          "v": "Como podemos ver, la ciencia está presente en el fútbol y en nuestro cuerpo. Gracias a ella podemos entender mejor qué pasa cuando jugamos y hacemos ejercicio."
+        }
+      ],
+      "epigrafes": [
+        "",
+        "",
+        ""
+      ],
+      "fotos": [
+        "../imagenes/la-ciencia-detras-del-mundial-mariana-catriel/mar1.png",
+        "../imagenes/la-ciencia-detras-del-mundial-mariana-catriel/mar2.png",
+        "../imagenes/la-ciencia-detras-del-mundial-mariana-catriel/mar3.png"
+      ],
+      "anio": "",
+      "tutora": "",
+      "fecha_iso": "2026-11-01"
+    },
+    {
+      "id": "cuidemos-el-medio-ambiente-en-blancura-centro",
+      "seccion": "ciencia",
+      "titulo": "Cuidemos el medio ambiente en Blancura Centro: todos juntos podemos",
+      "bajada": "Cuidar el medio ambiente es una responsabilidad de todos. En Blancura Centro, con pequeñas acciones diarias mantenemos el paraje limpio y saludable.",
+      "autor": "Juan Cruz Epullán · Joaquín Gallardo",
+      "rol": "Estudiantes 2.º año",
+      "sede": "Blancura Centro",
+      "fecha": "Noviembre 2026",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "Cuidar el medio ambiente es una responsabilidad de todos. En Blancura Centro, mantener los espacios limpios y libres de basura es fundamental para disfrutar de un lugar agradable, saludable y seguro. Por eso, es importante comenzar a tomar hábitos sencillos, como reciclar plástico, latas, cartones y otros materiales que pueden tener una segunda utilidad."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "p",
+          "v": "El reciclaje es una de las acciones **más importantes** para reducir la cantidad de residuos que generamos diariamente. Separar los plásticos, las latas, el papel y el cartón permite que estos materiales puedan ser utilizados o transformados en nuevos productos, evitando que terminen acumulados en las calles o en lugares inadecuados."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "p",
+          "v": "Además, evitar la concentración de basura ayuda a prevenir malos olores, la aparición de insectos y otros problemas que pueden afectar **la salud y el bienestar de las personas**. Mantener Blancura Centro limpio también contribuye a crear un ambiente más agradable para quienes viven, trabajan o transitan por la zona."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "Cada persona puede colaborar"
+        },
+        {
+          "t": "p",
+          "v": "Cada persona puede colaborar con pequeñas acciones:"
+        },
+        {
+          "t": "li",
+          "v": "Utilizar los cestos de basura."
+        },
+        {
+          "t": "li",
+          "v": "Separar los residuos reciclables."
+        },
+        {
+          "t": "li",
+          "v": "No arrojar desperdicios en la vía pública."
+        },
+        {
+          "t": "li",
+          "v": "Enseñar a familiares y vecinos la importancia de mantener limpio el entorno."
+        },
+        {
+          "t": "p",
+          "v": "Cuando todos colaboramos, **los resultados pueden ser mucho mayores**."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "Reflexión final"
+        },
+        {
+          "t": "p",
+          "v": "Cuidar el medio ambiente en Blancura Centro es una tarea que nos corresponde a todos. Reciclar plásticos, latas y otros materiales, además de evitar la acumulación de basura, son acciones sencillas que pueden generar un gran cambio. Si cada persona aporta su granito de arena, podremos construir un Blancura Centro más limpio, saludable y agradable para el presente y para las futuras generaciones."
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "dato",
+          "v": "Un espacio limpio es responsabilidad de todos y también es un beneficio para todos."
+        }
+      ],
+      "epigrafes": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "fotos": [
+        "../imagenes/cuidemos-el-medio-ambiente-en-blancura-centro/blanc1.png",
+        "../imagenes/cuidemos-el-medio-ambiente-en-blancura-centro/blanc2.png",
+        "../imagenes/cuidemos-el-medio-ambiente-en-blancura-centro/blanc3.png",
+        "../imagenes/cuidemos-el-medio-ambiente-en-blancura-centro/blanc4.png",
+        "../imagenes/cuidemos-el-medio-ambiente-en-blancura-centro/blanc5.png"
+      ],
+      "anio": "2.º año",
+      "tutora": "Laura Moyano",
+      "fecha_iso": "2026-11-01"
+    },
+    {
+      "id": "jeremias-orellano-el-video-del-rural",
+      "seccion": "estudiantes",
+      "titulo": "Conocemos El Caín",
+      "bajada": "Aprendemos juntos y juntas: compartimos el trabajo de Jeremías Orellano en formato video.",
+      "autor": "Jeremías Orellano",
+      "rol": "Estudiantes 4.º año",
+      "sede": "El Caín",
+      "fecha": "Noviembre 2026",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "En esta entrega, Jeremías Orellano comparte su trabajo con la comunidad de la Revista del Rural a través de un video. ¡Esperamos que lo disfruten!"
+        },
+        {
+          "t": "video",
+          "v": "https://drive.google.com/file/d/1rl0lXBR5G1oXJuzHb505Q9M-yb_3bphk/view?usp=sharing"
+        }
+      ],
+      "epigrafes": [],
+      "fotos": [
+        "19682831.700x525.jpg"
+      ],
+      "fotos_disposicion": [
+        "portada"
+      ],
+      "anio": "4.º año",
+      "tutora": "Fernanda Ranileo",
+      "fecha_iso": "2026-11-01"
+    },
+    {
+      "id": "la-fuerza-que-hace-rodar-la-pelota",
+      "seccion": "ciencia",
+      "titulo": "La fuerza que hace rodar la pelota",
+      "bajada": "¿Pensaste alguna vez en la fuerza que tienen los jugadores para poder hacer rodar la pelota? Detrás de cada corrida y cada pase hay mucha ciencia.",
+      "autor": "Gaspar Reinao",
+      "rol": "Estudiantes 4.º año",
+      "sede": "Naupa Huen",
+      "fecha": "Noviembre 2026",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Pensaste alguna vez en la fuerza que tienen los jugadores para poder hacer rodar la pelota?"
+        },
+        {
+          "t": "p",
+          "v": "Los jugadores corren realizando mucho esfuerzo y, por eso, transpiran mientras patean la pelota."
+        },
+        {
+          "t": "p",
+          "v": "Para que un jugador pueda moverse en la cancha, su cuerpo convierte lo que come en movimiento a través de un proceso llamado respiración celular: mediante reacciones químicas, las células rompen los enlaces de las moléculas y producen energía (ATP), que el cuerpo utiliza para moverse."
+        },
+        {
+          "t": "p",
+          "v": "La pelota se mueve porque el pie del jugador ejerce una fuerza sobre ella; esa fuerza la empuja. Los jugadores se cansan porque sus músculos necesitan consumir energía para producir esas fuerzas y movimientos."
+        },
+        {
+          "t": "cita",
+          "v": "Sabemos que el movimiento del cuerpo produce energía, y esa energía se ve en la rotación de la pelota."
+        }
+      ],
+      "epigrafes": [],
+      "fotos": [
+        "VIKYzcM6C_720x0__1.jpg"
+      ],
+      "anio": "4.º año",
+      "tutora": "",
+      "fecha_iso": "2026-11-01"
+    }
+  ]
+}

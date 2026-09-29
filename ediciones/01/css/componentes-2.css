@@ -1,0 +1,127 @@
+/* =========================================================================
+   RURAL · componentes editoriales — parte 2 (blocks de revista, punto 16)
+   ========================================================================= */
+.sumario__sec{grid-area:sec;font-family:var(--titulos);font-size:var(--t-06);
+  letter-spacing:.12em;text-transform:uppercase;color:var(--tinta-2)}
+.sumario__art{grid-area:art;grid-column:1/-1}
+@media(min-width:761px){
+  .sumario__item{grid-template-columns:3.5rem minmax(0,10fr) 6fr;
+    grid-template-areas:"num art sec"}
+  .sumario__item:hover .sumario__art{color:var(--ocre)}
+}
+@media(max-width:760px){
+  .sumario__item{grid-template-columns:3rem 1fr;grid-template-areas:
+    "num sec" "num art"}
+}
+
+/* ---- FOTO PROTAGONISTA + epígrafe (puntos 11/16: la foto manda) ---- */
+.figura--hero{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--r-1)}
+.figura--hero img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.figura{display:grid;gap:.85rem}
+.figura img{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--papel-alto)}
+.figura--panorama img{aspect-ratio:21/9}
+.figura--retrato img{aspect-ratio:3/4}
+.epigrafe{font-size:var(--t-07);color:var(--tinta-2);line-height:var(--lh-texto)}
+.epigrafe b,.epigrafe strong{color:var(--tinta)}
+.epigrafe .epigrafe__nro{color:var(--ocre);font-weight:700;margin-right:.8rem}
+
+/* ---- SEPARADORES editoriales (punto 37: pausa visual, no adorno) ---- */
+.sep-art{display:grid;place-items:center;gap:.0rem;margin-block:var(--r-5);
+  color:var(--tinta-3)}
+.sep-art::before,.sep-art::after{content:"";width:min(5.5rem,34%);
+  height:1px;background:var(--linea)}
+.sep-art__marca{font-family:var(--titulos);font-weight:800;color:var(--petroleo);
+  font-size:var(--t-09);letter-spacing:-.02em}
+@media print{.sep-art{margin-block:2.5rem}}
+
+/* ---- RECUADRO / destacado editorial (punto 16 · no es caja de tarjeta;
+        es un block de CONTENIDO con barren editorial a la izquierda) ---- */
+.destacado{display:grid;grid-template-columns:2.5rem minmax(0,1fr) 2.5rem;
+  gap:var(--r-2);padding-block:var(--r-3);border-block:1px solid var(--linea-2);
+  margin-block:var(--r-4)}
+.destacado__flag{grid-column:3;grid-row:1;writing-mode:vertical-rl;
+  font-family:var(--titulos);font-size:var(--t-06);letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ocre);text-align:right}
+.destacado__contenido{grid-column:2;font-family:var(--serif);
+  font-size:var(--t-3);line-height:1.42;color:var(--petroleo);
+  text-wrap:balance}
+.destacado__contenido p{margin-block:.0}
+@media(max-width:760px){
+  .destacado{grid-template-columns:1.5rem minmax(0,1fr);}
+  .destacado__flag{grid-column:1;grid-row:1;writing-mode:horizontal-tb}
+  .destacado__contenido{grid-column:2}
+}
+@media print{.destacado{border-block-color:var(--tinta);break-inside:avoid}}
+
+/* ---- CITA LARGA + atrubución (punto 16) ---- */
+.cita{font-family:var(--serif);font-size:var(--t-2);line-height:1.42;
+  color:var(--tinta);margin-block:var(--r-4);padding-inline-start:var(--r-hover);
+  border-inline-start:2px solid var(--ocre)}
+.cita blockquote{margin:0;text-wrap:balance}
+.cita footer{font-family:var(--titulos);font-size:var(--t-07);
+  text-transform:uppercase;letter-spacing:.14em;color:var(--tinta-2);
+  margin-top:var(--r-2)}
+@media print{.cita{break-inside:avoid}}
+
+/* ---- DATO / CIFRA destacada (puntos 10/16) ---- */
+.dato{display:grid;grid-template-columns:1fr;gap:var(--r-1);
+  padding-block:var(--r-3);border-block:1px solid var(--linea-2)}
+.dato__cifra{font-family:var(--titulos);font-weight:800;font-size:clamp(2.8rem,5vw,4rem);
+  letter-spacing:-.02em;line-height:1;color:var(--petroleo)}
+.dato__cifra small{font-size:.38em;font-weight:700;color:var(--ocre)}
+.dato__texto{font-size:var(--t-09);line-height:var(--lh-texto);color:var(--tinta-2);
+  text-wrap:balance}
+@media print{.dato{border-block-color:var(--tinta);break-inside:avoid}}
+
+/* ---- LISTA / cronología (punto 10) ---- */
+.crono{list-style:none;margin:var(--r-3) 0;padding:0;border-block:1px solid var(--linea-2)}
+.crono li{display:grid;grid-template-columns:4rem minmax(0,1fr);
+  gap:var(--r-2);padding-block:var(--r-2);border-top:1px solid var(--linea)}
+.crono li:first-child{border-top:0}
+.crono__anio{font-family:var(--titulos);font-weight:800;color:var(--ocre)}
+@media print{.crono li{break-inside:avoid}}
+
+/* ---- GALERÍA (punto 12) — componente editorial, sin carrusel ---- */
+.galeria{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--r-2)}
+.galeria figure{grid-column:span 4;margin:0}
+.galeria figure.g-6{grid-column:span 6}
+.galeria figure img{aspect-ratio:4/3;object-fit:cover}
+.galeria figure.g-6 img{aspect-ratio:3/2}
+.galeria .epigrafe{grid-column:1/-1;max-width:34rem}
+@media(max-width:760px){
+  .galeria figure,.galeria figure.g-6{grid-column:span 6}
+}
+@media(max-width:560px){
+  .galeria figure,.galeria figure.g-6{grid-column:1/-1}
+}
+@media print{.galeria figure{break-inside:avoid}}
+
+/* ---- PÁGINA DE SECCIÓN: portada interior + rejilla de notas ---- */
+.sec-portada{padding-block:var(--r-3)}
+.sec-portada__encabezado{display:grid;grid-template-columns:minmax(0,1fr);
+  gap:var(--r-2);padding-bottom:var(--r-3);border-bottom:1px solid var(--linea-2)}
+@media(min-width:761px){
+  .sec-portada__encabezado{grid-template-columns:7fr 5fr;align-items:end}
+}
+.sec-portada__num{font-family:var(--titulos);font-weight:800;color:var(--ocre);
+  font-size:var(--t-4);letter-spacing:-.01em}
+.sec-listado{border-top:0}
+@media print{.sec-listado .nota{break-inside:avoid}}
+
+/* ---- PIE DE REVISTA (punto 20: crédito institucional + toda la revista) ---- */
+.pie{border-top:4px solid var(--petroleo);margin-top:var(--r-6);
+  background:var(--papel-alto)}
+.pie__interior{display:grid;gap:var(--r-4);padding-block:var(--r-5) var(--r-6)}
+@media(min-width:761px){
+  .pie__interior{grid-template-columns:5fr 3fr 3fr}
+}
+.pie h2{font-family:var(--titulos);font-weight:800;font-size:var(--t-3);
+  letter-spacing:-.01em;margin:0 0 var(--r-1)}
+.pie p{font-size:var(--t-08);color:var(--tinta-2);max-width:30rem;
+  text-wrap:pretty}
+.pie ul{list-style:none;margin:0;padding:0;display:grid;gap:.45rem}
+.pie a{font-family:var(--titulos);font-size:var(--t-08);color:var(--tinta-2);
+  text-decoration:none}
+.pie a:hover{color:var(--ocre)}
+.pie__edicion{margin-top:var(--r-2);font-size:var(--t-07);
+  letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-3)}
