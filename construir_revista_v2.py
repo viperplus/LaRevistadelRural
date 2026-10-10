@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """construir_revista_v2.py — Generador con estructura: cada artículo en su carpeta."""
-import os, shutil, json, html as H, re
+import os, shutil, json, html as H, re, unicodedata
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 DATOS = os.path.join(BASE, "datos", "ediciones.json")
@@ -223,8 +223,10 @@ RE_APENDICE_VISUAL = re.compile(
     re.I)
 
 
-def render_cuerpo(art, fotos_paths):
-    """Convierte bloques + fotos a HTML. fotos_paths son relativos al article folder."""
+def render_cuerpo(art, fotos_paths, solo_bloques=False):
+    """Convierte bloques + fotos a HTML. fotos_paths son relativos al article folder.
+    solo_bloques=True devuelve solamente el texto del articulo, sin repartir
+    fotos: lo usa render_album, que dispone las suyas a su manera."""
     cuerpo_html = []
     cuerpo = art.get("cuerpo") or []
     en_lista = None
@@ -331,6 +333,8 @@ def render_cuerpo(art, fotos_paths):
             cuerpo_html.append("<p class='txt-parrafo'>%s</p>" % md(v))
     if en_lista:
         cuerpo_html.append("</%s>" % ("ul" if en_lista == "li" else "ol"))
+    if solo_bloques:
+        return "".join(cuerpo_html)
     epigs = art.get("epigrafes") or []
     # Disposicion opcional, una por foto: "portada" (arriba, grande),
     # "seccion" (corte de seccion) o "inline" (chica, dentro del texto).
@@ -423,6 +427,49 @@ def render_cuerpo(art, fotos_paths):
     return "".join(cuerpo_html)
 
 
+def slug(texto):
+    """'El Cóndor' -> 'el-condor'. Anclas estables para el índice del álbum."""
+    t = unicodedata.normalize("NFKD", texto).encode("ascii", "ignore").decode("ascii")
+    return (re.sub(r"[^a-zA-Z0-9]+", "-", t).strip("-").lower() or "sede")
+
+
+def render_album(art, fotos_paths):
+    """Álbum estilo Panini: el texto de entrada y después una sección por
+    sede con su grilla de fichas. Cada ficha es una figura .fig para que el
+    visor de fotos la abra igual que al resto del sitio."""
+    partes = [render_cuerpo(art, [], solo_bloques=True)]
+    epigs = art.get("epigrafes") or []
+    grupos = art.get("fotos_grupos") or []
+
+    # (sede, [índices]) en el orden en que vienen los datos.
+    secciones = []
+    for i in range(len(fotos_paths)):
+        g = grupos[i] if i < len(grupos) else "Otras"
+        if not secciones or secciones[-1][0] != g:
+            secciones.append((g, []))
+        secciones[-1][1].append(i)
+
+    # Índice de sedes: con 30 y pico de grupos, saltar de una a otra es lo
+    # que hace ameno un álbum de estas características.
+    ind = "".join('<a class="album__i" href="#%s">%s<b>%d</b></a>' %
+                  (slug(g), esc(g), len(idxs)) for g, idxs in secciones)
+    partes.append('<nav class="album__indice" aria-label="\u00cdndice de sedes">%s</nav>' % ind)
+
+    partes.append('<div class="album">')
+    for g, idxs in secciones:
+        partes.append('<section class="album__sede" id="%s">'
+                      '<h3 class="album__sede-t">%s<span class="album__n">%d</span></h3>'
+                      '<div class="album__grilla">' % (slug(g), esc(g), len(idxs)))
+        for i in idxs:
+            pie = (epigs[i] if i < len(epigs) else "") or g
+            partes.append('<figure class="fig album__ficha">'
+                          '<img src="%s" alt="Figurita de %s" loading="lazy" decoding="async">'
+                          '<figcaption>%s</figcaption></figure>' % (fotos_paths[i], esc(pie), esc(pie)))
+        partes.append("</div></section>")
+    partes.append("</div>")
+    return "".join(partes)
+
+
 def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
     css = '<link rel="stylesheet" href="%srevista.css">' % cssdir
     # Visor de fotos: mismos niveles que la hoja de estilos (css/ -> js/).
@@ -499,7 +546,8 @@ def main():
 
         sec = next((s for s in secciones if s["id"] == art.get("seccion")), None)
         sec_nom = sec["titulo"] if sec else "Voces"
-        cuerpo = render_cuerpo(art, fotos_relativas)
+        cuerpo = (render_album(art, fotos_relativas) if art.get("tipo") == "album"
+                  else render_cuerpo(art, fotos_relativas))
 
         # Paths relativos: desde ediciones/01/<articulo>/ hasta ediciones/01/
         sec_url = "../secciones/%s.html" % sec["id"] if sec else "../index.html"

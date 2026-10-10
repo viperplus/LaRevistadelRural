@@ -5,6 +5,7 @@
   if (typeof HTMLDialogElement === "undefined") return;
 
   var SEL = "figure.fig img, figure.collage__item img, figure.pres__foto img";
+  var SEL_FIG = "figure.fig, figure.collage__item, figure.pres__foto";
 
   var dlg = document.createElement("dialog");
   dlg.className = "visor";
@@ -67,7 +68,13 @@
   }
 
   document.addEventListener("click", function (e) {
-    var o = e.target.closest ? e.target.closest(SEL) : null;
+    if (!e.target.closest) return;
+    var o = e.target.closest(SEL);
+    if (!o) {
+      // El pie de la ficha también abre el visor: el cursor ya avisa que sí.
+      var fig = e.target.closest(SEL_FIG);
+      if (fig) o = fig.querySelector("img");
+    }
     if (!util(o)) return;
     var cont = o.closest(".articulo__cuerpo, .collage") || o.closest("figure").parentNode;
     if (!cont) return;

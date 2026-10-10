@@ -583,7 +583,7 @@ a:hover { color: var(--ocre-texto); }
   border-radius: 0 var(--r-m) var(--r-m) 0;
 }
 .txt-dato strong { font-family: var(--titulos); color: var(--verde-osc); }
-.fig { margin: 2.2rem 0; }
+.fig { margin: 2.2rem 0; cursor: zoom-in; }
 /* La clase fig--g8 (99 usos) antes no tenía ninguna regla */
 .fig--g8 { max-width: 40rem; margin-inline: auto; }
 .fig--mediana { max-width: 30rem; margin-inline: auto; }
@@ -615,6 +615,112 @@ a:hover { color: var(--ocre-texto); }
   padding-left: .8rem;
   border-left: 2px solid var(--ocre-suave);
 }
+/* ============ ÁLBUM DE FIGURITAS ============
+   Estilo Panini: un índice de sedes, una sección por sede y una grilla
+   de fichas. El álbum se ancha más que el texto (44rem) para que entren
+   más figuritas por fila, pero sin pasarse de la medida del sitio. */
+.album {
+  --ancho: min(64rem, calc(100vw - 2 * var(--marg)));
+  width: var(--ancho);
+  margin-left: calc(50% - var(--ancho) / 2);
+  margin-top: .4rem;
+}
+/* Índice: fichas con el nombre de cada sede y cuántas tiene */
+.album__indice {
+  display: flex; flex-wrap: wrap; gap: .4rem;
+  margin: 1.7rem 0 .6rem;
+  justify-content: center;
+}
+.album__i {
+  font-family: var(--titulos);
+  font-size: .74rem; font-weight: 600; letter-spacing: .01em;
+  color: var(--verde-texto);
+  background: var(--papel-alt);
+  border: 1px solid var(--linea);
+  border-radius: var(--r-full);
+  padding: .3rem .72rem;
+  text-decoration: none;
+  transition: background .2s var(--trans), border-color .2s var(--trans), color .2s var(--trans);
+}
+.album__i b { color: var(--ocre-texto); font-weight: 700; margin-left: .38rem; }
+.album__i:hover, .album__i:focus-visible {
+  background: var(--verde-fondo); border-color: var(--verde-suave); color: var(--verde-osc);
+}
+/* Encabezado de cada sede */
+.album__sede { scroll-margin-top: 1rem; }
+.album__sede-t {
+  font-family: var(--titulos);
+  display: flex; align-items: baseline; gap: .6rem;
+  font-size: 1.34rem; font-weight: 800; letter-spacing: .01em;
+  color: var(--verde-osc);
+  margin: 2.8rem 0 1rem;
+  padding-top: 1.2rem;
+  border-top: 2px solid var(--ocre-suave);
+  text-align: left;
+}
+.album__n {
+  font-size: .72rem; font-weight: 700;
+  color: var(--verde); background: var(--verde-fondo);
+  border: 1px solid var(--verde-suave);
+  border-radius: var(--r-full);
+  padding: .16rem .6rem;
+  white-space: nowrap;
+}
+/* La grilla de fichas: una por figurita, siempre del mismo alto */
+.album__grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.4rem, 1fr));
+  gap: .8rem;
+}
+.album__ficha {
+  margin: 0;
+  background: var(--papel-alt);
+  border: 1px solid var(--linea);
+  border-radius: var(--r-m);
+  padding: .42rem .42rem .3rem;
+  box-shadow: var(--sombra-s);
+  cursor: zoom-in;
+  transition: transform .25s var(--trans), box-shadow .25s var(--trans), border-color .25s var(--trans);
+}
+.album__ficha:hover, .album__ficha:focus-within {
+  transform: translateY(-3px);
+  box-shadow: var(--sombra-m);
+  border-color: var(--verde-suave);
+}
+.album__ficha img {
+  width: 100%;
+  aspect-ratio: 2700 / 3540;
+  object-fit: cover;
+  border: 0;
+  border-radius: calc(var(--r-m) - 5px);
+  box-shadow: none;
+  background: var(--papel-calido);
+  transition: none;
+}
+.album__ficha img:hover { transform: none; box-shadow: none; }
+/* El nombre va centrado, hasta dos renglones: si no, la grilla se desalinea */
+.album__ficha figcaption {
+  font-family: var(--titulos);
+  font-style: normal;
+  font-size: .71rem; font-weight: 600; line-height: 1.32;
+  letter-spacing: .01em;
+  color: var(--tinta-2);
+  margin: .45rem 0 .1rem;
+  padding: 0;
+  border-left: 0;
+  text-align: center;
+  min-height: 2.64em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+@media (max-width: 40rem) {
+  .album__grilla { grid-template-columns: repeat(auto-fill, minmax(7.6rem, 1fr)); gap: .6rem; }
+  .album__sede-t { font-size: 1.16rem; }
+}
+
 /* Tarjetas: rotulo + texto corto, en grilla de dos columnas */
 .tarjetas {
   display: grid;
