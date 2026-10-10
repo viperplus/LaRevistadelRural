@@ -425,11 +425,13 @@ def render_cuerpo(art, fotos_paths):
 
 def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
     css = '<link rel="stylesheet" href="%srevista.css">' % cssdir
+    # Visor de fotos: mismos niveles que la hoja de estilos (css/ -> js/).
+    js = '<script src="%srevista.js" defer></script>' % cssdir.replace("css/", "js/")
     body_class = ' class="sec-%s"' % sec_id if sec_id else ''
     return ('<!doctype html>\n<html lang="es" dir="ltr">\n<head>\n'
             '<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n'
             "<title>%s · %s</title>\n<meta name=\"description\" content=\"%s\">\n"
-            "<link rel=\"icon\" href=\"%s\" type=\"image/svg+xml\">\n%s\n%s\n</head>\n<body%s>\n"
+            "<link rel=\"icon\" href=\"%s\" type=\"image/svg+xml\">\n%s\n%s\n%s\n</head>\n<body%s>\n"
             '<a class="salto" href="#contenido">Salto al contenido</a>\n'
             '<header class="masthead contenedor" role="banner">\n  <p class="masthead__marca"><a href="%s">%s</a></p>\n'
             '  <nav aria-label="Secciones" class="nav-ed">%s</nav>\n</header>\n'
@@ -437,7 +439,7 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
             '<footer class="pie" role="contentinfo">\n  <div class="pie__interior contenedor">\n'
             '    <p class="pie__credito">%s · %s · %s. Escrita, ilustrada y fotografiada por estudiantes de la ESRN Rural Virtual.</p>\n'
             '  </div>\n</footer>\n</body>\n</html>\n') % (
-        md(titulo), esc(REV), md_plano(bajada), faviq, FONTS, css, body_class, pie_note,
+        md(titulo), esc(REV), md_plano(bajada), faviq, FONTS, css, js, body_class, pie_note,
         esc(REV), nav, body, esc(REV), esc(SUBNOMBRE), esc(ed))
 
 

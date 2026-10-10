@@ -940,8 +940,95 @@ a:hover { color: var(--ocre-texto); }
   text-align: center; font-style: normal; line-height: 1.5;
 }
 
+/* ============ VISOR DE FOTOS ============ */
+figure.fig img,
+figure.collage__item img,
+figure.pres__foto img { cursor: zoom-in; }
+
+html.visor-on { overflow: hidden; }
+
+.visor {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: clamp(3rem, 7vh, 4.5rem) clamp(3rem, 6vw, 4.5rem);
+  border: 0;
+  background: transparent;
+  color: var(--papel);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+/* el display:flex de arriba reemplazaria el oculto nativo: lo devolvemos */
+.visor:not([open]) { display: none; }
+.visor::backdrop { background: rgba(18, 16, 13, .94); }
+
+.visor__img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--r-s);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, .5);
+}
+
+.visor__pie {
+  position: absolute;
+  left: 50%;
+  bottom: .7rem;
+  transform: translateX(-50%);
+  width: min(46rem, calc(100% - 9rem));
+  margin: 0;
+  text-align: center;
+  font-size: .85rem;
+  line-height: 1.45;
+  color: rgba(250, 246, 238, .88);
+}
+.visor__pie[hidden] { display: none; }
+
+.visor__btn {
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  padding: 0;
+  border: 1px solid rgba(250, 246, 238, .34);
+  border-radius: var(--r-full);
+  background: rgba(18, 16, 13, .55);
+  color: var(--papel);
+  font: inherit;
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .2s var(--trans), border-color .2s var(--trans);
+}
+.visor__btn:hover { background: rgba(18, 16, 13, .88); border-color: var(--ocre-suave); }
+.visor__btn[hidden] { display: none; }
+
+.visor__cerrar { top: .8rem; right: .9rem; }
+.visor__ant { left: .9rem; top: 50%; margin-top: -1.3rem; }
+.visor__sig { right: .9rem; top: 50%; margin-top: -1.3rem; }
+
+@media (max-width: 46rem) {
+  .visor { padding: 3rem 2.9rem 3.2rem; }
+  .visor__btn { width: 2.2rem; height: 2.2rem; font-size: 1rem; }
+  .visor__cerrar { top: .5rem; right: .55rem; }
+  .visor__ant { left: .45rem; margin-top: -1.1rem; }
+  .visor__sig { right: .45rem; margin-top: -1.1rem; }
+  .visor__pie { width: calc(100% - 6rem); font-size: .78rem; bottom: .45rem; }
+}
+
 /* ============ IMPRESION ============ */
 @media print {
+  .visor { display: none !important; }
   body { background: #fff; font-size: 11pt; }
   .masthead, .pie, .salto, .todos__enlace, .volver { display: none; }
   .articulo { margin: 0; max-width: none; }
