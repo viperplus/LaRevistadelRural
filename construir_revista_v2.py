@@ -90,9 +90,52 @@ EGRESADOS = [
     ("Yanca Pazos", "Milena Ludmila", "Turismo", "Cona Niyeu"),
 ]
 
+# Foto por egresado/egresada: clave (apellido, nombre) -> archivo en ediciones/01/egresados/
+FOTOS_EGRESADOS = {
+    ("Contrera", "Sol Antonella"): "aguada_cecilio_anto_contrera.png",
+    ("Cañumil", "Milagros Alejandra"): "aguada_cecilio_milagros_canumil.png",
+    ("Andres Martiarena", "Milagros"): "cerro_policia_grupo.png",
+    ("Pelliza", "Lucila"): "cerro_policia_grupo.png",
+    ("Faría", "Lázaro"): "cerro_policia_grupo.png",
+    ("Criban", "Agustín"): "cerro_policia_grupo.png",
+    ("López Amacio", "Cecilia Marilí"): "colan_conhue_cecilia_lopez.png",
+    ("Vergara Mayer", "Fautino Manuel"): "corralito_faustino_vergaramayer.png",
+    ("Montre Arias", "Ludmila Agostina"): "el_cain_ludmila_montre.png",
+    ("Lincopan", "Abigail Rocío"): "el_cain_rocio_lincopan.png",
+    ("Ñanco", "Isaías Daniel Atahualpa"): "el_cain_isaias_nanco.png",
+    ("Varnes", "Selene Mery"): "laguna_blanca_selene_varnes.png",
+    ("Montecinos", "Yordan Cleofás"): "laguna_blanca_yordan_montecinos.png",
+    ("Maliqueo", "Alexander Leonel"): "laguna_blanca_leonel_maliqueo.png",
+    ("Gauna", "Fernando"): "penas_blancas_fernando_gauna.png",
+    ("Calle Torrez", "Zaida Camila"): "penas_blancas_zaida_calle_torrez.png",
+    ("Paillalef Parra", "Benjamín Gonzalo"): "villa_llanquin_benjamin_paillalef.png",
+    ("Calluhuequi", "Enzo Leonel"): "yaminue_enzo_calluhuequi.png",
+    ("Quichan", "Carlos Lisandro"): "yaminue_carlos_quichan.png",
+}
+
+# Collage de la promoción: (archivo, leyenda, sede, tamaño). "lg" grande, "w" horizontal, "t" vertical.
+FOTOS_COLLAGE = [
+    ("el_cain_rocio_lincopan.png", "Rocío Abigail Lincopan", "Mencué", "t"),
+    ("aguada_cecilio_anto_contrera.png", "Sol Antonella Contrera", "Aguada Cecilio", "t"),
+    ("cerro_policia_grupo.png", "Milagros, Lucila, Lázaro y Agustín", "Cerro Policía", "lg"),
+    ("corralito_faustino_vergaramayer.png", "Faustino Vergara Mayer", "Corralito", ""),
+    ("colan_conhue_cecilia_lopez.png", "Cecilia López Amacio", "Colan Conhué", "w"),
+    ("el_cain_isaias_nanco.png", "Isaías Ñanco", "Mencué", "t"),
+    ("el_cain_ludmila_montre.png", "Ludmila Montre Arias", "Mencué", ""),
+    ("aguada_cecilio_milagros_canumil.png", "Milagros Cañumil", "Aguada Cecilio", "lg"),
+    ("laguna_blanca_leonel_maliqueo.png", "Leonel Maliqueo", "Laguna Blanca", "t"),
+    ("laguna_blanca_selene_varnes.png", "Selene Varnes", "Laguna Blanca", ""),
+    ("laguna_blanca_yordan_montecinos.png", "Yordan Montecinos", "Laguna Blanca", "t"),
+    ("penas_blancas_fernando_gauna.png", "Fernando Gauna", "Peñas Blancas", ""),
+    ("penas_blancas_zaida_calle_torrez.png", "Zaida Calle Torrez", "Peñas Blancas", "t"),
+    ("villa_llanquin_benjamin_paillalef.png", "Benjamín Paillalef", "Villa Llanquín", ""),
+    ("yaminue_carlos_quichan.png", "Carlos Quichan", "Yaminué", "t"),
+    ("yaminue_enzo_calluhuequi.png", "Enzo Calluhuequi", "Yaminué", ""),
+]
+
 
 def egresados_body():
-    """Cuerpo de la página Egresados: saludo + tarjetas por sede."""
+    """Cuerpo de la página Egresados: saludo + tarjetas por sede + collage."""
     total = len(EGRESADOS)
     por_sede = {}
     for apellido, nombre, orient, sede in EGRESADOS:
@@ -107,6 +150,12 @@ def egresados_body():
         tarjetas.append(
             "<article class='tarjeta'><h3 class='tarjeta__t'>%s</h3>"
             "<ul class='egr__lista'>%s</ul></article>" % (esc(sede), items))
+    collage = "".join(
+        "<figure class='collage__item%s'>"
+        "<img src='egresados/%s' alt='%s' loading='lazy'>"
+        "<figcaption><strong>%s</strong><span>%s</span></figcaption></figure>"
+        % ((" collage__item--" + cls) if cls else "", esc(arch), esc(nombre), esc(nombre), esc(sede))
+        for arch, nombre, sede, cls in FOTOS_COLLAGE)
     intro = ("¡Felicitaciones a toda nuestra hermosa promoción! Este año, "
              "<strong>%d estudiantes</strong> de 5.º año de la ESRN Rural Virtual "
              "cerraron su Ciclo Orientado — en Ciencias Naturales o en Turismo — "
@@ -116,7 +165,13 @@ def egresados_body():
     return ('<div class="pres__bloque">\n'
             '<h2 class="pres__h2">Egresadas y egresados 2026</h2>\n'
             '<p class="pres__p pres__ancho">%s</p>\n'
-            '<div class="egr__tarjetas">\n%s\n</div>\n</div>') % (intro, "".join(tarjetas))
+            '<h3 class="pres__h3">La promoción, en fotos</h3>\n'
+            '<p class="pres__p">Algunas caras de quienes llegan al final de esta etapa, '
+            'con la mejor sonrisa.</p>\n'
+            '<div class="collage">\n%s\n</div>\n'
+            '<h3 class="pres__h3">Los y las egresadas, sede por sede</h3>\n'
+            '<div class="egr__tarjetas">\n%s\n</div>\n</div>') % (
+                intro, collage, "".join(tarjetas))
 
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'

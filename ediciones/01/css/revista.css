@@ -878,6 +878,44 @@ a:hover { color: var(--ocre-texto); }
   color: var(--verde-texto); white-space: nowrap;
 }
 
+/* Collage de egresados */
+.collage {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
+  grid-auto-rows: 12.5rem;
+  grid-auto-flow: dense;
+  gap: .9rem;
+  margin-top: 1.2rem;
+}
+.collage__item {
+  position: relative; margin: 0;
+  border-radius: var(--r-m); overflow: hidden;
+  box-shadow: var(--sombra-s);
+  background: var(--verde-fondo);
+}
+.collage__item img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform .45s var(--trans);
+}
+.collage__item:hover img { transform: scale(1.06); }
+.collage__item figcaption {
+  position: absolute; inset: auto 0 0 0;
+  padding: .6rem .7rem .5rem; color: #fff;
+  font-size: .8rem; line-height: 1.25; font-weight: 600;
+  background: linear-gradient(transparent, rgba(31, 45, 32, .78));
+}
+.collage__item figcaption span {
+  display: block; font-size: .66rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em; opacity: .85;
+}
+.collage__item--lg { grid-column: span 2; grid-row: span 2; }
+.collage__item--lg img { object-fit: contain; }
+.collage__item--w { grid-column: span 2; }
+.collage__item--t { grid-row: span 2; }
+@media (max-width: 34rem) {
+  .collage { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 9.5rem; }
+}
+
 /* Mapa */
 .mapa__figura {
   max-width: 58rem;
