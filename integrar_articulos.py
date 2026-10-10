@@ -171,6 +171,9 @@ ART = [
         folder_prefijo="ESCRITURA FANT",
         uid="escritura-fantastica",
         seccion="cultura",
+        # Los trabajos son páginas de texto con proporciones muy distintas:
+        # en grilla de 2 columnas quedaban huecos raros. Una foto por fila.
+        disp="final",
         titulo="Escritura fantástica",
         bajada=("De la mano de Mariana Enríquez y su cuento “El desentierro de la "
                 "Angelita”, nos adentramos en el género fantástico."),
@@ -200,7 +203,7 @@ def construir(a):
         nombre = "foto-%02d%s" % (i, ext)
         fotos.append(nombre)
         epigrafes.append(a["epi"](rel))
-    disp = ["portada"] + ["galeria"] * (len(fotos) - 1)
+    disp = ["portada"] + [a.get("disp", "galeria")] * (len(fotos) - 1)
     art = {
         "id": a["uid"],
         "seccion": a["seccion"],
@@ -235,20 +238,21 @@ for a in ART:
 if not WRITE:
     print("\nVista previa solamente. Corre con --write para aplicar.")
 else:
-    for art, folder, rels in nuevos:
-        dst = os.path.join(EDIT, art["id"])
-        os.makedirs(dst, exist_ok=True)
-        for rel, nombre in zip(rels, art["fotos"]):
-            shutil.copy2(os.path.join(SRC, folder, rel), os.path.join(dst, nombre))
-        print("copiadas %d fotos -> %s" % (len(rels), dst))
-
+    # Primero leo el JSON: si el articulo ya esta, no copio nada. Asi una
+    # segunda corrida no pisa las fotos ya optimizadas para la web.
     datos = json.load(open(DATOS, encoding="utf-8"))
     ids = {x["id"] for x in datos["articulos"]}
     for art, folder, rels in nuevos:
         if art["id"] in ids:
-            print("ya existia, salto:", art["id"])
+            print("ya estaba en ediciones.json, salto:", art["id"])
             continue
+        dst = os.path.join(EDIT, art["id"])
+        os.makedirs(dst, exist_ok=True)
+        for rel, nombre in zip(rels, art["fotos"]):
+            shutil.copy2(os.path.join(SRC, folder, rel), os.path.join(dst, nombre))
         datos["articulos"].append(art)
+        print("copiadas %d fotos -> %s" % (len(rels), dst))
+
     with open(DATOS, "w", encoding="utf-8") as fh:
         json.dump(datos, fh, ensure_ascii=False, indent=2)
         fh.write("\n")
