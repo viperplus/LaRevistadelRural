@@ -5,6 +5,7 @@ Lee FIGUSAS, separa figuritas de fotos de escenarios, las agrupa por sede,
 las achica a ~700 px y las deja en ediciones/01/album-figuritas/. Despues
 escribe (o actualiza) la entrada del articulo en datos/ediciones.json.
 """
+import colorsys
 import json
 import os
 import re
@@ -74,6 +75,68 @@ def sede_legible(raw):
         low = p.lower()
         out.append(palabra(p) if (i == 0 or low not in minus) else low)
     return " ".join(out)
+
+
+# ---------- color de cada sede ---------------------------------------------
+PAPEL = (250.0, 246.0, 238.0)   # --papel de revista.css
+GOLDEN = 0.6180339887498949
+
+
+def _luminancia(rgb):
+    def f(c):
+        c = c / 255.0
+        return c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4
+    return 0.2126 * f(rgb[0]) + 0.7152 * f(rgb[1]) + 0.0722 * f(rgb[2])
+
+
+def _contraste(a, b):
+    la, lb = _luminancia(a), _luminancia(b)
+    hi, lo = max(la, lb), min(la, lb)
+    return (hi + 0.05) / (lo + 0.05)
+
+
+def _hex(rgb):
+    return "#%02x%02x%02x" % tuple(max(0, min(255, int(round(c)))) for c in rgb)
+
+
+def _hsv(h, s, v):
+    r, g, b = colorsys.hsv_to_rgb(h % 1.0, s, v)
+    return (r * 255.0, g * 255.0, b * 255.0)
+
+
+def _tonos(h):
+    """Devuelve tres tonos de la misma sede:
+      color   — fuerte: títulos, bordes. Oscurecido hasta pasar AA sobre papel.
+      fondo   — medio: banda de cabecera, fichas del índice.
+      pagina  — muy tenue: tinte de fondo de la página."""
+    v = 0.60
+    fuerte = _hsv(h, 0.60, v)
+    while v > 0.16 and _contraste(fuerte, PAPEL) < 4.6:
+        v -= 0.02
+        fuerte = _hsv(h, 0.60, v)
+    return _hex(fuerte), _hex(_hsv(h, 0.34, 0.93)), _hex(_hsv(h, 0.20, 0.985))
+
+
+def colores_por_sede(sedes):
+    """Un tono por sede, repartido por la rueda y sin repetir vecinos.
+    Sale del nombre, así que una sede conserva su color si se agregan otras."""
+    tomados = []
+    fuera = {}
+    for s in sorted(sedes, key=lambda x: x.lower()):
+        h = (sum((i + 1) * ord(c) for i, c in enumerate(s)) * GOLDEN) % 1.0
+        vueltas = 0
+        while any(abs(h - t) < 0.07 for t in tomados) and vueltas < 400:
+            h = (h + GOLDEN) % 1.0
+            vueltas += 1
+        tomados.append(h)
+        color, fondo, pagina = _tonos(h)
+        assert _contraste(_hsv_from_hex(color), PAPEL) >= 4.6, s
+        fuera[s] = {"color": color, "fondo": fondo, "pagina": pagina}
+    return fuera
+
+
+def _hsv_from_hex(hx):
+    return tuple(int(hx[i:i + 2], 16) for i in (1, 3, 5))
 
 
 def clasificar():
@@ -186,7 +249,8 @@ def main():
     total = sum(os.path.getsize(os.path.join(dst_dir, x)) for x in fotos)
     print("convertidas %d (nuevas %d) -> %.1f MB" % (hechas, nuevas, total / 1048576.0))
 
-    art = armar_articulo(fotos, epigrafes, grupos_ord, grupos)
+    art = armar_articulo(fotos, epigrafes, grupos_ord, grupos,
+                         colores_por_sede(grupos))
 
     datos = json.load(open(DATOS, encoding="utf-8"))
     ids = {a["id"] for a in datos["articulos"]}
@@ -205,7 +269,7 @@ def main():
     print("ediciones.json -> %d articulos" % len(datos["articulos"]))
 
 
-def armar_articulo(fotos, epigrafes, grupos_ord, grupos):
+def armar_articulo(fotos, epigrafes, grupos_ord, grupos, colores):
     sedes = sorted(grupos, key=lambda x: x.lower())
     n_figu = len(fotos)
     n_sede = len(sedes)
@@ -233,6 +297,7 @@ def armar_articulo(fotos, epigrafes, grupos_ord, grupos):
         "fotos": fotos,
         "epigrafes": epigrafes,
         "fotos_grupos": grupos_ord,
+        "album_colores": colores,
     }
 
 

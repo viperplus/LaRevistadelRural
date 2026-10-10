@@ -616,61 +616,147 @@ a:hover { color: var(--ocre-texto); }
   border-left: 2px solid var(--ocre-suave);
 }
 /* ============ ÁLBUM DE FIGURITAS ============
-   Estilo Panini: un índice de sedes, una sección por sede y una grilla
-   de fichas. El álbum se ancha más que el texto (44rem) para que entren
-   más figuritas por fila, pero sin pasarse de la medida del sitio. */
+   Estilo Panini con páginas que se pasan. Una portada, el índice de
+   sedes, las páginas de cada sede (cada una con su color) y el cierre.
+   El visor de fotos sigue funcionando sobre las fichas visibles. */
 .album {
-  --ancho: min(64rem, calc(100vw - 2 * var(--marg)));
-  width: var(--ancho);
-  margin-left: calc(50% - var(--ancho) / 2);
-  margin-top: .4rem;
+  margin-top: 1.4rem;
 }
-/* Índice: fichas con el nombre de cada sede y cuántas tiene */
-.album__indice {
-  display: flex; flex-wrap: wrap; gap: .4rem;
-  margin: 1.7rem 0 .6rem;
-  justify-content: center;
+.album__controles {
+  position: sticky;
+  top: .4rem;
+  z-index: 6;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas: "ant estado sig" "rango rango rango" "ir ir ir";
+  gap: .5rem .7rem;
+  align-items: center;
+  background: rgba(250, 246, 238, .95);
+  border: 1px solid var(--linea);
+  border-radius: var(--r-m);
+  box-shadow: var(--sombra-s);
+  padding: .6rem .75rem;
+  margin-bottom: .9rem;
 }
-.album__i {
-  font-family: var(--titulos);
-  font-size: .74rem; font-weight: 600; letter-spacing: .01em;
-  color: var(--verde-texto);
-  background: var(--papel-alt);
+@media (min-width: 40rem) {
+  .album__controles { grid-template-areas: "ant estado sig rango" "ir ir ir ir"; }
+}
+.album__btn {
+  width: 2.5rem; height: 2.5rem;
+  display: grid; place-items: center;
   border: 1px solid var(--linea);
   border-radius: var(--r-full);
-  padding: .3rem .72rem;
-  text-decoration: none;
-  transition: background .2s var(--trans), border-color .2s var(--trans), color .2s var(--trans);
+  background: var(--papel-alt);
+  color: var(--verde);
+  font-size: 1.35rem; line-height: 1;
+  cursor: pointer;
+  transition: background .2s var(--trans), color .2s var(--trans), border-color .2s var(--trans);
 }
-.album__i b { color: var(--ocre-texto); font-weight: 700; margin-left: .38rem; }
-.album__i:hover, .album__i:focus-visible {
-  background: var(--verde-fondo); border-color: var(--verde-suave); color: var(--verde-osc);
-}
-/* Encabezado de cada sede */
-.album__sede { scroll-margin-top: 1rem; }
-.album__sede-t {
+.album__btn[data-paso="-1"] { grid-area: ant; }
+.album__btn[data-paso="1"] { grid-area: sig; }
+.album__btn:hover:not(:disabled) { background: var(--verde); color: var(--papel-alt); border-color: var(--verde); }
+.album__btn:disabled { opacity: .32; cursor: default; }
+.album__estado {
+  grid-area: estado;
+  display: flex; align-items: center; justify-content: center;
+  gap: .55rem; margin: 0; min-width: 0;
   font-family: var(--titulos);
-  display: flex; align-items: baseline; gap: .6rem;
-  font-size: 1.34rem; font-weight: 800; letter-spacing: .01em;
+}
+.album__punto {
+  width: .62rem; height: .62rem; flex: none;
+  border-radius: 50%;
+  background: var(--sede, var(--verde-suave));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sede, var(--verde-suave)) 22%, transparent);
+}
+.album__estado-t {
+  font-weight: 700; font-size: .93rem; color: var(--verde-osc);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.album__estado-n { font-size: .76rem; color: var(--tinta-3); flex: none; }
+.album__rango { grid-area: rango; width: 100%; accent-color: var(--verde); }
+.album__ir-et { grid-area: ir; display: block; }
+.album__ir {
+  width: 100%;
+  font-family: var(--titulos); font-size: .8rem; font-weight: 600;
   color: var(--verde-osc);
-  margin: 2.8rem 0 1rem;
-  padding-top: 1.2rem;
-  border-top: 2px solid var(--ocre-suave);
-  text-align: left;
+  background: var(--papel-alt);
+  border: 1px solid var(--linea);
+  border-radius: var(--r-s);
+  padding: .4rem .6rem;
 }
-.album__n {
-  font-size: .72rem; font-weight: 700;
-  color: var(--verde); background: var(--verde-fondo);
-  border: 1px solid var(--verde-suave);
-  border-radius: var(--r-full);
-  padding: .16rem .6rem;
-  white-space: nowrap;
+.solo-lector {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
 }
-/* La grilla de fichas: una por figurita, siempre del mismo alto */
+/* ---- la pantalla donde vive una página por vez ---- */
+.album__pantalla {
+  perspective: 1500px;
+  min-height: 26rem;
+}
+.album__pagina {
+  display: none;
+  flex-direction: column;
+  background: var(--papel-alt);
+  border: 1px solid var(--linea);
+  border-radius: var(--r-m);
+  box-shadow: var(--sombra-l);
+  padding: 1.1rem 1.25rem .9rem;
+  min-height: clamp(25rem, 60vh, 36rem);
+}
+.album__pagina.es-actual { display: flex; }
+@media (prefers-reduced-motion: no-preference) {
+  .album[data-dir="adelante"] .album__pagina.es-actual { animation: album-adelante .36s var(--trans); }
+  .album[data-dir="atras"] .album__pagina.es-actual { animation: album-atras .36s var(--trans); }
+}
+@keyframes album-adelante {
+  from { opacity: 0; transform: translateX(4%) rotateY(-11deg); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes album-atras {
+  from { opacity: 0; transform: translateX(-4%) rotateY(11deg); }
+  to   { opacity: 1; transform: none; }
+}
+/* ---- cabecera de sede: ahí entra el color que la identifica ---- */
+.album__cab {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  gap: .05rem .9rem;
+  margin: -1.1rem -1.25rem 1.15rem;
+  padding: .8rem 1.1rem .8rem;
+  background: var(--sede-fondo, var(--papel-calido));
+  border-bottom: 3px solid var(--sede, var(--verde));
+  border-radius: calc(var(--r-m) - 1px) calc(var(--r-m) - 1px) 0 0;
+}
+.album__cab--indice { background: var(--verde-fondo); border-bottom-color: var(--verde); }
+.album__cab-ord {
+  margin: 0;
+  font-family: var(--titulos); font-size: .68rem; font-weight: 700;
+  letter-spacing: .13em; text-transform: uppercase;
+  color: var(--sede, var(--verde));
+}
+.album__cab--indice .album__cab-ord { color: var(--verde-texto); }
+.album__cab-n {
+  margin: 0; align-self: center;
+  font-family: var(--titulos); font-size: .74rem; font-weight: 600;
+  color: var(--tinta-2);
+}
+.album__cab-t {
+  grid-column: 1 / -1;
+  margin: .05rem 0 0;
+  font-family: var(--titulos); font-size: clamp(1.24rem, 3.4vw, 1.7rem);
+  font-weight: 800; letter-spacing: .01em; line-height: 1.12;
+  color: var(--sede, var(--verde-osc));
+}
+.album__cab--indice .album__cab-t { color: var(--verde-osc); }
+/* ---- la grilla de fichas de esa página ---- */
 .album__grilla {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(9.4rem, 1fr));
-  gap: .8rem;
+  grid-template-columns: repeat(var(--col, 4), minmax(0, 9rem));
+  justify-content: center;
+  align-content: start;
+  gap: .85rem;
+  flex: 1 0 auto;
 }
 .album__ficha {
   margin: 0;
@@ -685,7 +771,7 @@ a:hover { color: var(--ocre-texto); }
 .album__ficha:hover, .album__ficha:focus-within {
   transform: translateY(-3px);
   box-shadow: var(--sombra-m);
-  border-color: var(--verde-suave);
+  border-color: var(--sede, var(--verde-suave));
 }
 .album__ficha img {
   width: 100%;
@@ -716,9 +802,120 @@ a:hover { color: var(--ocre-texto); }
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-@media (max-width: 40rem) {
-  .album__grilla { grid-template-columns: repeat(auto-fill, minmax(7.6rem, 1fr)); gap: .6rem; }
-  .album__sede-t { font-size: 1.16rem; }
+/* ---- pie de página del álbum ---- */
+.album__pie {
+  margin-top: auto;
+  padding-top: .7rem;
+  display: flex; justify-content: space-between; gap: 1rem;
+  border-top: 1px dashed var(--linea);
+  font-family: var(--titulos); font-size: .67rem; font-weight: 600;
+  letter-spacing: .07em; text-transform: uppercase;
+  color: var(--sede, var(--tinta-3));
+}
+/* ---- índice de sedes: cada fila con el color de su sede ---- */
+.album__toc {
+  list-style: none; margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
+  gap: .45rem;
+}
+.album__toc-i {
+  width: 100%;
+  display: flex; align-items: center; gap: .5rem;
+  font-family: var(--titulos); font-size: .81rem; font-weight: 600;
+  color: var(--sede);
+  background: var(--sede-fondo);
+  border: 1px solid transparent;
+  border-left: 4px solid var(--sede);
+  border-radius: var(--r-s);
+  padding: .46rem .6rem;
+  text-align: left;
+  cursor: pointer;
+  transition: transform .18s var(--trans), box-shadow .18s var(--trans);
+}
+.album__toc-i:hover, .album__toc-i:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-m);
+}
+.album__toc-punto {
+  width: .55rem; height: .55rem; flex: none;
+  border-radius: 50%; background: var(--sede);
+}
+.album__toc-n { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.album__toc-c { font-size: .7rem; opacity: .75; }
+/* ---- portada y cierre ---- */
+.album__pagina--portada {
+  align-items: center; justify-content: center; text-align: center;
+  color: var(--papel);
+  background:
+    radial-gradient(ellipse at 20% 15%, rgba(255, 255, 255, .16) 0%, transparent 55%),
+    radial-gradient(ellipse at 82% 88%, rgba(201, 118, 47, .34) 0%, transparent 55%),
+    linear-gradient(155deg, var(--verde-osc) 0%, var(--verde) 58%, #0f362f 100%);
+  border-color: var(--verde-osc);
+}
+.album__portada-marca {
+  margin: 0 0 1.4rem;
+  font-family: var(--titulos); font-size: .7rem; font-weight: 700;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: rgba(250, 246, 238, .78);
+}
+.album__portada-t {
+  margin: 0;
+  font-family: var(--titulos);
+  font-size: clamp(2.6rem, 9vw, 4.6rem);
+  font-weight: 800; line-height: .95; letter-spacing: -.015em;
+  text-transform: uppercase;
+}
+.album__portada-sub {
+  margin: .9rem 0 0;
+  font-family: var(--texto); font-size: 1.02rem; font-style: italic;
+  color: rgba(250, 246, 238, .85);
+}
+.album__portada-dato {
+  margin: 1.6rem 0 0;
+  font-family: var(--titulos); font-size: 1.02rem; font-weight: 600;
+  color: var(--ocre-suave);
+}
+.album__portada-dato b { font-size: 1.5rem; font-weight: 800; color: var(--papel); }
+.album__portada-sep { margin: 0 .6rem; opacity: .6; }
+.album__portada-ayuda {
+  margin: 1.7rem 0 0;
+  font-family: var(--titulos); font-size: .74rem; font-weight: 600;
+  letter-spacing: .04em;
+  color: rgba(250, 246, 238, .62);
+}
+.album__pagina--fin { align-items: center; justify-content: center; text-align: center; }
+.album__fin-t {
+  margin: 0;
+  font-family: var(--titulos); font-size: clamp(1.8rem, 6vw, 2.8rem);
+  font-weight: 800; color: var(--verde-osc);
+}
+.album__fin-d {
+  margin: .7rem 0 1.6rem;
+  font-family: var(--titulos); font-size: .98rem; font-weight: 600; color: var(--ocre-texto);
+}
+.album__fin-d b { font-size: 1.4rem; font-weight: 800; color: var(--verde); }
+.album__volver {
+  font-family: var(--titulos); font-size: .84rem; font-weight: 700;
+  color: var(--papel-alt); background: var(--verde);
+  border: 1px solid var(--verde-osc);
+  border-radius: var(--r-full);
+  padding: .6rem 1.4rem;
+  cursor: pointer;
+}
+.album__volver:hover { background: var(--verde-osc); }
+.album__ayuda {
+  margin: .85rem 0 0;
+  text-align: center;
+  font-family: var(--titulos); font-size: .73rem; font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--tinta-3);
+}
+@media (max-width: 34rem) {
+  .album__grilla { grid-template-columns: repeat(var(--col, 4), minmax(0, 1fr)); gap: .6rem; }
+  .album__pagina { padding: .9rem .9rem .8rem; }
+  .album__cab { margin: -.9rem -.9rem 1rem; padding: .7rem .9rem; }
+  .album__toc { grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); }
 }
 
 /* Tarjetas: rotulo + texto corto, en grilla de dos columnas */

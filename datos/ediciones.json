@@ -5078,7 +5078,199 @@
         "Villa Llanquín",
         "Yaminué",
         "Yaminué"
-      ]
+      ],
+      "album_colores": {
+        "Aguada Cecilio": {
+          "color": "#7f6b33",
+          "fondo": "#edd89d",
+          "pagina": "#fbeec9"
+        },
+        "Aguada de Guerra": {
+          "color": "#3d4799",
+          "fondo": "#9da5ed",
+          "pagina": "#c9cefb"
+        },
+        "Aguada Guzmán": {
+          "color": "#367a31",
+          "fondo": "#a2ed9d",
+          "pagina": "#ccfbc9"
+        },
+        "Arroyo los Berros": {
+          "color": "#3d7299",
+          "fondo": "#9dcbed",
+          "pagina": "#c9e6fb"
+        },
+        "Bahía Blanca": {
+          "color": "#723d99",
+          "fondo": "#cb9ded",
+          "pagina": "#e6c9fb"
+        },
+        "Blancura Centro": {
+          "color": "#317a55",
+          "fondo": "#9dedc5",
+          "pagina": "#c9fbe2"
+        },
+        "Calchín": {
+          "color": "#99473d",
+          "fondo": "#eda59d",
+          "pagina": "#fbcec9"
+        },
+        "Cerro Policía": {
+          "color": "#993d3f",
+          "fondo": "#ed9d9e",
+          "pagina": "#fbc9ca"
+        },
+        "Chelforó": {
+          "color": "#993d70",
+          "fondo": "#ed9dc9",
+          "pagina": "#fbc9e5"
+        },
+        "Colan Conhué": {
+          "color": "#60752f",
+          "fondo": "#d4ed9d",
+          "pagina": "#ecfbc9"
+        },
+        "Cona Niyeu": {
+          "color": "#993d98",
+          "fondo": "#ed9ded",
+          "pagina": "#fbc9fb"
+        },
+        "Corralito": {
+          "color": "#317a77",
+          "fondo": "#9dede9",
+          "pagina": "#c9fbf9"
+        },
+        "Cómico": {
+          "color": "#69752f",
+          "fondo": "#dfed9d",
+          "pagina": "#f3fbc9"
+        },
+        "Córdoba": {
+          "color": "#3d5499",
+          "fondo": "#9db0ed",
+          "pagina": "#c9d5fb"
+        },
+        "El Caín": {
+          "color": "#843d99",
+          "fondo": "#da9ded",
+          "pagina": "#f0c9fb"
+        },
+        "El Cóndor": {
+          "color": "#403d99",
+          "fondo": "#9f9ded",
+          "pagina": "#cbc9fb"
+        },
+        "El Manso": {
+          "color": "#99483d",
+          "fondo": "#eda69d",
+          "pagina": "#fbcfc9"
+        },
+        "El Talar": {
+          "color": "#993d86",
+          "fondo": "#ed9ddc",
+          "pagina": "#fbc9f1"
+        },
+        "Embalse": {
+          "color": "#5f752f",
+          "fondo": "#d3ed9d",
+          "pagina": "#ebfbc9"
+        },
+        "Lago Pellegrini": {
+          "color": "#317a43",
+          "fondo": "#9dedb0",
+          "pagina": "#c9fbd5"
+        },
+        "Laguna Blanca": {
+          "color": "#497a31",
+          "fondo": "#b7ed9d",
+          "pagina": "#d9fbc9"
+        },
+        "Mamuel Choique": {
+          "color": "#3d4899",
+          "fondo": "#9da6ed",
+          "pagina": "#c9cffb"
+        },
+        "Mar del Plata": {
+          "color": "#5b3d99",
+          "fondo": "#b79ded",
+          "pagina": "#d9c9fb"
+        },
+        "Mencué": {
+          "color": "#993d75",
+          "fondo": "#ed9dcd",
+          "pagina": "#fbc9e7"
+        },
+        "Naupahuen": {
+          "color": "#993d68",
+          "fondo": "#ed9dc2",
+          "pagina": "#fbc9e0"
+        },
+        "Peñas Blancas": {
+          "color": "#317a65",
+          "fondo": "#9dedd6",
+          "pagina": "#c9fbed"
+        },
+        "Rafael Calzada": {
+          "color": "#39738f",
+          "fondo": "#9dd3ed",
+          "pagina": "#c9ebfb"
+        },
+        "Rincón Treneta": {
+          "color": "#317a59",
+          "fondo": "#9dedc9",
+          "pagina": "#c9fbe5"
+        },
+        "Rosario": {
+          "color": "#993d4f",
+          "fondo": "#ed9dac",
+          "pagina": "#fbc9d3"
+        },
+        "Río Chico": {
+          "color": "#3d6099",
+          "fondo": "#9dbced",
+          "pagina": "#c9dcfb"
+        },
+        "San Martín": {
+          "color": "#993d5f",
+          "fondo": "#ed9dbb",
+          "pagina": "#fbc9dc"
+        },
+        "Santa Rosa": {
+          "color": "#517a31",
+          "fondo": "#c0ed9d",
+          "pagina": "#dffbc9"
+        },
+        "Sarandí": {
+          "color": "#3d5199",
+          "fondo": "#9daeed",
+          "pagina": "#c9d4fb"
+        },
+        "Sierra Paileman": {
+          "color": "#993d73",
+          "fondo": "#ed9dcb",
+          "pagina": "#fbc9e6"
+        },
+        "Valle Verde": {
+          "color": "#317a6c",
+          "fondo": "#9deddd",
+          "pagina": "#c9fbf1"
+        },
+        "Viedma": {
+          "color": "#75702f",
+          "fondo": "#ede79d",
+          "pagina": "#fbf7c9"
+        },
+        "Villa Llanquín": {
+          "color": "#933d99",
+          "fondo": "#e89ded",
+          "pagina": "#f8c9fb"
+        },
+        "Yaminué": {
+          "color": "#3d6d99",
+          "fondo": "#9dc6ed",
+          "pagina": "#c9e3fb"
+        }
+      }
     }
   ]
 }
