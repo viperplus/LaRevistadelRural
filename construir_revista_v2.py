@@ -471,7 +471,7 @@ def paginar_album(art, fotos_paths):
                                 idxs=lote,
                                 fotos=[fotos_paths[i] for i in lote],
                                 nombres=[epigs[i] if i < len(epigs) else "" for i in lote]))
-        paginas[1]["toc"].append(dict(base, sede=g, n=len(idxs),
+        paginas[1]["toc"].append(dict(base, sede=g, n=len(idxs), orden=orden,
                                       ir=len(paginas) - n_pag))
 
     paginas.append({"tipo": "fin", "total": n_figu, "sedes": n_sede})
@@ -507,6 +507,7 @@ def render_album(art, fotos_paths):
                 '<article class="album__pagina album__pagina--portada"%s>'
                 '<div class="album__portada">'
                 '<p class="album__portada-marca">La Revista del Rural</p>'
+                '<p class="album__portada-ed">Edición 2025</p>'
                 '<h2 class="album__portada-t">Álbum de<br>figuritas</h2>'
                 '<p class="album__portada-sub">Ficha por ficha, sede por sede</p>'
                 '<p class="album__portada-dato"><b>%d</b> figuritas'
@@ -517,11 +518,11 @@ def render_album(art, fotos_paths):
         elif t == "indice":
             filas = "".join(
                 '<li><button type="button" class="album__toc-i" data-ir="%d" '
-                'style="--sede:%s;--sede-fondo:%s">'
+                'data-ord="%02d" style="--sede:%s;--sede-fondo:%s">'
                 '<span class="album__toc-punto" aria-hidden="true"></span>'
                 '<span class="album__toc-n">%s</span>'
                 '<span class="album__toc-c">%d</span></button></li>'
-                % (q["ir"], esc(q["color"]), esc(q["fondo"]),
+                % (q["ir"], q["orden"], esc(q["color"]), esc(q["fondo"]),
                    esc(q["sede"]), q["n"]) for q in p["toc"])
             cuerpo.append(
                 '<article class="album__pagina album__pagina--indice"%s>'
@@ -534,14 +535,14 @@ def render_album(art, fotos_paths):
                 '</article>' % (atributos, p["sedes"], p["total"], filas, n + 1, total))
         elif t == "sede":
             filas = "".join(
-                '<figure class="fig album__ficha">'
-                '<img src="%s" alt="Figurita de %s" loading="lazy" decoding="async">'
+                '<figure class="fig album__ficha" data-n="%d">'
+                '<img src="%s" alt="Figurita %d de %s" loading="lazy" decoding="async">'
                 '<figcaption>%s</figcaption></figure>'
-                % (f, esc(nombre or p["sede"]), esc(nombre or p["sede"]))
-                for f, nombre in zip(p["fotos"], p["nombres"]))
+                % (num + 1, f, num + 1, esc(p["sede"]), esc(nombre or p["sede"]))
+                for f, nombre, num in zip(p["fotos"], p["nombres"], p["idxs"]))
             cuerpo.append(
                 '<article class="album__pagina album__pagina--sede"%s>'
-                '<header class="album__cab">'
+                '<header class="album__cab" data-ord="%02d">'
                 '<p class="album__cab-ord">Sede %02d de %02d</p>'
                 '<h3 class="album__cab-t">%s</h3>'
                 '<p class="album__cab-n">%d figuritas'
@@ -549,7 +550,8 @@ def render_album(art, fotos_paths):
                 '<div class="album__grilla">%s</div>'
                 '<footer class="album__pie"><span>%s</span><span>%d / %d</span></footer>'
                 '</article>' % (
-                    atributos, p["orden"], p["sedes_total"], esc(p["sede"]),
+                    atributos, p["orden"], p["orden"], p["sedes_total"],
+                    esc(p["sede"]),
                     len(p["idxs"]),
                     " · página %d de %d" % (p["pag_sede"], p["pags_sede"])
                     if p["pags_sede"] > 1 else "",
@@ -568,6 +570,7 @@ def render_album(art, fotos_paths):
     opciones = "".join(
         '<option value="%d">%s · %d</option>' % (q["ir"], esc(q["sede"]), q["n"])
         for q in pags[1]["toc"])
+    n_figu = sum(len(p.get("idxs") or []) for p in pags)
     controles = (
         '<div class="album__controles">'
         '<button type="button" class="album__btn" data-paso="-1" aria-label="Página anterior">&#8249;</button>'
@@ -576,11 +579,17 @@ def render_album(art, fotos_paths):
         '<span class="album__estado-t">Portada</span>'
         '<span class="album__estado-n">1 / %d</span></p>'
         '<button type="button" class="album__btn" data-paso="1" aria-label="Página siguiente">&#8250;</button>'
+        '<div class="album__progreso">'
+        '<p class="album__progreso-tu">'
+        '<span class="album__progreso-t">Figuritas vistas</span>'
+        '<span class="album__progreso-n">0 / %d</span></p>'
+        '<span class="album__progreso-barra">'
+        '<span class="album__progreso-i"></span></span></div>'
         '<input type="range" class="album__rango" min="1" max="%d" value="1" step="1" aria-label="Ir a la página">'
         '<label class="album__ir-et"><span class="solo-lector">Ir a una sede</span>'
         '<select class="album__ir" aria-label="Ir a una sede">'
         '<option value="">Ir a una sede…</option>%s</select></label>'
-        '</div>' % (total, total, opciones))
+        '</div>' % (total, n_figu, total, opciones))
 
     partes.append('<div class="album" data-total="%d">%s'
                   '<div class="album__pantalla">%s</div>'

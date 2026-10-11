@@ -635,6 +635,17 @@ a:hover { color: var(--ocre-texto); }
      llenen el pliego y no sobre nada abajo. */
   --fig: 7.2rem;
   --fig-g: .7rem;
+  /* Paleta del álbum: cancha y oro, como un álbum de figuritas de
+     mundial. No toca los colores del sitio, sólo viven acá dentro. */
+  --cancha: #14432e;
+  --cancha-alta: #1d5c3d;
+  --cancha-hondo: #0b2a1d;
+  --oro: #d9a441;
+  --oro-claro: #f4d78e;
+  --oro-hondo: #a3701d;
+  /* El balón, dibujado con un SVG adentro del CSS: lo comparten la
+     portada y el cierre. */
+  --balon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30.5' fill='%23f6f2e8'/%3E%3Cg fill='%2312281f'%3E%3Cpath d='M32.0 21.8L41.7 28.8L38.0 40.3L26.0 40.3L22.3 28.8Z'/%3E%3Cpath d='M49.7 7.6L51.7 13.9L46.4 17.8L41.1 13.9L43.1 7.6ZM60.6 41.3L55.3 45.2L50.0 41.3L52.0 35.0L58.6 35.0ZM32.0 62.1L26.7 58.2L28.7 52.0L35.3 52.0L37.3 58.2ZM3.4 41.3L5.4 35.0L12.0 35.0L14.0 41.3L8.7 45.2ZM14.3 7.6L20.9 7.6L22.9 13.9L17.6 17.8L12.3 13.9Z'/%3E%3C/g%3E%3Cg stroke='%2312281f' stroke-width='2.6' stroke-linecap='round' fill='none'%3E%3Cpath d='M32.0 21.8L32.0 2.0M41.7 28.8L60.5 22.7M38.0 40.3L49.6 56.3M26.0 40.3L14.4 56.3M22.3 28.8L3.5 22.7'/%3E%3C/g%3E%3Ccircle cx='32' cy='32' r='30.5' fill='none' stroke='%2312281f' stroke-width='2.4'/%3E%3C/svg%3E");
   width: var(--ancho-album);
   margin-left: calc(50% - var(--ancho-album) / 2);
   margin-top: 1.4rem;
@@ -645,18 +656,28 @@ a:hover { color: var(--ocre-texto); }
   z-index: 6;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
-  grid-template-areas: "ant estado sig" "rango rango rango" "ir ir ir";
+  grid-template-areas:
+    "ant estado sig"
+    "prog prog prog"
+    "rango rango rango"
+    "ir ir ir";
   gap: .5rem .7rem;
   align-items: center;
-  background: rgba(250, 246, 238, .95);
+  background: linear-gradient(180deg, rgba(250, 246, 238, .97) 0%, rgba(244, 236, 222, .97) 100%);
   border: 1px solid var(--linea);
+  border-top: 3px solid var(--oro);
   border-radius: var(--r-m);
   box-shadow: var(--sombra-s);
   padding: .6rem .75rem;
   margin-bottom: .9rem;
 }
 @media (min-width: 40rem) {
-  .album__controles { grid-template-areas: "ant estado sig rango" "ir ir ir ir"; }
+  .album__controles {
+    grid-template-areas:
+      "ant estado sig prog"
+      "rango rango rango rango"
+      "ir ir ir ir";
+  }
 }
 .album__btn {
   width: 2.5rem; height: 2.5rem;
@@ -690,6 +711,48 @@ a:hover { color: var(--ocre-texto); }
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .album__estado-n { font-size: .76rem; color: var(--tinta-3); flex: none; }
+/* ---- barra de figuritas vistas: el álbum se va completando ---- */
+.album__progreso {
+  grid-area: prog;
+  min-width: 0;
+  padding: .3rem .55rem .4rem;
+  background: var(--verde-fondo);
+  border: 1px solid var(--verde-suave);
+  border-radius: var(--r-s);
+}
+.album__progreso-tu {
+  display: flex; justify-content: space-between; gap: .6rem;
+  margin: 0; align-items: baseline;
+}
+.album__progreso-t {
+  font-family: var(--titulos); font-size: .62rem; font-weight: 800;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--verde-texto);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.album__progreso-n {
+  font-family: var(--titulos); font-size: .74rem; font-weight: 800;
+  color: var(--verde-osc); flex: none;
+}
+.album__progreso-barra {
+  display: block; margin-top: .26rem;
+  height: .4rem; border-radius: var(--r-full);
+  background: rgba(20, 67, 46, .16);
+  overflow: hidden;
+}
+.album__progreso-i {
+  display: block; height: 100%; width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--oro-hondo) 0%, var(--oro) 35%,
+              var(--oro-claro) 70%, var(--oro) 100%);
+  background-size: 200% 100%;
+  transition: width .55s var(--trans);
+}
+.album__progreso-i[data-lleno="1"] { animation: album-brillo 2.6s linear infinite; }
+@keyframes album-brillo {
+  from { background-position: 0% 0; }
+  to { background-position: 200% 0; }
+}
 .album__rango { grid-area: rango; width: 100%; accent-color: var(--verde); }
 .album__ir-et { grid-area: ir; display: block; }
 .album__ir {
@@ -799,6 +862,14 @@ a:hover { color: var(--ocre-texto); }
   padding: 1.1rem 1.25rem .9rem;
   min-height: 0;
 }
+/* Las páginas de sede llevan las franjas del corte de cancha, muy
+   suaves, para que no se note el papel liso. */
+.album__pagina--sede {
+  background:
+    repeating-linear-gradient(92deg,
+      rgba(20, 67, 46, .022) 0 2.8rem,
+      rgba(20, 67, 46, .048) 2.8rem 5.6rem);
+}
 /* En el anverso llena la hoja; en el reverso va la página que viaja
    durante el giro, así que comparte el mismo recorte. El alto lo manda
    la pantalla: así todas las hojas miden igual y ninguna salta. */
@@ -859,8 +930,11 @@ a:hover { color: var(--ocre-texto); }
 .album__hoja.girando .album__cara--atras {
   box-shadow: 0 18px 40px rgba(60, 40, 16, .22), 0 3px 10px rgba(60, 40, 16, .14);
 }
-/* ---- cabecera de sede: ahí entra el color que la identifica ---- */
+/* ---- cabecera de sede: ahí entra el color que la identifica ----
+   Lleva el número de sede en grande, como el dorsal de una camiseta,
+   y un corte diagonal con el color de la sede. */
 .album__cab {
+  position: relative;
   display: grid;
   grid-template-columns: auto auto;
   justify-content: space-between;
@@ -870,8 +944,30 @@ a:hover { color: var(--ocre-texto); }
   background: var(--sede-fondo, var(--papel-calido));
   border-bottom: 3px solid var(--sede, var(--verde));
   border-radius: calc(var(--r-m) - 1px) calc(var(--r-m) - 1px) 0 0;
+  overflow: hidden;
 }
+.album__cab::before {
+  content: attr(data-ord);
+  position: absolute; right: .55rem; top: 50%;
+  transform: translateY(-52%);
+  font-family: var(--titulos);
+  font-size: 2.5rem; font-weight: 800; line-height: 1;
+  color: color-mix(in srgb, var(--sede, var(--verde)) 20%, transparent);
+  pointer-events: none;
+}
+.album__cab::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(104deg, transparent 0 66%,
+    color-mix(in srgb, var(--sede, var(--verde)) 13%, transparent) 66% 100%);
+  pointer-events: none;
+}
+.album__cab > * { position: relative; z-index: 1; }
 .album__cab--indice { background: var(--verde-fondo); border-bottom-color: var(--verde); }
+.album__cab--indice::after {
+  background: linear-gradient(104deg, transparent 0 66%,
+    color-mix(in srgb, var(--verde) 13%, transparent) 66% 100%);
+}
 .album__cab-ord {
   margin: 0;
   font-family: var(--titulos); font-size: .68rem; font-weight: 700;
@@ -905,20 +1001,52 @@ a:hover { color: var(--ocre-texto); }
   gap: var(--fig-g);
   flex: 1 0 auto;
 }
+/* Cada ficha lleva su número, como la figurita de un álbum de verdad,
+   y un brillo de papel plateado al pasar el mouse. */
 .album__ficha {
+  position: relative;
+  isolation: isolate;
   margin: 0;
   background: var(--papel-alt);
   border: 1px solid var(--linea);
+  border-top: 2px solid var(--sede, var(--verde-suave));
   border-radius: var(--r-m);
   padding: .42rem .42rem .3rem;
   box-shadow: var(--sombra-s);
   cursor: zoom-in;
   transition: transform .25s var(--trans), box-shadow .25s var(--trans), border-color .25s var(--trans);
 }
+.album__ficha::before {
+  content: attr(data-n);
+  position: absolute; top: .28rem; left: .28rem; z-index: 2;
+  min-width: 1.6rem; padding: .1rem .3rem;
+  font-family: var(--titulos); font-size: .58rem; font-weight: 800;
+  letter-spacing: .02em; line-height: 1.2; text-align: center;
+  color: var(--papel-alt);
+  background: var(--sede, var(--verde-osc));
+  border-radius: .3rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .34);
+  pointer-events: none;
+}
+.album__ficha::after {
+  content: "";
+  position: absolute; inset: 0; z-index: 1;
+  border-radius: inherit;
+  background: linear-gradient(112deg, transparent 28%,
+    rgba(255, 255, 255, .5) 44%, rgba(255, 255, 255, .14) 52%, transparent 68%);
+  opacity: 0;
+  transform: translateX(-14%);
+  transition: opacity .35s var(--trans), transform .55s var(--trans);
+  pointer-events: none;
+}
 .album__ficha:hover, .album__ficha:focus-within {
   transform: translateY(-3px);
   box-shadow: var(--sombra-m);
   border-color: var(--sede, var(--verde-suave));
+}
+.album__ficha:hover::after, .album__ficha:focus-within::after {
+  opacity: 1;
+  transform: translateX(14%);
 }
 .album__ficha img {
   width: 100%;
@@ -967,9 +1095,11 @@ a:hover { color: var(--ocre-texto); }
   gap: .32rem;
   align-content: start;
 }
+/* Cada sede en el índice va como una fila de grupo: número, color y
+   cuántas figuritas tiene. */
 .album__toc-i {
   width: 100%;
-  display: flex; align-items: center; gap: .4rem;
+  display: flex; align-items: center; gap: .45rem;
   font-family: var(--titulos); font-size: .76rem; font-weight: 600;
   color: var(--sede);
   background: var(--sede-fondo);
@@ -980,6 +1110,17 @@ a:hover { color: var(--ocre-texto); }
   text-align: left;
   cursor: pointer;
   transition: transform .18s var(--trans), box-shadow .18s var(--trans);
+}
+.album__toc-i::before {
+  content: attr(data-ord);
+  flex: none;
+  width: 1.6rem;
+  padding: .12rem 0;
+  font-size: .6rem; font-weight: 800; letter-spacing: .02em;
+  text-align: center;
+  color: var(--papel-alt);
+  background: var(--sede);
+  border-radius: .26rem;
 }
 .album__toc-i:hover, .album__toc-i:focus-visible {
   transform: translateY(-2px);
@@ -992,20 +1133,55 @@ a:hover { color: var(--ocre-texto); }
 .album__toc-n { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .album__toc-c { font-size: .7rem; opacity: .75; }
 /* ---- portada y cierre ---- */
+/* La portada es la cancha: franjas de corte, el círculo central y, al
+   costado, el balón. Todo dibujado, sin imágenes. */
 .album__pagina--portada {
+  position: relative;
   align-items: center; justify-content: center; text-align: center;
   color: var(--papel);
   background:
-    radial-gradient(ellipse at 20% 15%, rgba(255, 255, 255, .16) 0%, transparent 55%),
-    radial-gradient(ellipse at 82% 88%, rgba(201, 118, 47, .34) 0%, transparent 55%),
-    linear-gradient(155deg, var(--verde-osc) 0%, var(--verde) 58%, #0f362f 100%);
-  border-color: var(--verde-osc);
+    radial-gradient(circle at 50% 62%, transparent 0 7.2rem,
+      rgba(255, 255, 255, .09) 7.2rem 7.45rem, transparent 7.45rem),
+    repeating-linear-gradient(92deg,
+      rgba(255, 255, 255, .045) 0 3.4rem, rgba(0, 0, 0, .045) 3.4rem 6.8rem),
+    radial-gradient(ellipse at 18% 12%, rgba(255, 255, 255, .14) 0%, transparent 52%),
+    linear-gradient(158deg, var(--cancha-alta) 0%, var(--cancha) 52%, var(--cancha-hondo) 100%);
+  border-color: var(--cancha-hondo);
+}
+/* El balón, dibujado con un SVG adentro del CSS. */
+.album__portada::after {
+  content: "";
+  position: absolute;
+  right: -7%; bottom: -6%;
+  width: min(48%, 15rem); aspect-ratio: 1;
+  background: var(--balon) center/contain no-repeat;
+  opacity: .17;
+  pointer-events: none;
+  transform: rotate(-8deg);
+}
+.album__portada {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 1.2rem;
 }
 .album__portada-marca {
-  margin: 0 0 1.4rem;
-  font-family: var(--titulos); font-size: .7rem; font-weight: 700;
+  margin: 0 0 .85rem;
+  font-family: var(--titulos); font-size: .68rem; font-weight: 700;
   letter-spacing: .28em; text-transform: uppercase;
-  color: rgba(250, 246, 238, .78);
+  color: rgba(250, 246, 238, .8);
+}
+/* Sello de edición, como el que va pegado en la esquina del sobre. */
+.album__portada-ed {
+  display: inline-block;
+  margin: 0 0 1.1rem;
+  padding: .3rem .95rem;
+  font-family: var(--titulos); font-size: .62rem; font-weight: 800;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--cancha-hondo);
+  background: linear-gradient(180deg, var(--oro-claro) 0%, var(--oro) 100%);
+  border-radius: var(--r-full);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset, 0 2px 6px rgba(0, 0, 0, .3);
 }
 .album__portada-t {
   margin: 0;
@@ -1013,45 +1189,94 @@ a:hover { color: var(--ocre-texto); }
   font-size: clamp(2.6rem, 9vw, 4.6rem);
   font-weight: 800; line-height: .95; letter-spacing: -.015em;
   text-transform: uppercase;
+  /* Letras doradas, como el título de una copa. */
+  background: linear-gradient(176deg, #fff9ea 0%, var(--oro-claro) 34%,
+              var(--oro) 58%, #96651a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 2px 0 rgba(0, 0, 0, .38));
 }
 .album__portada-sub {
   margin: .9rem 0 0;
   font-family: var(--texto); font-size: 1.02rem; font-style: italic;
-  color: rgba(250, 246, 238, .85);
+  color: rgba(250, 246, 238, .88);
 }
+/* El dato grande va como en un marcador. */
 .album__portada-dato {
-  margin: 1.6rem 0 0;
-  font-family: var(--titulos); font-size: 1.02rem; font-weight: 600;
-  color: var(--ocre-suave);
+  display: inline-block;
+  margin: 1.5rem 0 0;
+  padding: .5rem 1.1rem;
+  font-family: var(--titulos); font-size: 1rem; font-weight: 600;
+  color: rgba(250, 246, 238, .92);
+  background: rgba(0, 0, 0, .3);
+  border: 1px solid rgba(244, 215, 142, .42);
+  border-radius: var(--r-s);
 }
-.album__portada-dato b { font-size: 1.5rem; font-weight: 800; color: var(--papel); }
-.album__portada-sep { margin: 0 .6rem; opacity: .6; }
+.album__portada-dato b { font-size: 1.5rem; font-weight: 800; color: var(--oro-claro); }
+.album__portada-sep { margin: 0 .6rem; opacity: .55; }
 .album__portada-ayuda {
-  margin: 1.7rem 0 0;
-  font-family: var(--titulos); font-size: .74rem; font-weight: 600;
+  margin: 1.6rem 0 0;
+  font-family: var(--titulos); font-size: .72rem; font-weight: 600;
   letter-spacing: .04em;
-  color: rgba(250, 246, 238, .62);
+  color: rgba(250, 246, 238, .6);
 }
-.album__pagina--fin { align-items: center; justify-content: center; text-align: center; }
+/* El balón se sale un poco del marco a propósito: la página no debe
+   por eso ponerse a scrollear. */
+.album__cara > .album__pagina--portada { overflow: hidden; }
+.album__pagina--fin {
+  position: relative;
+  align-items: center; justify-content: center; text-align: center;
+  color: var(--papel);
+  background:
+    radial-gradient(circle at 50% 46%, transparent 0 6.4rem,
+      rgba(255, 255, 255, .09) 6.4rem 6.65rem, transparent 6.65rem),
+    repeating-linear-gradient(92deg,
+      rgba(255, 255, 255, .045) 0 3.4rem, rgba(0, 0, 0, .045) 3.4rem 6.8rem),
+    linear-gradient(158deg, var(--cancha-alta) 0%, var(--cancha) 52%, var(--cancha-hondo) 100%);
+  border-color: var(--cancha-hondo);
+}
+.album__fin {
+  position: relative; z-index: 1;
+  width: 100%; padding: 1.2rem;
+}
+.album__fin::before {
+  content: "";
+  display: block;
+  width: 4.6rem; aspect-ratio: 1;
+  margin: 0 auto 1.2rem;
+  background: var(--balon) center/contain no-repeat;
+  opacity: .92;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .4));
+  transform: rotate(-8deg);
+}
 .album__fin-t {
   margin: 0;
   font-family: var(--titulos); font-size: clamp(1.8rem, 6vw, 2.8rem);
-  font-weight: 800; color: var(--verde-osc);
+  font-weight: 800;
+  background: linear-gradient(176deg, #fff9ea 0%, var(--oro-claro) 34%,
+              var(--oro) 58%, #96651a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 2px 0 rgba(0, 0, 0, .38));
 }
 .album__fin-d {
   margin: .7rem 0 1.6rem;
-  font-family: var(--titulos); font-size: .98rem; font-weight: 600; color: var(--ocre-texto);
+  font-family: var(--titulos); font-size: .98rem; font-weight: 600;
+  color: rgba(250, 246, 238, .85);
 }
-.album__fin-d b { font-size: 1.4rem; font-weight: 800; color: var(--verde); }
+.album__fin-d b { font-size: 1.4rem; font-weight: 800; color: var(--oro-claro); }
 .album__volver {
   font-family: var(--titulos); font-size: .84rem; font-weight: 700;
-  color: var(--papel-alt); background: var(--verde);
-  border: 1px solid var(--verde-osc);
+  color: var(--cancha-hondo);
+  background: linear-gradient(180deg, var(--oro-claro) 0%, var(--oro) 100%);
+  border: 1px solid var(--oro-hondo);
   border-radius: var(--r-full);
   padding: .6rem 1.4rem;
   cursor: pointer;
 }
-.album__volver:hover { background: var(--verde-osc); }
+.album__volver:hover { background: linear-gradient(180deg, #fff3d2 0%, var(--oro-claro) 100%); }
 .album__ayuda {
   margin: .85rem 0 0;
   text-align: center;

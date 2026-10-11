@@ -141,16 +141,26 @@
     var punto = alb.querySelector(".album__punto");
     var rango = alb.querySelector(".album__rango");
     var ir = alb.querySelector(".album__ir");
+    var progN = alb.querySelector(".album__progreso-n");
+    var progI = alb.querySelector(".album__progreso-i");
 
     var GIRO = 820;
     var vistas = [];     // { v, paginas, hojas }
     var vistaDe = [];    // número de página -> número de vista
     var primera = {};    // sede -> número de su primera página
+    var fichasPag = [];  // figuritas que trae cada página
+    var totalFichas = 0;
+    var vistasPag = {};  // páginas que ya se miraron: el álbum se va llenando
     var doble = true;
     var anima = false;
     var i = 0;
     var reloj = null;
     var espera = null;
+    var guardaReloj = null;
+
+    try {
+      vistasPag = JSON.parse(window.localStorage.getItem("album-vistas") || "{}") || {};
+    } catch (e) { vistasPag = {}; }
 
     function malla(q) {
       return !!(window.matchMedia && window.matchMedia(q).matches);
@@ -229,6 +239,48 @@
         vistas.push({ v: vista, paginas: par, hojas: hs });
       });
       pant.appendChild(frag);
+
+      fichasPag = pags.map(function (p) {
+        return p.querySelectorAll(".album__ficha").length;
+      });
+      totalFichas = fichasPag.reduce(function (a, b) { return a + b; }, 0);
+    }
+
+    /* El álbum se va completando a medida que se miran las páginas.
+       Las que ya se vieron quedan guardadas, así que al volver se
+       sigue de donde estaba. */
+    function pintarProgreso() {
+      if (!progN || !progI) return;
+      var vistas_ = 0;
+      pags.forEach(function (p, n) {
+        if (vistasPag[p.dataset.pag || n]) vistas_ += fichasPag[n] || 0;
+      });
+      progN.textContent = vistas_ + " / " + totalFichas;
+      var pct = totalFichas ? Math.round(vistas_ / totalFichas * 100) : 0;
+      progI.style.width = pct + "%";
+      if (pct > 0) progI.setAttribute("data-lleno", "1");
+      else progI.removeAttribute("data-lleno");
+    }
+
+    function marcarVista(v) {
+      if (!v) return;
+      var cambia = false;
+      v.paginas.forEach(function (p) {
+        if (!p) return;
+        var clave = p.dataset.pag;
+        var n = parseInt(clave, 10);
+        if (!fichasPag[n]) return;
+        if (!vistasPag[clave]) { vistasPag[clave] = 1; cambia = true; }
+      });
+      if (!cambia) return;
+      pintarProgreso();
+      if (guardaReloj) clearTimeout(guardaReloj);
+      guardaReloj = setTimeout(function () {
+        guardaReloj = null;
+        try {
+          window.localStorage.setItem("album-vistas", JSON.stringify(vistasPag));
+        } catch (e) {}
+      }, 400);
     }
 
     function titulo(v) {
@@ -368,6 +420,7 @@
         x.v.setAttribute("aria-hidden", ves ? "false" : "true");
       });
       pintarBarra();
+      marcarVista(vistas[mostrada]);
       ajustarFig();
     }
 
@@ -577,5 +630,6 @@
     armar();
     if (rango) rango.max = vistas.length;
     pintar();
+    pintarProgreso();
   })();
 })();
