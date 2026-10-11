@@ -258,6 +258,71 @@
       for (var k = 0; k < imgs.length; k++) imgs[k].setAttribute("loading", "eager");
     }
 
+    /* Las figuritas miden todas igual, pero el alto que hay para dos
+       filas depende de la pantalla y del encabezado de la sede. En vez
+       de dejar un hueco abajo, se mide lo que hay y se calcula el ancho
+       de la ficha que llena justamente esas dos filas; si por ancho no
+       se puede llenar entero, se acorta el pliego hasta que sobre
+       exactamente lo mismo de un lado que del otro. El alto de la foto
+       sale de su proporción, así que ninguna se deforma. */
+    var figLista = false;
+    function ajustarFig(forzar) {
+      if (!alb || (figLista && !forzar)) return;
+      var v = vistas[mostrada];
+      if (!v) return;
+      var pag = null;
+      for (var j = 0; j < v.paginas.length && !pag; j++) {
+        if (v.paginas[j] && v.paginas[j].querySelector(".album__grilla")) pag = v.paginas[j];
+      }
+      if (!pag) return;
+      var grilla = pag.querySelector(".album__grilla");
+      var card = grilla && grilla.querySelector(".album__ficha");
+      var img = card && card.querySelector("img");
+      if (!img || !img.offsetWidth || !img.offsetHeight) return;
+
+      /* Se mide contra el alto que manda el CSS, no contra el que ya se
+         ajustó: si no, cada medición achicaría el pliego un poco más. */
+      alb.style.removeProperty("--alto");
+      void pant.offsetHeight;
+
+      var cs = getComputedStyle(pag);
+      var cromo = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+      var cab = pag.querySelector(".album__cab");
+      if (cab && cab.offsetHeight) {
+        cromo += cab.offsetHeight + (parseFloat(getComputedStyle(cab).marginBottom) || 0);
+      }
+      var pie = pag.querySelector(".album__pie");
+      if (pie && pie.offsetHeight) {
+        cromo += pie.offsetHeight + (parseFloat(getComputedStyle(pie).marginTop) || 0);
+      }
+      var alto = pag.clientHeight - cromo;
+
+      var gs = getComputedStyle(grilla);
+      var col = (gs.gridTemplateColumns || "").trim().split(/\s+/).length;
+      if (col < 1) return;
+      var filas = Math.ceil(grilla.children.length / col) || 1;
+      var ritmoF = parseFloat(gs.rowGap) || 0;
+      var altFicha = (alto - ritmoF * (filas - 1)) / filas;
+
+      /* De la ficha ya dibujada se saca todo lo que no es la foto
+         (borde, relleno y pie) y la proporción real de la imagen. */
+      var ratio = img.offsetHeight / img.offsetWidth;
+      var resto = card.offsetHeight - img.offsetHeight;
+      var lado = card.offsetWidth - img.offsetWidth;
+      var fig = (altFicha - resto) / ratio + lado;
+
+      var ancho = pag.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      var tope = (ancho - (parseFloat(gs.columnGap) || 0) * (col - 1)) / col;
+      if (tope > 0) fig = Math.min(fig, tope);
+      if (!isFinite(fig) || fig < 24) return;
+
+      var altReal = (fig - lado) * ratio + resto;
+      var altoNecesario = altReal * filas + ritmoF * (filas - 1) + cromo;
+      alb.style.setProperty("--fig", fig.toFixed(1) + "px");
+      alb.style.setProperty("--alto", Math.max(altoNecesario, 352).toFixed(1) + "px");
+      figLista = true;
+    }
+
     function pintarBarra() {
       var v = vistas[i];
       if (!v) return;
@@ -303,6 +368,7 @@
         x.v.setAttribute("aria-hidden", ves ? "false" : "true");
       });
       pintarBarra();
+      ajustarFig();
     }
 
     /* ---- pasaje de hojas ------------------------------------------------
@@ -495,13 +561,15 @@
       espera = setTimeout(function () {
         espera = null;
         var quiere = !window.matchMedia || malla("(min-width: 46rem)");
-        if (quiere === doble) return;
-        var abierta = vistas[mostrada].paginas.filter(Boolean)[0] || pags[0];
-        var cual = pags.indexOf(abierta);
-        armar();
-        i = vistaDe[cual] != null ? vistaDe[cual] : 0;
-        mostrada = i;
-        pintar();
+        if (quiere !== doble) {
+          var abierta = vistas[mostrada].paginas.filter(Boolean)[0] || pags[0];
+          var cual = pags.indexOf(abierta);
+          armar();
+          i = vistaDe[cual] != null ? vistaDe[cual] : 0;
+          mostrada = i;
+          pintar();
+        }
+        ajustarFig(true);
       }, 240);
     });
 

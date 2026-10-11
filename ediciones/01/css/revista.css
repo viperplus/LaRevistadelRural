@@ -629,7 +629,10 @@ a:hover { color: var(--ocre-texto); }
   /* Ancho de cada figurita: idéntico en todas las páginas, aunque una
      sede con muchas tenga que ocupar varias hojas. Tres columnas por dos
      filas por hoja, como un álbum de verdad; si el ancho no da para
-     tres, se bajan a dos columnas sin tocar el tamaño de la ficha. */
+     tres, se bajan a dos columnas sin tocar el tamaño de la ficha.
+     El valor de acá es sólo el de arranque: en cuanto hay una página
+     con fichas, el JavaScript lo recalcula para que las dos filas
+     llenen el pliego y no sobre nada abajo. */
   --fig: 7.2rem;
   --fig-g: .7rem;
   width: var(--ancho-album);
@@ -711,7 +714,10 @@ a:hover { color: var(--ocre-texto); }
    dará un salto. */
 .album__pantalla {
   position: relative;
-  height: clamp(30rem, 72vh, 44rem);
+  /* El JavaScript mide lo que hay y ajusta este alto para que las dos
+     filas de figuritas lo llenen sin que sobre espacio abajo. Mientras
+     tanto manda el clamp. */
+  height: var(--alto, clamp(30rem, 72vh, 44rem));
   /* el arrastre horizontal es del álbum; el vertical sigue scrolleando */
   touch-action: pan-y;
   cursor: grab;
