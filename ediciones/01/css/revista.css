@@ -627,10 +627,11 @@ a:hover { color: var(--ocre-texto); }
      página cada hoja tiene el ancho justo para tres fichas enteras. */
   --ancho-album: min(64rem, calc(100vw - 4 * var(--marg) - 1rem));
   /* Ancho de cada figurita: idéntico en todas las páginas, aunque una
-     sede con muchas tenga que ocupar varias hojas. 3 columnas x 2 filas
-     por hoja, como un álbum de verdad. */
-  --fig: 7.4rem;
-  --fig-g: .8rem;
+     sede con muchas tenga que ocupar varias hojas. Tres columnas por dos
+     filas por hoja, como un álbum de verdad; si el ancho no da para
+     tres, se bajan a dos columnas sin tocar el tamaño de la ficha. */
+  --fig: 7.2rem;
+  --fig-g: .7rem;
   width: var(--ancho-album);
   margin-left: calc(50% - var(--ancho-album) / 2);
   margin-top: 1.4rem;
@@ -1062,8 +1063,13 @@ a:hover { color: var(--ocre-texto); }
   letter-spacing: .02em;
   color: var(--tinta-3);
 }
+/* Doble página angosta: la hoja queda demasiado estrecha para tres, así
+   que se pasan a dos columnas (2x3). El pasaje de hojas sigue igual. */
+@media (min-width: 46rem) and (max-width: 65.99rem) {
+  .album__grilla { grid-template-columns: repeat(2, minmax(0, var(--fig))); }
+}
 @media (max-width: 34rem) {
-  /* No entran tres: se pasan a dos columnas, con la misma figurita. */
+  /* Una sola hoja angosta: no entran tres. */
   .album__grilla { grid-template-columns: repeat(2, minmax(0, var(--fig))); }
   .album__pagina { padding: .9rem .9rem .8rem; }
   .album__cab { margin: -.9rem -.9rem 1rem; padding: .7rem .9rem; }
@@ -1072,8 +1078,8 @@ a:hover { color: var(--ocre-texto); }
 /* En pantallas muy angostas ni de a dos entra el ancho fijo: se baja un
    pelino. En todo lo demás --fig no cambia, así que las figuritas son
    iguales en todas las páginas y en todas las sedes. */
-@media (max-width: 23rem) {
-  .album { --fig: 6rem; --fig-g: .6rem; }
+@media (max-width: 24.5rem) {
+  .album { --fig: 5.3rem; --fig-g: .5rem; }
 }
 
 /* Tarjetas: rotulo + texto corto, en grilla de dos columnas */
