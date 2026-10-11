@@ -728,6 +728,16 @@ a:hover { color: var(--ocre-texto); }
 }
 .album__vista[data-simple] { grid-template-columns: minmax(0, 1fr); }
 .album__vista.es-actual { display: grid; z-index: 2; }
+/* Mientras la hoja gira, el pliego que viene queda asomado debajo de la
+   vista que se está mirando. Ocupa el mismo cuadro que ella pero va por
+   detrás: se descubre sólo en el hueco que deja la página que se
+   levanta, igual que al pasar la hoja de un libro de verdad. */
+.album__vista.es-debajo {
+  display: grid;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
 /* Lomo: apenas una quiebra de luz entre las dos hojas. Con negro ancho
    parecía una cinta de cemento atravesando el pliego. */
 .album__vista:not([data-simple])::after {
@@ -834,10 +844,11 @@ a:hover { color: var(--ocre-texto); }
   line-height: 2.1;
 }
 /* ---- pasaje de hojas ----
-   La hoja que gira se levanta del pliego: se la pone por encima y se le
-   da una sombra que crece con el giro. El ángulo lo manda el JavaScript,
-   así que la misma hoja sirve para el giro solo y para el arrastre. */
-.album__hoja.girando { z-index: 5; }
+   La hoja que gira se levanta del pliego: se la pone por encima (aún
+   del lomo, que es el doblez) y se le da una sombra que crece con el
+   giro. El ángulo lo manda el JavaScript, así que la misma hoja sirve
+   para el giro solo y para el arrastre. */
+.album__hoja.girando { z-index: 7; }
 .album__hoja.girando .album__cara--frente,
 .album__hoja.girando .album__cara--atras {
   box-shadow: 0 18px 40px rgba(60, 40, 16, .22), 0 3px 10px rgba(60, 40, 16, .14);

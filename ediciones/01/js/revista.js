@@ -287,9 +287,9 @@
       }
     }
 
-    /* La vista a la que se le pone es-actual es la que se está mirando,
-       que puede ir detrás del número que ya cambió en la barra mientras
-       la hoja está girando. */
+    /* Marca la vista que se está mirando. La que viene puede estar
+       asomando debajo mientras la hoja gira, pero eso lo maneja
+       abrirGiro: acá sólo se limpia. */
     function pintar() {
       if (!vistas.length) return;
       if (!vistas[mostrada]) mostrada = 0;
@@ -299,6 +299,7 @@
       vistas.forEach(function (x, n) {
         var ves = n === mostrada;
         x.v.classList.toggle("es-actual", ves);
+        x.v.classList.remove("es-debajo");
         x.v.setAttribute("aria-hidden", ves ? "false" : "true");
       });
       pintarBarra();
@@ -307,9 +308,11 @@
     /* ---- pasaje de hojas ------------------------------------------------
        La hoja gira alrededor del lomo, con el mouse o el dedo si se la
        agarra y se la arrastra. El dorso de la hoja que gira lleva la
-       página que viene: es el mismo mecanismo de un libro. La vista no
-       cambia hasta que la hoja terminó de pasar. */
-    var giros = { dir: null, n: -1, hoja: null, origen: null, hijo: null, ang: 0, p: 0, anim: null };
+       página que viene y, debajo, ya asoma el resto del pliego que viene:
+       al levantar la página se descubre lo que hay atrás, como en un
+       libro de verdad. La vista no cambia hasta que la hoja terminó. */
+    var giros = { dir: null, n: -1, hoja: null, origen: null, hijo: null,
+                  bajo: -1, ang: 0, p: 0, anim: null };
     var mostrada = 0;      // vista que se está mirando
     var trago = false;     // hubo un arrastre: el clic que sigue no cuenta
 
@@ -322,13 +325,22 @@
       var dorso = hoja.querySelector(".album__cara--atras");
       var frente = w.hojas[ladoViaje].querySelector(".album__cara--frente");
       if (!hoja || !dorso || !frente || !frente.firstElementChild) return false;
+      /* En doble página lo que se descubre es el pliego que viene, con
+         la hoja que viaja ya vacía. En hoja sola viaja la página entera,
+         así que debajo queda la que sigue a la del dorso. */
+      var bajo = doble ? n : n + (dir === "adelante" ? 1 : -1);
+      if (bajo < 0 || bajo >= vistas.length) bajo = -1;
       giros = {
         dir: dir, n: n, hoja: hoja, origen: dorso, hijo: frente,
-        ang: 0, p: 0, anim: null
+        bajo: bajo, ang: 0, p: 0, anim: null
       };
       dorso.appendChild(frente.firstElementChild);
       hoja.style.transformOrigin = dir === "adelante" ? "left center" : "right center";
       hoja.classList.add("girando");
+      if (bajo >= 0) {
+        alistar(bajo);
+        vistas[bajo].v.classList.add("es-debajo");
+      }
       return true;
     }
 
@@ -356,7 +368,8 @@
     function finalizar(cerrar) {
       if (reloj) { clearTimeout(reloj); reloj = null; }
       var g = giros;
-      giros = { dir: null, n: -1, hoja: null, origen: null, hijo: null, ang: 0, p: 0, anim: null };
+      giros = { dir: null, n: -1, hoja: null, origen: null, hijo: null,
+                bajo: -1, ang: 0, p: 0, anim: null };
       if (g.anim) { try { g.anim.cancel(); } catch (e) {} }
       if (g.hoja) {
         g.hoja.style.transform = "";
@@ -366,6 +379,7 @@
       if (g.origen && g.origen.firstElementChild) {
         g.hijo.appendChild(g.origen.firstElementChild);
       }
+      if (g.bajo >= 0 && vistas[g.bajo]) vistas[g.bajo].v.classList.remove("es-debajo");
       if (cerrar && g.n >= 0) { mostrada = g.n; i = g.n; }
       if (vistas.length) pintar();
     }
