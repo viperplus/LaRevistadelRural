@@ -712,7 +712,11 @@ a:hover { color: var(--ocre-texto); }
 .album__pantalla {
   position: relative;
   height: clamp(30rem, 72vh, 44rem);
+  /* el arrastre horizontal es del álbum; el vertical sigue scrolleando */
+  touch-action: pan-y;
+  cursor: grab;
 }
+.album__pantalla:active { cursor: grabbing; }
 .album__vista {
   position: relative;
   display: none;
@@ -724,12 +728,6 @@ a:hover { color: var(--ocre-texto); }
 }
 .album__vista[data-simple] { grid-template-columns: minmax(0, 1fr); }
 .album__vista.es-actual { display: grid; z-index: 2; }
-.album__vista.saliendo {
-  display: grid;
-  position: absolute; inset: 0;
-  z-index: 3;
-  pointer-events: none;
-}
 /* Lomo: apenas una quiebra de luz entre las dos hojas. Con negro ancho
    parecía una cinta de cemento atravesando el pliego. */
 .album__vista:not([data-simple])::after {
@@ -835,42 +833,14 @@ a:hover { color: var(--ocre-texto); }
   max-width: 11ch;
   line-height: 2.1;
 }
-/* ---- pasaje de hojas ---- */
-@media (prefers-reduced-motion: no-preference) {
-  .album__vista.gira-adelante .album__hoja--der {
-    z-index: 4;
-    animation: album-hoja-der .78s cubic-bezier(.44, .02, .3, 1) forwards;
-  }
-  .album__vista.gira-atras .album__hoja--izq {
-    z-index: 4;
-    animation: album-hoja-izq .78s cubic-bezier(.44, .02, .3, 1) forwards;
-  }
-  /* En pantalla angosta no hay doble página: ahí la hoja entra con un
-     barrido, que es el mismo gesto sin el giro completo. */
-  .album[data-dir="adelante"] .album__vista.entrando[data-simple] {
-    animation: album-adelante .34s var(--trans);
-  }
-  .album[data-dir="atras"] .album__vista.entrando[data-simple] {
-    animation: album-atras .34s var(--trans);
-  }
-}
-@keyframes album-hoja-der {
-  0%   { transform: rotateY(0deg); }
-  84%  { transform: rotateY(-184deg); }
-  100% { transform: rotateY(-180deg); }
-}
-@keyframes album-hoja-izq {
-  0%   { transform: rotateY(0deg); }
-  84%  { transform: rotateY(184deg); }
-  100% { transform: rotateY(180deg); }
-}
-@keyframes album-adelante {
-  from { opacity: 0; transform: translateX(4%) rotateY(-11deg); }
-  to   { opacity: 1; transform: none; }
-}
-@keyframes album-atras {
-  from { opacity: 0; transform: translateX(-4%) rotateY(11deg); }
-  to   { opacity: 1; transform: none; }
+/* ---- pasaje de hojas ----
+   La hoja que gira se levanta del pliego: se la pone por encima y se le
+   da una sombra que crece con el giro. El ángulo lo manda el JavaScript,
+   así que la misma hoja sirve para el giro solo y para el arrastre. */
+.album__hoja.girando { z-index: 5; }
+.album__hoja.girando .album__cara--frente,
+.album__hoja.girando .album__cara--atras {
+  box-shadow: 0 18px 40px rgba(60, 40, 16, .22), 0 3px 10px rgba(60, 40, 16, .14);
 }
 /* ---- cabecera de sede: ahí entra el color que la identifica ---- */
 .album__cab {

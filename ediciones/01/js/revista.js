@@ -149,7 +149,6 @@
     var doble = true;
     var anima = false;
     var i = 0;
-    var giro = null;
     var reloj = null;
     var espera = null;
 
@@ -184,12 +183,11 @@
     /* Junta las páginas en pliegos. Con doble página la portada y el
        índice van solos del lado derecho, sobre una guarda, y el resto
        se agrupa de a dos: así el dorso de cada hoja es justamente la
-       página siguiente, igual que en un libro encuadernado.
-       A partir de 46rem de ancho: ahí empieza el pasaje de hojas. En
-       pantallas más angostas no hay doble página y la hoja entra con
-       un barrido. */
+       página siguiente, igual que en un libro encuadernado. A partir de
+       46rem de ancho; debajo se ve una hoja por vez, pero la hoja gira
+       igual que en un libro. */
     function armar() {
-      finalizar();
+      finalizar(false);
       doble = !window.matchMedia || malla("(min-width: 46rem)");
 
       pags.forEach(function (p) { pant.appendChild(p); });
@@ -260,16 +258,9 @@
       for (var k = 0; k < imgs.length; k++) imgs[k].setAttribute("loading", "eager");
     }
 
-    function pintar() {
-      alistar(i - 1);
-      alistar(i);
-      alistar(i + 1);
+    function pintarBarra() {
       var v = vistas[i];
-      vistas.forEach(function (x, n) {
-        var ves = n === i;
-        x.v.classList.toggle("es-actual", ves);
-        x.v.setAttribute("aria-hidden", ves ? "false" : "true");
-      });
+      if (!v) return;
       if (nom) nom.textContent = titulo(v);
       if (num) num.textContent = (i + 1) + " / " + vistas.length;
       if (ant) ant.disabled = i === 0;
@@ -296,54 +287,161 @@
       }
     }
 
-    /* Devuelve a la hoja que prestó para el giro y saca las marcas de
-       animación. Siempre se llama: también si se salta de página a
-       mitad de un giro anterior. */
-    function finalizar() {
+    /* La vista a la que se le pone es-actual es la que se está mirando,
+       que puede ir detrás del número que ya cambió en la barra mientras
+       la hoja está girando. */
+    function pintar() {
+      if (!vistas.length) return;
+      if (!vistas[mostrada]) mostrada = 0;
+      alistar(mostrada - 1);
+      alistar(mostrada);
+      alistar(mostrada + 1);
+      vistas.forEach(function (x, n) {
+        var ves = n === mostrada;
+        x.v.classList.toggle("es-actual", ves);
+        x.v.setAttribute("aria-hidden", ves ? "false" : "true");
+      });
+      pintarBarra();
+    }
+
+    /* ---- pasaje de hojas ------------------------------------------------
+       La hoja gira alrededor del lomo, con el mouse o el dedo si se la
+       agarra y se la arrastra. El dorso de la hoja que gira lleva la
+       página que viene: es el mismo mecanismo de un libro. La vista no
+       cambia hasta que la hoja terminó de pasar. */
+    var giros = { dir: null, n: -1, hoja: null, origen: null, hijo: null, ang: 0, p: 0, anim: null };
+    var mostrada = 0;      // vista que se está mirando
+    var trago = false;     // hubo un arrastre: el clic que sigue no cuenta
+
+    function abrirGiro(n, dir) {
+      if (n < 0 || n >= vistas.length) return false;
+      var v = vistas[mostrada], w = vistas[n];
+      var ladoGira = doble ? (dir === "adelante" ? 1 : 0) : 0;
+      var ladoViaje = doble ? (dir === "adelante" ? 0 : 1) : 0;
+      var hoja = v.hojas[ladoGira];
+      var dorso = hoja.querySelector(".album__cara--atras");
+      var frente = w.hojas[ladoViaje].querySelector(".album__cara--frente");
+      if (!hoja || !dorso || !frente || !frente.firstElementChild) return false;
+      giros = {
+        dir: dir, n: n, hoja: hoja, origen: dorso, hijo: frente,
+        ang: 0, p: 0, anim: null
+      };
+      dorso.appendChild(frente.firstElementChild);
+      hoja.style.transformOrigin = dir === "adelante" ? "left center" : "right center";
+      hoja.classList.add("girando");
+      return true;
+    }
+
+    function ponerAngulo(grados, ms) {
+      var g = giros;
+      if (!g.hoja) return;
+      var de = g.ang;
+      g.ang = grados;
+      if (g.anim) { try { g.anim.cancel(); } catch (e) {} g.anim = null; }
+      if (!ms || !g.hoja.animate) {
+        g.hoja.style.transform = "rotateY(" + grados + "deg)";
+        return null;
+      }
+      var anim = g.hoja.animate(
+        [{ transform: "rotateY(" + de + "deg)" },
+         { transform: "rotateY(" + grados + "deg)" }],
+        { duration: ms, easing: "cubic-bezier(.32,.72,.3,1)", fill: "forwards" });
+      g.anim = anim;
+      return anim;
+    }
+
+    /* Devuelve la página que prestó, saca las marcas de giro y, si
+       cerró, recién ahí se pasa a la vista que viene. Se llama también
+       si se salta de página a mitad de un giro: ahí no se avanza. */
+    function finalizar(cerrar) {
       if (reloj) { clearTimeout(reloj); reloj = null; }
-      if (!giro) return;
-      var g = giro;
-      giro = null;
+      var g = giros;
+      giros = { dir: null, n: -1, hoja: null, origen: null, hijo: null, ang: 0, p: 0, anim: null };
+      if (g.anim) { try { g.anim.cancel(); } catch (e) {} }
+      if (g.hoja) {
+        g.hoja.style.transform = "";
+        g.hoja.style.transformOrigin = "";
+        g.hoja.classList.remove("girando");
+      }
       if (g.origen && g.origen.firstElementChild) {
         g.hijo.appendChild(g.origen.firstElementChild);
       }
-      g.vieja.classList.remove("saliendo", "gira-adelante", "gira-atras");
-      g.nueva.classList.remove("entrando");
+      if (cerrar && g.n >= 0) { mostrada = g.n; i = g.n; }
+      if (vistas.length) pintar();
     }
 
     function irA(n, dir) {
       n = Math.max(0, Math.min(vistas.length - 1, n));
-      if (n === i) { pintar(); return; }
-      finalizar();
-      var vieja = vistas[i], nueva = vistas[n];
+      finalizar(false);
+      if (n === i) return;
       dir = dir || (n > i ? "adelante" : "atras");
       alb.dataset.dir = dir;
       i = n;
-      pintar();
-      if (!anima) return;
-
-      nueva.v.classList.add("entrando");
-      var g = { vieja: vieja.v, nueva: nueva.v, origen: null, hijo: null };
-      if (doble) {
-        // Adelante gira la hoja derecha y en su dorso viaja la página
-        // izquierda que viene; atrás gira la izquierda con la derecha.
-        var lado = dir === "adelante" ? 1 : 0;
-        var otro = dir === "adelante" ? 0 : 1;
-        var dorso = vieja.hojas[lado].querySelector(".album__cara--atras");
-        var frente = nueva.hojas[otro].querySelector(".album__cara--frente");
-        if (dorso && frente && frente.firstElementChild) {
-          dorso.appendChild(frente.firstElementChild);
-          g.origen = dorso;
-          g.hijo = frente;
-        }
-        vieja.v.classList.add("saliendo");
-        vieja.v.classList.add(dir === "adelante" ? "gira-adelante" : "gira-atras");
-        reloj = setTimeout(finalizar, GIRO);
-      } else {
-        reloj = setTimeout(finalizar, 440);
-      }
-      giro = g;
+      pintarBarra();
+      if (!anima || !abrirGiro(n, dir)) { mostrada = i; pintar(); return; }
+      ponerAngulo(dir === "adelante" ? -180 : 180, GIRO);
+      var fin = function () { finalizar(true); };
+      if (giros.anim) giros.anim.onfinish = fin;
+      reloj = setTimeout(fin, GIRO + 160);
     }
+
+    /* Arrastre: se agarra la hoja y se la lleva con el mouse o el dedo.
+       Si llega más de la mitad del camino, la hoja termina de pasar;
+       si no, vuelve para atrás. */
+    var arr = null;
+    function anchoPliego() {
+      return (pant.getBoundingClientRect().width || 640);
+    }
+    pant.addEventListener("pointerdown", function (e) {
+      if (e.button !== undefined && e.button !== 0) return;
+      if (e.target.closest && e.target.closest("button, a, select, input, .fig")) return;
+      if (giros.hoja) return;
+      arr = { id: e.pointerId, x0: e.clientX, y0: e.clientY, activo: false, dir: null };
+    });
+    pant.addEventListener("pointermove", function (e) {
+      if (!arr || e.pointerId !== arr.id) return;
+      var dx = e.clientX - arr.x0, dy = e.clientY - arr.y0;
+      if (!arr.activo) {
+        if (Math.abs(dx) < 14 || Math.abs(dx) < Math.abs(dy)) return;
+        var dir = dx < 0 ? "adelante" : "atras";
+        var hacia = mostrada + (dir === "adelante" ? 1 : -1);
+        if (!abrirGiro(hacia, dir)) { arr = null; return; }
+        arr.activo = true;
+        arr.dir = dir;
+        if (pant.setPointerCapture) {
+          try { pant.setPointerCapture(e.pointerId); } catch (err) {}
+        }
+      }
+      var p = Math.min(1, Math.abs(dx) / (anchoPliego() * (doble ? .42 : .55)));
+      giros.p = p;
+      ponerAngulo((arr.dir === "adelante" ? -180 : 180) * p, 0);
+      if (e.cancelable) e.preventDefault();
+    });
+    function soltar(e) {
+      if (!arr || (e && e.pointerId !== arr.id)) return;
+      var a = arr; arr = null;
+      if (!a.activo) return;
+      /* El clic que cierra el arrastre no debe abrir el visor: se lo
+         traga un instante, nada más. */
+      trago = true;
+      setTimeout(function () { trago = false; }, 260);
+      var p = giros.p || 0;
+      var pasar = p > .45;
+      var ms = Math.max(200, Math.round(GIRO * (pasar ? 1 - p : .35 + p)));
+      ponerAngulo(pasar ? (a.dir === "adelante" ? -180 : 180) : 0, ms);
+      var fin = function () { finalizar(pasar); };
+      if (giros.anim) giros.anim.onfinish = fin;
+      reloj = setTimeout(fin, ms + 160);
+    }
+    pant.addEventListener("pointerup", soltar);
+    pant.addEventListener("pointercancel", soltar);
+    /* El clic que cierra un arrastre no debe abrir el visor de fotos. */
+    pant.addEventListener("click", function (e) {
+      if (!trago) return;
+      trago = false;
+      e.stopPropagation();
+      e.preventDefault();
+    }, true);
 
     Array.prototype.forEach.call(alb.querySelectorAll("[data-paso]"), function (b) {
       b.addEventListener("click", function () {
@@ -376,18 +474,6 @@
       else if (e.key === "End") { e.preventDefault(); irA(vistas.length - 1, "adelante"); }
     });
 
-    var x0 = null;
-    alb.addEventListener("touchstart", function (e) {
-      x0 = e.touches[0].clientX;
-    }, { passive: true });
-    alb.addEventListener("touchend", function (e) {
-      if (x0 === null) return;
-      var dx = e.changedTouches[0].clientX - x0;
-      x0 = null;
-      if (Math.abs(dx) < 45) return;
-      irA(i + (dx < 0 ? 1 : -1), dx < 0 ? "adelante" : "atras");
-    }, { passive: true });
-
     /* Al cambiar de ancho se vuelve a armar: el mismo álbum, pero con
        una o dos hojas por pliego. Se conserva la página que se miraba. */
     window.addEventListener("resize", function () {
@@ -396,10 +482,11 @@
         espera = null;
         var quiere = !window.matchMedia || malla("(min-width: 46rem)");
         if (quiere === doble) return;
-        var abierta = vistas[i].paginas.filter(Boolean)[0] || pags[0];
+        var abierta = vistas[mostrada].paginas.filter(Boolean)[0] || pags[0];
         var cual = pags.indexOf(abierta);
         armar();
         i = vistaDe[cual] != null ? vistaDe[cual] : 0;
+        mostrada = i;
         pintar();
       }, 240);
     });
