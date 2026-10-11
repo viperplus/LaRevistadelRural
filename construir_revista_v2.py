@@ -433,21 +433,11 @@ def slug(texto):
     return (re.sub(r"[^a-zA-Z0-9]+", "-", t).strip("-").lower() or "sede")
 
 
-# Figuritas por página del álbum. 12 es una grilla de 4x3 que entra completa
-# en el alto de una pantalla común sin tener que bajar a mirar la última fila.
-POR_PAGINA = 12
-
-
-def _columnas(n):
-    """Columnas de la grilla según cuántas figuritas tiene la página:
-    una suelta se veia desmedida en un ancho de 4, así que se achica."""
-    if n <= 1:
-        return 1
-    if n <= 4:
-        return 2
-    if n <= 9:
-        return 3
-    return 4
+# Figuritas por página del álbum: 3 columnas por 2 filas, como una hoja
+# de álbum de verdad. Todas las páginas llevan la misma cantidad, así
+# que las sedes con muchas figuritas consumen más de una hoja y ninguna
+# queda con fichas más grandes o más chicas que las demás.
+POR_PAGINA = 6
 
 
 def paginar_album(art, fotos_paths):
@@ -556,14 +546,14 @@ def render_album(art, fotos_paths):
                 '<h3 class="album__cab-t">%s</h3>'
                 '<p class="album__cab-n">%d figuritas'
                 '%s</p></header>'
-                '<div class="album__grilla" style="--col:%d">%s</div>'
+                '<div class="album__grilla">%s</div>'
                 '<footer class="album__pie"><span>%s</span><span>%d / %d</span></footer>'
                 '</article>' % (
                     atributos, p["orden"], p["sedes_total"], esc(p["sede"]),
                     len(p["idxs"]),
                     " · página %d de %d" % (p["pag_sede"], p["pags_sede"])
                     if p["pags_sede"] > 1 else "",
-                    _columnas(len(p["idxs"])), filas,
+                    filas,
                     esc(p["sede"]), n + 1, total))
         else:
             cuerpo.append(

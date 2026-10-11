@@ -620,6 +620,19 @@ a:hover { color: var(--ocre-texto); }
    sedes, las páginas de cada sede (cada una con su color) y el cierre.
    El visor de fotos sigue funcionando sobre las fichas visibles. */
 .album {
+  /* El álbum es una plancha, no un párrafo: se escapa de la columna de
+     texto de 44rem y se centra sobre ella ocupando el ancho del artículo.
+     La cuenta se hace contra el viewport para no pasarse del contenedor
+     (el -1rem absorbe el ancho de la barra de scroll) y así en doble
+     página cada hoja tiene el ancho justo para tres fichas enteras. */
+  --ancho-album: min(64rem, calc(100vw - 4 * var(--marg) - 1rem));
+  /* Ancho de cada figurita: idéntico en todas las páginas, aunque una
+     sede con muchas tenga que ocupar varias hojas. 3 columnas x 2 filas
+     por hoja, como un álbum de verdad. */
+  --fig: 7.4rem;
+  --fig-g: .8rem;
+  width: var(--ancho-album);
+  margin-left: calc(50% - var(--ancho-album) / 2);
   margin-top: 1.4rem;
 }
 .album__controles {
@@ -883,13 +896,17 @@ a:hover { color: var(--ocre-texto); }
   color: var(--sede, var(--verde-osc));
 }
 .album__cab--indice .album__cab-t { color: var(--verde-osc); }
-/* ---- la grilla de fichas de esa página ---- */
+/* ---- la grilla de fichas de esa página ----
+   Tres columnas por dos filas: seis figuritas por hoja. El ancho de la
+   pista es siempre --fig, así que ninguna ficha se achica ni se agranda
+   aunque una sede ocupe varias hojas. Si el ancho no da para tres, se
+   bajan a dos columnas sin tocar el tamaño de la figurita. */
 .album__grilla {
   display: grid;
-  grid-template-columns: repeat(var(--col, 4), minmax(0, 9rem));
+  grid-template-columns: repeat(3, minmax(0, var(--fig)));
   justify-content: center;
   align-content: start;
-  gap: .85rem;
+  gap: var(--fig-g);
   flex: 1 0 auto;
 }
 .album__ficha {
@@ -1046,10 +1063,17 @@ a:hover { color: var(--ocre-texto); }
   color: var(--tinta-3);
 }
 @media (max-width: 34rem) {
-  .album__grilla { grid-template-columns: repeat(var(--col, 4), minmax(0, 1fr)); gap: .6rem; }
+  /* No entran tres: se pasan a dos columnas, con la misma figurita. */
+  .album__grilla { grid-template-columns: repeat(2, minmax(0, var(--fig))); }
   .album__pagina { padding: .9rem .9rem .8rem; }
   .album__cab { margin: -.9rem -.9rem 1rem; padding: .7rem .9rem; }
   .album__toc { grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); }
+}
+/* En pantallas muy angostas ni de a dos entra el ancho fijo: se baja un
+   pelino. En todo lo demás --fig no cambia, así que las figuritas son
+   iguales en todas las páginas y en todas las sedes. */
+@media (max-width: 23rem) {
+  .album { --fig: 6rem; --fig-g: .6rem; }
 }
 
 /* Tarjetas: rotulo + texto corto, en grilla de dos columnas */

@@ -184,10 +184,12 @@
     /* Junta las páginas en pliegos. Con doble página la portada y el
        índice van solos del lado derecho, sobre una guarda, y el resto
        se agrupa de a dos: así el dorso de cada hoja es justamente la
-       página siguiente, igual que en un libro encuadernado. */
+       página siguiente, igual que en un libro encuadernado.
+       A partir de 76rem de ancho; debajo de eso cada hoja quedaría
+       demasiado angosta y las figuritas no entrarían enteras. */
     function armar() {
       finalizar();
-      doble = !window.matchMedia || malla("(min-width: 46rem)");
+      doble = !window.matchMedia || malla("(min-width: 76rem)");
 
       pags.forEach(function (p) { pant.appendChild(p); });
       Array.prototype.slice.call(pant.querySelectorAll(".album__vista"))
@@ -378,7 +380,7 @@
       if (espera) clearTimeout(espera);
       espera = setTimeout(function () {
         espera = null;
-        var quiere = !window.matchMedia || malla("(min-width: 46rem)");
+        var quiere = !window.matchMedia || malla("(min-width: 76rem)");
         if (quiere === doble) return;
         var abierta = vistas[i].paginas.filter(Boolean)[0] || pags[0];
         var cual = pags.indexOf(abierta);
