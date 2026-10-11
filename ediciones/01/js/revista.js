@@ -250,7 +250,20 @@
       return ts.join(" · ");
     }
 
+    /* Las páginas están ocultas hasta que se abren, así que el navegador
+       no bajaba las fotos y al pasar de hoja aparecían en vacío. Se marcan
+       como urgentes las del pliego actual y de los dos vecinos: con eso
+       alcanza para que el giro no se vea pelado. */
+    function alistar(n) {
+      if (n < 0 || n >= vistas.length) return;
+      var imgs = vistas[n].v.querySelectorAll('img[loading="lazy"]');
+      for (var k = 0; k < imgs.length; k++) imgs[k].setAttribute("loading", "eager");
+    }
+
     function pintar() {
+      alistar(i - 1);
+      alistar(i);
+      alistar(i + 1);
       var v = vistas[i];
       vistas.forEach(function (x, n) {
         var ves = n === i;

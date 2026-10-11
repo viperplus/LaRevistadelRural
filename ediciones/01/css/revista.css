@@ -705,14 +705,18 @@ a:hover { color: var(--ocre-texto); }
 /* ---- la pantalla: cada vista es un pliego abierto de dos hojas ----
    La hoja derecha gira alrededor del lomo (su borde izquierdo) y la
    izquierda alrededor de su borde derecho. El dorso de la hoja que gira
-   guarda la página que viene: es el mismo mecanismo de un libro. */
+   guarda la página que viene: es el mismo mecanismo de un libro.
+   El alto es fijo: si creciera con el contenido, la hoja que está
+   saliendo se estiraría o se acortaría a mitad del giro y el pliego
+   dará un salto. */
 .album__pantalla {
   position: relative;
-  min-height: clamp(26rem, 62vh, 38rem);
+  height: clamp(30rem, 72vh, 44rem);
 }
 .album__vista {
   position: relative;
   display: none;
+  height: 100%;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   perspective: 2400px;
   perspective-origin: 50% 42%;
@@ -726,16 +730,17 @@ a:hover { color: var(--ocre-texto); }
   z-index: 3;
   pointer-events: none;
 }
-/* sombra del lomo: da la sensación de que las dos hojas se tocan */
+/* Lomo: apenas una quiebra de luz entre las dos hojas. Con negro ancho
+   parecía una cinta de cemento atravesando el pliego. */
 .album__vista:not([data-simple])::after {
   content: "";
-  position: absolute; top: 0; bottom: 0; left: 50%;
-  width: 3.4rem; transform: translateX(-50%);
+  position: absolute; top: .4rem; bottom: .4rem; left: 50%;
+  width: 1.5rem; transform: translateX(-50%);
   z-index: 6; pointer-events: none;
   background: linear-gradient(90deg,
-    transparent 0%, rgba(0, 0, 0, .07) 42%,
-    rgba(0, 0, 0, .15) 50%,
-    rgba(0, 0, 0, .07) 58%, transparent 100%);
+    transparent 0%, rgba(90, 62, 30, .05) 40%,
+    rgba(90, 62, 30, .09) 50%,
+    rgba(90, 62, 30, .05) 60%, transparent 100%);
 }
 .album__hoja {
   position: relative;
@@ -778,14 +783,15 @@ a:hover { color: var(--ocre-texto); }
   border-radius: var(--r-m);
   box-shadow: var(--sombra-l);
   padding: 1.1rem 1.25rem .9rem;
-  min-height: clamp(24rem, 56vh, 34rem);
+  min-height: 0;
 }
 /* En el anverso llena la hoja; en el reverso va la página que viaja
-   durante el giro, así que comparte el mismo recorte. */
+   durante el giro, así que comparte el mismo recorte. El alto lo manda
+   la pantalla: así todas las hojas miden igual y ninguna salta. */
 .album__cara > .album__pagina {
   display: flex;
   flex: 1 1 auto;
-  min-height: clamp(24rem, 56vh, 34rem);
+  min-height: 0;
   border: 0;
   box-shadow: none;
   border-radius: calc(var(--r-m) - 1px);
@@ -793,14 +799,16 @@ a:hover { color: var(--ocre-texto); }
   overflow: auto;
   overflow-x: hidden;
 }
+/* El dorso de una hoja en blanco es papel, con apenas un doblez claro
+   cerca del lomo. Los tintes negros lo dejaban gris, como cemento. */
 .album__cara--atras {
   display: flex;
   transform: rotateY(180deg);
   background:
-    linear-gradient(100deg, rgba(0, 0, 0, .13) 0%, transparent 14%,
-                    transparent 86%, rgba(0, 0, 0, .08) 100%),
-    linear-gradient(180deg, var(--papel) 0%, var(--papel-calido) 100%);
-  border: 1px solid var(--linea);
+    linear-gradient(90deg, rgba(90, 62, 30, .07) 0%, transparent 9%,
+                    transparent 92%, rgba(90, 62, 30, .04) 100%),
+    linear-gradient(180deg, var(--papel-alt) 0%, var(--papel-calido) 100%);
+  border: 1px solid var(--linea-suave);
   border-radius: var(--r-m);
   box-shadow: var(--sombra-l);
 }
@@ -968,19 +976,20 @@ a:hover { color: var(--ocre-texto); }
 .album__toc {
   list-style: none; margin: 0; padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
-  gap: .45rem;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  gap: .32rem;
+  align-content: start;
 }
 .album__toc-i {
   width: 100%;
-  display: flex; align-items: center; gap: .5rem;
-  font-family: var(--titulos); font-size: .81rem; font-weight: 600;
+  display: flex; align-items: center; gap: .4rem;
+  font-family: var(--titulos); font-size: .76rem; font-weight: 600;
   color: var(--sede);
   background: var(--sede-fondo);
   border: 1px solid transparent;
-  border-left: 4px solid var(--sede);
+  border-left: 3px solid var(--sede);
   border-radius: var(--r-s);
-  padding: .46rem .6rem;
+  padding: .3rem .5rem;
   text-align: left;
   cursor: pointer;
   transition: transform .18s var(--trans), box-shadow .18s var(--trans);
