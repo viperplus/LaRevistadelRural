@@ -534,7 +534,7 @@ def render_album(art, fotos_paths):
                 % (q["ir"], esc(q["color"]), esc(q["fondo"]),
                    esc(q["sede"]), q["n"]) for q in p["toc"])
             cuerpo.append(
-                '<article class="album__pagina"%s>'
+                '<article class="album__pagina album__pagina--indice"%s>'
                 '<header class="album__cab album__cab--indice">'
                 '<p class="album__cab-ord">Índice</p>'
                 '<h3 class="album__cab-t">Las sedes</h3>'

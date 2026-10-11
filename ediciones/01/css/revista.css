@@ -688,11 +688,74 @@ a:hover { color: var(--ocre-texto); }
   position: absolute; width: 1px; height: 1px; overflow: hidden;
   clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
 }
-/* ---- la pantalla donde vive una página por vez ---- */
+/* ---- la pantalla: cada vista es un pliego abierto de dos hojas ----
+   La hoja derecha gira alrededor del lomo (su borde izquierdo) y la
+   izquierda alrededor de su borde derecho. El dorso de la hoja que gira
+   guarda la página que viene: es el mismo mecanismo de un libro. */
 .album__pantalla {
-  perspective: 1500px;
-  min-height: 26rem;
+  position: relative;
+  min-height: clamp(26rem, 62vh, 38rem);
 }
+.album__vista {
+  position: relative;
+  display: none;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  perspective: 2400px;
+  perspective-origin: 50% 42%;
+  transform-style: preserve-3d;
+}
+.album__vista[data-simple] { grid-template-columns: minmax(0, 1fr); }
+.album__vista.es-actual { display: grid; z-index: 2; }
+.album__vista.saliendo {
+  display: grid;
+  position: absolute; inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+/* sombra del lomo: da la sensación de que las dos hojas se tocan */
+.album__vista:not([data-simple])::after {
+  content: "";
+  position: absolute; top: 0; bottom: 0; left: 50%;
+  width: 3.4rem; transform: translateX(-50%);
+  z-index: 6; pointer-events: none;
+  background: linear-gradient(90deg,
+    transparent 0%, rgba(0, 0, 0, .07) 42%,
+    rgba(0, 0, 0, .15) 50%,
+    rgba(0, 0, 0, .07) 58%, transparent 100%);
+}
+.album__hoja {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  transform-style: preserve-3d;
+}
+.album__hoja--der { transform-origin: left center; }
+.album__hoja--izq { transform-origin: right center; }
+.album__cara {
+  position: absolute; inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.album__cara--frente {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: var(--papel-alt);
+  border: 1px solid var(--linea);
+  border-radius: var(--r-m);
+  box-shadow: var(--sombra-l);
+}
+/* La portada trae su propio fondo oscuro: la hoja no debe marcarle un
+   filete claro alrededor. */
+.album__cara:has(.album__pagina--portada) {
+  background: transparent;
+  border-color: transparent;
+}
+/* La página sólo existe dentro de una hoja: antes de que corra el
+   JavaScript no se ve ninguna, así no hay destello de las 54 a la vez. */
 .album__pagina {
   display: none;
   flex-direction: column;
@@ -701,12 +764,83 @@ a:hover { color: var(--ocre-texto); }
   border-radius: var(--r-m);
   box-shadow: var(--sombra-l);
   padding: 1.1rem 1.25rem .9rem;
-  min-height: clamp(25rem, 60vh, 36rem);
+  min-height: clamp(24rem, 56vh, 34rem);
 }
-.album__pagina.es-actual { display: flex; }
+/* En el anverso llena la hoja; en el reverso va la página que viaja
+   durante el giro, así que comparte el mismo recorte. */
+.album__cara > .album__pagina {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: clamp(24rem, 56vh, 34rem);
+  border: 0;
+  box-shadow: none;
+  border-radius: calc(var(--r-m) - 1px);
+  /* si una hoja no entra entera en el pliego, la hoja scrollea sola */
+  overflow: auto;
+  overflow-x: hidden;
+}
+.album__cara--atras {
+  display: flex;
+  transform: rotateY(180deg);
+  background:
+    linear-gradient(100deg, rgba(0, 0, 0, .13) 0%, transparent 14%,
+                    transparent 86%, rgba(0, 0, 0, .08) 100%),
+    linear-gradient(180deg, var(--papel) 0%, var(--papel-calido) 100%);
+  border: 1px solid var(--linea);
+  border-radius: var(--r-m);
+  box-shadow: var(--sombra-l);
+}
+/* ---- guarda: la hoja en blanco de la contratapa ---- */
+.album__guarda {
+  display: grid; place-items: center;
+  width: 100%; height: 100%;
+  padding: 1.2rem;
+  text-align: center;
+  color: rgba(250, 246, 238, .62);
+  background:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, .035) 0 9px,
+                              transparent 9px 18px),
+    linear-gradient(155deg, var(--verde-osc) 0%, #0f362f 60%, #0b2822 100%);
+  border: 1px solid var(--verde-osc);
+  border-radius: calc(var(--r-m) - 1px);
+  box-shadow: var(--sombra-l);
+  font-family: var(--titulos);
+  font-size: .66rem; font-weight: 700;
+  letter-spacing: .3em; text-transform: uppercase;
+}
+.album__guarda-s {
+  display: block;
+  max-width: 11ch;
+  line-height: 2.1;
+}
+/* ---- pasaje de hojas ---- */
 @media (prefers-reduced-motion: no-preference) {
-  .album[data-dir="adelante"] .album__pagina.es-actual { animation: album-adelante .36s var(--trans); }
-  .album[data-dir="atras"] .album__pagina.es-actual { animation: album-atras .36s var(--trans); }
+  .album__vista.gira-adelante .album__hoja--der {
+    z-index: 4;
+    animation: album-hoja-der .78s cubic-bezier(.44, .02, .3, 1) forwards;
+  }
+  .album__vista.gira-atras .album__hoja--izq {
+    z-index: 4;
+    animation: album-hoja-izq .78s cubic-bezier(.44, .02, .3, 1) forwards;
+  }
+  /* En pantalla angosta no hay doble página: ahí la hoja entra con un
+     barrido, que es el mismo gesto sin el giro completo. */
+  .album[data-dir="adelante"] .album__vista.entrando[data-simple] {
+    animation: album-adelante .34s var(--trans);
+  }
+  .album[data-dir="atras"] .album__vista.entrando[data-simple] {
+    animation: album-atras .34s var(--trans);
+  }
+}
+@keyframes album-hoja-der {
+  0%   { transform: rotateY(0deg); }
+  84%  { transform: rotateY(-184deg); }
+  100% { transform: rotateY(-180deg); }
+}
+@keyframes album-hoja-izq {
+  0%   { transform: rotateY(0deg); }
+  84%  { transform: rotateY(184deg); }
+  100% { transform: rotateY(180deg); }
 }
 @keyframes album-adelante {
   from { opacity: 0; transform: translateX(4%) rotateY(-11deg); }
