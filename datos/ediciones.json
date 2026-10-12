@@ -5155,15 +5155,21 @@
         },
         {
           "t": "h3",
-          "v": "Mara Smith, en Base Esperanza"
+          "v": "Mara Schmid, en Base Esperanza"
+        },
+        {
+          "t": "fig"
         },
         {
           "t": "p",
-          "v": "Así fue como tuvimos la posibilidad de encontrarnos, aunque fuera a través de una pantalla, con Mara Smith, Licenciada en Biología, egresada de la Universidad Nacional de La Plata."
+          "v": "Así fue como tuvimos la posibilidad de encontrarnos, aunque fuera a través de una pantalla, con Mara Schmid, Licenciada en Biología, egresada de la Universidad Nacional de La Plata."
         },
         {
           "t": "p",
-          "v": "Mara se encuentra transitando su tercera campaña antártica y actualmente cumple funciones como auxiliar de base en Base Esperanza. Además, está a cargo del Módulo Antártico de Producción Hidropónica (MAPI), una experiencia que nos permitió acercarnos a una forma de producir alimentos en un ambiente con condiciones muy diferentes a las que conocemos cotidianamente."
+          "v": "Mara se encuentra transitando su tercera campaña antártica y actualmente cumple funciones como auxiliar de base en Base Esperanza. Además, está a cargo del Módulo Antártico de Producción Hidropónica (MAPHI), una experiencia que nos permitió acercarnos a una forma de producir alimentos en un ambiente con condiciones muy diferentes a las que conocemos cotidianamente."
+        },
+        {
+          "t": "fig"
         },
         {
           "t": "p",
@@ -5206,6 +5212,9 @@
           "v": "Cuando la tecnología nos acerca"
         },
         {
+          "t": "fig"
+        },
+        {
           "t": "p",
           "v": "Para quienes formamos parte del ESRN Rural Virtual, estas experiencias tienen un significado muy especial."
         },
@@ -5218,12 +5227,15 @@
           "v": "En esta oportunidad, esa conexión nos permitió acercarnos a la Antártida. Una pantalla se convirtió en un puente entre nuestras aulas y Base Esperanza. Y detrás de ese encuentro hubo muchas personas trabajando para que fuera posible."
         },
         {
+          "t": "fig"
+        },
+        {
           "t": "h3",
           "v": "Gracias a quienes hicieron posible este encuentro"
         },
         {
           "t": "p",
-          "v": "Queremos agradecer especialmente a Mara Smith, por su tiempo, su predisposición y por compartir con nosotros parte de su experiencia profesional y de su vida en la Antártida. También queremos agradecer a todas las personas que hicieron posible esta conexión y que trabajaron para que el encuentro pudiera llegar a nuestra comunidad."
+          "v": "Queremos agradecer especialmente a Mara Schmid, por su tiempo, su predisposición y por compartir con nosotros parte de su experiencia profesional y de su vida en la Antártida. También queremos agradecer a todas las personas que hicieron posible esta conexión y que trabajaron para que el encuentro pudiera llegar a nuestra comunidad."
         },
         {
           "t": "p",
@@ -5283,10 +5295,26 @@
         }
       ],
       "fotos": [
-        "foto-01.jpg"
+        "foto-01.jpg",
+        "foto-02.jpg",
+        "foto-03.jpg",
+        "foto-04.jpg",
+        "foto-05.jpg",
+        "foto-06.jpg",
+        "foto-07.jpg",
+        "foto-08.jpg",
+        "foto-09.jpg"
       ],
       "epigrafes": [
-        ""
+        "",
+        "Mara Schmid",
+        "Módulo Antártico de Producción Hidropónica (MAPHI) en la Base Esperanza",
+        "Vista panorámica de la Base Esperanza en la Antártida",
+        "Cartel de la Base Esperanza",
+        "Sistema hidropónico indoor del MAPHI",
+        "Base Esperanza vista general",
+        "Base Esperanza, Antártida Argentina",
+        "Base Esperanza, Antártida Argentina"
       ]
     }
   ]
