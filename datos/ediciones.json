@@ -5329,14 +5329,39 @@
       "cuerpo": [
         {
           "t": "p",
-          "v": "texto"
+          "v": "intro"
         },
         {
           "t": "video",
           "v": "https://drive.google.com/file/d/1WMx0LabUWEUoAz8fILzTZd4k_T9z3NgQ/preview"
         },
         {
-          "t": "fig"
+          "t": "h3",
+          "v": "Un recorrido en tres momentos: del mapa a la acción"
+        },
+        {
+          "t": "p",
+          "v": "La iniciativa se estructuró a través de un recorrido pedagógico dinámico dividido en tres estaciones conceptuales y prácticas:"
+        },
+        {
+          "t": "li",
+          "v": "¿Cuál es el verdadero tamaño de la Argentina?"
+        },
+        {
+          "t": "li",
+          "v": "Lugares de la memoria."
+        },
+        {
+          "t": "li",
+          "v": "Cartas por la memoria y la soberanía."
+        },
+        {
+          "t": "h3",
+          "v": "Producciones de las y los estudiantes"
+        },
+        {
+          "t": "p",
+          "v": "Las producciones que se comparten a continuación recogen el trabajo de las distintas sedes y grupos: infografías, mapas, mojones, dibujos, cartas y reflexiones elaboradas en el marco de esta propuesta. Se incluyen también las publicaciones textuales del muro colaborativo."
         },
         {
           "t": "fig"
@@ -5400,6 +5425,21 @@
         },
         {
           "t": "fig"
+        },
+        {
+          "t": "fig"
+        },
+        {
+          "t": "h3",
+          "v": "Ciencia, tecnología y memoria viva"
+        },
+        {
+          "t": "p",
+          "v": "Desde el Área de Educación Científica y Tecnológica se destacó que la propuesta buscó trascender el mero efeméride escolar, propiciando un espacio donde las tecnologías digitales, los recursos cartográficos y el pensamiento crítico se unieron para fortalecer nuestra identidad colectiva."
+        },
+        {
+          "t": "p",
+          "v": "Las producciones finales fueron compartidas en un muro digital colaborativo, consolidando un archivo escolar vivo que será puesto a disposición de centros de veteranos. Una muestra clara de que, desde cada rincón de nuestra ruralidad virtual, las Malvinas siguen estando presentes."
         }
       ],
       "fotos": [
