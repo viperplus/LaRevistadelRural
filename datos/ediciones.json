@@ -5316,6 +5316,48 @@
         "Base Esperanza, Antártida Argentina",
         "Base Esperanza, Antártida Argentina"
       ]
+    },
+    {
+      "id": "malvinas",
+      "seccion": "proyectos",
+      "titulo": "2 de Abril: Malvinas, historia, soberanía, memoria y territorio",
+      "bajada": "Trabajo realizado por el Área de Ciencias Naturales de 2° C y 2° B, bajo la coordinación de la profesora Yanina Lorenzo.",
+      "autor": "Alumnos de 2° C y 2° B · Ciencias Naturales",
+      "sede": "ESRN Rural Virtual",
+      "fecha": "Abril 2026",
+      "fecha_iso": "2026-04-02",
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "Este proyecto recoge el trabajo realizado por los estudiantes de 2° año del ESRN Rural Virtual, en el marco del Área de Ciencias Naturales, para reflexionar sobre el 2 de Abril, Día del Veterano y de los Caídos en la Guerra de Malvinas."
+        },
+        {
+          "t": "h3",
+          "v": "Memoria, soberanía y territorio"
+        },
+        {
+          "t": "p",
+          "v": "A través de la investigación, la lectura de fuentes, la producción escrita y la organización de la información, los alumnos profundizaron en la historia del archipiélago, el conflicto de 1982, la recuperación de la soberanía y la importancia de mantener viva la memoria de quienes participaron."
+        },
+        {
+          "t": "h3",
+          "v": "Producciones de los alumnos"
+        },
+        {
+          "t": "p",
+          "v": "El material reúne infografías, mapas, fichas, líneas de tiempo y reflexiones elaboradas por los estudiantes de 2° C y 2° B, con la guía y coordinación de la profesora Yanina Lorenzo."
+        },
+        {
+          "t": "p",
+          "v": "El documento completo puede consultarse desde el enlace del sitio original: https://sites.google.com/esrnruralvirtual.com/malvinas?usp=sharing"
+        }
+      ],
+      "fotos": [
+        "foto-01.jpg"
+      ],
+      "epigrafes": [
+        ""
+      ]
     }
   ]
 }
