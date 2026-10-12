@@ -344,8 +344,11 @@ def render_cuerpo(art, fotos_paths, solo_bloques=False):
             # YouTube (embed, watch o youtu.be) o Google Drive. Se guarda la
             # URL que mandaron y aca se la deja embebible.
             cuerpo_html.append(
-                '<div class="video"><iframe src="%s" allow="autoplay; picture-in-picture" '
-                'allowfullscreen loading="lazy" title="Video del articulo"></iframe></div>'
+                '<div class="video"><iframe src="%s" '
+                'allow="accelerometer; autoplay; clipboard-write; encrypted-media; '
+                'gyroscope; picture-in-picture; web-share" '
+                'referrerpolicy="strict-origin-when-cross-origin" playsinline '
+                'allowfullscreen title="Video del articulo"></iframe></div>'
                 % esc(video_src(v)))
         else:
             cuerpo_html.append("<p class='txt-parrafo'>%s</p>" % md(v))
