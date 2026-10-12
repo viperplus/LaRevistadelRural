@@ -221,6 +221,24 @@ RE_PDF_MARCA = re.compile(r"^\s*pdf\s*\+\s*\d+\s*$", re.I)
 RE_APENDICE_VISUAL = re.compile(
     r"(adjunt|registro\s+visual|material\s+visual|frases\s+y\s+afiches|registros\s+visuales)",
     re.I)
+RE_YOUTUBE = re.compile(
+    r"(?:youtube\.com/(?:embed/|watch\?(?:.*&)?v=|shorts/)|youtu\.be/)([\w-]{6,})")
+
+
+def video_src(v):
+    """URL de video -> src que se pueda embeber. YouTube o Google Drive."""
+    v = (v or "").strip()
+    m = RE_YOUTUBE.search(v)
+    if m:
+        return "https://www.youtube.com/embed/%s" % m.group(1)
+    # Drive: /file/d/ID/view... -> /file/d/ID/preview
+    mid = v.replace("https://drive.google.com/file/d/", "").replace(
+        "http://drive.google.com/file/d/", "")
+    if "/" in mid:
+        mid = mid.split("/")[0]
+    elif "?" in mid:
+        mid = mid.split("?")[0]
+    return "https://drive.google.com/file/d/%s/preview" % mid
 
 
 def render_cuerpo(art, fotos_paths, solo_bloques=False):
@@ -323,12 +341,12 @@ def render_cuerpo(art, fotos_paths, solo_bloques=False):
             # articulo reune varias firmas (trabajo grupal por secciones).
             cuerpo_html.append("<p class='txt-firma'>%s</p>" % md(v))
         elif t == "video":
-            # Video de Google Drive: se muestra con el reproductor de vista
-            # previa (link /file/d/ID/view... -> /file/d/ID/preview).
-            mid = v.replace("https://drive.google.com/file/d/", "").replace("http://drive.google.com/file/d/", "")
-            mid = mid.split("/")[0] if "/" in mid else mid.split("?")[0] if "?" in mid else mid
-            src = "https://drive.google.com/file/d/%s/preview" % mid
-            cuerpo_html.append('<div class="video"><iframe src="%s" allow="autoplay" allowfullscreen loading="lazy" title="Video del experimento"></iframe></div>' % esc(src))
+            # YouTube (embed, watch o youtu.be) o Google Drive. Se guarda la
+            # URL que mandaron y aca se la deja embebible.
+            cuerpo_html.append(
+                '<div class="video"><iframe src="%s" allow="autoplay; picture-in-picture" '
+                'allowfullscreen loading="lazy" title="Video del articulo"></iframe></div>'
+                % esc(video_src(v)))
         else:
             cuerpo_html.append("<p class='txt-parrafo'>%s</p>" % md(v))
     if en_lista:

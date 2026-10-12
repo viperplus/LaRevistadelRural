@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 """Importa las figuritas al album estilo Panini del articulo `album-figuritas`.
 
-Lee FIGUSAS, separa figuritas de fotos de escenarios, las agrupa por sede,
-las achica a ~700 px y las deja en ediciones/01/album-figuritas/. Despues
-escribe (o actualiza) la entrada del articulo en datos/ediciones.json.
+Lee FIGUSAS, las agrupa por sede, las achica a ~700 px y las deja en
+ediciones/01/album-figuritas/. Las canchas y potreros entran como una ficha
+mas al final de su sede, y los jugadores de la seleccion se juntan en su
+propio apartado. Despues escribe (o actualiza) la entrada del articulo en
+datos/ediciones.json.
 """
 import colorsys
 import hashlib
@@ -25,18 +27,51 @@ CALIDAD = 82
 MIN_PESO = 12000          # si el jpg ya existe y pesa mas que esto, no lo regenero
 ID_ART = UID
 
-# Fotos de estadios, paisajes y potreros: no son figuritas, quedan afuera.
-ESCENARIOS = {
-    "CONA NIYEU.jpeg",
-    "LAGO PELLEGRINI.jpeg", "LAGO PELLEGRINI1.jpeg", "LAGO PELLEGRINI2.jpeg",
-    "NAHUPA HUEN.jpeg",
-    "Potrero sede Aguada de Guerra.jpeg",
-    "VILLA LLANQU\u00cdN.jpeg",
-    "estadio comico.jpeg", "estadio el cain.jpeg", "estadio laguna blanca.jpeg",
-    "pe\u00f1as blancas.jpeg", "pe\u00f1as blancas 1.jpeg", "pe\u00f1as blancas 2.jpeg",
-}
 # S\u00f3lo el marco, sin dibujo: plantilla en blanco que no aporta al \u00e1lbum.
 EN_BLANCO = {"S__SDA.png"}
+# Figuritas que se mandaron pero no van al \u00e1lbum: papelitos sin nombre.
+# Ojo: hay que listar TODOS los archivos de la misma figurita, si no el
+# depurador de repetidas resucita el siguiente de la lista.
+EXCLUIR = {
+    "CONA_NIYEU__JUGADOR(1).png",
+    "CONA_NIYEU__JUGADOR(2).png",
+    "CONA_NIYEU__JUGADOR.png",
+    "CONA_NIYEU__CRISTIAN_ROMERO.png",
+}
+# La cancha, el potrero o el estadio de cada sede: van como una ficha m\u00e1s,
+# al final de su sede, as\u00ed se ve d\u00f3nde se juega. (sede, etiqueta)
+ESTADIOS = {
+    "CONA NIYEU.jpeg": ("Cona Niyeu", None),
+    "LAGO PELLEGRINI.jpeg": ("Lago Pellegrini", None),
+    "LAGO PELLEGRINI1.jpeg": ("Lago Pellegrini", None),
+    "LAGO PELLEGRINI2.jpeg": ("Lago Pellegrini", None),
+    "NAHUPA HUEN.jpeg": ("Naupahuen", None),
+    "Potrero sede Aguada de Guerra.jpeg": ("Aguada de Guerra", None),
+    "VILLA LLANQU\u00cdN.jpeg": ("Villa Llanqu\u00edn", None),
+    "estadio comico.jpeg": ("C\u00f3mico", None),
+    "estadio el cain.jpeg": ("El Ca\u00edn", None),
+    "estadio laguna blanca.jpeg": ("Laguna Blanca", None),
+    "pe\u00f1as blancas.jpeg": ("Pe\u00f1as Blancas", None),
+    "pe\u00f1as blancas 1.jpeg": ("Pe\u00f1as Blancas", None),
+    "pe\u00f1as blancas 2.jpeg": ("Pe\u00f1as Blancas", None),
+}
+# Jugadores de la selecci\u00f3n que llegaron en un sobre aparte: se suman a un
+# apartado propio en vez de quedar cada uno en una sede de una sola ficha.
+SELECCION = {
+    "BAH\u00cdA_BLANCA__LAUTARO_MART\u00cdNEZ.png",
+    "CALCH\u00cdN__JULI\u00c1N_\u00c1LVAREZ.png",
+    "CORRALITO__LIONEL_MESSI.png",
+    "C\u00d3RDOBA__CRISTIAN_ROMERO.png",
+    "EL_TALAR__NICOL\u00c1S_OTAMENDI.png",
+    "EMBALSE__NAHUEL_MOLINA.png",
+    "MAR_DEL_PLATA__EMILIANO_MART\u00cdNEZ.png",
+    "RAFAEL_CALZADA__NICOL\u00c1S_TAGLIAFICO.png",
+    "ROSARIO__LIONEL_MESSI.png",
+    "SAN_MART\u00cdN__ENZO_FERN\u00c1NDEZ.png",
+    "SANTA_ROSA__ALEXIS_MAC_ALLISTER.png",
+    "SARAND\u00cd__RODRIGO_DE_PAUL.png",
+}
+SEDE_SELECCION = "Selecci\u00f3n Argentina"
 # Sedes escritas distinto por error: se agrupan todas bajo el mismo nombre.
 SEDE_DISPLAY = {
     "COMICO": "C\u00f3mico", "COMIC\u00d3": "C\u00f3mico",
@@ -141,6 +176,18 @@ def _hsv_from_hex(hx):
     return tuple(int(hx[i:i + 2], 16) for i in (1, 3, 5))
 
 
+# ---------- orden de las sedes ----------------------------------------------
+def orden_sede(s):
+    """Viedma cierra el \u00e1lbum: as\u00ed lo pidieron."""
+    return (1, s.lower()) if s == "Viedma" else (0, s.lower())
+
+
+def clave_fila(fila):
+    s, n, f = fila
+    # El estadio va despu\u00e9s de las figuritas de su sede.
+    return (orden_sede(s), 1 if f in ESTADIOS else 0, (n or "").lower(), f.lower())
+
+
 def clasificar():
     """-> [(sede, persona, archivo_origen)] ya ordenado."""
     sedes_conocidas = set()
@@ -149,10 +196,14 @@ def clasificar():
 
     for f in sorted(os.listdir(SRC)):
         p = os.path.join(SRC, f)
-        if not os.path.isfile(p) or f in EN_BLANCO:
+        if not os.path.isfile(p) or f in EN_BLANCO or f in EXCLUIR:
             continue
         base = os.path.splitext(f)[0]
-        if "__" in base:
+        if f in ESTADIOS:
+            sede, persona = ESTADIOS[f]
+            sedes_conocidas.add(sede.strip().upper())
+            items.append((sede, persona or "", f))
+        elif "__" in base:
             sede, persona = base.split("__", 1)
             sedes_conocidas.add(sede.strip().upper())
             items.append((sede, persona, f))
@@ -160,8 +211,6 @@ def clasificar():
             sede, persona = FIGU_SIN_GUIONES[f]
             sedes_conocidas.add(sede.strip().upper())
             items.append((sede, persona, f))
-        elif f in ESCENARIOS:
-            descartadas.append(f)
         else:
             # Sin "__" y no listada: es una figurita mal nombrada. Si la
             # primera parte coincide con una sede conocida, la uso.
@@ -177,11 +226,19 @@ def clasificar():
 
     filas = []
     for sede, persona, f in items:
-        s = sede_legible(sede)
+        # Los estadios no siguen el nombre del archivo, ya vienen arreglados.
+        s = sede if f in ESTADIOS else sede_legible(sede)
         n = nombre_legible(persona) if persona else ""
         filas.append((s, n, f))
-    filas.sort(key=lambda x: (x[0].lower(), x[1].lower(), x[2].lower()))
+    filas.sort(key=clave_fila)
     return filas, descartadas
+
+
+def con_seleccion(filas):
+    """Las figuritas de la selecci\u00f3n se mudan a su propio apartado."""
+    filas = [(SEDE_SELECCION if f in SELECCION else s, n, f) for s, n, f in filas]
+    filas.sort(key=clave_fila)
+    return filas
 
 
 # ---------- repetidas --------------------------------------------------------
@@ -258,11 +315,12 @@ def main():
     write = "--write" in sys.argv
     filas, descartadas = clasificar()
     filas, repetidas = depurar(filas)
+    filas = con_seleccion(filas)
 
     print("figuritas: %d  (repetidas quitadas: %d)" % (len(filas), len(repetidas)))
     for s, n, f in repetidas:
         print("    - %-22s %-22s <- %s" % (s, n or "(sin nombre)", f))
-    print("descartadas (escenarios u otras): %d" % len(descartadas))
+    print("descartadas (sin sede conocida): %d" % len(descartadas))
     for d in descartadas:
         print("   ", d)
 

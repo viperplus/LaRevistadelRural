@@ -463,19 +463,37 @@
       return true;
     }
 
+    /* La hoja no gira rígida: se dobla un toque al medio del recorrido,
+       como una hoja de papel que alguien levanta de la esquina. El
+       doblez va y viene solo, así que en los extremos queda plana. */
+    function transformar(grados) {
+      var doblez = Math.sin(grados * Math.PI / 180);
+      var lado = grados < 0 ? -1 : 1;
+      return "rotateY(" + grados + "deg)"
+        + " skewY(" + (lado * doblez * 2.4).toFixed(2) + "deg)"
+        + " rotateX(" + (doblez * 2.1).toFixed(2) + "deg)";
+    }
+
     function ponerAngulo(grados, ms) {
       var g = giros;
       if (!g.hoja) return;
       var de = g.ang;
       g.ang = grados;
+      // La luz y la sombra de la hoja siguen el doblez (0 en los extremos,
+      // 1 justo al medio): el CSS lee --giro.
+      g.hoja.style.setProperty(
+        "--giro", Math.abs(Math.sin(grados * Math.PI / 180)).toFixed(3));
       if (g.anim) { try { g.anim.cancel(); } catch (e) {} g.anim = null; }
       if (!ms || !g.hoja.animate) {
-        g.hoja.style.transform = "rotateY(" + grados + "deg)";
+        g.hoja.style.transform = transformar(grados);
         return null;
       }
+      // Tres tiempos para que el doblez aparezca y se aplane adentro
+      // del movimiento: si fuera de a dos la hoja se iría torcida.
       var anim = g.hoja.animate(
-        [{ transform: "rotateY(" + de + "deg)" },
-         { transform: "rotateY(" + grados + "deg)" }],
+        [{ transform: transformar(de) },
+         { transform: transformar((de + grados) / 2), offset: 0.5 },
+         { transform: transformar(grados) }],
         { duration: ms, easing: "cubic-bezier(.32,.72,.3,1)", fill: "forwards" });
       g.anim = anim;
       return anim;
@@ -493,6 +511,7 @@
       if (g.hoja) {
         g.hoja.style.transform = "";
         g.hoja.style.transformOrigin = "";
+        g.hoja.style.removeProperty("--giro");
         g.hoja.classList.remove("girando");
       }
       if (g.origen && g.origen.firstElementChild) {

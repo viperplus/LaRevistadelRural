@@ -49,6 +49,12 @@
       "n": "07",
       "titulo": "Futuro",
       "bajada": "Cuidar el presente para pensar el futuro: ambiente y proyectos de vida."
+    },
+    {
+      "id": "proyectos",
+      "titulo": "Proyectos o experiencias",
+      "bajada": "Encuentros, proyectos y vivencias que se corren del aula y llegan muy lejos.",
+      "n": "08"
     }
   ],
   "articulos": [
@@ -4107,8 +4113,8 @@
       "id": "album-figuritas",
       "seccion": "estudiantes",
       "titulo": "El álbum de figuritas del Rural",
-      "bajada": "271 figuritas de 38 sedes: el álbum que se fue armando ficha por ficha, como en los álbumes de Panini.",
-      "autor": "Estudiantes y tutores de las 38 sedes",
+      "bajada": "282 figuritas de 27 sedes: el álbum que se fue armando ficha por ficha, como en los álbumes de Panini.",
+      "autor": "Estudiantes y tutores de las 27 sedes",
       "sede": "Todas las sedes",
       "fecha": "Octubre 2026",
       "fecha_iso": "2026-10-10",
@@ -4120,7 +4126,7 @@
         },
         {
           "t": "p",
-          "v": "Cada sede mandó sus figuritas, cada estudiante y cada tutor dejó la suya, y de a poquito el álbum se fue llenando hasta llegar a **271 figuritas repartidas en 38 sedes**."
+          "v": "Cada sede mandó sus figuritas, cada estudiante y cada tutor dejó la suya, y de a poquito el álbum se fue llenando hasta llegar a **282 figuritas repartidas en 27 sedes**."
         },
         {
           "t": "p",
@@ -4128,7 +4134,7 @@
         },
         {
           "t": "dato",
-          "v": "38 sedes · 271 figuritas · 1 solo álbum"
+          "v": "27 sedes · 282 figuritas · 1 solo álbum"
         }
       ],
       "fotos": [
@@ -4402,7 +4408,18 @@
         "fig-268.jpg",
         "fig-269.jpg",
         "fig-270.jpg",
-        "fig-271.jpg"
+        "fig-271.jpg",
+        "fig-272.jpg",
+        "fig-273.jpg",
+        "fig-274.jpg",
+        "fig-275.jpg",
+        "fig-276.jpg",
+        "fig-277.jpg",
+        "fig-278.jpg",
+        "fig-279.jpg",
+        "fig-280.jpg",
+        "fig-281.jpg",
+        "fig-282.jpg"
       ],
       "epigrafes": [
         "Ernesto Millaqueo",
@@ -4423,6 +4440,7 @@
         "Matilda Echegoy",
         "Milton Chico",
         "Rocio Catalan",
+        "",
         "Agustin Guechaqueo",
         "Agustina Curaqueo",
         "Brenda Aranda",
@@ -4442,11 +4460,9 @@
         "Nazarena Martinez",
         "Viviana Ñancucheo",
         "Yuliana Liempi",
-        "Lautaro Martínez",
         "Joaquín Gallardo",
         "Juan Cruz Epullan",
         "Maria Laura Moyano",
-        "Julián Álvarez",
         "Agustin Criban",
         "Angi Tiziana Pelliza",
         "Antonela Veron",
@@ -4470,17 +4486,15 @@
         "Torres Marcial",
         "Alma Maidana",
         "Bárbara Sosa",
-        "Cristian Romero",
-        "Jugador",
         "Karen Yanina Soto",
-        "Lionel Messi",
+        "",
         "Isaias Cañehuan",
         "Lazaro Antil",
         "Lazaro Peñaldo",
         "Maite Quiñenao",
         "Tiziano Huenchun",
         "Ulises Tutor",
-        "Cristian Romero",
+        "",
         "Daiana Huaquilican",
         "Daira Somigual",
         "Dalma Inalaf",
@@ -4493,6 +4507,7 @@
         "Milena Paulete",
         "Nahiara Poblete",
         "Santino Lleiful",
+        "",
         "Agustina Aguirre",
         "Angelina Stanoli",
         "Ariana Vargas",
@@ -4517,8 +4532,6 @@
         "Thiago Aguila",
         "Geremias Miranda",
         "Leonel Monsalbe",
-        "Nicolás Otamendi",
-        "Nahuel Molina",
         "Agustín Ramires",
         "Aiti Aravena",
         "Alexander Rocco",
@@ -4558,6 +4571,9 @@
         "Valentino Velázquez",
         "Valeria Barros",
         "Vedia Matos Saúl",
+        "",
+        "",
+        "",
         "Angie Cheuquellan",
         "Antonela Ancatruz",
         "Leonel Maliqueo",
@@ -4567,13 +4583,13 @@
         "Sele Varnes",
         "Selene Varnes",
         "Thaiel Cayul",
+        "",
         "Alexis Collueque",
         "Jeni Sonda",
         "Jenifer Sonda",
         "Jonathan Collueque",
         "Marcela Sonda",
         "Valen Ristovich",
-        "Emiliano Martínez",
         "",
         "Alan Antiqueo",
         "Ana Maria Llanca",
@@ -4599,6 +4615,7 @@
         "Morena Meza",
         "Nahiara Gravier",
         "Nicolás Bustamante",
+        "",
         "Agostina Bravo",
         "Agostina Schivndt",
         "Agustina Fernandez",
@@ -4615,12 +4632,13 @@
         "Noelia Gabriel",
         "Ramy Fernandez",
         "Taqui Fernanda",
-        "Nicolás Tagliafico",
+        "",
+        "",
+        "",
         "Dylan Peña Robaina",
         "Gustavo",
         "Jose Luis Lebeau",
         "Segundo Epul",
-        "Lionel Messi",
         "Aaron Gaminao",
         "Aldana Railaf",
         "Alexis Rosas",
@@ -4635,8 +4653,17 @@
         "Noemi Cahuimpan",
         "Rodrigo Fhaile",
         "Tahiel Llanquinao",
-        "Enzo Fernández",
         "Alexis Mac Allister",
+        "Cristian Romero",
+        "Emiliano Martínez",
+        "Enzo Fernández",
+        "Julián Álvarez",
+        "Lautaro Martínez",
+        "Lionel Messi",
+        "Lionel Messi",
+        "Nahuel Molina",
+        "Nicolás Otamendi",
+        "Nicolás Tagliafico",
         "Rodrigo De Paul",
         "Kevin Nahuel",
         "Nicolas Antenao",
@@ -4648,6 +4675,12 @@
         "Lautaro Godoy",
         "Leonel Godoy",
         "Tyago Gutierrez",
+        "Benjamín Gonzalo Paillalef",
+        "Martina Vera",
+        "Thiago Valentín Paillalef",
+        "",
+        "Aarón Chicaval",
+        "Maia Chazarreta",
         "Charly Lopardo",
         "Cristian Castillo",
         "El Javi Xd",
@@ -4670,12 +4703,7 @@
         "Sergio Gimenez",
         "Vanina Cayul",
         "Verónica Lojo",
-        "Virginia Kosta",
-        "Benjamín Gonzalo Paillalef",
-        "Martina Vera",
-        "Thiago Valentín Paillalef",
-        "Aarón Chicaval",
-        "Maia Chazarreta"
+        "Virginia Kosta"
       ],
       "fotos_grupos": [
         "Aguada Cecilio",
@@ -4696,6 +4724,7 @@
         "Aguada de Guerra",
         "Aguada de Guerra",
         "Aguada de Guerra",
+        "Aguada de Guerra",
         "Aguada Guzmán",
         "Aguada Guzmán",
         "Aguada Guzmán",
@@ -4715,11 +4744,9 @@
         "Arroyo los Berros",
         "Arroyo los Berros",
         "Arroyo los Berros",
-        "Bahía Blanca",
         "Blancura Centro",
         "Blancura Centro",
         "Blancura Centro",
-        "Calchín",
         "Cerro Policía",
         "Cerro Policía",
         "Cerro Policía",
@@ -4745,15 +4772,14 @@
         "Cona Niyeu",
         "Cona Niyeu",
         "Cona Niyeu",
-        "Cona Niyeu",
-        "Corralito",
         "Cómico",
         "Cómico",
         "Cómico",
         "Cómico",
         "Cómico",
         "Cómico",
-        "Córdoba",
+        "Cómico",
+        "El Caín",
         "El Caín",
         "El Caín",
         "El Caín",
@@ -4790,8 +4816,6 @@
         "El Cóndor",
         "El Manso",
         "El Manso",
-        "El Talar",
-        "Embalse",
         "Lago Pellegrini",
         "Lago Pellegrini",
         "Lago Pellegrini",
@@ -4831,6 +4855,10 @@
         "Lago Pellegrini",
         "Lago Pellegrini",
         "Lago Pellegrini",
+        "Lago Pellegrini",
+        "Lago Pellegrini",
+        "Lago Pellegrini",
+        "Laguna Blanca",
         "Laguna Blanca",
         "Laguna Blanca",
         "Laguna Blanca",
@@ -4846,7 +4874,6 @@
         "Mamuel Choique",
         "Mamuel Choique",
         "Mamuel Choique",
-        "Mar del Plata",
         "Mencué",
         "Mencué",
         "Mencué",
@@ -4872,6 +4899,7 @@
         "Naupahuen",
         "Naupahuen",
         "Naupahuen",
+        "Naupahuen",
         "Peñas Blancas",
         "Peñas Blancas",
         "Peñas Blancas",
@@ -4888,12 +4916,13 @@
         "Peñas Blancas",
         "Peñas Blancas",
         "Peñas Blancas",
-        "Rafael Calzada",
+        "Peñas Blancas",
+        "Peñas Blancas",
+        "Peñas Blancas",
         "Rincón Treneta",
         "Rincón Treneta",
         "Rincón Treneta",
         "Rincón Treneta",
-        "Rosario",
         "Río Chico",
         "Río Chico",
         "Río Chico",
@@ -4908,9 +4937,18 @@
         "Río Chico",
         "Río Chico",
         "Río Chico",
-        "San Martín",
-        "Santa Rosa",
-        "Sarandí",
+        "Selección Argentina",
+        "Selección Argentina",
+        "Selección Argentina",
+        "Selección Argentina",
+        "Selección Argentina",
+        "Selección Argentina",
+        "Selección Argentina",
+        "Selección Argentina",
+        "Selección Argentina",
+        "Selección Argentina",
+        "Selección Argentina",
+        "Selección Argentina",
         "Sierra Paileman",
         "Sierra Paileman",
         "Valle Verde",
@@ -4921,34 +4959,35 @@
         "Valle Verde",
         "Valle Verde",
         "Valle Verde",
-        "Viedma",
-        "Viedma",
-        "Viedma",
-        "Viedma",
-        "Viedma",
-        "Viedma",
-        "Viedma",
-        "Viedma",
-        "Viedma",
-        "Viedma",
-        "Viedma",
-        "Viedma",
-        "Viedma",
-        "Viedma",
-        "Viedma",
-        "Viedma",
-        "Viedma",
-        "Viedma",
-        "Viedma",
-        "Viedma",
-        "Viedma",
-        "Viedma",
-        "Viedma",
+        "Villa Llanquín",
         "Villa Llanquín",
         "Villa Llanquín",
         "Villa Llanquín",
         "Yaminué",
-        "Yaminué"
+        "Yaminué",
+        "Viedma",
+        "Viedma",
+        "Viedma",
+        "Viedma",
+        "Viedma",
+        "Viedma",
+        "Viedma",
+        "Viedma",
+        "Viedma",
+        "Viedma",
+        "Viedma",
+        "Viedma",
+        "Viedma",
+        "Viedma",
+        "Viedma",
+        "Viedma",
+        "Viedma",
+        "Viedma",
+        "Viedma",
+        "Viedma",
+        "Viedma",
+        "Viedma",
+        "Viedma"
       ],
       "album_colores": {
         "Aguada Cecilio": {
@@ -4971,20 +5010,10 @@
           "fondo": "#9dcbed",
           "pagina": "#c9e6fb"
         },
-        "Bahía Blanca": {
-          "color": "#723d99",
-          "fondo": "#cb9ded",
-          "pagina": "#e6c9fb"
-        },
         "Blancura Centro": {
-          "color": "#317a55",
-          "fondo": "#9dedc5",
-          "pagina": "#c9fbe2"
-        },
-        "Calchín": {
-          "color": "#99473d",
-          "fondo": "#eda59d",
-          "pagina": "#fbcec9"
+          "color": "#863d99",
+          "fondo": "#dc9ded",
+          "pagina": "#f1c9fb"
         },
         "Cerro Policía": {
           "color": "#993d3f",
@@ -4997,54 +5026,34 @@
           "pagina": "#fbc9e5"
         },
         "Colan Conhué": {
-          "color": "#60752f",
-          "fondo": "#d4ed9d",
-          "pagina": "#ecfbc9"
+          "color": "#317a57",
+          "fondo": "#9dedc6",
+          "pagina": "#c9fbe3"
         },
         "Cona Niyeu": {
-          "color": "#993d98",
-          "fondo": "#ed9ded",
-          "pagina": "#fbc9fb"
-        },
-        "Corralito": {
-          "color": "#317a77",
-          "fondo": "#9dede9",
-          "pagina": "#c9fbf9"
+          "color": "#60752f",
+          "fondo": "#d5ed9d",
+          "pagina": "#ecfbc9"
         },
         "Cómico": {
-          "color": "#69752f",
-          "fondo": "#dfed9d",
-          "pagina": "#f3fbc9"
-        },
-        "Córdoba": {
-          "color": "#3d5499",
-          "fondo": "#9db0ed",
-          "pagina": "#c9d5fb"
+          "color": "#99463d",
+          "fondo": "#eda49d",
+          "pagina": "#fbcec9"
         },
         "El Caín": {
-          "color": "#843d99",
-          "fondo": "#da9ded",
-          "pagina": "#f0c9fb"
+          "color": "#317a79",
+          "fondo": "#9dedeb",
+          "pagina": "#c9fbfa"
         },
         "El Cóndor": {
-          "color": "#403d99",
-          "fondo": "#9f9ded",
-          "pagina": "#cbc9fb"
+          "color": "#5b3d99",
+          "fondo": "#b79ded",
+          "pagina": "#d9c9fb"
         },
         "El Manso": {
           "color": "#99483d",
           "fondo": "#eda69d",
           "pagina": "#fbcfc9"
-        },
-        "El Talar": {
-          "color": "#993d86",
-          "fondo": "#ed9ddc",
-          "pagina": "#fbc9f1"
-        },
-        "Embalse": {
-          "color": "#5f752f",
-          "fondo": "#d3ed9d",
-          "pagina": "#ebfbc9"
         },
         "Lago Pellegrini": {
           "color": "#317a43",
@@ -5061,11 +5070,6 @@
           "fondo": "#9da6ed",
           "pagina": "#c9cffb"
         },
-        "Mar del Plata": {
-          "color": "#5b3d99",
-          "fondo": "#b79ded",
-          "pagina": "#d9c9fb"
-        },
         "Mencué": {
           "color": "#993d75",
           "fondo": "#ed9dcd",
@@ -5081,40 +5085,20 @@
           "fondo": "#9dedd6",
           "pagina": "#c9fbed"
         },
-        "Rafael Calzada": {
-          "color": "#39738f",
-          "fondo": "#9dd3ed",
-          "pagina": "#c9ebfb"
-        },
         "Rincón Treneta": {
           "color": "#317a59",
           "fondo": "#9dedc9",
           "pagina": "#c9fbe5"
-        },
-        "Rosario": {
-          "color": "#993d4f",
-          "fondo": "#ed9dac",
-          "pagina": "#fbc9d3"
         },
         "Río Chico": {
           "color": "#3d6099",
           "fondo": "#9dbced",
           "pagina": "#c9dcfb"
         },
-        "San Martín": {
-          "color": "#993d5f",
-          "fondo": "#ed9dbb",
-          "pagina": "#fbc9dc"
-        },
-        "Santa Rosa": {
-          "color": "#517a31",
-          "fondo": "#c0ed9d",
-          "pagina": "#dffbc9"
-        },
-        "Sarandí": {
-          "color": "#3d5199",
-          "fondo": "#9daeed",
-          "pagina": "#c9d4fb"
+        "Selección Argentina": {
+          "color": "#59752f",
+          "fondo": "#cded9d",
+          "pagina": "#e7fbc9"
         },
         "Sierra Paileman": {
           "color": "#993d73",
@@ -5142,6 +5126,162 @@
           "pagina": "#c9e3fb"
         }
       }
+    },
+    {
+      "id": "antartida",
+      "seccion": "proyectos",
+      "titulo": "Del rural virtual a la Antártida",
+      "bajada": "Una pregunta de nuestros estudiantes abrió la puerta a una charla con una científica que trabaja en Base Esperanza.",
+      "autor": "Romina Agulles",
+      "sede": "ESRN Rural Virtual",
+      "fecha": "Octubre 2026",
+      "fecha_iso": "2026-10-11",
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "Desde el ESRN Rural Virtual, buscamos que nuestras aulas sean también espacios para preguntar, investigar, conocer nuevas experiencias y descubrir diferentes caminos posibles después de la escuela secundaria."
+        },
+        {
+          "t": "p",
+          "v": "En esta oportunidad, la curiosidad de nuestros estudiantes, expresada a través de sus preguntas, nos permitió concretar un encuentro realmente especial: **conversar con una científica que se encuentra trabajando en la Antártida**."
+        },
+        {
+          "t": "p",
+          "v": "Las preguntas que dieron origen a este encuentro surgieron de los intereses de nuestros estudiantes y de los contenidos, experiencias y aprendizajes que vienen construyendo durante este año y también a lo largo de sus trayectorias en el Área de Educación Científica y Tecnológica."
+        },
+        {
+          "t": "video",
+          "v": "https://www.youtube.com/embed/uE43WLNnXLQ"
+        },
+        {
+          "t": "h3",
+          "v": "Mara Smith, en Base Esperanza"
+        },
+        {
+          "t": "p",
+          "v": "Así fue como tuvimos la posibilidad de encontrarnos, aunque fuera a través de una pantalla, con Mara Smith, Licenciada en Biología, egresada de la Universidad Nacional de La Plata."
+        },
+        {
+          "t": "p",
+          "v": "Mara se encuentra transitando su tercera campaña antártica y actualmente cumple funciones como auxiliar de base en Base Esperanza. Además, está a cargo del Módulo Antártico de Producción Hidropónica (MAPI), una experiencia que nos permitió acercarnos a una forma de producir alimentos en un ambiente con condiciones muy diferentes a las que conocemos cotidianamente."
+        },
+        {
+          "t": "p",
+          "v": "Mara también es integrante de LRA 36, la radio de Base Esperanza, sumando otra experiencia muy particular a su recorrido profesional."
+        },
+        {
+          "t": "p",
+          "v": "A través de este encuentro pudimos conocer un poco más sobre su trabajo, su recorrido como bióloga y las particularidades de desarrollar actividades científicas y productivas en la Antártida."
+        },
+        {
+          "t": "p",
+          "v": "Pero, sobre todo, pudimos acercarnos a una historia real. Una historia que nos permite mostrarles a nuestros estudiantes que detrás de una profesión también hay decisiones y oportunidades."
+        },
+        {
+          "t": "h3",
+          "v": "Una experiencia que va más allá de la entrevista"
+        },
+        {
+          "t": "p",
+          "v": "Este encuentro no fue solamente una entrevista. También fue una oportunidad para conversar sobre algo que muchas veces genera preguntas e incertidumbre en nuestros estudiantes:"
+        },
+        {
+          "t": "pregunta",
+          "v": "¿Qué hacer después de la escuela secundaria?"
+        },
+        {
+          "t": "p",
+          "v": "Conocer el recorrido de Mara nos permitió pensar justamente en eso: en las posibilidades que existen, en las diferentes profesiones relacionadas con las ciencias y en los caminos que cada persona puede construir a partir de sus intereses."
+        },
+        {
+          "t": "p",
+          "v": "Por este motivo, la propuesta se relaciona también con el **Taller de Egreso**, un espacio que se realiza en ESRN Rural Virtual desde el año 2025 y que se desarrolla nuevamente en este año, buscando acompañar a nuestros estudiantes en ese momento tan importante de pensar qué quieren hacer después de terminar la secundaria."
+        },
+        {
+          "t": "p",
+          "v": "Porque consideramos que mostrar experiencias concretas también es una manera de acompañar a nuestros estudiantes a imaginar su futuro."
+        },
+        {
+          "t": "h3",
+          "v": "Cuando la tecnología nos acerca"
+        },
+        {
+          "t": "p",
+          "v": "Para quienes formamos parte del ESRN Rural Virtual, estas experiencias tienen un significado muy especial."
+        },
+        {
+          "t": "p",
+          "v": "Nuestros estudiantes se encuentran distribuidos en diferentes sedes y parajes de la provincia de Río Negro. Sin embargo, la virtualidad nos permite generar encuentros que, de otra manera, serían muy difíciles de concretar."
+        },
+        {
+          "t": "p",
+          "v": "En esta oportunidad, esa conexión nos permitió acercarnos a la Antártida. Una pantalla se convirtió en un puente entre nuestras aulas y Base Esperanza. Y detrás de ese encuentro hubo muchas personas trabajando para que fuera posible."
+        },
+        {
+          "t": "h3",
+          "v": "Gracias a quienes hicieron posible este encuentro"
+        },
+        {
+          "t": "p",
+          "v": "Queremos agradecer especialmente a Mara Smith, por su tiempo, su predisposición y por compartir con nosotros parte de su experiencia profesional y de su vida en la Antártida. También queremos agradecer a todas las personas que hicieron posible esta conexión y que trabajaron para que el encuentro pudiera llegar a nuestra comunidad."
+        },
+        {
+          "t": "p",
+          "v": "Un agradecimiento especial a los profesores que estuvieron delante y detrás de cámara, acompañando la organización y el desarrollo del streaming:"
+        },
+        {
+          "t": "li",
+          "v": "Aimé Funes"
+        },
+        {
+          "t": "li",
+          "v": "Verónica Lojo"
+        },
+        {
+          "t": "li",
+          "v": "Juan Rodeghiero"
+        },
+        {
+          "t": "li",
+          "v": "Romina Agulles"
+        },
+        {
+          "t": "li",
+          "v": "Lucas Rodeland"
+        },
+        {
+          "t": "li",
+          "v": "Walter Esquercia."
+        },
+        {
+          "t": "p",
+          "v": "A cada uno de ellos, gracias por el compromiso, el tiempo y el trabajo compartido."
+        },
+        {
+          "t": "p",
+          "v": "Y, por supuesto, gracias a nuestros estudiantes, porque fueron sus preguntas, su curiosidad y sus ganas de conocer las que hicieron posible que esta historia comenzara."
+        },
+        {
+          "t": "cita",
+          "v": "Quizás lo más valioso de esta experiencia sea justamente descubrir que una pregunta puede abrir una puerta."
+        },
+        {
+          "t": "p",
+          "v": "Una pregunta nacida en nuestras aulas nos permitió conocer una profesión, una experiencia de vida, una forma de hacer ciencia y también imaginar otros caminos posibles."
+        },
+        {
+          "t": "p",
+          "v": "Desde el ESRN Rural Virtual queremos seguir generando estos espacios de encuentro, porque creemos que enseñar también es acercar mundos, despertar curiosidades y ayudar a nuestros estudiantes a descubrir que existen muchos caminos por recorrer."
+        },
+        {
+          "t": "p",
+          "v": "Esta vez, nuestro camino llegó hasta la Antártida, y todo comenzó con algo tan sencillo y tan poderoso como una pregunta."
+        },
+        {
+          "t": "firma",
+          "v": "Romina Agulles · Prof. de Biotecnología · ESRN Rural Virtual"
+        }
+      ]
     }
   ]
 }

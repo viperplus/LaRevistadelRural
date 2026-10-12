@@ -924,11 +924,34 @@ a:hover { color: var(--ocre-texto); }
    La hoja que gira se levanta del pliego: se la pone por encima (aún
    del lomo, que es el doblez) y se le da una sombra que crece con el
    giro. El ángulo lo manda el JavaScript, así que la misma hoja sirve
-   para el giro solo y para el arrastre. */
-.album__hoja.girando { z-index: 7; }
+   para el giro solo y para el arrastre.
+   Además no gira rígida: --giro es 0 en los extremos y 1 al medio del
+   recorrido, y con eso la hoja se dobla y la luz le corre por encima,
+   como una hoja de papel que alguien pasa con la mano. */
+.album__hoja.girando {
+  z-index: 7;
+  --giro: 0;
+}
 .album__hoja.girando .album__cara--frente,
 .album__hoja.girando .album__cara--atras {
-  box-shadow: 0 18px 40px rgba(60, 40, 16, .22), 0 3px 10px rgba(60, 40, 16, .14);
+  box-shadow:
+    0 18px 40px rgba(60, 40, 16, calc(.10 + .16 * var(--giro))),
+    0 3px 10px rgba(60, 40, 16, calc(.06 + .10 * var(--giro)));
+}
+/* La luz que se desliza sobre el papel cuando la hoja se curva. */
+.album__hoja.girando .album__cara--frente::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    linear-gradient(calc(90deg + var(--giro) * 8deg),
+      rgba(72, 50, 22, calc(.13 * var(--giro))) 0%,
+      transparent 38%,
+      rgba(255, 252, 244, calc(.34 * var(--giro))) 74%,
+      transparent 100%);
+  mix-blend-mode: soft-light;
 }
 /* ---- cabecera de sede: ahí entra el color que la identifica ----
    Lleva el número de sede en grande, como el dorsal de una camiseta,
