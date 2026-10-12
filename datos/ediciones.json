@@ -5320,43 +5320,57 @@
     {
       "id": "malvinas",
       "seccion": "proyectos",
-      "titulo": "2 de Abril: Malvinas, historia, soberanía, memoria y territorio",
-      "bajada": "Trabajo realizado por el Área de Ciencias Naturales de 2° C y 2° B, bajo la coordinación de la profesora Yanina Lorenzo.",
-      "autor": "Alumnos de 2° C y 2° B · Ciencias Naturales",
+      "titulo": "Malvinas: pasado, presente y futuro en nuestra escuela",
+      "bajada": "Reflexiones y producciones del Área de Educación Científica y Tecnológica, en conmemoración del 2 de Abril.",
+      "autor": "Alumnos y docentes · Educación Científica y Tecnológica",
       "sede": "ESRN Rural Virtual",
       "fecha": "Abril 2026",
       "fecha_iso": "2026-04-02",
       "cuerpo": [
         {
           "t": "p",
-          "v": "Este proyecto recoge el trabajo realizado por los estudiantes de 2° año del ESRN Rural Virtual, en el marco del Área de Ciencias Naturales, para reflexionar sobre el 2 de Abril, Día del Veterano y de los Caídos en la Guerra de Malvinas."
+          "v": "¿Cómo se enseña, se siente y se defiende la soberanía desde la virtualidad y la ruralidad? Esta fue la premisa central con la que el Área de Educación Científica y Tecnológica impulsó una propuesta integral destinada a las y los estudiantes, transformando la conmemoración del 2 de abril, “Día del Veterano y de los Caídos en la Guerra de Malvinas”, en un puente activo entre la memoria histórica, la ciencia, la geografía y el compromiso ciudadano."
         },
         {
           "t": "h3",
-          "v": "Memoria, soberanía y territorio"
+          "v": "Un recorrido en tres momentos: del mapa a la acción"
         },
         {
           "t": "p",
-          "v": "A través de la investigación, la lectura de fuentes, la producción escrita y la organización de la información, los alumnos profundizaron en la historia del archipiélago, el conflicto de 1982, la recuperación de la soberanía y la importancia de mantener viva la memoria de quienes participaron."
+          "v": "La iniciativa se estructuró a través de un recorrido pedagógico dinámico dividido en tres estaciones conceptuales y prácticas:"
+        },
+        {
+          "t": "li",
+          "v": "¿Cuál es el verdadero tamaño de la Argentina? A través de la revisión del mapa bicontinental, la propuesta invitó a dimensionar nuestro territorio más allá de la porción continental, integrando el Mar Argentino, las Islas del Atlántico Sur y el sector antártico. Las estaciones de reflexión desafiaron a los y las estudiantes a pensar cómo la ciencia, la tecnología y el conocimiento estratégico son las herramientas fundamentales para defender la soberanía en el siglo XXI."
+        },
+        {
+          "t": "li",
+          "v": "Lugares de la memoria. La comunidad se propuso indagar en cómo la historia habita en los espacios cotidianos (monumentos, placas, nombres de calles o escuelas) y llevar la reflexión a la práctica mediante la creación de mojones locales. Con el cálculo de distancias reales hacia las islas utilizando herramientas geográficas y la construcción de siluetas con elementos del entorno natural, cada sede visibilizó la cercanía simbólica con nuestro suelo austral."
+        },
+        {
+          "t": "li",
+          "v": "Cartas por la memoria y la soberanía. Inspirados en las misivas que en 1982 cruzaron el océano para transformarse en abrigo frente a la incertidumbre, los y las estudiantes redactaron cartas dirigidas al presente y a los ex combatientes. El ejercicio combinó la reflexión sobre la identidad nacional con compromisos concretos orientados a mantener viva la causa, combatir la desinformación y sostener el reclamo por la vía del diálogo y la paz."
         },
         {
           "t": "h3",
-          "v": "Producciones de los alumnos"
+          "v": "Ciencia, tecnología y memoria viva"
         },
         {
           "t": "p",
-          "v": "El material reúne infografías, mapas, fichas, líneas de tiempo y reflexiones elaboradas por los estudiantes de 2° C y 2° B, con la guía y coordinación de la profesora Yanina Lorenzo."
+          "v": "Desde el Área de Educación Científica y Tecnológica se destacó que la propuesta buscó trascender el mero efeméride escolar, propiciando un espacio donde las tecnologías digitales, los recursos cartográficos y el pensamiento crítico se unieron para fortalecer nuestra identidad colectiva."
         },
         {
           "t": "p",
-          "v": "El documento completo puede consultarse desde el enlace del sitio original: https://sites.google.com/esrnruralvirtual.com/malvinas?usp=sharing"
+          "v": "Las producciones finales —cartas, registros fotográficos, cartelería y reflexiones— fueron compartidas en un muro digital colaborativo, consolidando un archivo escolar vivo que será puesto a disposición de centros de veteranos. Una muestra clara de que, desde cada rincón de nuestra ruralidad virtual, las Malvinas siguen estando presentes."
         }
       ],
       "fotos": [
-        "foto-01.jpg"
+        "foto-01.jpg",
+        "foto-02.jpg"
       ],
       "epigrafes": [
-        ""
+        "Mapa bicontinental",
+        "Producciones de los estudiantes"
       ]
     }
   ]
