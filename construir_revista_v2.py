@@ -230,7 +230,9 @@ def video_src(v):
     v = (v or "").strip()
     m = RE_YOUTUBE.search(v)
     if m:
-        return "https://www.youtube.com/embed/%s" % m.group(1)
+        # nocookie manda el Referer igual pero sin cookies de seguimiento:
+        # es la que usa YouTube cuando el dominio lo embebe mal.
+        return "https://www.youtube-nocookie.com/embed/%s" % m.group(1)
     # Drive: /file/d/ID/view... -> /file/d/ID/preview
     mid = v.replace("https://drive.google.com/file/d/", "").replace(
         "http://drive.google.com/file/d/", "")
@@ -627,6 +629,9 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
     body_class = ' class="sec-%s"' % sec_id if sec_id else ''
     return ('<!doctype html>\n<html lang="es" dir="ltr">\n<head>\n'
             '<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n'
+            # YouTube exige que el iframe le mande Referer: sin eso tira
+            # el error 153 y no carga el video (issue del 2025).
+            '<meta name="referrer" content="strict-origin-when-cross-origin">\n'
             "<title>%s · %s</title>\n<meta name=\"description\" content=\"%s\">\n"
             "<link rel=\"icon\" href=\"%s\" type=\"image/svg+xml\">\n%s\n%s\n%s\n</head>\n<body%s>\n"
             '<a class="salto" href="#contenido">Salto al contenido</a>\n'
