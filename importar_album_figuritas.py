@@ -6,11 +6,13 @@ las achica a ~700 px y las deja en ediciones/01/album-figuritas/. Despues
 escribe (o actualiza) la entrada del articulo en datos/ediciones.json.
 """
 import colorsys
+import hashlib
 import json
 import os
 import re
 import shutil
 import sys
+import unicodedata
 
 from PIL import Image, ImageOps
 
@@ -182,6 +184,52 @@ def clasificar():
     return filas, descartadas
 
 
+# ---------- repetidas --------------------------------------------------------
+def normalizar(s):
+    """'Kiara Mamani' y 'Kiara Mamaní' -> la misma clave."""
+    s = unicodedata.normalize("NFKD", s or "")
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    return re.sub(r"\s+", " ", s).strip().lower()
+
+
+def clave_persona(nombre):
+    """El orden no importa: 'Fonseca Tiziana' es 'Tiziana Fonseca'."""
+    n = normalizar(nombre)
+    if not n:
+        return None
+    return " ".join(sorted(n.split()))
+
+
+def huella(p):
+    """Huella barata del archivo: alcanza para detectar copias exactas."""
+    tam = os.path.getsize(p)
+    with open(p, "rb") as fh:
+        cabeza = fh.read(2 << 20)
+        fh.seek(max(0, tam - (1 << 20)))
+        cola = fh.read()
+    return tam, hashlib.sha1(cabeza).hexdigest(), hashlib.sha1(cola).hexdigest()
+
+
+def depurar(filas):
+    """Sobra la figurita repetida: misma sede y persona, o el mismo archivo.
+    -> (las que quedan, las que se van)."""
+    dentro, fuera = [], []
+    personas, huellas = set(), []
+    for fila in filas:
+        s, n, f = fila
+        k = clave_persona(n)
+        h = huella(os.path.join(SRC, f))
+        repetida = h in huellas or (k is not None and (normalizar(s), k) in personas)
+        if repetida:
+            fuera.append(fila)
+            continue
+        huellas.append(h)
+        if k is not None:
+            personas.add((normalizar(s), k))
+        dentro.append(fila)
+    return dentro, fuera
+
+
 def optimizar(dst):
     """Redimensiona a ANCHO px y guarda JPEG. Devuelve True si escribio."""
     if os.path.isfile(dst) and os.path.getsize(dst) > MIN_PESO:
@@ -209,8 +257,11 @@ def convertir(origen, dst):
 def main():
     write = "--write" in sys.argv
     filas, descartadas = clasificar()
+    filas, repetidas = depurar(filas)
 
-    print("figuritas: %d" % len(filas))
+    print("figuritas: %d  (repetidas quitadas: %d)" % (len(filas), len(repetidas)))
+    for s, n, f in repetidas:
+        print("    - %-22s %-22s <- %s" % (s, n or "(sin nombre)", f))
     print("descartadas (escenarios u otras): %d" % len(descartadas))
     for d in descartadas:
         print("   ", d)
@@ -230,6 +281,23 @@ def main():
     dst_dir = os.path.join(BASE, "ediciones", "01", UID)
     os.makedirs(dst_dir, exist_ok=True)
 
+    # La numeracion se corre: si cambio el listado, hay que rehacerlas todas,
+    # si no un fig-NNN.jpg viejo quedaria con la imagen de otra persona.
+    viejo = []
+    if os.path.isfile(DATOS):
+        datos_v = json.load(open(DATOS, encoding="utf-8"))
+        for a in datos_v["articulos"]:
+            if a["id"] == ID_ART:
+                viejo = list(zip(a.get("epigrafes", []), a.get("fotos_grupos", [])))
+                break
+    nuevo = [(n, s) for s, n, _ in filas]
+    rehacer = viejo != nuevo
+    if rehacer:
+        for f in os.listdir(dst_dir):
+            if re.match(r"^fig-\d+\.jpg$", f):
+                os.remove(os.path.join(dst_dir, f))
+        print("numeracion cambiada: se rehacen todas")
+
     fotos, epigrafes, grupos_ord = [], [], []
     hechas = nuevas = 0
     for i, (s, n, f) in enumerate(filas, 1):
@@ -245,6 +313,7 @@ def main():
         grupos_ord.append(s)
         if nuevas and nuevas % 50 == 0:
             print("   ... %d/%d" % (nuevas, len(filas)))
+
 
     total = sum(os.path.getsize(os.path.join(dst_dir, x)) for x in fotos)
     print("convertidas %d (nuevas %d) -> %.1f MB" % (hechas, nuevas, total / 1048576.0))
