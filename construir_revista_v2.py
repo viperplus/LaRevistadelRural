@@ -243,6 +243,15 @@ def video_src(v):
     return "https://drive.google.com/file/d/%s/preview" % mid
 
 
+def video_link(v):
+    """URL para abrir el video en su propia página (salida de emergencia)."""
+    v = (v or "").strip()
+    m = RE_YOUTUBE.search(v)
+    if m:
+        return "https://www.youtube.com/watch?v=%s" % m.group(1)
+    return v
+
+
 def render_cuerpo(art, fotos_paths, solo_bloques=False):
     """Convierte bloques + fotos a HTML. fotos_paths son relativos al article folder.
     solo_bloques=True devuelve solamente el texto del articulo, sin repartir
@@ -350,8 +359,10 @@ def render_cuerpo(art, fotos_paths, solo_bloques=False):
                 'allow="accelerometer; autoplay; clipboard-write; encrypted-media; '
                 'gyroscope; picture-in-picture; web-share" '
                 'referrerpolicy="strict-origin-when-cross-origin" playsinline '
-                'allowfullscreen title="Video del articulo"></iframe></div>'
-                % esc(video_src(v)))
+                'allowfullscreen title="Video del articulo"></iframe>'
+                '<p class="video__salida"><a href="%s" target="_blank" rel="noopener">'
+                'Si no se reproduce, miralo en YouTube &#8599;</a></p></div>'
+                % (esc(video_src(v)), esc(video_link(v))))
         else:
             cuerpo_html.append("<p class='txt-parrafo'>%s</p>" % md(v))
     if en_lista:

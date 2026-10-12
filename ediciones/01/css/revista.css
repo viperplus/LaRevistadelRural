@@ -588,6 +588,12 @@ a:hover { color: var(--ocre-texto); }
 .fig--g8 { max-width: 40rem; margin-inline: auto; }
 .fig--mediana { max-width: 30rem; margin-inline: auto; }
 .video { margin: 2.2rem auto; max-width: 40rem; }
+.video__salida {
+  margin: .7rem 0 0;
+  text-align: right;
+  font-size: .85rem;
+}
+.video__salida a { color: var(--tinta-2, inherit); }
 .video iframe {
   display: block;
   width: 100%;
