@@ -652,3 +652,59 @@
     pintarProgreso();
   })();
 })();
+
+/* ------------------------------------------------------------------
+   Barra de secciones: marca la sección activa con aria-current y, si
+   la fila no entra en la pantalla, la deja deslizable en horizontal
+   (el CSS dibuja los degradados de los costados con data-desborde).
+   En las páginas de artículo se toma la sección desde el pie de firma.
+   ------------------------------------------------------------------ */
+(function nav() {
+  "use strict";
+  var lista = document.querySelector(".nav-ed__lista");
+  if (!lista) return;
+  var enlaces = Array.prototype.slice.call(lista.querySelectorAll("a[data-sec]"));
+  if (!enlaces.length) return;
+
+  function ruta(u) {
+    try {
+      return new URL(u, location.href).pathname
+        .replace(/\/index\.html$/, "/").replace(/\/+$/, "");
+    } catch (e) { return ""; }
+  }
+
+  var aqui = ruta(location.pathname);
+  var cual = null;
+  enlaces.forEach(function (a) {
+    if (ruta(a.getAttribute("href")) === aqui) cual = a;
+  });
+  if (!cual) {
+    var meta = document.querySelector(".articulo__meta a[href*='secciones/']");
+    if (meta) {
+      var sec = ruta(meta.getAttribute("href"));
+      enlaces.forEach(function (a) {
+        if (ruta(a.getAttribute("href")) === sec) cual = a;
+      });
+    }
+  }
+  if (cual) cual.setAttribute("aria-current", "page");
+
+  function medir() {
+    if (lista.scrollWidth - lista.clientWidth > 4) {
+      lista.setAttribute("data-desborde", "1");
+    } else {
+      lista.removeAttribute("data-desborde");
+      lista.scrollLeft = 0;
+    }
+  }
+  medir();
+  /* la sección activa queda a la vista, sin mover la página */
+  if (cual) {
+    lista.scrollLeft = cual.offsetLeft - (lista.clientWidth - cual.offsetWidth) / 2;
+  }
+  var reloj = null;
+  window.addEventListener("resize", function () {
+    if (reloj) clearTimeout(reloj);
+    reloj = setTimeout(function () { reloj = null; medir(); }, 180);
+  });
+})();

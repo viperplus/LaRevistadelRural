@@ -11,25 +11,23 @@
   --papel: #faf6ee;
   --papel-alt: #fffdf8;
   --papel-calido: #f3ead9;
-  --papel-hondo: #ece1cc;
 
   /* Tinta: verde-gris cálido en lugar de azul casi negro */
   --tinta: #23302b;
   --tinta-2: #55635c;
-  --tinta-3: #5f6f66;   /* 5.0:1 sobre papel — antes fallaba el contraste AA */
+  --tinta-3: #5d6d64;   /* 5.1:1 sobre papel, 4.6:1 sobre papel-calido (rótulos chicos) */
 
   /* Principales: verde cálido, menos severo que el petróleo anterior */
   --verde: #1a5c4e;
   --verde-osc: #123f37;
-  --verde-texto: #4a7a63;  /* 4.6:1, seguro para texto pequeño */
+  --verde-texto: #44705b;  /* 5.2:1 sobre papel, 4.7:1 sobre papel-calido */
   --verde-suave: #8fb89a;  /* solo decorativo: fondos, bordes */
   --verde-fondo: #eaf3ec;
 
   /* Acento cálido */
   --ocre: #c9762f;         /* decorativo / texto grande */
-  --ocre-texto: #a85a1e;  /* 4.7:1, seguro para texto pequeño */
+  --ocre-texto: #a1561d;  /* 5.0:1 sobre papel, 4.6:1 sobre papel-calido */
   --ocre-suave: #f2a65a;
-  --terracota: #b8552f;
 
   --linea: #ddd5c6;
   --linea-suave: #ece5d8;
@@ -76,7 +74,28 @@
   --sec-voces: #7a6440;
   --sec-estudiantes: #6a9440;
   --sec-futuro: #7a4a9e;
+  --sec-proyectos: #0e7490;
   --sec-egresados: #b23a48;
+
+  /* Tinta con la que se mezclan los colores de sección cuando el color
+     puro no llega a 4.5:1 sobre fondo claro (texto chico, WCAG AA) */
+  --tinta-seccion: #16211d;
+
+  /* Argentina: la bandera entra sólo por el álbum de figuritas */
+  --arg-celeste: #75aadb;
+  --arg-celeste-alta: #a3cee9;
+  --arg-celeste-baja: #5b95c6;
+  --arg-azul: #003087;
+  --arg-azul-hondo: #001f57;
+  --arg-oro: #d9a441;
+  --arg-oro-alto: #f4d78e;
+
+  /* Escala de espaciado: razón ~1.5 entre pasos */
+  --sp-1: .45rem;
+  --sp-2: .75rem;
+  --sp-3: 1.15rem;
+  --sp-4: 1.75rem;
+  --sp-5: 2.6rem;
 }
 
 /* ============ RESET ============ */
@@ -113,6 +132,13 @@ a {
 }
 a:hover { color: var(--ocre-texto); }
 :focus-visible { outline: 3px solid var(--ocre); outline-offset: 3px; border-radius: var(--r-s); }
+/* El foco no debe cambiarle la forma a la pieza que lo recibe */
+.nav-ed a:focus-visible,
+.album__btn:focus-visible,
+.album__volver:focus-visible,
+.volver:focus-visible,
+.todos__enlace a:focus-visible { border-radius: var(--r-full); }
+.nav-ed a:focus-visible { outline-offset: 2px; }
 ::selection { background: var(--ocre-suave); color: #241505; }
 
 /* ============ LAYOUT ============ */
@@ -146,50 +172,88 @@ a:hover { color: var(--ocre-texto); }
   background: linear-gradient(90deg, var(--verde) 0%, var(--verde-suave) 45%, var(--ocre) 100%);
 }
 .masthead__marca, .masthead__marca a {
-  font-family: var(--titulos); font-weight: 800; font-size: 2.1rem;
-  letter-spacing: -.025em; line-height: 1; color: var(--verde-osc);
+  font-family: var(--titulos); font-weight: 800;
+  font-size: clamp(1.5rem, 5.4vw, 2.1rem);
+  letter-spacing: -.025em; line-height: 1.05; color: var(--verde-osc);
   text-decoration: none;
   display: inline-block;
 }
 .masthead__marca a:hover { color: var(--ocre-texto); }
 .nav-ed { margin-top: .7rem; }
+/* Una sola fila: si no entra, se desliza en horizontal en vez de dejar
+   un ítem huérfano en una segunda línea. El JS marca el desborde
+   (data-desborde) para dibujar los degradados de los costados. */
 .nav-ed__lista {
-  list-style: none; margin: 0; padding: .7rem 0 0;
-  display: flex; gap: .45rem; flex-wrap: wrap;
+  list-style: none; margin: 0;
+  padding: .7rem .3rem .4rem;
+  display: flex; flex-wrap: nowrap; gap: .35rem;
   justify-content: center;
+  justify-content: safe center;
   border-top: 1px solid var(--linea-suave);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: .4rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--linea) transparent;
 }
-/* Menú de secciones: chips más grandes, tintados por sección */
+.nav-ed__lista > li { flex: none; scroll-snap-align: center; }
+.nav-ed__lista::-webkit-scrollbar { height: 6px; }
+.nav-ed__lista::-webkit-scrollbar-thumb { background: var(--linea); border-radius: var(--r-full); }
+.nav-ed__lista::-webkit-scrollbar-track { background: transparent; }
+.nav-ed__lista[data-desborde] {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 16px,
+    #000 calc(100% - 16px), transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 16px,
+    #000 calc(100% - 16px), transparent 100%);
+}
+/* Chips compactos, tintados por sección. --sc es el color de la sección
+   y de ahí salen fondo, borde y texto (este último mezclado con la tinta
+   oscura para no bajar de 4.5:1). */
 .nav-ed a {
-  font-family: var(--titulos); font-size: 1rem; font-weight: 650;
-  letter-spacing: .01em; text-transform: none;
-  text-decoration: none;
-  padding: .62rem 1.2rem; border-radius: var(--r-m);
-  color: var(--sec-color, var(--tinta-2));
-  background: rgba(255, 253, 248, .85);
-  border: 1px solid var(--linea-suave);
-  transition: all .2s var(--trans);
+  --sc: var(--verde);
+  display: inline-block;
+  font-family: var(--titulos); font-size: .9rem; font-weight: 650;
+  letter-spacing: .005em; text-transform: none;
+  white-space: nowrap; text-decoration: none;
+  padding: .48rem .75rem;
+  border-radius: var(--r-full);
+  color: color-mix(in srgb, var(--sc) 70%, var(--tinta-seccion));
+  background: color-mix(in srgb, var(--sc) 9%, var(--papel-alt));
+  border: 1px solid color-mix(in srgb, var(--sc) 30%, #fff);
+  transition: background .2s var(--trans), border-color .2s var(--trans),
+              color .2s var(--trans), transform .2s var(--trans),
+              box-shadow .2s var(--trans);
 }
-.nav-ed a[data-sec="ciencia"] { color: var(--sec-ciencia); background: color-mix(in srgb, var(--sec-ciencia) 12%, white); border-color: color-mix(in srgb, var(--sec-ciencia) 32%, white); }
-.nav-ed a[data-sec="territorio"] { color: #8a6309; background: color-mix(in srgb, var(--sec-territorio) 13%, white); border-color: color-mix(in srgb, var(--sec-territorio) 35%, white); }
-.nav-ed a[data-sec="cultura"] { color: var(--sec-cultura); background: color-mix(in srgb, var(--sec-cultura) 12%, white); border-color: color-mix(in srgb, var(--sec-cultura) 32%, white); }
-.nav-ed a[data-sec="escuela"] { color: var(--sec-escuela); background: color-mix(in srgb, var(--sec-escuela) 12%, white); border-color: color-mix(in srgb, var(--sec-escuela) 32%, white); }
-.nav-ed a[data-sec="voces"] { color: var(--sec-voces); background: color-mix(in srgb, var(--sec-voces) 13%, white); border-color: color-mix(in srgb, var(--sec-voces) 35%, white); }
-.nav-ed a[data-sec="estudiantes"] { color: var(--sec-estudiantes); background: color-mix(in srgb, var(--sec-estudiantes) 12%, white); border-color: color-mix(in srgb, var(--sec-estudiantes) 32%, white); }
-.nav-ed a[data-sec="futuro"] { color: var(--sec-futuro); background: color-mix(in srgb, var(--sec-futuro) 12%, white); border-color: color-mix(in srgb, var(--sec-futuro) 32%, white); }
-.nav-ed a[data-sec="egresados"] { color: var(--sec-egresados); background: color-mix(in srgb, var(--sec-egresados) 12%, white); border-color: color-mix(in srgb, var(--sec-egresados) 32%, white); }
+.nav-ed a[data-sec="presentacion"] { --sc: var(--verde); }
+.nav-ed a[data-sec="ciencia"] { --sc: var(--sec-ciencia); }
+.nav-ed a[data-sec="territorio"] { --sc: var(--sec-territorio); }
+.nav-ed a[data-sec="cultura"] { --sc: var(--sec-cultura); }
+.nav-ed a[data-sec="escuela"] { --sc: var(--sec-escuela); }
+.nav-ed a[data-sec="voces"] { --sc: var(--sec-voces); }
+.nav-ed a[data-sec="estudiantes"] { --sc: var(--sec-estudiantes); }
+.nav-ed a[data-sec="futuro"] { --sc: var(--sec-futuro); }
+.nav-ed a[data-sec="proyectos"] { --sc: var(--sec-proyectos); }
+.nav-ed a[data-sec="egresados"] { --sc: var(--sec-egresados); }
 .nav-ed a:hover {
+  background: color-mix(in srgb, var(--sc) 18%, var(--papel-alt));
+  border-color: color-mix(in srgb, var(--sc) 60%, #fff);
   transform: translateY(-1px);
   box-shadow: var(--sombra-s);
 }
-.nav-ed a[data-sec="ciencia"]:hover { background: color-mix(in srgb, var(--sec-ciencia) 24%, white); border-color: var(--sec-ciencia); }
-.nav-ed a[data-sec="territorio"]:hover { background: color-mix(in srgb, var(--sec-territorio) 26%, white); border-color: var(--sec-territorio); }
-.nav-ed a[data-sec="cultura"]:hover { background: color-mix(in srgb, var(--sec-cultura) 24%, white); border-color: var(--sec-cultura); }
-.nav-ed a[data-sec="escuela"]:hover { background: color-mix(in srgb, var(--sec-escuela) 24%, white); border-color: var(--sec-escuela); }
-.nav-ed a[data-sec="voces"]:hover { background: color-mix(in srgb, var(--sec-voces) 26%, white); border-color: var(--sec-voces); }
-.nav-ed a[data-sec="estudiantes"]:hover { background: color-mix(in srgb, var(--sec-estudiantes) 24%, white); border-color: var(--sec-estudiantes); }
-.nav-ed a[data-sec="futuro"]:hover { background: color-mix(in srgb, var(--sec-futuro) 24%, white); border-color: var(--sec-futuro); }
-.nav-ed a[data-sec="egresados"]:hover { background: color-mix(in srgb, var(--sec-egresados) 24%, white); border-color: var(--sec-egresados); }
+/* Sección activa: la actual queda en papel claro, con filete del color
+   de la sección y el rótulo en negrita. Se marca con aria-current. */
+.nav-ed a[aria-current] {
+  background: var(--papel-alt);
+  border-color: color-mix(in srgb, var(--sc) 62%, #fff);
+  color: color-mix(in srgb, var(--sc) 78%, var(--tinta-seccion));
+  font-weight: 750;
+  box-shadow: inset 0 -3px 0 var(--sc), var(--sombra-s);
+}
+.nav-ed a[aria-current]:hover {
+  background: color-mix(in srgb, var(--sc) 14%, var(--papel-alt));
+  transform: none;
+}
 
 /* ============ PORTADA ============ */
 .portada {
@@ -237,7 +301,7 @@ a:hover { color: var(--ocre-texto); }
   background: var(--papel-alt);
   border: 1px solid var(--linea-suave);
   border-radius: var(--r-l);
-  padding: 1.8rem clamp(1rem,3vw,2.2rem) 1rem;
+  padding: 1.8rem clamp(1rem,3vw,2.2rem) 1.4rem;
   margin-top: 3rem;
   box-shadow: var(--sombra-m);
   position: relative;
@@ -252,64 +316,95 @@ a:hover { color: var(--ocre-texto); }
   font-family: var(--titulos); font-weight: 800; font-size: .74rem;
   letter-spacing: .2em; text-transform: uppercase; color: var(--verde-osc);
   padding-block: .5rem 1rem; border-bottom: 2px solid var(--linea-suave);
-  margin-bottom: .3rem;
+  margin-bottom: var(--sp-2);
 }
-.sumario__lista { list-style: none; margin: 0; padding: 0; }
+/* Las descripciones se leen siempre: la fila es una ficha tintada por
+   sección y el hover/focus sólo levanta un poco el tono. En pantallas
+   anchas entran tres por fila (9 = 3x3), así ninguna queda huérfana. */
+.sumario__lista {
+  list-style: none; margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  gap: var(--sp-1);
+}
 .sumario__item {
-  border-bottom: 1px solid var(--linea-suave);
+  --sc: var(--verde);
+  background: color-mix(in srgb, var(--sc) 9%, #fff);
+  border: 1px solid color-mix(in srgb, var(--sc) 16%, #fff);
   border-radius: var(--r-m);
-  transition: background .2s var(--trans), transform .2s var(--trans);
+  transition: background .2s var(--trans), border-color .2s var(--trans),
+              box-shadow .2s var(--trans), transform .2s var(--trans);
 }
-/* Fila completa clickeable: el enlace ocupa todo el ancho del item */
-.sumario__item:hover {
-  background: var(--verde-fondo);
-  transform: translateX(3px);
+.sumario__item[data-sec="ciencia"] { --sc: var(--sec-ciencia); }
+.sumario__item[data-sec="territorio"] { --sc: var(--sec-territorio); }
+.sumario__item[data-sec="cultura"] { --sc: var(--sec-cultura); }
+.sumario__item[data-sec="escuela"] { --sc: var(--sec-escuela); }
+.sumario__item[data-sec="voces"] { --sc: var(--sec-voces); }
+.sumario__item[data-sec="estudiantes"] { --sc: var(--sec-estudiantes); }
+.sumario__item[data-sec="futuro"] { --sc: var(--sec-futuro); }
+.sumario__item[data-sec="proyectos"] { --sc: var(--sec-proyectos); }
+.sumario__item[data-sec="egresados"] { --sc: var(--sec-egresados); }
+.sumario__item:hover,
+.sumario__item:focus-within {
+  background: color-mix(in srgb, var(--sc) 17%, #fff);
+  border-color: color-mix(in srgb, var(--sc) 45%, #fff);
+  box-shadow: var(--sombra-s);
+  transform: translateY(-2px);
 }
-/* Fondo tintado por sección */
-.sumario__item[data-sec="ciencia"] { background: color-mix(in srgb, var(--sec-ciencia) 13%, white); }
-.sumario__item[data-sec="territorio"] { background: color-mix(in srgb, var(--sec-territorio) 13%, white); }
-.sumario__item[data-sec="cultura"] { background: color-mix(in srgb, var(--sec-cultura) 13%, white); }
-.sumario__item[data-sec="escuela"] { background: color-mix(in srgb, var(--sec-escuela) 13%, white); }
-.sumario__item[data-sec="voces"] { background: color-mix(in srgb, var(--sec-voces) 13%, white); }
-.sumario__item[data-sec="estudiantes"] { background: color-mix(in srgb, var(--sec-estudiantes) 13%, white); }
-.sumario__item[data-sec="futuro"] { background: color-mix(in srgb, var(--sec-futuro) 13%, white); }
-.sumario__item[data-sec="egresados"] { background: color-mix(in srgb, var(--sec-egresados) 13%, white); }
-.sumario__item[data-sec="ciencia"]:hover { background: color-mix(in srgb, var(--sec-ciencia) 22%, white); }
-.sumario__item[data-sec="territorio"]:hover { background: color-mix(in srgb, var(--sec-territorio) 22%, white); }
-.sumario__item[data-sec="cultura"]:hover { background: color-mix(in srgb, var(--sec-cultura) 22%, white); }
-.sumario__item[data-sec="escuela"]:hover { background: color-mix(in srgb, var(--sec-escuela) 22%, white); }
-.sumario__item[data-sec="voces"]:hover { background: color-mix(in srgb, var(--sec-voces) 22%, white); }
-.sumario__item[data-sec="estudiantes"]:hover { background: color-mix(in srgb, var(--sec-estudiantes) 22%, white); }
-.sumario__item[data-sec="futuro"]:hover { background: color-mix(in srgb, var(--sec-futuro) 22%, white); }
-.sumario__item[data-sec="egresados"]:hover { background: color-mix(in srgb, var(--sec-egresados) 22%, white); }
+/* Fila completa clickeable: el enlace ocupa todo el item */
 .sumario__link {
-  display: grid; grid-template-columns: 3.2rem minmax(0,1fr);
-  align-items: baseline; gap: 1.1rem; padding: .95rem .8rem;
-  color: var(--tinta); text-decoration: none; border-radius: var(--r-m);
+  display: grid; grid-template-columns: 2.9rem minmax(0,1fr);
+  align-items: baseline; gap: .1rem .85rem;
+  height: 100%;
+  padding: var(--sp-2);
+  color: var(--tinta); text-decoration: none;
+  border-radius: var(--r-m);
+}
+.sumario__link:focus-visible { outline-offset: -3px; border-radius: var(--r-m); }
+.sumario__num {
+  font-family: var(--titulos); font-weight: 800;
+  font-size: clamp(1.15rem, .95rem + .8vw, 1.45rem);
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+  color: color-mix(in srgb, var(--sc) 60%, var(--tinta-seccion));
   transition: color .2s var(--trans);
 }
-.sumario__link:hover { color: var(--verde); }
-.sumario__num {
-  font-family: var(--titulos); font-weight: 800; font-size: 1.4rem;
-  color: var(--ocre-texto);
+.sumario__item:hover .sumario__num,
+.sumario__item:focus-within .sumario__num {
+  color: color-mix(in srgb, var(--sc) 70%, var(--tinta-seccion));
 }
 .sumario__texto { min-width: 0; }
 .sumario__nombre {
-  font-family: var(--titulos); font-weight: 800; font-size: 1.3rem;
+  font-family: var(--titulos); font-weight: 800;
+  font-size: clamp(1.05rem, .9rem + .6vw, 1.3rem);
   line-height: 1.2; color: inherit;
+  text-wrap: balance;
 }
 .sumario__desc {
-  display: block; max-height: 0; opacity: 0; overflow: hidden;
-  margin: 0; font-size: .95rem; line-height: 1.45;
-  color: var(--tinta-2); transition: max-height .3s var(--trans), opacity .3s var(--trans), margin .3s var(--trans);
+  display: block; margin: .3rem 0 0;
+  font-size: .93rem; line-height: 1.5;
+  color: var(--tinta-2);
+  text-wrap: pretty;
 }
-.sumario__link:hover .sumario__desc { max-height: 5rem; opacity: 1; margin-top: .4rem; }
+/* En dos columnas el 09 quedaría solo en la última fila: Egresados
+   cierra el sumario a todo el ancho. */
+@media (min-width: 42rem) and (max-width: 73.99rem) {
+  .sumario__item:last-child { grid-column: 1 / -1; }
+}
+/* En pantallas anchas, tres columnas exactas: 9 = 3x3, sin filas de más */
+@media (min-width: 74rem) {
+  .sumario__lista { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 @media(max-width:760px){
   .sumario__link {
-    grid-template-columns: 2.6rem minmax(0,1fr);
+    grid-template-columns: 2.4rem minmax(0,1fr);
     align-items: start;
+    gap: .1rem .7rem;
+    padding: .8rem .7rem;
   }
-  .sumario__nombre { font-size: 1.15rem; }
+  .sumario__num { font-size: 1.05rem; }
+  .sumario__nombre { font-size: 1.1rem; }
+  .sumario__desc { font-size: .9rem; }
 }
 
 /* ============ SECCIONES (portada) ============ */
@@ -343,7 +438,9 @@ a:hover { color: var(--ocre-texto); }
 }
 .sec_card__titulo { font-size: 1.45rem; margin-bottom: .45rem; }
 .sec_card__titulo a { color: var(--verde-osc); text-decoration: none; transition: color .2s var(--trans); }
-.sec_card__titulo a:hover { color: var(--sec-color, var(--verde)); }
+.sec_card__titulo a:hover {
+  color: color-mix(in srgb, var(--sec-color, var(--verde)) 70%, var(--tinta-seccion));
+}
 .sec_card__bajada { font-size: 1rem; color: var(--tinta-2); margin: 0; line-height: 1.55; }
 
 /* ============ PAGINA DE SECCION ============ */
@@ -365,7 +462,7 @@ a:hover { color: var(--ocre-texto); }
 .sec-portada__num {
   font-family: var(--titulos); font-weight: 800; font-size: .8rem;
   letter-spacing: .18em; text-transform: uppercase;
-  color: var(--sec-color, var(--verde));
+  color: color-mix(in srgb, var(--sec-color, var(--ocre-texto)) 70%, var(--tinta-seccion));
   margin-bottom: 1rem;
   display: inline-block;
   padding: .3rem .9rem;
@@ -402,23 +499,19 @@ a:hover { color: var(--ocre-texto); }
 .art_card__contenido { flex: 1; display: flex; flex-direction: column; padding: 1.5rem 1.4rem 1.7rem; }
 .art_card__img {
   width: 100%;
-  height: 150px;              /* antes 100px: se veían como miniaturas */
+  height: 168px;              /* antes 100px: se veían como miniaturas */
   object-fit: cover;
   margin-bottom: 0;
   border-bottom: 1px solid var(--linea-suave);
-  transition: height .3s var(--trans);
 }
-.art_card:hover .art_card__img { height: 162px; }
 .art_card__img--vacio {
   width: 100%;
-  height: 150px;
+  height: 168px;
   border-bottom: 1px solid var(--linea-suave);
   background:
     radial-gradient(circle at 25% 30%, rgba(255,255,255,.28) 0, rgba(255,255,255,0) 45%),
     linear-gradient(135deg, var(--sec-color, var(--verde)) 0%, rgba(24,120,104,.55) 45%, rgba(183,155,78,.28) 100%);
-  transition: height .3s var(--trans);
 }
-.art_card:hover .art_card__img--vacio { height: 162px; }
 .art_card h3 { font-size: 1.35rem; margin: .25rem 0 .6rem; line-height: 1.28; }
 .art_card h3 a { color: var(--tinta); text-decoration: none; transition: color .2s var(--trans); }
 .art_card h3 a:hover { color: var(--verde); }
@@ -456,7 +549,7 @@ a:hover { color: var(--ocre-texto); }
 .articulo__sec {
   font-family: var(--titulos); font-weight: 700; font-size: .74rem;
   letter-spacing: .18em; text-transform: uppercase;
-  color: var(--sec-color, var(--ocre-texto));
+  color: color-mix(in srgb, var(--sec-color, var(--ocre-texto)) 70%, var(--tinta-seccion));
   margin-bottom: 1.1rem;
   display: inline-block;
   padding: .3rem .95rem;
@@ -474,6 +567,7 @@ a:hover { color: var(--ocre-texto); }
   font-family: var(--titulos); font-weight: 500; font-size: 1.3rem;
   line-height: 1.5; color: var(--tinta-2);
   max-width: 38rem; margin: 0 auto 1.2rem;
+  text-wrap: pretty;
 }
 .articulo__meta {
   font-family: var(--titulos); font-size: .84rem; letter-spacing: .03em;
@@ -481,13 +575,25 @@ a:hover { color: var(--ocre-texto); }
   padding-top: .9rem;
   border-top: 1px solid var(--linea-suave);
   max-width: 34rem; margin-inline: auto;
+  text-wrap: balance;
 }
 .articulo__meta a { color: var(--verde); }
+/* "Por", "Sede:", "Tutora:" van como rótulos, no como parte del dato */
+.articulo__dato b {
+  font-weight: 700; font-size: .74rem;
+  letter-spacing: .09em; text-transform: uppercase;
+  color: var(--tinta-2);
+}
 .articulo__cuerpo { max-width: 44rem; margin-inline: auto; }
-.articulo__cuerpo .txt-parrafo { font-size: 1.11rem; line-height: 1.78; }
+.articulo__cuerpo .txt-parrafo {
+  font-size: clamp(1.06rem, 1rem + .3vw, 1.13rem);
+  line-height: 1.76;
+  margin-bottom: 1.25em;
+  text-wrap: pretty;
+}
 /* Listas con vineta: los items del cuerpo se agrupan en .txt-lista */
 .articulo__cuerpo .txt-lista {
-  margin: 1.1rem 0 1.6rem;
+  margin: var(--sp-3) 0 var(--sp-4);
   padding-left: 1.35rem;
   font-size: 1.08rem;
   line-height: 1.7;
@@ -511,11 +617,13 @@ a:hover { color: var(--ocre-texto); }
   color: var(--verde);
 }
 .articulo__cuerpo .txt-titulo {
-  font-size: 1.6rem; color: var(--verde-osc);
-  margin-top: 2.6rem; margin-bottom: .9rem;
+  font-size: clamp(1.4rem, 1.2rem + .8vw, 1.65rem);
+  color: var(--verde-osc);
+  margin-top: var(--sp-5); margin-bottom: var(--sp-2);
   position: relative;
   padding-top: 1.4rem;
   text-align: left;
+  text-wrap: balance;
 }
 /* El triángulo ▸ se reemplaza por una línea de acento suave */
 .articulo__cuerpo .txt-titulo::before {
@@ -583,9 +691,25 @@ a:hover { color: var(--ocre-texto); }
   border-radius: 0 var(--r-m) var(--r-m) 0;
 }
 .txt-dato strong { font-family: var(--titulos); color: var(--verde-osc); }
-.fig { margin: 2.2rem 0; cursor: zoom-in; }
-/* La clase fig--g8 (99 usos) antes no tenía ninguna regla */
-.fig--g8 { max-width: 40rem; margin-inline: auto; }
+.fig { margin: var(--sp-5) 0; cursor: zoom-in; }
+/* La clase fig--g8 (99 usos): la foto llena la columna de texto y, si
+   hay lugar (a partir de 60rem), se asoma un poco más ancha que ella
+   para que la lectura respire. Sólo los hijos directos salen de la
+   columna: los que viven dentro de una lista no se desalinean. */
+.fig--g8 { max-width: 100%; margin-inline: auto; }
+@media (min-width: 60rem) {
+  .articulo__cuerpo > .fig--g8 {
+    width: min(52rem, calc(100% + 8rem));
+    max-width: none;
+    margin-inline: -4rem;
+  }
+}
+/* Una foto dentro de una lista vuelve al borde de la columna de texto */
+.articulo__cuerpo .txt-lista .fig {
+  width: calc(100% + 1.35rem);
+  max-width: none;
+  margin-left: -1.35rem;
+}
 .fig--mediana { max-width: 30rem; margin-inline: auto; }
 .video { margin: 2.2rem auto; max-width: 40rem; }
 .video__salida {
@@ -611,16 +735,23 @@ a:hover { color: var(--ocre-texto); }
   box-shadow: var(--sombra-m);
   transition: transform .3s var(--trans), box-shadow .3s var(--trans);
 }
-.fig img:hover {
-  transform: scale(1.012);
-  box-shadow: var(--sombra-l);
+/* El acercamiento sólo donde hay mouse real: en táctil no queda pegado */
+@media (hover: hover) {
+  .fig img:hover {
+    transform: scale(1.012);
+    box-shadow: var(--sombra-l);
+  }
 }
+/* Epígrafe: chico, en cursiva y con filete de acento, para que no
+   compita con el texto ni con el título de la foto */
 .fig figcaption {
-  font-size: .9rem; line-height: 1.55; color: var(--tinta-3);
-  font-style: italic; margin-top: .7rem;
-  padding-left: .8rem;
+  font-size: .875rem; line-height: 1.5; color: var(--tinta-3);
+  font-style: italic; margin-top: .65rem;
+  padding-left: .7rem;
   border-left: 2px solid var(--ocre-suave);
+  text-wrap: pretty;
 }
+.fig figcaption:empty { display: none; }
 /* ============ ÁLBUM DE FIGURITAS ============
    Estilo Panini con páginas que se pasan. Una portada, el índice de
    sedes, las páginas de cada sede (cada una con su color) y el cierre.
@@ -641,17 +772,16 @@ a:hover { color: var(--ocre-texto); }
      llenen el pliego y no sobre nada abajo. */
   --fig: 7.2rem;
   --fig-g: .7rem;
-  /* Paleta del álbum: cancha y oro, como un álbum de figuritas de
-     mundial. No toca los colores del sitio, sólo viven acá dentro. */
-  --cancha: #14432e;
-  --cancha-alta: #1d5c3d;
-  --cancha-hondo: #0b2a1d;
+  /* Paleta del álbum: los colores de la Argentina — celeste, blanco y
+     azul — con el oro de siempre como acento. Sólo viven acá dentro:
+     no tocan los colores del sitio. */
   --oro: #d9a441;
   --oro-claro: #f4d78e;
   --oro-hondo: #a3701d;
   /* El balón, dibujado con un SVG adentro del CSS: lo comparten la
-     portada y el cierre. */
-  --balon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30.5' fill='%23f6f2e8'/%3E%3Cg fill='%2312281f'%3E%3Cpath d='M32.0 21.8L41.7 28.8L38.0 40.3L26.0 40.3L22.3 28.8Z'/%3E%3Cpath d='M49.7 7.6L51.7 13.9L46.4 17.8L41.1 13.9L43.1 7.6ZM60.6 41.3L55.3 45.2L50.0 41.3L52.0 35.0L58.6 35.0ZM32.0 62.1L26.7 58.2L28.7 52.0L35.3 52.0L37.3 58.2ZM3.4 41.3L5.4 35.0L12.0 35.0L14.0 41.3L8.7 45.2ZM14.3 7.6L20.9 7.6L22.9 13.9L17.6 17.8L12.3 13.9Z'/%3E%3C/g%3E%3Cg stroke='%2312281f' stroke-width='2.6' stroke-linecap='round' fill='none'%3E%3Cpath d='M32.0 21.8L32.0 2.0M41.7 28.8L60.5 22.7M38.0 40.3L49.6 56.3M26.0 40.3L14.4 56.3M22.3 28.8L3.5 22.7'/%3E%3C/g%3E%3Ccircle cx='32' cy='32' r='30.5' fill='none' stroke='%2312281f' stroke-width='2.4'/%3E%3C/svg%3E");
+      portada y el cierre. Va a tintado azul para que se lea sobre
+      el papel celeste de la tapa. */
+  --balon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30.5' fill='%23dcecf9'/%3E%3Cg fill='%23003087'%3E%3Cpath d='M32.0 21.8L41.7 28.8L38.0 40.3L26.0 40.3L22.3 28.8Z'/%3E%3Cpath d='M49.7 7.6L51.7 13.9L46.4 17.8L41.1 13.9L43.1 7.6ZM60.6 41.3L55.3 45.2L50.0 41.3L52.0 35.0L58.6 35.0ZM32.0 62.1L26.7 58.2L28.7 52.0L35.3 52.0L37.3 58.2ZM3.4 41.3L5.4 35.0L12.0 35.0L14.0 41.3L8.7 45.2ZM14.3 7.6L20.9 7.6L22.9 13.9L17.6 17.8L12.3 13.9Z'/%3E%3C/g%3E%3Cg stroke='%23003087' stroke-width='2.6' stroke-linecap='round' fill='none'%3E%3Cpath d='M32.0 21.8L32.0 2.0M41.7 28.8L60.5 22.7M38.0 40.3L49.6 56.3M26.0 40.3L14.4 56.3M22.3 28.8L3.5 22.7'/%3E%3C/g%3E%3Ccircle cx='32' cy='32' r='30.5' fill='none' stroke='%23003087' stroke-width='2.4'/%3E%3C/svg%3E");
   width: var(--ancho-album);
   margin-left: calc(50% - var(--ancho-album) / 2);
   margin-top: 1.4rem;
@@ -691,14 +821,14 @@ a:hover { color: var(--ocre-texto); }
   border: 1px solid var(--linea);
   border-radius: var(--r-full);
   background: var(--papel-alt);
-  color: var(--verde);
+  color: var(--arg-azul);
   font-size: 1.35rem; line-height: 1;
   cursor: pointer;
   transition: background .2s var(--trans), color .2s var(--trans), border-color .2s var(--trans);
 }
 .album__btn[data-paso="-1"] { grid-area: ant; }
 .album__btn[data-paso="1"] { grid-area: sig; }
-.album__btn:hover:not(:disabled) { background: var(--verde); color: var(--papel-alt); border-color: var(--verde); }
+.album__btn:hover:not(:disabled) { background: var(--arg-azul); color: #fff; border-color: var(--arg-azul); }
 .album__btn:disabled { opacity: .32; cursor: default; }
 .album__estado {
   grid-area: estado;
@@ -709,8 +839,8 @@ a:hover { color: var(--ocre-texto); }
 .album__punto {
   width: .62rem; height: .62rem; flex: none;
   border-radius: 50%;
-  background: var(--sede, var(--verde-suave));
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sede, var(--verde-suave)) 22%, transparent);
+  background: var(--sede, var(--arg-celeste-baja));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sede, var(--arg-celeste-baja)) 22%, transparent);
 }
 .album__estado-t {
   font-weight: 700; font-size: .93rem; color: var(--verde-osc);
@@ -722,8 +852,8 @@ a:hover { color: var(--ocre-texto); }
   grid-area: prog;
   min-width: 0;
   padding: .3rem .55rem .4rem;
-  background: var(--verde-fondo);
-  border: 1px solid var(--verde-suave);
+  background: #e7f2fb;
+  border: 1px solid #bcd9f0;
   border-radius: var(--r-s);
 }
 .album__progreso-tu {
@@ -733,17 +863,17 @@ a:hover { color: var(--ocre-texto); }
 .album__progreso-t {
   font-family: var(--titulos); font-size: .62rem; font-weight: 800;
   letter-spacing: .14em; text-transform: uppercase;
-  color: var(--verde-texto);
+  color: var(--arg-azul);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .album__progreso-n {
   font-family: var(--titulos); font-size: .74rem; font-weight: 800;
-  color: var(--verde-osc); flex: none;
+  color: var(--arg-azul); flex: none;
 }
 .album__progreso-barra {
   display: block; margin-top: .26rem;
   height: .4rem; border-radius: var(--r-full);
-  background: rgba(20, 67, 46, .16);
+  background: rgba(0, 48, 135, .16);
   overflow: hidden;
 }
 .album__progreso-i {
@@ -759,7 +889,7 @@ a:hover { color: var(--ocre-texto); }
   from { background-position: 0% 0; }
   to { background-position: 200% 0; }
 }
-.album__rango { grid-area: rango; width: 100%; accent-color: var(--verde); }
+.album__rango { grid-area: rango; width: 100%; accent-color: var(--arg-azul); }
 .album__ir-et { grid-area: ir; display: block; }
 .album__ir {
   width: 100%;
@@ -785,8 +915,10 @@ a:hover { color: var(--ocre-texto); }
   position: relative;
   /* El JavaScript mide lo que hay y ajusta este alto para que las dos
      filas de figuritas lo llenen sin que sobre espacio abajo. Mientras
-     tanto manda el clamp. */
+      tanto manda el clamp; en móvil manda dvh, que no trae la barra
+      del navegador encima. */
   height: var(--alto, clamp(30rem, 72vh, 44rem));
+  height: var(--alto, clamp(30rem, 72dvh, 44rem));
   /* el arrastre horizontal es del álbum; el vertical sigue scrolleando */
   touch-action: pan-y;
   cursor: grab;
@@ -869,12 +1001,13 @@ a:hover { color: var(--ocre-texto); }
   min-height: 0;
 }
 /* Las páginas de sede llevan las franjas del corte de cancha, muy
-   suaves, para que no se note el papel liso. */
+   suaves, para que no se note el papel liso. Van en celeste, igual
+   que la identidad del álbum. */
 .album__pagina--sede {
   background:
     repeating-linear-gradient(92deg,
-      rgba(20, 67, 46, .022) 0 2.8rem,
-      rgba(20, 67, 46, .048) 2.8rem 5.6rem);
+      rgba(0, 48, 135, .022) 0 2.8rem,
+      rgba(0, 48, 135, .05) 2.8rem 5.6rem);
 }
 /* En el anverso llena la hoja; en el reverso va la página que viaja
    durante el giro, así que comparte el mismo recorte. El alto lo manda
@@ -909,12 +1042,12 @@ a:hover { color: var(--ocre-texto); }
   width: 100%; height: 100%;
   padding: 1.2rem;
   text-align: center;
-  color: rgba(250, 246, 238, .62);
+  color: rgba(0, 48, 135, .75);
   background:
-    repeating-linear-gradient(45deg, rgba(255, 255, 255, .035) 0 9px,
+    repeating-linear-gradient(45deg, rgba(0, 48, 135, .05) 0 9px,
                               transparent 9px 18px),
-    linear-gradient(155deg, var(--verde-osc) 0%, #0f362f 60%, #0b2822 100%);
-  border: 1px solid var(--verde-osc);
+    linear-gradient(155deg, #eaf4fc 0%, #d9ebf9 60%, #cfe5f7 100%);
+  border: 1px solid #bbd8f0;
   border-radius: calc(var(--r-m) - 1px);
   box-shadow: var(--sombra-l);
   font-family: var(--titulos);
@@ -992,10 +1125,10 @@ a:hover { color: var(--ocre-texto); }
   pointer-events: none;
 }
 .album__cab > * { position: relative; z-index: 1; }
-.album__cab--indice { background: var(--verde-fondo); border-bottom-color: var(--verde); }
+.album__cab--indice { background: #e7f2fb; border-bottom-color: var(--arg-azul); }
 .album__cab--indice::after {
   background: linear-gradient(104deg, transparent 0 66%,
-    color-mix(in srgb, var(--verde) 13%, transparent) 66% 100%);
+    color-mix(in srgb, var(--arg-azul) 13%, transparent) 66% 100%);
 }
 .album__cab-ord {
   margin: 0;
@@ -1003,7 +1136,7 @@ a:hover { color: var(--ocre-texto); }
   letter-spacing: .13em; text-transform: uppercase;
   color: var(--sede, var(--verde));
 }
-.album__cab--indice .album__cab-ord { color: var(--verde-texto); }
+.album__cab--indice .album__cab-ord { color: var(--arg-azul); }
 .album__cab-n {
   margin: 0; align-self: center;
   font-family: var(--titulos); font-size: .74rem; font-weight: 600;
@@ -1016,7 +1149,7 @@ a:hover { color: var(--ocre-texto); }
   font-weight: 800; letter-spacing: .01em; line-height: 1.12;
   color: var(--sede, var(--verde-osc));
 }
-.album__cab--indice .album__cab-t { color: var(--verde-osc); }
+.album__cab--indice .album__cab-t { color: var(--arg-azul); }
 /* ---- la grilla de fichas de esa página ----
    Tres columnas por dos filas: seis figuritas por hoja. El ancho de la
    pista es siempre --fig, así que ninguna ficha se achica ni se agranda
@@ -1161,30 +1294,36 @@ a:hover { color: var(--ocre-texto); }
 }
 .album__toc-n { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .album__toc-c { font-size: .7rem; opacity: .75; }
-/* ---- portada y cierre ---- */
-/* La portada es la cancha: franjas de corte, el círculo central y, al
-   costado, el balón. Todo dibujado, sin imágenes. */
-.album__pagina--portada {
+/* ---- portada y cierre ----
+   La tapa es la bandera: franja celeste arriba, franja celeste abajo,
+   filete de oro en el medio de cada una y papel blanco en el centro,
+   donde va toda la letra. Todo dibujado con gradientes, sin imágenes.
+   Tinta azul sobre blanco: nunca baja de 4.5:1. */
+.album__pagina--portada,
+.album__pagina--fin {
   position: relative;
   align-items: center; justify-content: center; text-align: center;
-  color: var(--papel);
+  color: var(--arg-azul);
   background:
-    radial-gradient(circle at 50% 62%, transparent 0 7.2rem,
-      rgba(255, 255, 255, .09) 7.2rem 7.45rem, transparent 7.45rem),
-    repeating-linear-gradient(92deg,
-      rgba(255, 255, 255, .045) 0 3.4rem, rgba(0, 0, 0, .045) 3.4rem 6.8rem),
-    radial-gradient(ellipse at 18% 12%, rgba(255, 255, 255, .14) 0%, transparent 52%),
-    linear-gradient(158deg, var(--cancha-alta) 0%, var(--cancha) 52%, var(--cancha-hondo) 100%);
-  border-color: var(--cancha-hondo);
+    linear-gradient(180deg,
+      var(--arg-celeste-alta) 0, var(--arg-celeste-baja) 3.4rem,
+      var(--arg-oro) 3.4rem, var(--arg-oro) calc(3.4rem + 2px),
+      transparent calc(3.4rem + 2px) calc(100% - 3.4rem - 2px),
+      var(--arg-oro) calc(100% - 3.4rem - 2px), var(--arg-oro) calc(100% - 3.4rem),
+      var(--arg-celeste-baja) calc(100% - 3.4rem), var(--arg-celeste-alta) 100%),
+    radial-gradient(ellipse at 50% 44%, rgba(117, 170, 219, .17) 0%, transparent 62%),
+    linear-gradient(180deg, #fdfeff 0%, #f1f7fd 100%);
+  border-color: rgba(0, 48, 135, .3);
 }
-/* El balón, dibujado con un SVG adentro del CSS. */
+/* El balón, dibujado con un SVG adentro del CSS. Sobre el celeste de
+   abajo se alcanza a ver bien; por eso sube un poco la opacidad. */
 .album__portada::after {
   content: "";
   position: absolute;
   right: -7%; bottom: -6%;
   width: min(48%, 15rem); aspect-ratio: 1;
   background: var(--balon) center/contain no-repeat;
-  opacity: .17;
+  opacity: .5;
   pointer-events: none;
   transform: rotate(-8deg);
 }
@@ -1198,7 +1337,7 @@ a:hover { color: var(--ocre-texto); }
   margin: 0 0 .85rem;
   font-family: var(--titulos); font-size: .68rem; font-weight: 700;
   letter-spacing: .28em; text-transform: uppercase;
-  color: rgba(250, 246, 238, .8);
+  color: var(--arg-azul);
 }
 /* Sello de edición, como el que va pegado en la esquina del sobre. */
 .album__portada-ed {
@@ -1207,10 +1346,11 @@ a:hover { color: var(--ocre-texto); }
   padding: .3rem .95rem;
   font-family: var(--titulos); font-size: .62rem; font-weight: 800;
   letter-spacing: .22em; text-transform: uppercase;
-  color: var(--cancha-hondo);
+  color: var(--arg-azul);
   background: linear-gradient(180deg, var(--oro-claro) 0%, var(--oro) 100%);
+  border: 1px solid var(--oro-hondo);
   border-radius: var(--r-full);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset, 0 2px 6px rgba(0, 0, 0, .3);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset, 0 2px 6px rgba(0, 48, 135, .18);
 }
 .album__portada-t {
   margin: 0;
@@ -1218,18 +1358,18 @@ a:hover { color: var(--ocre-texto); }
   font-size: clamp(2.6rem, 9vw, 4.6rem);
   font-weight: 800; line-height: .95; letter-spacing: -.015em;
   text-transform: uppercase;
-  /* Letras doradas, como el título de una copa. */
-  background: linear-gradient(176deg, #fff9ea 0%, var(--oro-claro) 34%,
-              var(--oro) 58%, #96651a 100%);
+  /* Tinta azul de bandera, con el celeste asomando por abajo. */
+  background: linear-gradient(176deg, var(--arg-azul-hondo) 0%, var(--arg-azul) 46%,
+              #2f6ed0 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 2px 0 rgba(0, 0, 0, .38));
+  filter: drop-shadow(0 2px 0 rgba(117, 170, 219, .55));
 }
 .album__portada-sub {
   margin: .9rem 0 0;
   font-family: var(--texto); font-size: 1.02rem; font-style: italic;
-  color: rgba(250, 246, 238, .88);
+  color: #3c5a86;
 }
 /* El dato grande va como en un marcador. */
 .album__portada-dato {
@@ -1237,34 +1377,23 @@ a:hover { color: var(--ocre-texto); }
   margin: 1.5rem 0 0;
   padding: .5rem 1.1rem;
   font-family: var(--titulos); font-size: 1rem; font-weight: 600;
-  color: rgba(250, 246, 238, .92);
-  background: rgba(0, 0, 0, .3);
-  border: 1px solid rgba(244, 215, 142, .42);
+  color: #fff;
+  background: var(--arg-azul);
+  border: 1px solid var(--arg-celeste);
   border-radius: var(--r-s);
 }
 .album__portada-dato b { font-size: 1.5rem; font-weight: 800; color: var(--oro-claro); }
-.album__portada-sep { margin: 0 .6rem; opacity: .55; }
+.album__portada-sep { margin: 0 .6rem; opacity: .6; }
 .album__portada-ayuda {
   margin: 1.6rem 0 0;
   font-family: var(--titulos); font-size: .72rem; font-weight: 600;
   letter-spacing: .04em;
-  color: rgba(250, 246, 238, .6);
+  color: rgba(0, 48, 135, .78);
 }
 /* El balón se sale un poco del marco a propósito: la página no debe
    por eso ponerse a scrollear. */
 .album__cara > .album__pagina--portada { overflow: hidden; }
-.album__pagina--fin {
-  position: relative;
-  align-items: center; justify-content: center; text-align: center;
-  color: var(--papel);
-  background:
-    radial-gradient(circle at 50% 46%, transparent 0 6.4rem,
-      rgba(255, 255, 255, .09) 6.4rem 6.65rem, transparent 6.65rem),
-    repeating-linear-gradient(92deg,
-      rgba(255, 255, 255, .045) 0 3.4rem, rgba(0, 0, 0, .045) 3.4rem 6.8rem),
-    linear-gradient(158deg, var(--cancha-alta) 0%, var(--cancha) 52%, var(--cancha-hondo) 100%);
-  border-color: var(--cancha-hondo);
-}
+.album__cara > .album__pagina--fin { overflow: hidden; }
 .album__fin {
   position: relative; z-index: 1;
   width: 100%; padding: 1.2rem;
@@ -1275,37 +1404,43 @@ a:hover { color: var(--ocre-texto); }
   width: 4.6rem; aspect-ratio: 1;
   margin: 0 auto 1.2rem;
   background: var(--balon) center/contain no-repeat;
-  opacity: .92;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .4));
+  opacity: .95;
+  filter: drop-shadow(0 4px 10px rgba(0, 48, 135, .28));
   transform: rotate(-8deg);
 }
 .album__fin-t {
   margin: 0;
   font-family: var(--titulos); font-size: clamp(1.8rem, 6vw, 2.8rem);
   font-weight: 800;
-  background: linear-gradient(176deg, #fff9ea 0%, var(--oro-claro) 34%,
-              var(--oro) 58%, #96651a 100%);
+  background: linear-gradient(176deg, var(--arg-azul-hondo) 0%, var(--arg-azul) 46%,
+              #2f6ed0 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 2px 0 rgba(0, 0, 0, .38));
+  filter: drop-shadow(0 2px 0 rgba(117, 170, 219, .55));
 }
 .album__fin-d {
   margin: .7rem 0 1.6rem;
   font-family: var(--titulos); font-size: .98rem; font-weight: 600;
-  color: rgba(250, 246, 238, .85);
+  color: #3c5a86;
 }
-.album__fin-d b { font-size: 1.4rem; font-weight: 800; color: var(--oro-claro); }
+.album__fin-d b { font-size: 1.4rem; font-weight: 800; color: var(--arg-azul); }
 .album__volver {
   font-family: var(--titulos); font-size: .84rem; font-weight: 700;
-  color: var(--cancha-hondo);
+  color: var(--arg-azul);
   background: linear-gradient(180deg, var(--oro-claro) 0%, var(--oro) 100%);
   border: 1px solid var(--oro-hondo);
   border-radius: var(--r-full);
   padding: .6rem 1.4rem;
   cursor: pointer;
+  transition: background .2s var(--trans), box-shadow .2s var(--trans),
+              transform .2s var(--trans);
 }
-.album__volver:hover { background: linear-gradient(180deg, #fff3d2 0%, var(--oro-claro) 100%); }
+.album__volver:hover {
+  background: linear-gradient(180deg, var(--arg-oro-alto) 0%, var(--oro-claro) 100%);
+  box-shadow: var(--sombra-m);
+  transform: translateY(-1px);
+}
 .album__ayuda {
   margin: .85rem 0 0;
   text-align: center;
@@ -1473,7 +1608,10 @@ a:hover { color: var(--ocre-texto); }
     transition-duration: .001ms !important;
   }
   .portada, .sumario, .secciones { animation: none; }
-  .sumario__item:hover, .sec_card:hover, .art_card:hover, .volver:hover, .todos__enlace a:hover { transform: none; }
+  .sumario__item:hover, .sumario__item:focus-within, .sec_card:hover,
+  .art_card:hover, .volver:hover, .todos__enlace a:hover,
+  .nav-ed a:hover, .album__volver:hover, .album__ficha:hover { transform: none; }
+  .fig img:hover { transform: none; }
 }
 
 /* ============ COLORES POR SECCION ============ */
@@ -1484,10 +1622,15 @@ a:hover { color: var(--ocre-texto); }
 .sec-voces { --sec-color: var(--sec-voces); }
 .sec-estudiantes { --sec-color: var(--sec-estudiantes); }
 .sec-futuro { --sec-color: var(--sec-futuro); }
+.sec-proyectos { --sec-color: var(--sec-proyectos); }
 .sec-egresados { --sec-color: var(--sec-egresados); }
 
-/* La portada de sección toma el color de su sección */
-.sec-portada__num, .articulo__sec { color: var(--sec-color, var(--ocre-texto)); }
+/* La portada de sección toma el color de su sección. Los rótulos chicos
+   van mezclados con la tinta: el color puro no llega a 4.5:1 sobre el
+   papel cálido en las secciones claras (territorio, estudiantes…). */
+.sec-portada__num, .articulo__sec {
+  color: color-mix(in srgb, var(--sec-color, var(--ocre-texto)) 70%, var(--tinta-seccion));
+}
 .sec-portada__h1 { color: var(--sec-color, var(--verde-osc)); }
 
 /* Tarjetas de la portada, por atributo data-sec */
@@ -1498,6 +1641,7 @@ a:hover { color: var(--ocre-texto); }
 .sec_card[data-sec="voces"] { border-top-color: var(--sec-voces); }
 .sec_card[data-sec="estudiantes"] { border-top-color: var(--sec-estudiantes); }
 .sec_card[data-sec="futuro"] { border-top-color: var(--sec-futuro); }
+.sec_card[data-sec="proyectos"] { border-top-color: var(--sec-proyectos); }
 .sec_card[data-sec="egresados"] { border-top-color: var(--sec-egresados); }
 
 .sec_card[data-sec="ciencia"]:hover { border-color: var(--sec-ciencia); }
@@ -1507,6 +1651,7 @@ a:hover { color: var(--ocre-texto); }
 .sec_card[data-sec="voces"]:hover { border-color: var(--sec-voces); }
 .sec_card[data-sec="estudiantes"]:hover { border-color: var(--sec-estudiantes); }
 .sec_card[data-sec="futuro"]:hover { border-color: var(--sec-futuro); }
+.sec_card[data-sec="proyectos"]:hover { border-color: var(--sec-proyectos); }
 .sec_card[data-sec="egresados"]:hover { border-color: var(--sec-egresados); }
 
 /* Color de acento por sección en las tarjetas de artículo */
@@ -1517,13 +1662,10 @@ a:hover { color: var(--ocre-texto); }
 .art_card[data-sec="voces"] { --sec-color: var(--sec-voces); }
 .art_card[data-sec="estudiantes"] { --sec-color: var(--sec-estudiantes); }
 .art_card[data-sec="futuro"] { --sec-color: var(--sec-futuro); }
+.art_card[data-sec="proyectos"] { --sec-color: var(--sec-proyectos); }
 .art_card[data-sec="egresados"] { --sec-color: var(--sec-egresados); }
 
 .art_card:hover { border-color: var(--sec-color, var(--ocre)); }
-
-/* Chip de Presentación en el menú (neutro, aparte de las secciones) */
-.nav-ed a[data-sec="presentacion"] { color: var(--verde); background: color-mix(in srgb, var(--verde) 11%, white); border-color: color-mix(in srgb, var(--verde) 30%, white); }
-.nav-ed a[data-sec="presentacion"]:hover { background: color-mix(in srgb, var(--verde) 22%, white); border-color: var(--verde); }
 
 /* ============ PRESENTACIÓN ============ */
 .pres { margin-top: .4rem; }
@@ -1546,6 +1688,17 @@ a:hover { color: var(--ocre-texto); }
   content: ''; width: 14px; height: 14px; flex: none;
   background: var(--verde); border-radius: 100%;
   box-shadow: 0 0 0 4px var(--verde-fondo);
+}
+/* Subtítulo dentro de un bloque: un escalón abajo de pres__h2 */
+.pres__h3 {
+  font-family: var(--titulos); font-weight: 750;
+  font-size: clamp(1.12rem, 1rem + .7vw, 1.35rem);
+  letter-spacing: -.01em; line-height: 1.25;
+  color: var(--verde-osc);
+  margin: 2.2rem 0 .7rem;
+  padding-top: .95rem;
+  border-top: 1px solid var(--linea-suave);
+  text-wrap: balance;
 }
 .pres__p { font-size: 1.06rem; line-height: 1.72; color: var(--tinta-2); max-width: 64ch; }
 .pres__p + .pres__p { margin-top: 1.05rem; }
