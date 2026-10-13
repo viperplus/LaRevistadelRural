@@ -359,10 +359,8 @@ def render_cuerpo(art, fotos_paths, solo_bloques=False):
                 'allow="accelerometer; autoplay; clipboard-write; encrypted-media; '
                 'gyroscope; picture-in-picture; web-share" '
                 'referrerpolicy="strict-origin-when-cross-origin" playsinline '
-                'allowfullscreen title="Video del articulo"></iframe>'
-                '<p class="video__salida"><a href="%s" target="_blank" rel="noopener">'
-                'Si no se reproduce, miralo en YouTube &#8599;</a></p></div>'
-                % (esc(video_src(v)), esc(video_link(v))))
+                'allowfullscreen title="Video del articulo"></iframe></div>'
+                % esc(video_src(v)))
         else:
             cuerpo_html.append("<p class='txt-parrafo'>%s</p>" % md(v))
     if en_lista:
