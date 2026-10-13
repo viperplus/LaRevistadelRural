@@ -543,7 +543,7 @@ def render_album(art, fotos_paths):
                 '<p class="album__portada-marca">La Revista del Rural</p>'
                 '<p class="album__portada-ed">Edición 2025</p>'
                 '<h2 class="album__portada-t">Álbum de<br>figuritas</h2>'
-                '<p class="album__portada-sub">Ficha por ficha, sede por sede</p>'
+                '<p class="album__portada-sub">Figurita por figurita, sede por sede</p>'
                 '<p class="album__portada-dato"><b>%d</b> figuritas'
                 '<span class="album__portada-sep">·</span><b>%d</b> sedes</p>'
                 '<p class="album__portada-ayuda">Pasá las páginas con las flechas '
@@ -805,11 +805,11 @@ def main():
                 "<a class='sumario__link' href='egresados.html'>"
                 "<span class='sumario__num'>%s</span>"
                 "<span class='sumario__texto'><span class='sumario__nombre'>Egresados</span>"
-                "<span class='sumario__desc'>Promoción de 5.º año</span></span></a></li>"
+                "<span class='sumario__desc'>Graduados de la promoción</span></span></a></li>"
                 % egr_num)
     sec_cards += ("<article class='sec_card grid-4' data-sec='egresados'>"
                   "<h3 class='sec_card__titulo'><a href='egresados.html'>Egresados</a></h3>"
-                  "<p class='sec_card__bajada'>Promoción de 5.º año</p></article>")
+                  "<p class='sec_card__bajada'>Graduados de la promoción</p></article>")
     body = ('<section class="portada" aria-labelledby="portada-titulo">\n'
             '<p class="portada__sec">%s</p>\n'
             '<h1 id="portada-titulo" class="portada__h1">%s</h1>\n'

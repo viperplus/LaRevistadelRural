@@ -401,12 +401,12 @@ def armar_articulo(fotos, epigrafes, grupos_ord, grupos, colores):
     n_figu = len(fotos)
     n_sede = len(sedes)
     bajada = ("%d figuritas de %d sedes: el \u00e1lbum que se fue armando "
-              "ficha por ficha, como en los \u00e1lbumes de Panini." % (n_figu, n_sede))
+              "figurita por figurita, como en los \u00e1lbumes de Panini." % (n_figu, n_sede))
 
     cuerpo = [
-        {"t": "p", "v": "¿Te acordás de abrir el paquete y correr a mirar si te había tocado la que te faltaba? Ese gesto es el que armamos acá: un álbum para juntar fichas, completar lugares y mirar quiénes están."},
+        {"t": "p", "v": "¿Te acordás de abrir el paquete y correr a mirar si te había tocado la que te faltaba? Ese gesto es el que armamos acá: un álbum para juntar figuritas, completar lugares y mirar quiénes están."},
         {"t": "p", "v": "Cada sede mandó sus figuritas, cada estudiante y cada tutor dejó la suya, y de a poquito el álbum se fue llenando hasta llegar a **%d figuritas repartidas en %d sedes**." % (n_figu, n_sede)},
-        {"t": "p", "v": "Están agrupadas por sede, como en cualquier álbum que se respete. Tocá cualquier ficha para verla en grande."},
+        {"t": "p", "v": "Están agrupadas por sede, como en cualquier álbum que se respete. Tocá cualquier figurita para verla en grande."},
         {"t": "dato", "v": "%d sedes · %d figuritas · 1 solo álbum" % (n_sede, n_figu)},
     ]
 

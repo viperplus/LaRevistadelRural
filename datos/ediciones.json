@@ -4113,7 +4113,7 @@
       "id": "album-figuritas",
       "seccion": "estudiantes",
       "titulo": "El álbum de figuritas del Rural",
-      "bajada": "282 figuritas de 27 sedes: el álbum que se fue armando ficha por ficha, como en los álbumes de Panini.",
+      "bajada": "282 figuritas de 27 sedes: el álbum que se fue armando figurita por figurita, como en los álbumes de Panini.",
       "autor": "Estudiantes y tutores de las 27 sedes",
       "sede": "Todas las sedes",
       "fecha": "Octubre 2026",
@@ -4122,7 +4122,7 @@
       "cuerpo": [
         {
           "t": "p",
-          "v": "¿Te acordás de abrir el paquete y correr a mirar si te había tocado la que te faltaba? Ese gesto es el que armamos acá: un álbum para juntar fichas, completar lugares y mirar quiénes están."
+          "v": "¿Te acordás de abrir el paquete y correr a mirar si te había tocado la que te faltaba? Ese gesto es el que armamos acá: un álbum para juntar figuritas, completar lugares y mirar quiénes están."
         },
         {
           "t": "p",
@@ -4130,7 +4130,7 @@
         },
         {
           "t": "p",
-          "v": "Están agrupadas por sede, como en cualquier álbum que se respete. Tocá cualquier ficha para verla en grande."
+          "v": "Están agrupadas por sede, como en cualquier álbum que se respete. Tocá cualquier figurita para verla en grande."
         },
         {
           "t": "dato",
@@ -5329,7 +5329,7 @@
       "cuerpo": [
         {
           "t": "p",
-          "v": "i"
+          "v": "¿Cómo se enseña, se siente y se defiende la soberanía desde la virtualidad y la ruralidad? Esta fue la premisa central con la que el Área de Educación Científica y Tecnológica impulsó una propuesta integral destinada a las y los estudiantes, transformando la conmemoración del 2 de abril, “Día del Veterano y de los Caídos en la Guerra de Malvinas”, en un puente activo entre la memoria histórica, la ciencia, la geografía y el compromiso ciudadano."
         },
         {
           "t": "fig"
@@ -5357,21 +5357,21 @@
         },
         {
           "t": "li",
-          "v": "¿Cuál es el verdadero tamaño de la Argentina?"
+          "v": "¿Cuál es el verdadero tamaño de la Argentina? A través de la revisión del mapa bicontinental, la propuesta invitó a dimensionar nuestro territorio más allá de la porción continental, integrando el Mar Argentino, las Islas del Atlántico Sur y el sector antártico. Las estaciones de reflexión desafiaron a los y las estudiantes a pensar cómo la ciencia, la tecnología y el conocimiento estratégico son las herramientas fundamentales para defender la soberanía en el siglo XXI."
         },
         {
           "t": "fig"
         },
         {
           "t": "li",
-          "v": "Lugares de la memoria."
+          "v": "Lugares de la memoria. La comunidad se propuso indagar en cómo la historia habita en los espacios cotidianos (monumentos, placas, nombres de calles o escuelas) y llevar la reflexión a la práctica mediante la creación de mojones locales. Con el cálculo de distancias reales hacia las islas utilizando herramientas geográficas y la construcción de siluetas con elementos del entorno natural, cada sede visibilizó la cercanía simbólica con nuestro suelo austral."
         },
         {
           "t": "fig"
         },
         {
           "t": "li",
-          "v": "Cartas por la memoria y la soberanía."
+          "v": "Cartas por la memoria y la soberanía. Inspirados en las misivas que en 1982 cruzaron el océano para transformarse en abrigo frente a la incertidumbre, los y las estudiantes redactaron cartas dirigidas al presente y a los ex combatientes. El ejercicio combinó la reflexión sobre la identidad nacional con compromisos concretos orientados a mantener viva la causa, combatir la desinformación y sostener el reclamo por la vía del diálogo y la paz."
         },
         {
           "t": "fig"
@@ -5406,7 +5406,7 @@
         },
         {
           "t": "p",
-          "v": "Las producciones finales fueron compartidas en un muro digital colaborativo, consolidando un archivo escolar vivo que será puesto a disposición de ces de veteranos. Una muestra clara de que, desde cada rincón de nuestra ruralidad virtual, las Malvinas siguen estando presentes."
+          "v": "Las producciones finales fueron compartidas en un muro digital colaborativo, consolidando un archivo escolar vivo que será puesto a disposición de centros de veteranos. Una muestra clara de que, desde cada rincón de nuestra ruralidad virtual, las Malvinas siguen estando presentes."
         },
         {
           "t": "fig"
