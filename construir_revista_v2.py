@@ -351,16 +351,26 @@ def render_cuerpo(art, fotos_paths, solo_bloques=False):
             # Firma de autor al pie de una seccion. Se usa cuando un mismo
             # articulo reune varias firmas (trabajo grupal por secciones).
             cuerpo_html.append("<p class='txt-firma'>%s</p>" % md(v))
-        elif t == "video":
-            # YouTube (embed, watch o youtu.be) o Google Drive. Se guarda la
-            # URL que mandaron y aca se la deja embebible.
-            cuerpo_html.append(
-                '<div class="video"><iframe src="%s" '
-                'allow="accelerometer; autoplay; clipboard-write; encrypted-media; '
-                'gyroscope; picture-in-picture; web-share" '
-                'referrerpolicy="strict-origin-when-cross-origin" playsinline '
-                'allowfullscreen title="Video del articulo"></iframe></div>'
-                % esc(video_src(v)))
+        elif t in ("video", "mp4"):
+            # Archivo de video alojado junto al articulo (.mp4/.webm/.ogg):
+            # se reproduce en el lugar. Si no, YouTube (embed, watch o
+            # youtu.be) o Google Drive, con la URL que mandaron.
+            ruta = (v or "").split("?")[0].lower()
+            if ruta.endswith((".mp4", ".webm", ".ogv", ".ogg")):
+                cuerpo_html.append(
+                    '<div class="video"><video class="video__archivo" controls '
+                    'preload="metadata" playsinline src="%s">'
+                    'Tu navegador no puede reproducir este video. '
+                    '<a href="%s">Descargalo</a>.</video></div>'
+                    % (esc(v), esc(v)))
+            else:
+                cuerpo_html.append(
+                    '<div class="video"><iframe src="%s" '
+                    'allow="accelerometer; autoplay; clipboard-write; encrypted-media; '
+                    'gyroscope; picture-in-picture; web-share" '
+                    'referrerpolicy="strict-origin-when-cross-origin" playsinline '
+                    'allowfullscreen title="Video del articulo"></iframe></div>'
+                    % esc(video_src(v)))
         else:
             cuerpo_html.append("<p class='txt-parrafo'>%s</p>" % md(v))
     if en_lista:

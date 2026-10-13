@@ -718,6 +718,18 @@ a:hover { color: var(--ocre-texto); }
   font-size: .85rem;
 }
 .video__salida a { color: var(--tinta-2, inherit); }
+/* Video alojado en la propia carpeta del articulo (no embebido). */
+.video__archivo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--linea);
+  border-radius: var(--r-m);
+  box-shadow: var(--sombra-m);
+  background: #000;
+  object-fit: contain;
+}
+
 .video iframe {
   display: block;
   width: 100%;
