@@ -729,6 +729,17 @@ a:hover { color: var(--ocre-texto); }
   background: #000;
   object-fit: contain;
 }
+/* Pie de video: el saludo del grupo, junto al reproductor. */
+.video__pie {
+  font-size: .8rem;
+  line-height: 1.45;
+  color: var(--tinta-3);
+  font-style: italic;
+  margin: .5rem 0 0;
+  padding-left: .7rem;
+  border-left: 2px solid var(--ocre-suave);
+  text-wrap: pretty;
+}
 
 .video iframe {
   display: block;
@@ -764,6 +775,32 @@ a:hover { color: var(--ocre-texto); }
   text-wrap: pretty;
 }
 .fig figcaption:empty { display: none; }
+/* ============ MOSAICO DE FOTOS ============
+   Cuando las fotos de un articulo vienen seguidas, el builder las junta en un
+   <div class="mosaico">: columnas tipo revista, imagen arriba y pie debajo.
+   Con columnas (y no con grilla) cada pie crece sin estirar la fila entera,
+   que es lo que hace que un mosaico se parezca a un mosaico. */
+.mosaico {
+  column-count: 4;
+  column-gap: .6rem;
+  margin: var(--sp-4) 0;
+}
+.mosaico > .fig {
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 .85rem;
+}
+.mosaico > .fig figcaption {
+  font-size: .72rem;
+  line-height: 1.42;
+  margin-top: .4rem;
+  padding-left: .55rem;
+}
+.mosaico > .fig img:hover { transform: none; }
+@media (max-width: 60rem) { .mosaico { column-count: 3; } }
+@media (max-width: 42rem) { .mosaico { column-count: 2; } }
 /* ============ ÁLBUM DE FIGURITAS ============
    Estilo Panini con páginas que se pasan. Una portada, el índice de
    sedes, las páginas de cada sede (cada una con su color) y el cierre.

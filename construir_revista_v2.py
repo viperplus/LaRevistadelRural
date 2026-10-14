@@ -252,6 +252,33 @@ def video_link(v):
     return v
 
 
+def agrupar_mosaico(bloques):
+    """Junta las figuras consecutivas en un <div class="mosaico">.
+
+    A grilla de a dos columnas con texto de por medio no se entiende; con las
+    fotos pegadas, el CSS las reparte como un mosaico y cada pie queda debajo
+    de su imagen. Corridas de una sola figura se quedan como estan."""
+    def _pieza(h):
+        return h.startswith('<figure class="fig')
+
+    salida, corrida = [], []
+    for h in bloques:
+        if _pieza(h):
+            corrida.append(h)
+            continue
+        if len(corrida) >= 2:
+            salida.append('<div class="mosaico">%s</div>' % "".join(corrida))
+        else:
+            salida.extend(corrida)
+        corrida = []
+        salida.append(h)
+    if len(corrida) >= 2:
+        salida.append('<div class="mosaico">%s</div>' % "".join(corrida))
+    else:
+        salida.extend(corrida)
+    return salida
+
+
 def render_cuerpo(art, fotos_paths, solo_bloques=False):
     """Convierte bloques + fotos a HTML. fotos_paths son relativos al article folder.
     solo_bloques=True devuelve solamente el texto del articulo, sin repartir
@@ -311,7 +338,8 @@ def render_cuerpo(art, fotos_paths, solo_bloques=False):
             # Figura en posicion exacta dentro del texto: consume la
             # proxima foto de fotos_paths en orden.
             if fig_index < len(fotos_paths):
-                cuerpo_html.append(_fig(fotos_paths[fig_index], _ep(fig_index)))
+                cuerpo_html.append(_fig(fotos_paths[fig_index], _ep(fig_index),
+                                        b.get("clase") or "fig--g8"))
                 consumidas.add(fig_index)
                 fig_index += 1
             continue
@@ -355,28 +383,36 @@ def render_cuerpo(art, fotos_paths, solo_bloques=False):
             # Archivo de video alojado junto al articulo (.mp4/.webm/.ogg):
             # se reproduce en el lugar. Si no, YouTube (embed, watch o
             # youtu.be) o Google Drive, con la URL que mandaron.
+            # "cap" (opcional): pie de video, para cuando el saludo se lee
+            # mas comodo debajo del reproductor que como parrafo aparte.
             ruta = (v or "").split("?")[0].lower()
+            pie = ('<p class="video__pie">%s</p>' % esc(b.get("cap"))
+                   if b.get("cap") else "")
             if ruta.endswith((".mp4", ".webm", ".ogv", ".ogg")):
                 cuerpo_html.append(
                     '<div class="video"><video class="video__archivo" controls '
                     'preload="metadata" playsinline src="%s">'
                     'Tu navegador no puede reproducir este video. '
-                    '<a href="%s">Descargalo</a>.</video></div>'
-                    % (esc(v), esc(v)))
+                    '<a href="%s">Descargalo</a>.</video>%s</div>'
+                    % (esc(v), esc(v), pie))
             else:
                 cuerpo_html.append(
                     '<div class="video"><iframe src="%s" '
                     'allow="accelerometer; autoplay; clipboard-write; encrypted-media; '
                     'gyroscope; picture-in-picture; web-share" '
                     'referrerpolicy="strict-origin-when-cross-origin" playsinline '
-                    'allowfullscreen title="Video del articulo"></iframe></div>'
-                    % esc(video_src(v)))
+                    'allowfullscreen title="Video del articulo"></iframe>%s</div>'
+                    % (esc(video_src(v)), pie))
         else:
             cuerpo_html.append("<p class='txt-parrafo'>%s</p>" % md(v))
     if en_lista:
         cuerpo_html.append("</%s>" % ("ul" if en_lista == "li" else "ol"))
     if solo_bloques:
         return "".join(cuerpo_html)
+    if art.get("mosaico"):
+        # Las fotos seguidas se leen mejor juntas: el mosaico las junta en una
+        # sola grilla con pie, en vez de intercalar una por parrafo.
+        cuerpo_html = agrupar_mosaico(cuerpo_html)
     epigs = art.get("epigrafes") or []
     # Disposicion opcional, una por foto: "portada" (arriba, grande),
     # "seccion" (corte de seccion) o "inline" (chica, dentro del texto).
