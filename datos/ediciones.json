@@ -5250,7 +5250,7 @@
         },
         {
           "t": "fig",
-          "clase": "fig--mediana"
+          "clase": "fig--inline"
         },
         {
           "t": "h3",
