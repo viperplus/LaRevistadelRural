@@ -585,6 +585,15 @@ a:hover { color: var(--ocre-texto); }
   color: var(--tinta-2);
 }
 .articulo__cuerpo { max-width: 44rem; margin-inline: auto; }
+/* Nada debería poder ensanchar la columna: hay nombres de sede, urls y
+   palabras muy largas que, sueltas, la empujan y aparece scroll horizontal
+   sobre todo en el celular. */
+.articulo__cuerpo, .art_card__contenido, .sec-portada__descrip,
+.mosaico > .fig figcaption, .video__pie { overflow-wrap: break-word; }
+/* El salto al contenido y cualquier ancla interna no quedan tapadas. */
+#contenido, .articulo__cuerpo h2, .articulo__cuerpo h3, .articulo__cuerpo h4 {
+  scroll-margin-top: 1.4rem;
+}
 .articulo__cuerpo .txt-parrafo {
   font-size: clamp(1.06rem, 1rem + .3vw, 1.13rem);
   line-height: 1.76;

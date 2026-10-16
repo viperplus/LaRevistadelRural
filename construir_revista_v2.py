@@ -1,6 +1,15 @@
 # -*- coding: utf-8 -*-
 """construir_revista_v2.py — Generador con estructura: cada artículo en su carpeta."""
 import os, shutil, json, html as H, re, unicodedata
+from PIL import Image
+
+Image.MAX_IMAGE_PIXELS = None
+
+# Tope de lado largo para las fotos que se publican. En pantalla nunca se
+# ven a mas de ~830 px de ancho, pero el visor de fotos las agranda: 1600
+# cubre retina y el visor sin cargar 9 MB por foto.
+MAX_IMAGEN = 1600
+CALIDAD_JPG = 84
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 DATOS = os.path.join(BASE, "datos", "ediciones.json")
@@ -152,9 +161,10 @@ def egresados_body():
             "<ul class='egr__lista'>%s</ul></article>" % (esc(sede), items))
     collage = "".join(
         "<figure class='collage__item%s'>"
-        "<img src='egresados/%s' alt='%s' loading='lazy'>"
+        "<img src='%s' alt='%s' loading='lazy'>"
         "<figcaption><strong>%s</strong><span>%s</span></figcaption></figure>"
-        % ((" collage__item--" + cls) if cls else "", esc(arch), esc(nombre), esc(nombre), esc(sede))
+        % ((" collage__item--" + cls) if cls else "", esc(img_local("egresados/" + arch)),
+           esc(nombre), esc(nombre), esc(sede))
         for arch, nombre, sede, cls in FOTOS_COLLAGE)
     intro = ("¡Felicitaciones a toda nuestra hermosa promoción! Este año, "
              "<strong>%d estudiantes</strong> de 5.º año de la ESRN Rural Virtual "
@@ -198,6 +208,82 @@ def md_plano(t):
     return RE_NEGRITA.sub(r"\1", (t or "").strip())
 
 
+def optimizar_imagen(ruta):
+    """Baja el peso de una imagen recien copiada y devuelve la ruta final.
+
+    Un PNG que en realidad es una foto (lo mas frecuente en lo que llega)
+    se convierte a JPEG: baja un 90% y no se nota. El alfa de verdad se
+    respeta y sigue en PNG."""
+    ext = os.path.splitext(ruta)[1].lower()
+    if ext == ".gif":
+        return ruta
+    try:
+        im = Image.open(ruta)
+    except Exception:
+        return ruta
+
+    def _alfa(img):
+        if img.mode in ("RGBA", "LA"):
+            mn, _mx = img.convert("RGBA").getchannel("A").getextrema()
+            return mn < 250
+        return img.mode == "P" and "transparency" in img.info
+
+    alfa = _alfa(im)
+    w, h = im.size
+    escalar = max(w, h) > MAX_IMAGEN
+    a_jpg = ext == ".png" and not alfa
+
+    if not escalar and not a_jpg:
+        im.close()
+        return ruta
+
+    if escalar:
+        s = MAX_IMAGEN / max(w, h)
+        im = im.resize((max(1, round(w * s)), max(1, round(h * s))), Image.LANCZOS)
+
+    nueva = ruta
+    if a_jpg:
+        nueva = os.path.splitext(ruta)[0] + ".jpg"
+        im.convert("RGB").save(nueva, "JPEG", quality=CALIDAD_JPG,
+                               optimize=True, progressive=True)
+        try:
+            os.remove(ruta)
+        except OSError:
+            pass
+    elif ext in (".jpg", ".jpeg"):
+        im.convert("RGB").save(ruta, "JPEG", quality=CALIDAD_JPG,
+                               optimize=True, progressive=True)
+    elif ext == ".png":
+        im.save(ruta, "PNG", optimize=True)
+    elif ext == ".webp":
+        im.save(ruta, "WEBP", quality=CALIDAD_JPG, method=5)
+    im.close()
+    return nueva
+
+
+def img_local(nombre):
+    """Nombre real de una imagen suelta de ediciones/01. Si la optimizacion
+    paso una foto de PNG a JPEG, el archivo cambio de nombre y el HTML tiene
+    que seguir apuntando al que existe."""
+    base = os.path.splitext(nombre)[0]
+    for ext in (".jpg", ".jpeg", ".png", ".webp"):
+        if os.path.isfile(os.path.join(EDIT, base + ext)):
+            return base + ext
+    return nombre
+
+
+def limpiar_fotos_viejas(dst_dir, quedan):
+    """Borra foto-NN.* que ya no se publican: si cambio la extension o
+    bajo el numero de imagenes, el archivo velado se iba igual al repositorio."""
+    quedan = set(quedan)
+    for f in os.listdir(dst_dir):
+        if re.match(r"foto-\d+\.(?:jpg|jpeg|png|webp)$", f, re.I) and f not in quedan:
+            try:
+                os.remove(os.path.join(dst_dir, f))
+            except OSError:
+                pass
+
+
 def copiar_imagenes_a_carpeta(uid, dst_dir, odt=None):
     """Copia fotos de la fuente al directorio del artículo."""
     src = os.path.join(ODT, odt or ODT_POR_ID.get(uid, uid))
@@ -209,9 +295,12 @@ def copiar_imagenes_a_carpeta(uid, dst_dir, odt=None):
                 nombre = "foto-%02d%s" % (len(imgs) + 1, ext)
                 try:
                     shutil.copy2(os.path.join(src, f), os.path.join(dst_dir, nombre))
-                    imgs.append(nombre)
                 except OSError:
-                    pass
+                    continue
+                final = optimizar_imagen(os.path.join(dst_dir, nombre))
+                imgs.append(os.path.basename(final))
+    if imgs:
+        limpiar_fotos_viejas(dst_dir, imgs)
     return imgs
 
 
@@ -677,6 +766,30 @@ def render_album(art, fotos_paths):
     return "".join(partes)
 
 
+def etiqueta_titulo(titulo):
+    """Titulo de pestana: el de la pagina + el nombre de la revista, pero
+    nunca mas de 62 caracteres. Mas largo y el navegador lo corta con puntos
+    en el medio del nombre del articulo, que es justamente lo que se quiere leer."""
+    t = md_plano(titulo or "").strip()
+    largo = "%s · %s" % (t, REV)
+    if len(largo) <= 62:
+        return largo
+    if len(t) <= 62:
+        return t
+    return t[:59].rstrip(" ,.-") + "…"
+
+
+def meta_descripcion(bajada):
+    """Descripcion para buscadores: si la bajada es muy corta se le suma una
+    linea de contexto, para que no aparezca como vacia en los resultados."""
+    d = md_plano(bajada or "").strip()
+    if len(d) >= 80:
+        return d
+    cola = ("%s, la revista digital de la ESRN Rural Virtual: trabajos, "
+            "voces y fotos de nuestras sedes." % REV)
+    return (d + " " + cola).strip() if d else cola
+
+
 def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
     css = '<link rel="stylesheet" href="%srevista.css">' % cssdir
     # Visor de fotos: mismos niveles que la hoja de estilos (css/ -> js/).
@@ -687,7 +800,7 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
             # YouTube exige que el iframe le mande Referer: sin eso tira
             # el error 153 y no carga el video (issue del 2025).
             '<meta name="referrer" content="strict-origin-when-cross-origin">\n'
-            "<title>%s · %s</title>\n<meta name=\"description\" content=\"%s\">\n"
+            "<title>%s</title>\n<meta name=\"description\" content=\"%s\">\n"
             "<link rel=\"icon\" href=\"%s\" type=\"image/svg+xml\">\n%s\n%s\n%s\n</head>\n<body%s>\n"
             '<a class="salto" href="#contenido">Salto al contenido</a>\n'
             '<header class="masthead contenedor" role="banner">\n  <p class="masthead__marca"><a href="%s">%s</a></p>\n'
@@ -696,7 +809,7 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
             '<footer class="pie" role="contentinfo">\n  <div class="pie__interior contenedor">\n'
             '    <p class="pie__credito">%s · %s · %s. Escrita, ilustrada y fotografiada por estudiantes de la ESRN Rural Virtual.</p>\n'
             '  </div>\n</footer>\n</body>\n</html>\n') % (
-        md(titulo), esc(REV), md_plano(bajada), faviq, FONTS, css, js, body_class, pie_note,
+        esc(etiqueta_titulo(titulo)), esc(meta_descripcion(bajada)), faviq, FONTS, css, js, body_class, pie_note,
         esc(REV), nav, body, esc(REV), esc(SUBNOMBRE), esc(ed))
 
 
@@ -743,11 +856,14 @@ def main():
                     ext = os.path.splitext(src_file)[1]
                     nombre = "foto-%02d%s" % (i, ext)
                     shutil.copy2(src_file, os.path.join(art_dir, nombre))
-                    imgs_dst.append(nombre)
+                    final = optimizar_imagen(os.path.join(art_dir, nombre))
+                    imgs_dst.append(os.path.basename(final))
                 else:
                     # Si no existe, intentar con el nombre original
                     nombre = os.path.basename(fpath)
                     imgs_dst.append(nombre)
+            if imgs_dst:
+                limpiar_fotos_viejas(art_dir, imgs_dst)
             fotos_relativas = imgs_dst
         else:
             # Copiar desde ODT
@@ -937,7 +1053,7 @@ def main():
             '<h2 class="pres__h2">Somos la ESRN RURAL VIRTUAL</h2>\n'
             '<p class="pres__p pres__lead">%s</p>\n'
             '<figure class="pres__foto">\n'
-            '<img src="grupo.png" alt="" loading="lazy" decoding="async">\n'
+            '<img src="%s" alt="" loading="lazy" decoding="async">\n'
             '</figure>\n'
             '</div>\n'
             '<div class="pres__bloque">\n'
@@ -951,14 +1067,16 @@ def main():
             '<div class="pres__doble">\n'
             '<div>\n%s\n</div>\n'
             '<figure class="pres__foto">\n'
-            '<img src="revistas.png" alt="" loading="lazy" decoding="async">\n'
+            '<img src="%s" alt="" loading="lazy" decoding="async">\n'
             '</figure>\n'
             '</div>\n'
             '</div>\n'
             '</section>') % (
-        esc("Presentación"), esc(SUBNOMBRE), esc(PRES_INTRO), esc(PRES_DONDE),
+        esc("Presentación"), esc(SUBNOMBRE), esc(PRES_INTRO), img_local("grupo.png"),
+        esc(PRES_DONDE),
         mapa_sedes_svg(),
-        "".join('<p class="pres__p">%s</p>\n' % esc(p) for p in PRES_REV))
+        "".join('<p class="pres__p">%s</p>\n' % esc(p) for p in PRES_REV),
+        img_local("revistas.png"))
     open(os.path.join(EDIT, "presentacion.html"), "w", encoding="utf-8").write(
         pagina("La Revista del Rural · Presentación", SUBNOMBRE, ed_etiqueta,
                nav_html(""), body, "index.html", "css/", "favicon.svg"))
