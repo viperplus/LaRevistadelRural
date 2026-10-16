@@ -9,7 +9,9 @@ Image.MAX_IMAGE_PIXELS = None
 # ven a mas de ~830 px de ancho, pero el visor de fotos las agranda: 1600
 # cubre retina y el visor sin cargar 9 MB por foto.
 MAX_IMAGEN = 1600
-CALIDAD_JPG = 84
+CALIDAD_JPG = 84    # JPEG y tambien WEBP
+PNG_ALFA_MAX = 300 * 1024    # un PNG con alfa mas gordo que esto pasa a 256 colores    # JPEG y tambien WEBP
+PNG_ALFA_MAX = 300 * 1024    # un PNG con alfa mas gordo que esto pasa a 256 colores
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 DATOS = os.path.join(BASE, "datos", "ediciones.json")
@@ -232,8 +234,9 @@ def optimizar_imagen(ruta):
     w, h = im.size
     escalar = max(w, h) > MAX_IMAGEN
     a_jpg = ext == ".png" and not alfa
+    gorda = alfa and ext == ".png" and os.path.getsize(ruta) > PNG_ALFA_MAX
 
-    if not escalar and not a_jpg:
+    if not escalar and not a_jpg and not gorda:
         im.close()
         return ruta
 
@@ -257,6 +260,20 @@ def optimizar_imagen(ruta):
         im.save(ruta, "PNG", optimize=True)
     elif ext == ".webp":
         im.save(ruta, "WEBP", quality=CALIDAD_JPG, method=5)
+
+    # Un PNG con alfa puede quedar pesadisimo (collages con huecos transparentes).
+    # Con 256 colores baja ~85% y, al tamano al que se muestra, no se nota.
+    if alfa and ext == ".png" and os.path.isfile(ruta) and \
+            os.path.getsize(ruta) > PNG_ALFA_MAX:
+        try:
+            im2 = Image.open(ruta).convert("RGBA")
+            q = im2.quantize(colors=256, method=Image.FASTOCTREE,
+                             dither=Image.NONE)
+            q.save(ruta, "PNG", optimize=True)
+            q.close()
+            im2.close()
+        except Exception:
+            pass
     im.close()
     return nueva
 
@@ -821,6 +838,14 @@ def main():
     articulos = datos.get("articulos") or []
 
     os.makedirs(EDIT, exist_ok=True)
+
+    # Imagenes sueltas que viven directo en ediciones/01 (grupo, revistas, mapa):
+    # no las copia ningun paso de los articulos, pero pesan igual.
+    for nombre in sorted(os.listdir(EDIT)):
+        ruta = os.path.join(EDIT, nombre)
+        if os.path.isfile(ruta) and os.path.splitext(nombre)[1].lower() in (
+                ".jpg", ".jpeg", ".png", ".webp"):
+            optimizar_imagen(ruta)
 
     def nav_html(pre=""):
         pre_link = "<li><a href='%spresentacion.html' data-sec='presentacion'>Presentación</a></li>" % pre
