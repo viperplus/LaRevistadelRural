@@ -450,6 +450,14 @@ def agrupar_mosaico(bloques):
     return salida
 
 
+EXT_IMAGEN = (".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif", ".svg")
+
+
+def _es_imagen(p):
+    """Si la 'foto' no es una imagen, un <img> no la va a poder dibujar."""
+    return os.path.splitext(p or "")[1].lower() in EXT_IMAGEN
+
+
 def render_cuerpo(art, fotos_paths, solo_bloques=False):
     """Convierte bloques + fotos a HTML. fotos_paths son relativos al article folder.
     solo_bloques=True devuelve solamente el texto del articulo, sin repartir
@@ -468,9 +476,27 @@ def render_cuerpo(art, fotos_paths, solo_bloques=False):
                 '<figcaption>%s</figcaption></figure>') % (clase, src, ep)
 
     def _ep(i):
-        return esc(epigs[i] if len(epigs) > i else "")
+        return esc(epigs[i] if 0 <= i < len(epigs) else "")
 
     epigs = art.get("epigrafes") or []
+
+    # Bloques 'fig' con "f": nombran la foto a mano, así se le puede dar más o
+    # menos peso a una sin tocar el orden de las demás. No consumen la
+    # secuencia y sus fotos quedan fuera del reparto automático del pie.
+    fijas = {b.get("f") for b in cuerpo if b.get("t") == "fig" and b.get("f")}
+    # Sólo lo que un navegador sabe dibujar: si mandaron un .pdf en la lista
+    # de fotos, entraría como <img> y se vería roto.
+    libres = [p for p in fotos_paths if p not in fijas and _es_imagen(p)]
+    # Índice original de cada foto, para buscar su epígrafe aunque la
+    # secuencia se haya movido por las fotos fijas.
+    pos_de = {}
+    for _i, _p in enumerate(fotos_paths):
+        pos_de.setdefault(_p, _i)
+    for _i, _p in enumerate(fotos_paths):
+        if _p in fijas or not _es_imagen(_p):
+            consumidas.add(_i)
+    consumidas.discard(-1)
+
     fig_index = 0
     while i < len(cuerpo):
         b = cuerpo[i]
@@ -506,12 +532,19 @@ def render_cuerpo(art, fotos_paths, solo_bloques=False):
         # consecutivos del mismo tipo se agrupan en una sola lista.
         # Ojo: el tipo de bloque NO es el nombre de la etiqueta.
         if t == "fig":
-            # Figura en posicion exacta dentro del texto: consume la
-            # proxima foto de fotos_paths en orden.
-            if fig_index < len(fotos_paths):
-                cuerpo_html.append(_fig(fotos_paths[fig_index], _ep(fig_index),
+            fijo = b.get("f")
+            if fijo:
+                # Foto nombrada a mano: ocupa este lugar exacto del texto.
+                cuerpo_html.append(_fig(fijo, _ep(pos_de.get(fijo, -1)),
                                         b.get("clase") or "fig--g8"))
-                consumidas.add(fig_index)
+                continue
+            # Figura en posicion exacta dentro del texto: consume la
+            # proxima foto libre en orden.
+            if fig_index < len(libres):
+                p = libres[fig_index]
+                cuerpo_html.append(_fig(p, _ep(pos_de.get(p, -1)),
+                                        b.get("clase") or "fig--g8"))
+                consumidas.add(pos_de.get(p, -1))
                 fig_index += 1
             continue
         if t in ("li", "ol"):
@@ -559,21 +592,24 @@ def render_cuerpo(art, fotos_paths, solo_bloques=False):
             ruta = (v or "").split("?")[0].lower()
             pie = ('<p class="video__pie">%s</p>' % esc(b.get("cap"))
                    if b.get("cap") else "")
+            # "clase" (opcional): "video--destacado" le da más ancho y peso
+            # que al reproductor normal, para cuando el video es lo importante.
+            vc = (" " + b.get("clase")) if b.get("clase") else ""
             if ruta.endswith((".mp4", ".webm", ".ogv", ".ogg")):
                 cuerpo_html.append(
-                    '<div class="video"><video class="video__archivo" controls '
+                    '<div class="video%s"><video class="video__archivo" controls '
                     'preload="metadata" playsinline src="%s">'
                     'Tu navegador no puede reproducir este video. '
                     '<a href="%s">Descargalo</a>.</video>%s</div>'
-                    % (esc(v), esc(v), pie))
+                    % (vc, esc(v), esc(v), pie))
             else:
                 cuerpo_html.append(
-                    '<div class="video"><iframe src="%s" '
+                    '<div class="video%s"><iframe src="%s" '
                     'allow="accelerometer; autoplay; clipboard-write; encrypted-media; '
                     'gyroscope; picture-in-picture; web-share" '
                     'referrerpolicy="strict-origin-when-cross-origin" playsinline '
                     'allowfullscreen title="Video del articulo"></iframe>%s</div>'
-                    % (esc(video_src(v)), pie))
+                    % (vc, esc(video_src(v)), pie))
         else:
             cuerpo_html.append("<p class='txt-parrafo'>%s</p>" % md(v))
     if en_lista:
