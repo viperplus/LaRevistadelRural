@@ -1670,7 +1670,6 @@ a:hover { color: var(--ocre-texto); }
   .art_card:hover, .volver:hover, .todos__enlace a:hover,
   .nav-ed a:hover, .album__volver:hover, .album__ficha:hover { transform: none; }
   .fig img:hover { transform: none; }
-  .egr__sede:hover { transform: none; box-shadow: var(--sombra-s); }
 }
 
 /* ============ COLORES POR SECCION ============ */
@@ -1792,115 +1791,53 @@ a:hover { color: var(--ocre-texto); }
   background: var(--sec-color);
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--sec-color) 15%, transparent);
 }
-/* Tres cifras que cuentan la historia de la escuela antes de la lista */
-.egr__cifras {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px; margin-top: 1.7rem;
-  background: var(--linea-suave);
-  border: 1px solid var(--linea-suave);
-  border-radius: var(--r-m); overflow: hidden;
-  box-shadow: var(--sombra-s);
+/* Dedicatoria y firma: es un acto de egreso, no un reporte. */
+.egr__apertura, .egr__cierre {
+  background: var(--papel-calido);
+  border-top: 3px solid var(--sec-color);
+  text-align: center;
 }
-.egr__cifra { background: var(--papel-alt); padding: 1.15rem .8rem 1rem; text-align: center; }
-.egr__cifra b {
-  display: block; font-family: var(--titulos); font-weight: 800;
-  font-size: clamp(1.7rem, 4.6vw, 2.5rem); line-height: 1;
-  color: var(--sec-color); font-variant-numeric: tabular-nums;
+.egr__apertura .pres__h2, .egr__cierre .pres__h2 { justify-content: center; }
+.egr__dedicatoria {
+  max-width: 34rem; margin: .2rem auto 0;
+  font-family: var(--texto); font-style: italic;
+  font-size: clamp(1.12rem, 1rem + .9vw, 1.4rem);
+  line-height: 1.68; color: var(--tinta-2);
 }
-.egr__cifra span {
-  display: block; margin-top: .45rem;
-  font-size: .68rem; font-weight: 800; line-height: 1.35;
-  text-transform: uppercase; letter-spacing: .07em; color: var(--tinta-3);
+.egr__dedicatoria::before {
+  content: ""; display: block;
+  width: 46px; height: 2px; margin: 0 auto 1.4rem;
+  background: var(--sec-color);
 }
-.egr__barra {
-  display: flex; height: .75rem; margin: 1rem 0 .55rem;
-  border-radius: var(--r-full); overflow: hidden;
-  background: var(--linea-suave);
+.egr__firma {
+  margin: 1.5rem 0 0;
+  font-family: var(--texto); font-style: italic;
+  line-height: 1.25; color: var(--sec-color);
+  font-size: clamp(1.5rem, 1rem + 1.8vw, 2.1rem);
 }
-.egr__barra i { display: block; height: 100%; }
-.egr__barra .cn { background: var(--verde); }
-.egr__barra .tu { background: var(--ocre); }
-.egr__leyenda {
-  display: flex; flex-wrap: wrap; gap: .15rem 1.2rem;
-  margin: 0; font-size: .8rem; font-weight: 700; color: var(--tinta-3);
+.egr__cierre .egr__firma {
+  margin-top: 1.3rem; font-size: clamp(1.05rem, 1rem + .45vw, 1.2rem);
+  color: var(--tinta-2);
 }
-.egr__key::before {
-  content: ""; display: inline-block; width: .62rem; height: .62rem;
-  border-radius: 3px; margin-right: .38rem; vertical-align: -.05em;
-  background: currentColor;
-}
-.egr__key--cn { color: var(--verde-texto); }
-.egr__key--tu { color: var(--ocre-texto); }
 
-/* Padrón: una tarjeta por sede, de la más numerosa a la más chica */
-.egr__padron {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr));
-  gap: 1rem; margin-top: 1.4rem;
+/* Los nombres, por sede: como el programa del acto */
+.egr__sedes {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(16.5rem, 1fr));
+  gap: 1.8rem 2.4rem; margin-top: 1.7rem;
 }
-.egr__sede {
-  background: var(--papel);
-  border: 1px solid var(--linea-suave);
-  border-radius: var(--r-m);
-  padding: 1rem 1.1rem 1.15rem;
-  break-inside: avoid;
-  box-shadow: var(--sombra-s);
-  transition: box-shadow .3s var(--trans), transform .3s var(--trans);
-}
-.egr__sede:hover { box-shadow: var(--sombra-m); transform: translateY(-2px); }
+.egr__sede { break-inside: avoid; }
 .egr__sede-t {
-  display: flex; align-items: center; gap: .55rem;
-  margin: 0 0 .55rem; padding-bottom: .55rem;
-  border-bottom: 2px solid var(--sec-color);
+  margin: 0 0 .5rem; padding-bottom: .4rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--sec-color) 32%, transparent);
   font-family: var(--titulos); font-weight: 800;
-  font-size: 1.02rem; line-height: 1.25; color: var(--tinta);
-}
-.egr__n {
-  flex: none; display: inline-flex; align-items: center; justify-content: center;
-  min-width: 1.9rem; height: 1.9rem; padding: 0 .42rem;
-  border-radius: var(--r-full);
-  background: var(--sec-color); color: #fff;
-  font-size: .88rem; font-weight: 800; font-variant-numeric: tabular-nums;
+  font-size: 1.05rem; line-height: 1.25; color: var(--sec-color);
 }
 .egr__nom { list-style: none; margin: 0; padding: 0; }
-.egr__nom li {
-  display: flex; align-items: baseline; gap: .5rem;
-  padding: .32rem 0; font-size: .95rem; line-height: 1.45; color: var(--tinta-2);
-}
-.egr__nom li + li { border-top: 1px dashed var(--linea-suave); }
-.egr__nom-t, .egr__alfa-t { min-width: 0; }
+.egr__nom li { padding: .3rem 0; font-size: 1.02rem; line-height: 1.5; color: var(--tinta-2); }
+.egr__nom li + li { border-top: 1px solid color-mix(in srgb, var(--sec-color) 12%, transparent); }
 .egr__nom b {
-  font-family: var(--texto); font-weight: 600; font-size: .87rem;
-  letter-spacing: .03em; text-transform: uppercase; color: var(--tinta);
-}
-.egr__or {
-  margin-left: auto; flex: none;
-  font-size: .66rem; font-weight: 800;
-  text-transform: uppercase; letter-spacing: .05em; white-space: nowrap;
-}
-.egr__or--cn { color: var(--verde-texto); }
-.egr__or--tu { color: var(--ocre-texto); }
-
-/* Índice alfabético: el cierre tipo anuario */
-.egr__alfa {
-  list-style: none; margin: 1.1rem 0 0; padding: 0;
-  columns: 3; column-gap: 1.7rem;
-}
-.egr__alfa li {
-  break-inside: avoid; display: flex; gap: .45rem; align-items: baseline;
-  padding: .2rem 0; font-size: .9rem; line-height: 1.5; color: var(--tinta-2);
-}
-.egr__alfa li b {
-  font-family: var(--titulos); font-weight: 800; font-size: .95rem;
-  color: var(--sec-color);
-}
-.egr__alfa li i {
-  margin-left: auto; font-style: normal; flex: none;
-  font-size: .75rem; color: var(--tinta-3);
-}
-@media (max-width: 56rem) { .egr__alfa { columns: 2; } }
-@media (max-width: 32rem) {
-  .egr__alfa { columns: 1; }
-  .egr__cifras { grid-template-columns: 1fr; }
+  font-family: var(--texto); font-weight: 600; font-size: .97rem;
+  letter-spacing: .04em; text-transform: uppercase; color: var(--tinta);
 }
 
 /* Collage de egresados */
