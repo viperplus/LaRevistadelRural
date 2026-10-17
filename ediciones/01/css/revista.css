@@ -1820,27 +1820,23 @@ a:hover { color: var(--ocre-texto); }
   color: var(--tinta-2);
 }
 
-/* Los nombres, por sede: como el programa del acto. Sin lineas entre nombres
-   ni bajo el título de sede — eso lo volvía una planilla entrecortada. */
-.egr__sedes {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-  gap: 2.4rem 2.8rem; margin-top: 1.9rem;
-}
+/* Los nombres, por sede: un listado continuo, no una grilla de cajitas.
+   Las columnas dejan que las sedes se lean de corrido, como el programa
+   del acto; el break-inside evita que una sede se parta en dos. */
+.egr__sedes { columns: 2; column-gap: 3.6rem; margin-top: 1.7rem; }
+.egr__sede { break-inside: avoid; margin-bottom: 1.8rem; }
 .egr__sede-t {
-  margin: 0 0 .85rem;
+  margin: 0 0 .65rem;
   font-family: var(--titulos); font-weight: 800;
   font-size: 1.05rem; line-height: 1.25; color: var(--sec-color);
 }
-.egr__sede-t::after {
-  content: ""; display: block; width: 1.5rem; height: 2px;
-  margin-top: .4rem; background: var(--sec-color); border-radius: 1px;
-}
 .egr__nom { list-style: none; margin: 0; padding: 0; }
-.egr__nom li { padding: .2rem 0; font-size: 1.02rem; line-height: 1.62; color: var(--tinta-2); }
+.egr__nom li { padding: .18rem 0; font-size: 1.02rem; line-height: 1.6; color: var(--tinta-2); }
 .egr__nom b {
   font-family: var(--texto); font-weight: 600; font-size: .97rem;
   letter-spacing: .04em; text-transform: uppercase; color: var(--tinta);
 }
+@media (max-width: 44rem) { .egr__sedes { columns: 1; } }
 /* La orientación, en voz baja: cursiva de la serif y el color de su familia.
    En mayúsculas y negrita tapaba el nombre; así acompaña. */
 .egr__or {
