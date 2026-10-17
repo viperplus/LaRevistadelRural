@@ -172,7 +172,7 @@ def egresados_body():
             for apellido, nombre, orient
             in sorted(por_sede[sede], key=lambda r: (_sin_acentos(r[1]), _sin_acentos(r[0]))))
         bloques.append(
-            "<article class='egr__sede'><h3 class='egr__sede-t'>%s</h3>"
+            "<article><h3 class='egr__sede-t'>%s</h3>"
             "<ul class='egr__nom'>%s</ul></article>" % (esc(sede), items))
 
     collage = "".join(
