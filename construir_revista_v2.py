@@ -145,22 +145,59 @@ FOTOS_COLLAGE = [
 ]
 
 
+def _sin_acentos(t):
+    return (t or "").lower().translate(str.maketrans(
+        "áéíóúüñàèìòùâêîôûç", "aeiouunaeiouaeiouc"))
+
+
+OR_CORTO = {"Ciencias Naturales": ("cn", "C. Naturales"),
+            "Turismo": ("tu", "Turismo")}
+
+
 def egresados_body():
-    """Cuerpo de la página Egresados: saludo + tarjetas por sede + collage."""
+    """Cuerpo de la pagina Egresados: cifras de la promoción, fotos,
+    padron por sede y indice alfabetico."""
     total = len(EGRESADOS)
+    n_cn = sum(1 for e in EGRESADOS if e[2] == "Ciencias Naturales")
+    n_tu = total - n_cn
+
     por_sede = {}
     for apellido, nombre, orient, sede in EGRESADOS:
         por_sede.setdefault(sede, []).append((apellido, nombre, orient))
-    tarjetas = []
-    for sede in sorted(por_sede, key=str.lower):
+
+    # Cifras: es la historia de la escuela en tres numeros.
+    cifras = "".join(
+        "<div class='egr__cifra'><b>%s</b><span>%s</span></div>" % (esc(n), esc(r))
+        for n, r in ((str(total), "egresadas y egresados"),
+                     (str(len(por_sede)), "sedes en la provincia"),
+                     ("%d · %d" % (n_cn, n_tu), "Ciencias Naturales · Turismo")))
+
+    # Padrón por sede, de la más numerosa a la más chica.
+    bloques = []
+    for sede, gente in sorted(por_sede.items(),
+                              key=lambda kv: (-len(kv[1]), _sin_acentos(kv[0]))):
         items = "".join(
-            "<li><strong>%s</strong>, %s <span class='egr__or'>%s</span></li>"
-            % (esc(apellido), esc(nombre), esc(orient))
+            "<li><span class='egr__nom-t'><b>%s</b>, %s</span>"
+            "<span class='egr__or egr__or--%s'>%s</span></li>"
+            % (esc(apellido), esc(nombre), OR_CORTO[orient][0], OR_CORTO[orient][1])
             for apellido, nombre, orient
-            in sorted(por_sede[sede], key=lambda r: (r[1].lower(), r[0].lower())))
-        tarjetas.append(
-            "<article class='tarjeta'><h3 class='tarjeta__t'>%s</h3>"
-            "<ul class='egr__lista'>%s</ul></article>" % (esc(sede), items))
+            in sorted(gente, key=lambda r: (_sin_acentos(r[1]), _sin_acentos(r[0]))))
+        bloques.append(
+            "<article class='egr__sede'><h3 class='egr__sede-t'>"
+            "<span class='egr__n'>%d</span>%s</h3>"
+            "<ul class='egr__nom'>%s</ul></article>" % (len(gente), esc(sede), items))
+
+    # Indice alfabetico por apellido, con la sede a la derecha.
+    alfa = []
+    ultima = ""
+    for apellido, nombre, orient, sede in sorted(
+            EGRESADOS, key=lambda e: (_sin_acentos(e[0]), _sin_acentos(e[1]))):
+        letra = _sin_acentos(apellido)[:1].upper()
+        marca = ("<b>%s</b>" % esc(letra)) if letra != ultima else ""
+        ultima = letra
+        alfa.append("<li>%s<span class='egr__alfa-t'>%s, %s</span><i>%s</i></li>"
+                    % (marca, esc(apellido), esc(nombre), esc(sede)))
+
     collage = "".join(
         "<figure class='collage__item%s'>"
         "<img src='%s' alt='%s' loading='lazy'>"
@@ -168,22 +205,45 @@ def egresados_body():
         % ((" collage__item--" + cls) if cls else "", esc(img_local("egresados/" + arch)),
            esc(nombre), esc(nombre), esc(sede))
         for arch, nombre, sede, cls in FOTOS_COLLAGE)
+
     intro = ("¡Felicitaciones a toda nuestra hermosa promoción! Este año, "
              "<strong>%d estudiantes</strong> de 5.º año de la ESRN Rural Virtual "
-             "cerraron su Ciclo Orientado — en Ciencias Naturales o en Turismo — "
-             "desde cada rincón de la provincia. Los y las reunimos sede por sede, "
-             "para decirles bien fuerte: ¡estamos muy orgullosos de ustedes!"
-             % total)
+             "cerraron su Ciclo Orientado desde cada rincón de la provincia. "
+             "Los y las reunimos acá, sede por sede, para decirles bien fuerte: "
+             "¡estamos muy orgullosos de ustedes!" % total)
+
+    leyenda = ("<p class='egr__leyenda'>"
+               "<span class='egr__key egr__key--cn'>Ciencias Naturales, %d</span>"
+               "<span class='egr__key egr__key--tu'>Turismo, %d</span></p>"
+               % (n_cn, n_tu))
+
     return ('<div class="pres__bloque">\n'
-            '<h2 class="pres__h2">Egresadas y egresados 2026</h2>\n'
+            '<h2 class="pres__h2">La promoción 2026</h2>\n'
             '<p class="pres__p pres__ancho">%s</p>\n'
-            '<h3 class="pres__h3">La promoción, en fotos</h3>\n'
+            '<div class="egr__cifras">%s</div>\n'
+            '<div class="egr__barra" role="img" aria-label="Orientaciones: '
+            '%d Ciencias Naturales y %d Turismo">'
+            '<i class="cn" style="flex:%d"></i><i class="tu" style="flex:%d"></i>'
+            '</div>\n%s\n</div>\n'
+            '<div class="pres__bloque">\n'
+            '<h2 class="pres__h2">La promoción, en fotos</h2>\n'
             '<p class="pres__p">Algunas caras de quienes llegan al final de esta etapa, '
             'con la mejor sonrisa.</p>\n'
-            '<div class="collage">\n%s\n</div>\n'
-            '<h3 class="pres__h3">Los y las egresadas, sede por sede</h3>\n'
-            '<div class="egr__tarjetas">\n%s\n</div>\n</div>') % (
-                intro, collage, "".join(tarjetas))
+            '<div class="collage">\n%s\n</div>\n</div>\n'
+            '<div class="pres__bloque">\n'
+            '<h2 class="pres__h2">El padrón, sede por sede</h2>\n'
+            '<p class="pres__p pres__ancho">Veintiún sedes repartidas por Río Negro. '
+            'Lago Pellegrini concentra a casi un tercio de la promoción; las demás, '
+            'muchas veces, se cuentan de a una o dos personas.</p>\n'
+            '%s\n'
+            '<div class="egr__padron">\n%s\n</div>\n</div>\n'
+            '<div class="pres__bloque">\n'
+            '<h2 class="pres__h2">Índice alfabético</h2>\n'
+            '<p class="pres__p">Toda la promoción ordenada por apellido, con la sede '
+            'de cada quien.</p>\n'
+            '<ul class="egr__alfa">\n%s\n</ul>\n</div>') % (
+                intro, cifras, n_cn, n_tu, n_cn, n_tu, leyenda,
+                collage, leyenda, "".join(bloques), "".join(alfa))
 
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'

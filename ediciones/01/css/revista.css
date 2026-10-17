@@ -1670,6 +1670,7 @@ a:hover { color: var(--ocre-texto); }
   .art_card:hover, .volver:hover, .todos__enlace a:hover,
   .nav-ed a:hover, .album__volver:hover, .album__ficha:hover { transform: none; }
   .fig img:hover { transform: none; }
+  .egr__sede:hover { transform: none; box-shadow: var(--sombra-s); }
 }
 
 /* ============ COLORES POR SECCION ============ */
@@ -1784,26 +1785,122 @@ a:hover { color: var(--ocre-texto); }
   border-radius: var(--r-m); box-shadow: var(--sombra-s);
 }
 
-/* Lista de egresados por sede */
-.egr__tarjetas {
-  column-count: 3; column-gap: 1.1rem;
-  margin-top: 1.6rem;
+/* ============ EGRESADOS ============ */
+/* El punto de cada bloque se tiñe con el color de la sección: en esta página
+   hay cuatro bloques seguidos y el verde genérico los dejaba todos iguales. */
+.sec-egresados .pres__h2::before {
+  background: var(--sec-color);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--sec-color) 15%, transparent);
 }
-.egr__tarjetas .tarjeta { break-inside: avoid; margin: 0 0 1.1rem; }
-@media (max-width: 56rem) { .egr__tarjetas { column-count: 2; } }
-@media (max-width: 34rem) { .egr__tarjetas { column-count: 1; } }
-.egr__lista {
-  margin: .45rem 0 0; padding-left: 1.2rem;
-  list-style: square;
+/* Tres cifras que cuentan la historia de la escuela antes de la lista */
+.egr__cifras {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px; margin-top: 1.7rem;
+  background: var(--linea-suave);
+  border: 1px solid var(--linea-suave);
+  border-radius: var(--r-m); overflow: hidden;
+  box-shadow: var(--sombra-s);
 }
-.egr__lista li {
-  font-size: .95rem; line-height: 1.6; color: var(--tinta-2);
-  margin-bottom: .3rem;
+.egr__cifra { background: var(--papel-alt); padding: 1.15rem .8rem 1rem; text-align: center; }
+.egr__cifra b {
+  display: block; font-family: var(--titulos); font-weight: 800;
+  font-size: clamp(1.7rem, 4.6vw, 2.5rem); line-height: 1;
+  color: var(--sec-color); font-variant-numeric: tabular-nums;
+}
+.egr__cifra span {
+  display: block; margin-top: .45rem;
+  font-size: .68rem; font-weight: 800; line-height: 1.35;
+  text-transform: uppercase; letter-spacing: .07em; color: var(--tinta-3);
+}
+.egr__barra {
+  display: flex; height: .75rem; margin: 1rem 0 .55rem;
+  border-radius: var(--r-full); overflow: hidden;
+  background: var(--linea-suave);
+}
+.egr__barra i { display: block; height: 100%; }
+.egr__barra .cn { background: var(--verde); }
+.egr__barra .tu { background: var(--ocre); }
+.egr__leyenda {
+  display: flex; flex-wrap: wrap; gap: .15rem 1.2rem;
+  margin: 0; font-size: .8rem; font-weight: 700; color: var(--tinta-3);
+}
+.egr__key::before {
+  content: ""; display: inline-block; width: .62rem; height: .62rem;
+  border-radius: 3px; margin-right: .38rem; vertical-align: -.05em;
+  background: currentColor;
+}
+.egr__key--cn { color: var(--verde-texto); }
+.egr__key--tu { color: var(--ocre-texto); }
+
+/* Padrón: una tarjeta por sede, de la más numerosa a la más chica */
+.egr__padron {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr));
+  gap: 1rem; margin-top: 1.4rem;
+}
+.egr__sede {
+  background: var(--papel);
+  border: 1px solid var(--linea-suave);
+  border-radius: var(--r-m);
+  padding: 1rem 1.1rem 1.15rem;
+  break-inside: avoid;
+  box-shadow: var(--sombra-s);
+  transition: box-shadow .3s var(--trans), transform .3s var(--trans);
+}
+.egr__sede:hover { box-shadow: var(--sombra-m); transform: translateY(-2px); }
+.egr__sede-t {
+  display: flex; align-items: center; gap: .55rem;
+  margin: 0 0 .55rem; padding-bottom: .55rem;
+  border-bottom: 2px solid var(--sec-color);
+  font-family: var(--titulos); font-weight: 800;
+  font-size: 1.02rem; line-height: 1.25; color: var(--tinta);
+}
+.egr__n {
+  flex: none; display: inline-flex; align-items: center; justify-content: center;
+  min-width: 1.9rem; height: 1.9rem; padding: 0 .42rem;
+  border-radius: var(--r-full);
+  background: var(--sec-color); color: #fff;
+  font-size: .88rem; font-weight: 800; font-variant-numeric: tabular-nums;
+}
+.egr__nom { list-style: none; margin: 0; padding: 0; }
+.egr__nom li {
+  display: flex; align-items: baseline; gap: .5rem;
+  padding: .32rem 0; font-size: .95rem; line-height: 1.45; color: var(--tinta-2);
+}
+.egr__nom li + li { border-top: 1px dashed var(--linea-suave); }
+.egr__nom-t, .egr__alfa-t { min-width: 0; }
+.egr__nom b {
+  font-family: var(--texto); font-weight: 600; font-size: .87rem;
+  letter-spacing: .03em; text-transform: uppercase; color: var(--tinta);
 }
 .egr__or {
-  font-size: .72rem; font-weight: 800;
-  text-transform: uppercase; letter-spacing: .06em;
-  color: var(--verde-texto); white-space: nowrap;
+  margin-left: auto; flex: none;
+  font-size: .66rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .05em; white-space: nowrap;
+}
+.egr__or--cn { color: var(--verde-texto); }
+.egr__or--tu { color: var(--ocre-texto); }
+
+/* Índice alfabético: el cierre tipo anuario */
+.egr__alfa {
+  list-style: none; margin: 1.1rem 0 0; padding: 0;
+  columns: 3; column-gap: 1.7rem;
+}
+.egr__alfa li {
+  break-inside: avoid; display: flex; gap: .45rem; align-items: baseline;
+  padding: .2rem 0; font-size: .9rem; line-height: 1.5; color: var(--tinta-2);
+}
+.egr__alfa li b {
+  font-family: var(--titulos); font-weight: 800; font-size: .95rem;
+  color: var(--sec-color);
+}
+.egr__alfa li i {
+  margin-left: auto; font-style: normal; flex: none;
+  font-size: .75rem; color: var(--tinta-3);
+}
+@media (max-width: 56rem) { .egr__alfa { columns: 2; } }
+@media (max-width: 32rem) {
+  .egr__alfa { columns: 1; }
+  .egr__cifras { grid-template-columns: 1fr; }
 }
 
 /* Collage de egresados */
