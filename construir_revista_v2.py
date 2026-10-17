@@ -150,13 +150,16 @@ def _sin_acentos(t):
         "áéíóúüñàèìòùâêîôûç", "aeiouunaeiouaeiouc"))
 
 
+CLASE_OR = {"Ciencias Naturales": "cn", "Turismo": "tu"}
+
+
 def egresados_body():
     """Cuerpo de la pagina Egresados.
 
     Es el acto de egreso, no un reporte: no hay contadores, ni barras, ni
-    indice alfabetico, ni la orientacion repetida en cada linea. Abre con
-    una dedicatoria, muestra las caras, dice los nombres por sede y cierra
-    con cariño."""
+    indice alfabetico. Abre con una dedicatoria, muestra las caras, dice los
+    nombres por sede —con la orientación de cada quien, en voz baja— y
+    cierra con cariño."""
     por_sede = {}
     for apellido, nombre, orient, sede in EGRESADOS:
         por_sede.setdefault(sede, []).append((apellido, nombre, orient))
@@ -164,8 +167,8 @@ def egresados_body():
     bloques = []
     for sede in sorted(por_sede, key=_sin_acentos):
         items = "".join(
-            "<li><b>%s</b>, %s</li>"
-            % (esc(apellido), esc(nombre))
+            "<li><b>%s</b>, %s <span class='egr__or egr__or--%s'>%s</span></li>"
+            % (esc(apellido), esc(nombre), CLASE_OR[orient], esc(orient))
             for apellido, nombre, orient
             in sorted(por_sede[sede], key=lambda r: (_sin_acentos(r[1]), _sin_acentos(r[0]))))
         bloques.append(
@@ -201,8 +204,8 @@ def egresados_body():
             '<div class="pres__bloque">\n'
             '<h2 class="pres__h2">Las y los egresados</h2>\n'
             '<p class="pres__p pres__ancho">Veintiún sedes de Río Negro, veintiún viajes '
-            'distintos. Cerraron su Ciclo Orientado en Ciencias Naturales o en Turismo. '
-            'Estos son sus nombres, con el lugar del que vienen.</p>\n'
+            'distintos. Cerraron su Ciclo Orientado en Ciencias Naturales o en Turismo, '
+            'y así está escrito al lado de cada nombre.</p>\n'
             '<div class="egr__sedes">\n%s\n</div>\n</div>\n'
             '<div class="pres__bloque egr__cierre">\n'
             '<h2 class="pres__h2">Gracias</h2>\n'
