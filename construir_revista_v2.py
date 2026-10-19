@@ -1063,7 +1063,7 @@ def main():
         if not cards:
             cards = "<p class='txt-parrafo'>Sección en construcción: sumá tu artículo.</p>"
         body = ('<header class="sec-portada" aria-labelledby="seccion-titulo">\n'
-                '<p class="sec-portada__num">%s / %s</p>\n<h1 id="seccion-titulo" class="sec-portada__h1">%s</h1>\n'
+                '<p class="sec-portada__num sec-portada__num--n"><b>%s</b> / %s</p>\n<h1 id="seccion-titulo" class="sec-portada__h1">%s</h1>\n'
                 '<p class="sec-portada__descrip">%s</p>\n</header>\n'
                 '<div class="sec-listado grid-12" aria-label="%s">\n%s\n</div>'
                 % ("%02d" % (i + 1), "%02d" % len(secciones), esc(s["titulo"]),
