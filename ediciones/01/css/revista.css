@@ -2372,7 +2372,7 @@ html.visor-on { overflow: hidden; }
    data-dislexia); un script chico del <head> los reaplica antes
    del primer pintado, así no hay destello del tema anterior. */
 .acc {
-  position: fixed; right: 1rem; bottom: 1rem; z-index: 40;
+  position: fixed; right: 1rem; bottom: 1rem; z-index: 42;
   font-family: var(--titulos);
 }
 .acc__btn {
@@ -2432,6 +2432,67 @@ html.visor-on { overflow: hidden; }
 @media (max-width: 30rem) {
   .acc { right: .7rem; bottom: .7rem; }
   .acc__btn { width: 2.8rem; height: 2.8rem; }
+}
+
+/* --- Lectura en voz alta: panel flotante abajo a la izquierda,
+       del lado opuesto a la barra de accesibilidad --- */
+.voz {
+  position: fixed; left: 1rem; bottom: 1rem; z-index: 40;
+  width: min(21rem, calc(100vw - 2rem));
+  padding: .85rem .9rem .95rem;
+  background: var(--papel-alt);
+  border: 1px solid var(--linea);
+  border-radius: var(--r-l);
+  box-shadow: var(--sombra-lift);
+  font-family: var(--titulos);
+}
+.voz[hidden] { display: none; }
+.voz__cab {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: .6rem; margin: 0 0 .65rem;
+  font-size: var(--k-tam); font-weight: 800;
+  letter-spacing: var(--k-track); text-transform: uppercase;
+  color: var(--tinta-2);
+}
+.voz__n {
+  color: var(--ocre-texto);
+  font-variant-numeric: tabular-nums; letter-spacing: .06em;
+}
+.voz__fila { display: flex; flex-wrap: wrap; gap: .38rem; align-items: center; }
+.voz__b { min-width: 2.4rem; padding: .38rem .55rem; text-align: center; }
+.voz__prin {
+  background: var(--verde); border-color: var(--verde);
+  color: var(--sobre-sec); font-size: .9rem;
+}
+.voz__prin:hover {
+  background: var(--verde-osc); border-color: var(--verde-osc);
+  color: var(--sobre-sec);
+}
+.voz__prin[aria-pressed="true"] {
+  background: var(--ocre); border-color: var(--ocre); color: var(--sobre-sec);
+}
+.voz__voz {
+  flex: 1 1 9rem; min-width: 8rem;
+  font-family: var(--titulos); font-size: .72rem; font-weight: 600;
+  padding: .4rem .45rem; color: var(--tinta);
+  background: var(--papel);
+  border: 1px solid var(--linea); border-radius: var(--r-s);
+}
+.voz__voz:focus-visible { outline: 3px solid var(--ocre); outline-offset: 2px; }
+/* En pantalla angosta el reproductor se sube encima del botón de la
+   barra, para que los dos quepan sin pisarse */
+@media (max-width: 30rem) {
+  .voz { left: .7rem; right: .7rem; width: auto; bottom: 4.6rem; }
+}
+
+/* El bloque que se está leyendo: filete ocre y fondo tibio, sin
+   mover el texto de su renglón de columna */
+.voz-leyendo {
+  background: color-mix(in srgb, var(--ocre) 18%, transparent);
+  box-shadow: inset 3px 0 0 var(--ocre);
+  border-radius: var(--r-s);
+  padding: .12rem .55rem .12rem .7rem;
+  margin-left: -.7rem; margin-right: -.55rem;
 }
 
 /* --- Escala de letra: rem en todo el sitio, así un solo atributo
@@ -2558,7 +2619,9 @@ html[data-contraste] main a, html[data-contraste] .pie a {
   :root { --linea: #000; --linea-suave: #000; --tinta-2: #333; --tinta-3: #444; }
 }
 
-/* La barra no se imprime */
+/* Las herramientas no se imprimen */
 @media print {
-  .acc { display: none !important; }
+  .acc, .voz { display: none !important; }
+  .voz-leyendo { background: none; box-shadow: none; padding: 0;
+                 margin-left: 0; margin-right: 0; }
 }

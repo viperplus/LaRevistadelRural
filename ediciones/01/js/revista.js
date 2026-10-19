@@ -734,7 +734,8 @@
     { k: "tema",      etq: "Modo nocturno",   v: "oscuro" },
     { k: "subrayar",  etq: "Enlaces subrayados", v: "1" },
     { k: "calma",     etq: "Movimiento calmo",  v: "1" },
-    { k: "dislexia",  etq: "Letras más claras", v: "1" }
+    { k: "dislexia",  etq: "Letras más claras", v: "1" },
+    { k: "voz",       etq: "Leer en voz alta",  v: "1" }
   ];
 
   function leer() {
@@ -844,6 +845,10 @@
     aplicar();
     sincronizar();
     guardar();
+    /* los demás módulos (lectura en voz alta) escuchan este aviso */
+    if (document.dispatchEvent) {
+      document.dispatchEvent(new CustomEvent("rev:acc", { detail: estado }));
+    }
   });
 
   btn.addEventListener("click", function () { abrir(panelo.hidden); });
@@ -858,4 +863,320 @@
 
   aplicar();
   sincronizar();
+})();
+
+/* ============ Lectura en voz alta ============
+   Se prende desde la barra de accesibilidad ("Leer en voz alta").
+   Toma los bloques legibles de la página, los lee uno por uno con
+   la voz del navegador y pinta el bloque que está sonando: así
+   quien no puede seguir con los ojos igual sabe dónde va el texto.
+   El panel flota abajo a la izquierda, del lado opuesto a la
+   barra de accesibilidad, para no pisarse. */
+(function () {
+  "use strict";
+  var CLAVE = "rev.acc";
+  var CLAVE_VOZ = "rev.voz";
+
+  /* Navegador sin Web Speech: el interruptor no tiene sentido,
+     se borra del panel y no se ofrece nada que no funcione. */
+  if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") {
+    var mord = document.querySelector('.acc [data-k="voz"]');
+    if (mord && mord.parentNode) mord.parentNode.removeChild(mord);
+    return;
+  }
+
+  function leerJSON(clave, porDefecto) {
+    try { return JSON.parse(localStorage.getItem(clave) || "null") || porDefecto; }
+    catch (e) { return porDefecto; }
+  }
+
+  var bloques = [];
+  var actual = -1;
+  var corriendo = false;
+  var pausado = false;
+  var activo = false;
+  var gen = 0;              /* invalida los onend de un ciclo viejo */
+  var voces = [];
+  var vozElegida = leerJSON(CLAVE_VOZ, null);
+  var relojCromo = null;
+  var fallos = 0;
+
+  function texto(el) {
+    return (el.textContent || "").replace(/\s+/g, " ").trim();
+  }
+
+  /* Ruido que no aporta al oído: firma, fecha, "volver", rótulos */
+  function sirve(el) {
+    return !el.closest(".articulo__meta, .articulo__fin, .articulo__sec, .salto, .masthead, .pie, .volver, .todos__enlace, .sumario__item");
+  }
+
+  function reunir() {
+    var cuerpo = document.querySelector(".articulo__cuerpo");
+    var sel = cuerpo
+      ? ".articulo__cuerpo > p, .articulo__cuerpo > h2, .articulo__cuerpo > h3," +
+        " .articulo__cuerpo > h4, .articulo__cuerpo > blockquote," +
+        " .articulo__cuerpo > ul, .articulo__cuerpo > ol," +
+        " .articulo__cuerpo > figure figcaption"
+      : "main h1, main h2, main h3, main h4, main p, main figcaption, main li";
+    var lista = document.querySelectorAll(sel), i, out = [];
+    for (i = 0; i < lista.length; i++) {
+      if (texto(lista[i]) && sirve(lista[i])) out.push(lista[i]);
+    }
+    return out;
+  }
+
+  /* ---------- panel flotante ---------- */
+  var voz = document.createElement("div");
+  voz.className = "voz";
+  voz.hidden = true;
+  voz.innerHTML =
+    '<p class="voz__cab"><span>Leer en voz alta</span>' +
+    '<span class="voz__n" data-n>0 / 0</span></p>' +
+    '<div class="voz__fila">' +
+    '<button type="button" class="acc__t voz__b" data-act="ant" aria-label="Parte anterior">&lsaquo;</button>' +
+    '<button type="button" class="acc__t voz__b voz__prin" data-act="play" aria-label="Empezar a leer">&#9654;</button>' +
+    '<button type="button" class="acc__t voz__b" data-act="sig" aria-label="Parte siguiente">&rsaquo;</button>' +
+    '<button type="button" class="acc__t voz__b" data-act="stop" aria-label="Detener la lectura">&#9632;</button>' +
+    '<select class="voz__voz" data-voz aria-label="Voz para leer"></select>' +
+    '</div>';
+  document.body.appendChild(voz);
+
+  var bPlay = voz.querySelector('[data-act="play"]');
+  var bAnt = voz.querySelector('[data-act="ant"]');
+  var bSig = voz.querySelector('[data-act="sig"]');
+  var bStop = voz.querySelector('[data-act="stop"]');
+  var caja = voz.querySelector("[data-n]");
+  var selVoz = voz.querySelector("[data-voz]");
+
+  function cuenta() {
+    caja.textContent = (actual >= 0 ? actual + 1 : 0) + " / " + bloques.length;
+  }
+
+  function marcar() {
+    var i, previo = voz.querySelectorAll(".voz-leyendo");
+    for (i = 0; i < previo.length; i++) previo[i].classList.remove("voz-leyendo");
+    if (actual < 0 || !bloques[actual]) { cuenta(); return; }
+    var el = bloques[actual];
+    el.classList.add("voz-leyendo");
+    var r = el.getBoundingClientRect();
+    var lejos = r.top < 8 || r.bottom > window.innerHeight - 8;
+    if (lejos) {
+      var calmo = document.documentElement.hasAttribute("data-calma");
+      try {
+        el.scrollIntoView({ block: "center", behavior: calmo ? "auto" : "smooth" });
+      } catch (e) { el.scrollIntoView(); }
+    }
+    cuenta();
+  }
+
+  function icono_play(si) {
+    bPlay.innerHTML = si ? "&#10074;&#10074;" : "&#9654;";
+    bPlay.setAttribute("aria-label", si ? "Pausar la lectura" : "Empezar a leer");
+    bPlay.setAttribute("aria-pressed", si ? "true" : "false");
+  }
+
+  /* Chrome pausa la síntesis después de un rato: un refresco
+     periódico mientras se está leyendo lo mantiene despierto */
+  function despertar() {
+    if (relojCromo) clearInterval(relojCromo);
+    relojCromo = setInterval(function () {
+      if (!corriendo) { clearInterval(relojCromo); relojCromo = null; return; }
+      if (!speechSynthesis.paused) speechSynthesis.resume();
+    }, 9000);
+  }
+
+  function decir(i) {
+    if (!corriendo) return;
+    if (i < 0 || i >= bloques.length) { detener(); return; }
+    actual = i;
+    marcar();
+    var miGen = gen;
+    var u = new SpeechSynthesisUtterance(texto(bloques[i]));
+    u.lang = (vozElegida && vozElegida.lang) || "es-AR";
+    if (vozElegida) u.voice = vozElegida;
+    u.rate = 1;
+    u.pitch = 1;
+    /* una frase que arranca bien reinicia el conteo de fallos */
+    u.onstart = function () { fallos = 0; };
+    u.onend = function () {
+      if (miGen !== gen || !corriendo) return;
+      decir(i + 1);
+    };
+    u.onerror = function (ev) {
+      if (miGen !== gen || !corriendo) return;
+      var r = ev && ev.error;
+      /* "interrupted"/"canceled" son nuestras propias órdenes de
+         parar: no cuentan como fallo de la voz */
+      if (r === "interrupted" || r === "canceled" || r === "aborted") return;
+      fallos++;
+      if (fallos >= 2) { detener("No se pudo leer en voz alta"); return; }
+      if (i + 1 < bloques.length) decir(i + 1); else detener();
+    };
+    speechSynthesis.speak(u);
+  }
+
+  function arrancar(desde) {
+    if (!bloques.length) bloques = reunir();
+    if (!bloques.length) return;
+    corriendo = true;
+    pausado = false;
+    gen++;
+    fallos = 0;
+    speechSynthesis.cancel();
+    icono_play(true);
+    despertar();
+    decir(typeof desde === "number" ? desde : (actual >= 0 ? actual : 0));
+  }
+
+  function pausar() {
+    if (corriendo) {
+      speechSynthesis.pause();
+      pausado = true;
+      corriendo = false;
+      icono_play(false);
+    } else if (pausado) {
+      speechSynthesis.resume();
+      pausado = false;
+      corriendo = true;
+      icono_play(true);
+      /* si el navegador se comió la frase mientras estaba en pausa,
+         seguimos por la siguiente */
+      if (!speechSynthesis.speaking) decir(actual + 1);
+      else despertar();
+    }
+  }
+
+  function detener(msg) {
+    gen++;
+    corriendo = false;
+    pausado = false;
+    fallos = 0;
+    speechSynthesis.cancel();
+    if (relojCromo) { clearInterval(relojCromo); relojCromo = null; }
+    icono_play(false);
+    actual = -1;
+    marcar();
+    if (msg) caja.textContent = msg;
+  }
+
+  function irA(i) {
+    if (i < 0 || i >= bloques.length) return;
+    if (corriendo || pausado) {
+      arrancar(i);
+    } else {
+      actual = i;
+      marcar();
+    }
+  }
+
+  /* ---------- voces ---------- */
+  function rellenar() {
+    var i, op, actualSel = vozElegida ? vozElegida.name : null;
+    selVoz.innerHTML = "";
+    if (!voces.length) {
+      selVoz.hidden = true;
+      return;
+    }
+    selVoz.hidden = false;
+    for (i = 0; i < voces.length; i++) {
+      op = document.createElement("option");
+      op.value = String(i);
+      op.textContent = (voces[i].name || "Voz " + (i + 1)).replace(/\s*\(.*?\)\s*$/, "");
+      if (actualSel && voces[i].name === actualSel) op.selected = true;
+      selVoz.appendChild(op);
+    }
+    if (!actualSel) {
+      vozElegida = voces[0];
+      selVoz.value = "0";
+    }
+  }
+
+  function cargarVoces() {
+    var todas = speechSynthesis.getVoices() || [], i, es = [];
+    for (i = 0; i < todas.length; i++) {
+      if (/^es/i.test(todas[i].lang)) es.push(todas[i]);
+    }
+    /* si el sistema no trae castellano, mostramos lo que haya:
+       el navegador igual puede sintetizar con lang es-AR */
+    voces = es.length ? es : todas;
+    if (vozElegida) {
+      var esta = false;
+      for (i = 0; i < voces.length; i++) if (voces[i].name === vozElegida.name) esta = true;
+      if (!esta) vozElegida = voces[0] || null;
+    } else {
+      vozElegida = voces[0] || null;
+    }
+    rellenar();
+  }
+
+  if (typeof speechSynthesis.addEventListener === "function") {
+    speechSynthesis.addEventListener("voiceschanged", cargarVoces);
+  }
+  cargarVoces();
+
+  selVoz.addEventListener("change", function () {
+    var n = parseInt(selVoz.value, 10);
+    vozElegida = voces[n] || null;
+    try { localStorage.setItem(CLAVE_VOZ, JSON.stringify(vozElegida ? vozElegida.name : null)); }
+    catch (e) {}
+    if (corriendo || pausado) arrancar(actual >= 0 ? actual : 0);
+  });
+
+  /* ---------- controles ---------- */
+  voz.addEventListener("click", function (ev) {
+    var b = ev.target.closest ? ev.target.closest("[data-act]") : null;
+    if (!b) return;
+    var a = b.getAttribute("data-act");
+    if (a === "play") {
+      if (corriendo || pausado) pausar();
+      else arrancar(actual >= 0 ? actual : 0);
+    }
+    else if (a === "stop") detener();
+    else if (a === "ant") irA(Math.max(0, (actual >= 0 ? actual : 0) - 1));
+    else if (a === "sig") irA(Math.min(bloques.length - 1, (actual >= 0 ? actual : 0) + 1));
+  });
+
+  /* Saltar a un párrafo con el mouse mientras se escucha. Los enlaces
+     y botones del texto siguen siendo enlaces y botones. */
+  document.addEventListener("click", function (ev) {
+    if (!activo || !corriendo) return;
+    var t = ev.target;
+    if (!t.closest) return;
+    if (t.closest("a, button, select, input, textarea, label")) return;
+    var el = t.closest("p, h1, h2, h3, h4, li, blockquote, figcaption");
+    if (!el) return;
+    var i = bloques.indexOf(el);
+    if (i >= 0) { ev.preventDefault(); irA(i); }
+  });
+
+  /* ---------- encendido desde la barra de accesibilidad ---------- */
+  function encender() {
+    activo = true;
+    voz.hidden = false;
+    bloques = reunir();
+    actual = -1;
+    cuenta();
+    if (bPlay) bPlay.focus();
+  }
+
+  function apagar() {
+    activo = false;
+    detener();
+    voz.hidden = true;
+  }
+
+  document.addEventListener("rev:acc", function (ev) {
+    var on = !!(ev.detail && ev.detail.voz === "1");
+    if (on === activo) return;
+    if (on) encender(); else apagar();
+  });
+
+  /* Al entrar con la preferencia guardada se muestra el panel, pero
+     no se habla solo: los navegadores cortan la voz sin un gesto. */
+  if (leerJSON(CLAVE, {}).voz === "1") {
+    activo = true;
+    voz.hidden = false;
+    bloques = reunir();
+    cuenta();
+  }
 })();
