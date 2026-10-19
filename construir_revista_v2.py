@@ -912,12 +912,19 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
     css = '<link rel="stylesheet" href="%srevista.css">' % cssdir
     # Visor de fotos: mismos niveles que la hoja de estilos (css/ -> js/).
     js = '<script src="%srevista.js" defer></script>' % cssdir.replace("css/", "js/")
+    # Accesibilidad: script chico que reaplica los ajustes del lector
+    # (tamaño de letra, contraste alto, modo nocturno...) antes del
+    # primer pintado, para que no haya destello del tema anterior.
+    acc = ('<script>(function(){try{var a=JSON.parse(localStorage.getItem('
+           "'rev.acc')||'{}');var h=document.documentElement;"
+           'for(var k in a){if(a[k])h.setAttribute("data-"+k,a[k]);}}'
+           'catch(e){}})();</script>')
     body_class = ' class="sec-%s"' % sec_id if sec_id else ''
     return ('<!doctype html>\n<html lang="es" dir="ltr">\n<head>\n'
             '<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n'
             # YouTube exige que el iframe le mande Referer: sin eso tira
             # el error 153 y no carga el video (issue del 2025).
-            '<meta name="referrer" content="strict-origin-when-cross-origin">\n'
+            '<meta name="referrer" content="strict-origin-when-cross-origin">\n%s\n'
             "<title>%s</title>\n<meta name=\"description\" content=\"%s\">\n"
             "<link rel=\"icon\" href=\"%s\" type=\"image/svg+xml\">\n%s\n%s\n%s\n</head>\n<body%s>\n"
             '<a class="salto" href="#contenido">Salto al contenido</a>\n'
@@ -927,7 +934,7 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
             '<footer class="pie" role="contentinfo">\n  <div class="pie__interior contenedor">\n'
             '    <p class="pie__credito">%s · %s · %s. Escrita, ilustrada y fotografiada por estudiantes de la ESRN Rural Virtual.</p>\n'
             '  </div>\n</footer>\n</body>\n</html>\n') % (
-        esc(etiqueta_titulo(titulo)), esc(meta_descripcion(bajada)), faviq, FONTS, css, js, body_class, pie_note,
+        acc, esc(etiqueta_titulo(titulo)), esc(meta_descripcion(bajada)), faviq, FONTS, css, js, body_class, pie_note,
         esc(REV), nav, body, esc(REV), esc(SUBNOMBRE), esc(ed))
 
 

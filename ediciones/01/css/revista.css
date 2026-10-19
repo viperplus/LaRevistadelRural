@@ -12,6 +12,11 @@
   --papel-alt: #fffdf8;
   --papel-calido: #f3ead9;
 
+  /* Tinta sobre los campos de color (placas, pastillas, sellos).
+     En tema claro es crema; el modo nocturno la vuelve casi negra
+     para que las pastillas sigan leyéndose sobre colores claros. */
+  --sobre-sec: #faf6ee;
+
   /* Tinta: verde-gris cálido en lugar de azul casi negro */
   --tinta: #1c2721;
   --tinta-2: #4a574e;
@@ -249,7 +254,7 @@ a:hover { color: var(--bermellon); }
   white-space: nowrap; text-decoration: none;
   padding: .48rem .75rem;
   border-radius: var(--r-full);
-  color: var(--papel);
+  color: var(--sobre-sec);
   background: var(--sc);
   border: 1px solid color-mix(in srgb, var(--sc) 70%, var(--verde-osc));
   transition: background .2s var(--trans), border-color .2s var(--trans),
@@ -323,7 +328,7 @@ a:hover { color: var(--bermellon); }
   font-family: var(--titulos); font-weight: 700;
   font-size: var(--k-tam); letter-spacing: var(--k-track);
   text-transform: uppercase;
-  color: var(--papel);
+  color: var(--sobre-sec);
   margin-bottom: 1.5rem;
   display: inline-block;
   padding: .32rem 1rem;
@@ -354,7 +359,7 @@ a:hover { color: var(--bermellon); }
 .portada__bajada {
   font-family: var(--texto); font-style: italic;
   font-size: var(--lede); font-weight: 400;
-  line-height: 1.55; color: var(--papel);
+  line-height: 1.55; color: var(--sobre-sec);
   max-width: 34rem; margin: 1.5rem auto 0; text-wrap: balance;
   background: var(--verde);
   padding: 1.2rem 1.5rem 1.3rem;
@@ -541,7 +546,7 @@ a:hover { color: var(--bermellon); }
     en crema adentro. Es el momento de color más grande de la revista. */
 .sec-portada {
   background: var(--sec-color, var(--verde));
-  color: var(--papel);
+  color: var(--sobre-sec);
   margin-inline: calc(-1 * var(--marg));
   padding: clamp(2.9rem, 6.5vh, 4.4rem) var(--marg) clamp(2.6rem, 5.5vh, 3.6rem);
   border-radius: var(--r-l);
@@ -559,9 +564,9 @@ a:hover { color: var(--bermellon); }
   overflow: hidden;
   background:
     radial-gradient(ellipse 88% 130% at 50% -34%,
-      color-mix(in srgb, var(--papel) 24%, transparent) 0%, transparent 62%),
+      color-mix(in srgb, var(--sobre-sec) 24%, transparent) 0%, transparent 62%),
     linear-gradient(180deg,
-      color-mix(in srgb, var(--papel) 9%, transparent) 0%, transparent 42%);
+      color-mix(in srgb, var(--sobre-sec) 9%, transparent) 0%, transparent 42%);
   pointer-events: none;
 }
 /* Filete crema al pie de la placa: la raya con la que se cierra un
@@ -571,18 +576,18 @@ a:hover { color: var(--bermellon); }
   position: absolute; bottom: 1.1rem; left: 50%;
   transform: translateX(-50%);
   width: 120px; height: 3px;
-  background: color-mix(in srgb, var(--papel) 55%, transparent);
+  background: color-mix(in srgb, var(--sobre-sec) 55%, transparent);
   border-radius: var(--r-full);
 }
 .sec-portada__num {
   font-family: var(--titulos); font-weight: 800; font-size: .8rem;
   letter-spacing: .18em; text-transform: uppercase;
-  color: var(--papel);
+  color: var(--sobre-sec);
   margin-bottom: 1rem;
   display: inline-block;
   padding: .3rem .9rem;
-  background: color-mix(in srgb, var(--papel) 14%, transparent);
-  border: 1px solid color-mix(in srgb, var(--papel) 45%, transparent);
+  background: color-mix(in srgb, var(--sobre-sec) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--sobre-sec) 45%, transparent);
   border-radius: var(--r-full);
 }
 /* Cuando el rótulo trae el número de sección (--n), deja de ser una
@@ -592,7 +597,7 @@ a:hover { color: var(--bermellon); }
   display: flex; align-items: baseline; justify-content: center;
   gap: .45rem; padding: 0; background: none; border: 0;
   font-size: var(--k-tam); letter-spacing: var(--k-track);
-  color: color-mix(in srgb, var(--papel) 92%, var(--sec-color, var(--verde)));
+  color: color-mix(in srgb, var(--sobre-sec) 92%, var(--sec-color, var(--verde)));
   margin-bottom: .9rem;
 }
 .sec-portada__num b {
@@ -600,18 +605,18 @@ a:hover { color: var(--bermellon); }
   font-size: clamp(2.5rem, 1.7rem + 3.2vw, 3.7rem);
   line-height: .95; letter-spacing: -.025em;
   font-variant-numeric: tabular-nums;
-  color: var(--papel);
+  color: var(--sobre-sec);
 }
 .sec-portada__h1 {
   font-size: var(--dsp-secc);
   line-height: 1.03; letter-spacing: -.028em;
-  color: var(--papel);
+  color: var(--sobre-sec);
   margin-bottom: .55rem;
 }
 .sec-portada__descrip {
   font-family: var(--texto);
   font-size: var(--lede); line-height: 1.58;
-  color: color-mix(in srgb, var(--papel) 96%, var(--sec-color, var(--verde)));
+  color: color-mix(in srgb, var(--sobre-sec) 96%, var(--sec-color, var(--verde)));
   max-width: 38rem; margin: .55rem auto 0;
 }
 .sec-listado { gap: 2rem; padding-bottom: 2.5rem; margin-top: 2.4rem; }
@@ -686,7 +691,7 @@ a:hover { color: var(--bermellon); }
   font-family: var(--titulos);
   font-size: var(--t-05); font-weight: 700;
   text-transform: uppercase; letter-spacing: var(--k-track);
-  color: var(--papel);
+  color: var(--sobre-sec);
   margin: 0 0 .5rem; line-height: 1.4;
   /* Dentro de la columna flex se blockificar: sin esto la pastilla se
      estira al ancho entero de la tarjeta y deja de ser un rótulo */
@@ -721,7 +726,7 @@ a:hover { color: var(--bermellon); }
   font-family: var(--titulos); font-weight: 700;
   font-size: var(--k-tam); letter-spacing: var(--k-track);
   text-transform: uppercase;
-  color: var(--papel);
+  color: var(--sobre-sec);
   margin-bottom: 1.2rem;
   display: inline-block;
   padding: .32rem 1rem;
@@ -1543,7 +1548,7 @@ a:hover { color: var(--bermellon); }
   min-width: 1.6rem; padding: .1rem .3rem;
   font-family: var(--titulos); font-size: .58rem; font-weight: 800;
   letter-spacing: .02em; line-height: 1.2; text-align: center;
-  color: var(--papel-alt);
+  color: var(--sobre-sec);
   background: var(--sede, var(--verde-osc));
   border-radius: .3rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, .34);
@@ -1639,7 +1644,7 @@ a:hover { color: var(--bermellon); }
   padding: .12rem 0;
   font-size: .6rem; font-weight: 800; letter-spacing: .02em;
   text-align: center;
-  color: var(--papel-alt);
+  color: var(--sobre-sec);
   background: var(--sede);
   border-radius: .26rem;
 }
@@ -2261,7 +2266,7 @@ html.visor-on { overflow: hidden; }
   padding: clamp(3rem, 7vh, 4.5rem) clamp(3rem, 6vw, 4.5rem);
   border: 0;
   background: transparent;
-  color: var(--papel);
+  color: #faf6ee;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2306,7 +2311,7 @@ html.visor-on { overflow: hidden; }
   border: 1px solid rgba(250, 246, 238, .34);
   border-radius: var(--r-full);
   background: rgba(18, 16, 13, .55);
-  color: var(--papel);
+  color: #faf6ee;
   font: inherit;
   font-size: 1.15rem;
   line-height: 1;
@@ -2357,4 +2362,203 @@ html.visor-on { overflow: hidden; }
     background: #fff !important; border: 1px solid #999;
   }
   a { text-decoration: none; color: #000; }
+}
+
+
+/* ============ HERRAMIENTAS DE ACCESIBILIDAD ============
+   Un botón fijo abre un panel con ajustes que el lector prende y
+   apaga. Cada ajuste vive como atributo en <html> (data-escala,
+   data-contraste, data-tema, data-subrayar, data-calma,
+   data-dislexia); un script chico del <head> los reaplica antes
+   del primer pintado, así no hay destello del tema anterior. */
+.acc {
+  position: fixed; right: 1rem; bottom: 1rem; z-index: 40;
+  font-family: var(--titulos);
+}
+.acc__btn {
+  width: 3.1rem; height: 3.1rem; padding: 0;
+  display: grid; place-items: center;
+  border: 0; border-radius: var(--r-full);
+  background: var(--verde); color: var(--sobre-sec);
+  box-shadow: var(--sombra-l); cursor: pointer;
+  transition: background .2s var(--trans), transform .2s var(--trans);
+}
+.acc__btn:hover { background: var(--verde-osc); transform: translateY(-2px); }
+.acc__btn:focus-visible { outline: 3px solid var(--ocre); outline-offset: 3px; }
+.acc__panelo {
+  position: absolute; right: 0; bottom: 3.85rem;
+  width: min(19.5rem, calc(100vw - 2rem));
+  padding: 1.05rem 1.05rem 1.15rem;
+  background: var(--papel-alt);
+  border: 1px solid var(--linea);
+  border-radius: var(--r-l);
+  box-shadow: var(--sombra-lift);
+}
+.acc__panelo[hidden] { display: none; }
+.acc__titulo {
+  margin: 0 0 .9rem; font-size: var(--k-tam); font-weight: 800;
+  letter-spacing: var(--k-track); text-transform: uppercase; color: var(--tinta-2);
+}
+.acc__etq {
+  display: block; margin: 0 0 .35rem;
+  font-size: .68rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--tinta-3);
+}
+.acc__fila { display: flex; flex-wrap: wrap; gap: .38rem; margin: 0 0 .95rem; }
+.acc__t {
+  font-family: var(--titulos); font-size: .78rem; font-weight: 700;
+  padding: .38rem .7rem; cursor: pointer; line-height: 1.2;
+  color: var(--tinta); background: var(--papel);
+  border: 1px solid var(--linea); border-radius: var(--r-full);
+  transition: background .18s var(--trans), color .18s var(--trans),
+              border-color .18s var(--trans);
+}
+.acc__t:hover { border-color: var(--verde); color: var(--verde-texto); }
+.acc__t:focus-visible { outline: 3px solid var(--ocre); outline-offset: 2px; }
+.acc__t[aria-pressed="true"] {
+  background: var(--verde); border-color: var(--verde); color: var(--sobre-sec);
+}
+.acc__t--escala { min-width: 2.6rem; text-align: center; padding-inline: .5rem; }
+.acc__t--fila {
+  width: 100%; justify-content: space-between; align-items: center;
+  gap: .6rem; text-align: left; border-radius: var(--r-s); font-weight: 600;
+}
+.acc__estado {
+  font-size: .66rem; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; opacity: .72;
+}
+.acc__t--fila[aria-pressed="true"] .acc__estado { opacity: 1; }
+.acc__t--reset { width: 100%; justify-content: center; margin-top: .15rem; }
+@media (max-width: 30rem) {
+  .acc { right: .7rem; bottom: .7rem; }
+  .acc__btn { width: 2.8rem; height: 2.8rem; }
+}
+
+/* --- Escala de letra: rem en todo el sitio, así un solo atributo
+       mueve portada, artículos, pies y captions a la vez --- */
+html[data-escala="90"]  { font-size: 90%; }
+html[data-escala="112"] { font-size: 112.5%; }
+html[data-escala="125"] { font-size: 125%; }
+html[data-escala="140"] { font-size: 140%; }
+
+/* --- Enlaces siempre subrayados --- */
+html[data-subrayar] a {
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px;
+  text-underline-offset: .18em;
+}
+
+/* --- Movimiento calmo --- */
+html[data-calma] { scroll-behavior: auto; }
+html[data-calma] *, html[data-calma] *::before, html[data-calma] *::after {
+  animation-duration: .001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: .001ms !important;
+}
+
+/* --- Letras más claras: sin serifas, sin justificar, con aire
+       entre palabras. Pensado para lectura con dislexia --- */
+html[data-dislexia] body, html[data-dislexia] button,
+html[data-dislexia] input, html[data-dislexia] select,
+html[data-dislexia] textarea {
+  font-family: Verdana, 'Comic Sans MS', system-ui, sans-serif;
+}
+html[data-dislexia] h1, html[data-dislexia] h2, html[data-dislexia] h3,
+html[data-dislexia] h4 {
+  font-family: Verdana, 'Comic Sans MS', system-ui, sans-serif;
+  letter-spacing: .01em;
+}
+html[data-dislexia] p, html[data-dislexia] li, html[data-dislexia] figcaption {
+  letter-spacing: .04em; word-spacing: .12em;
+  text-align: left; text-indent: 0; line-height: 1.8;
+}
+
+/* --- Modo nocturno: papel oscuro cálido, tinta crema y colores de
+       sección más claros --sobre-sec se vuelve casi negra para que
+       las placas y pastillas sigan leyéndose --- */
+html[data-tema="oscuro"] {
+  --papel: #141917;
+  --papel-alt: #1b211e;
+  --papel-calido: #232a26;
+  --tinta: #f3efe6;
+  --tinta-2: #cdc8bc;
+  --tinta-3: #ada89c;
+  --verde: #7fd6ab;
+  --verde-osc: #a9e8c7;
+  --verde-texto: #7fd6ab;
+  --verde-suave: #3f7f62;
+  --verde-fondo: #1d2a23;
+  --ocre: #ffb066;
+  --ocre-texto: #ffab5e;
+  --ocre-suave: #ff9d3a;
+  --bermellon: #ff7a52;
+  --linea: #3a433d;
+  --linea-suave: #2a322d;
+  --sobre-sec: #0d120f;
+  --sec-ciencia: #3fb596;
+  --sec-territorio: #d3a03a;
+  --sec-cultura: #e0679b;
+  --sec-escuela: #6aa8e0;
+  --sec-voces: #c08a45;
+  --sec-estudiantes: #93bf52;
+  --sec-futuro: #b083e0;
+  --sec-proyectos: #4bb3d1;
+  --sec-egresados: #e06578;
+  --sombra-s: 0 1px 2px rgba(0, 0, 0, .5), 0 2px 6px rgba(0, 0, 0, .4);
+  --sombra-m: 0 2px 4px rgba(0, 0, 0, .5), 0 6px 16px rgba(0, 0, 0, .45);
+  --sombra-l: 0 4px 8px rgba(0, 0, 0, .5), 0 14px 32px rgba(0, 0, 0, .5);
+  --sombra-lift: 0 6px 12px rgba(0, 0, 0, .55), 0 18px 40px rgba(0, 0, 0, .55);
+}
+html[data-tema="oscuro"] body {
+  background-image:
+    radial-gradient(ellipse at 15% 0%, rgba(63, 181, 150, .16) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(255, 156, 58, .10) 0%, transparent 55%);
+}
+
+/* --- Contraste alto: va después del nocturno para ganarle en los
+       tokens. Papel blanco, tinta negra, filetes negros, sin
+       sombras ni degradados; los campos de color se conservan
+       porque ya pasan AA con tipografía crema --- */
+html[data-contraste] {
+  --papel: #ffffff;
+  --papel-alt: #ffffff;
+  --papel-calido: #ffffff;
+  --tinta: #000000;
+  --tinta-2: #1a1a1a;
+  --tinta-3: #2b2b2b;
+  --verde: #00452e;
+  --verde-osc: #00301f;
+  --verde-texto: #00452e;
+  --verde-suave: #00452e;
+  --verde-fondo: #ffffff;
+  --ocre: #8a4400;
+  --ocre-texto: #7a3d00;
+  --ocre-suave: #8a4400;
+  --bermellon: #9e1400;
+  --linea: #000000;
+  --linea-suave: #000000;
+  --sobre-sec: #ffffff;
+  --sombra-s: none;
+  --sombra-m: none;
+  --sombra-l: none;
+  --sombra-lift: none;
+}
+html[data-contraste] body { background-image: none; }
+html[data-contraste] *, html[data-contraste] *::before,
+html[data-contraste] *::after { box-shadow: none !important; }
+html[data-contraste] .sec-portada::before,
+html[data-contraste] .sec-portada::after { display: none; }
+html[data-contraste] .art_card__img::after { display: none; }
+html[data-contraste] main a, html[data-contraste] .pie a {
+  color: #0033cc !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px;
+}
+@media (prefers-contrast: more) {
+  :root { --linea: #000; --linea-suave: #000; --tinta-2: #333; --tinta-3: #444; }
+}
+
+/* La barra no se imprime */
+@media print {
+  .acc { display: none !important; }
 }

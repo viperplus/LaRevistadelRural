@@ -708,3 +708,154 @@
     reloj = setTimeout(function () { reloj = null; medir(); }, 180);
   });
 })();
+
+/* ============ Herramientas de accesibilidad ============
+   Un botón fijo abre un panel con ajustes que el lector prende o
+   apaga: tamaño de letra, contraste alto, modo nocturno, enlaces
+   subrayados, movimiento calmo y letras más claras para dislexia.
+   Cada ajuste se guarda en localStorage y un script chico del
+   <head> lo reaplica antes del primer pintado, así no hay
+   destello del tema anterior al entrar en la página. */
+(function () {
+  "use strict";
+  if (!document.body) return;
+
+  var CLAVE = "rev.acc";
+  var ESCALAS = [
+    { v: "90",  txt: "A\u2212" },
+    { v: "",    txt: "Normal" },
+    { v: "112", txt: "A+" },
+    { v: "125", txt: "A++" },
+    { v: "140", txt: "A+++" }
+  ];
+  var AJUSTES = [
+    { k: "escala",    etq: "Tamaño de letra", tipo: "escala" },
+    { k: "contraste", etq: "Contraste alto",  v: "1" },
+    { k: "tema",      etq: "Modo nocturno",   v: "oscuro" },
+    { k: "subrayar",  etq: "Enlaces subrayados", v: "1" },
+    { k: "calma",     etq: "Movimiento calmo",  v: "1" },
+    { k: "dislexia",  etq: "Letras más claras", v: "1" }
+  ];
+
+  function leer() {
+    try { return JSON.parse(localStorage.getItem(CLAVE) || "{}"); }
+    catch (e) { return {}; }
+  }
+  var estado = leer();
+
+  function guardar() {
+    try { localStorage.setItem(CLAVE, JSON.stringify(estado)); }
+    catch (e) {}
+  }
+
+  function aplicar() {
+    var h = document.documentElement, i, v;
+    for (i = 0; i < AJUSTES.length; i++) {
+      v = estado[AJUSTES[i].k] || "";
+      if (v) h.setAttribute("data-" + AJUSTES[i].k, v);
+      else h.removeAttribute("data-" + AJUSTES[i].k);
+    }
+  }
+
+  function boton(k, v, txt, escala) {
+    return '<button type="button" class="acc__t' +
+      (escala ? " acc__t--escala" : " acc__t--fila") + '" data-k="' + k +
+      '" data-v="' + v + '" aria-pressed="false">' + txt + "</button>";
+  }
+
+  function grupo(a) {
+    var i, h;
+    if (a.tipo === "escala") {
+      h = '<span class="acc__etq" id="acc-etq-' + a.k + '">' + a.etq +
+        '</span><div class="acc__fila" role="group" aria-labelledby="acc-etq-' +
+        a.k + '">';
+      for (i = 0; i < ESCALAS.length; i++) {
+        h += boton(a.k, ESCALAS[i].v, ESCALAS[i].txt, true);
+      }
+      return h + "</div>";
+    }
+    /* Los demás son una fila entera: nombre a la izquierda y el
+       estado a la derecha, para que se lea prendido/apagado */
+    return boton(a.k, a.v, a.etq + '<span class="acc__estado">Apagado</span>', false);
+  }
+
+  var html = '<button type="button" class="acc__btn" aria-expanded="false"' +
+    ' aria-controls="acc-panelo" aria-label="Herramientas de accesibilidad">' +
+    '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"' +
+    ' focusable="false"><circle cx="12" cy="4.3" r="2.1"/>' +
+    '<path d="M3.6 8.3h16.8M12 8.3v6.5M12 14.8l-3.5 6.5M12 14.8l3.5 6.5"' +
+    ' fill="none" stroke="currentColor" stroke-width="2"' +
+    ' stroke-linecap="round" stroke-linejoin="round"/></svg></button>' +
+    '<div class="acc__panelo" id="acc-panelo" role="group"' +
+    ' aria-label="Herramientas de accesibilidad" hidden>' +
+    '<p class="acc__titulo">Accesibilidad</p>';
+  var i;
+  for (i = 0; i < AJUSTES.length; i++) html += grupo(AJUSTES[i]);
+  html += '<div class="acc__fila"><button type="button"' +
+    ' class="acc__t acc__t--reset" data-reset="1">Restablecer todo' +
+    "</button></div></div>";
+
+  var cont = document.createElement("div");
+  cont.className = "acc";
+  cont.innerHTML = html;
+  document.body.appendChild(cont);
+
+  var btn = cont.querySelector(".acc__btn");
+  var panelo = cont.querySelector(".acc__panelo");
+
+  /* "Normal" es el único con data-v vacío: prendido cuando no hay
+     escala guardada, y al apagarlo se borra el atributo. */
+  function sincronizar() {
+    var bs = cont.querySelectorAll("[data-k]"), n, b, k, v, on, est;
+    for (n = 0; n < bs.length; n++) {
+      b = bs[n];
+      k = b.getAttribute("data-k");
+      v = b.getAttribute("data-v");
+      on = v === "" ? !estado[k] : estado[k] === v;
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+      est = b.querySelector(".acc__estado");
+      if (est) est.textContent = on ? "Prendido" : "Apagado";
+    }
+  }
+
+  function abrir(si) {
+    panelo.hidden = !si;
+    btn.setAttribute("aria-expanded", si ? "true" : "false");
+    if (si) {
+      var on = panelo.querySelector('[aria-pressed="true"]') ||
+        panelo.querySelector("[data-k]");
+      if (on) on.focus();
+    } else {
+      btn.focus();
+    }
+  }
+
+  cont.addEventListener("click", function (ev) {
+    var b = ev.target.closest ? ev.target.closest("[data-k],[data-reset]") : null;
+    if (!b || !cont.contains(b)) return;
+    if (b.hasAttribute("data-reset")) {
+      estado = {};
+    } else {
+      var k = b.getAttribute("data-k");
+      var v = b.getAttribute("data-v");
+      if (estado[k] === v) delete estado[k];
+      else estado[k] = v;
+    }
+    aplicar();
+    sincronizar();
+    guardar();
+  });
+
+  btn.addEventListener("click", function () { abrir(panelo.hidden); });
+
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape" && !panelo.hidden) abrir(false);
+  });
+
+  document.addEventListener("click", function (ev) {
+    if (!panelo.hidden && !cont.contains(ev.target)) abrir(false);
+  });
+
+  aplicar();
+  sincronizar();
+})();
