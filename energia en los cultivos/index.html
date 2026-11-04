@@ -1,0 +1,1003 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clase 13 — La Energía, la Luz y la Temperatura en los Cultivos</title>
+<style>
+:root{--texto:#111;--fondo:#FFF;--gris-borde:#D1D5DB;--azul:#1565C0;--sol:#B45309;--tierra:#C62828;--balance:#166534;--invernadero:#0E7490;--violeta:#6A1B9A;--ok:#2E7D32;--ok-claro:#E8F5E9;--mal:#C62828;--mal-claro:#FFEBEE;--sel:#E3F2FD;--sel-borde:#1565C0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:Arial,Helvetica,sans-serif;font-size:17px;line-height:1.6}
+.encabezado{background:#1E3A5F;color:#FFF;padding:2rem 1.2rem 1.6rem;text-align:center;border-bottom:6px solid #F59E0B;box-shadow:0 4px 12px rgba(0,0,0,.15);position:relative;overflow:hidden}
+.encabezado h1{margin:.2rem 0;font-size:1.7rem;text-shadow:2px 2px 0 rgba(0,0,0,.25);animation:floatEmoji 3.5s ease-in-out infinite;display:inline-block}
+.encabezado p{margin:.35rem auto 0;font-size:1rem;display:inline-block;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.5);border-radius:999px;padding:.25rem 1.2rem;backdrop-filter:blur(2px)}
+.encabezado::before{content:'';position:absolute;inset:0;background:transparent;pointer-events:none}
+.encabezado::after{display:none}
+.barra{background:#111;padding:.8rem 1.2rem;display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;position:sticky;top:0;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+.btn{border:none;border-radius:999px;padding:.7rem 1.4rem;font-size:1rem;font-weight:700;cursor:pointer;color:#FFF;transition:transform .2s,box-shadow .2s,filter .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.3)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn-mayus{background:#F59E0B;color:#111;font-size:1.1rem;border:3px solid #FFF;box-shadow:0 2px 6px rgba(245,158,11,.3)}
+.btn-mayus.activo{background:#FFF;border-color:#F59E0B;color:#111}
+.btn-imprimir{background:#22C55E;box-shadow:0 2px 6px rgba(34,197,94,.3)}
+.btn-escuchar{background:#3B82F6;margin:0 0 .8rem;float:right;width:52px;height:52px;padding:0;border-radius:50%;font-size:1.5rem;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(59,130,246,.3);animation:pulso 2.4s ease-in-out infinite}
+.btn-escuchar.activo{background:#EF4444;animation:none}
+@keyframes pulso{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(21,101,192,.45)}50%{transform:scale(1.08);box-shadow:0 0 0 12px rgba(21,101,192,0)}}
+.btn:focus-visible{outline:4px solid #FFC107;outline-offset:2px}
+.contenedor{max-width:880px;margin:0 auto;padding:2rem 1.2rem 3rem}
+.bloque{background:var(--fondo);border:2px solid var(--gris-borde);border-left:12px solid #000;border-radius:12px;padding:1.6rem 1.8rem;margin:2rem 0;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:transform .25s,box-shadow .25s}
+.bloque:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(0,0,0,.12)}
+.bloque.objetivo{border-left-color:var(--azul)}
+.bloque.sol{border-left-color:var(--sol)}
+.bloque.tierra{border-left-color:var(--tierra)}
+.bloque.balance{border-left-color:var(--balance)}
+.bloque.invernadero{border-left-color:var(--invernadero)}
+.bloque.violeta{border-left-color:var(--violeta)}
+.bloque h2{margin:0 0 .8rem;font-size:1.25rem;display:inline-block;background:#111;color:#FFF;border-radius:999px;padding:.4rem 1.2rem;box-shadow:0 3px 8px rgba(0,0,0,.2)}
+.bloque.objetivo h2{background:#1E88E5;color:#FFF}
+.bloque.sol h2{background:#F59E0B;color:#FFF}
+.bloque.tierra h2{background:#EF4444;color:#FFF}
+.bloque.balance h2{background:#22C55E;color:#FFF}
+.bloque.invernadero h2{background:#0891B2;color:#FFF}
+.bloque.violeta h2{background:#A855F7;color:#FFF}
+.bloque p{margin:0 0 1rem;font-size:1rem}
+.bloque p:last-child{margin-bottom:0}
+.bloque ul,.bloque ol{margin:0 0 1rem;padding-left:1.3rem}
+.bloque li{margin-bottom:.6rem;font-size:.98rem}
+.diagrama{display:flex;flex-wrap:wrap;align-items:stretch;justify-content:center;gap:.6rem .4rem;margin:1rem 0}
+.paso{flex:1 1 110px;min-width:100px;max-width:190px;background:#F9FAFB;color:#374151;border:2px solid #E5E7EB;border-radius:10px;padding:.6rem .5rem;text-align:center;font-weight:700;font-size:.9rem;line-height:1.35;box-shadow:0 2px 4px rgba(0,0,0,.06);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem}
+.paso .emoji{font-size:1.5rem;line-height:1.1}
+.paso.sol{background:#FEF3C7;border-color:#F59E0B;color:#92400E}
+.paso.tierra{background:#FEE2E2;border-color:#EF4444;color:#991B1B}
+.paso.gas{background:#D1FAE5;border-color:#10B981;color:#065F46}
+.paso.verde{background:#D1FAE5;border-color:#22C55E;color:#166534}
+.paso.violeta{background:#F3E8FF;border-color:#A855F7;color:#6B21A8}
+.paso.azul{background:#DBEAFE;border-color:#3B82F6;color:#1E40AF}
+.flecha{align-self:center;font-size:1.4rem;font-weight:700;color:#B45309;padding:0 .15rem;flex:none}
+.ramas{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:.8rem}
+.rama{flex:1 1 200px;border-radius:10px;padding:.85rem 1.1rem;font-weight:700;font-size:1rem;line-height:1.5}
+.rama.absorbida{background:#ECFDF5;border:2px solid #86EFAC;color:#166534}
+.rama.reflejada{background:#EFF6FF;border:2px solid #93C5FD;color:#1E40AF}
+.palabra{background:#FEF3C7;padding:0 .25rem;border-radius:3}
+.dato{border:2px solid var(--azul);background:#EFF6FF;border-radius:10px;padding:.6rem .8rem;font-weight:700;color:#1E40AF;box-shadow:0 1px 3px rgba(21,101,192,.1)}
+.imagen{margin:1rem 0 0;text-align:center}
+.imagen img{max-width:50%;border-radius:8px;border:2px solid #E5E7EB}
+.imagen figcaption{font-size:.9rem;font-weight:700;color:#0E7490;margin-top:.3rem}
+.table-interactive{width:100%;max-width:880px;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;border:2px solid #9CA3AF;margin:1rem 0}
+.table-interactive th{background:#1E3A5F;color:#FFF;padding:12px 14px;font-weight:700;font-size:.9rem;text-transform:uppercase;letter-spacing:.5px}
+.table-interactive td{padding:11px 14px;font-weight:600;text-align:center;background:#FFF;border-bottom:1px solid #ECEFF1;font-size:.98rem}
+.table-interactive tr:last-child td{border-bottom:none}
+.table-interactive tr:hover td{background:#F5F7FA}
+/* ACTIVIDADES */
+.caja{background:var(--fondo);border:3px solid #9CA3AF;border-radius:14px;padding:1.6rem 1.8rem;margin:2rem 0;box-shadow:0 3px 10px rgba(0,0,0,.07);position:relative;transition:box-shadow .25s}
+.caja:hover{box-shadow:0 10px 24px rgba(0,0,0,.13)}
+.caja h2{margin:0 0 .8rem;font-size:1.2rem;display:inline-block;color:#FFF;padding:.45rem .95rem;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.caja.act1 h2{background:#F59E0B}
+.caja.act2 h2{background:#0891B2}
+.caja.act3 h2{background:#3B82F6}
+.caja.act4 h2{background:#A855F7}
+.caja.act5 h2{background:#22C55E}
+.caja.act6 h2{background:#EF4444}
+.caja .consigna{margin:0 0 .8rem;font-size:1rem}
+.frase{font-size:1.05rem;margin:.8rem 0}
+/* Checkbox style */
+.check-group{margin:1rem 0}
+.check-group label{display:flex;align-items:center;gap:.6rem;padding:.6rem .9rem;margin:.4rem 0;border:2px solid #D1D5DB;border-radius:8px;font-weight:700;cursor:pointer;transition:background .15s,border-color .15s,transform .15s}
+.check-group label:hover{background:#F5F7FA;border-color:#9CA3AF;transform:translateX(4px)}
+.check-group input[type="checkbox"]{width:20px;height:20px;accent-color:var(--azul);flex:none}
+.check-group label.checked{background:#EFF6FF;border-color:#3B82F6;color:#1E40AF}
+/* Feedback */
+.feedback{margin-top:.8rem;font-weight:700;font-size:1.05rem}
+.feedback.ok-texto{color:var(--ok)}
+.feedback.mal-texto{color:var(--mal)}
+.btn-revisar{background:#3B82F6;color:#FFF;border:none;border-radius:999px;padding:.7rem 1.8rem;font-size:1rem;font-weight:700;cursor:pointer;margin-top:1rem;box-shadow:0 2px 6px rgba(59,130,246,.3);transition:transform .2s,box-shadow .2s}
+.btn-revisar:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(59,130,246,.4)}
+.btn-revisar:active{transform:translateY(0) scale(.98)}
+/* Drag zone */
+.zone{min-height:70px;border:3px dashed #9CA3AF;border-radius:10px;padding:.6rem;margin:.6rem 0;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;transition:border-color .2s,background .2s}
+.zone.over{border-color:#3B82F6;background:#EFF6FF}
+.tag{display:inline-flex;align-items:center;gap:.4rem;background:#F3F4F6;color:#374151;border:2px solid #D1D5DB;border-radius:999px;padding:.5rem 1rem;font-weight:700;font-size:.95rem;cursor:grab;user-select:none;transition:transform .15s,box-shadow .15s}
+.tag:active{cursor:grabbing;transform:scale(1.05);box-shadow:0 6px 14px rgba(0,0,0,.15)}
+.tag.dragging{opacity:.4}
+.tag.sun{background:#FEF3C7;border-color:#F59E0B;color:#92400E}
+.tag.water{background:#DBEAFE;border-color:#3B82F6;color:#1E40AF}
+.tag.co2{background:#D1FAE5;border-color:#10B981;color:#065F46}
+.tag.foto{background:#E0E7FF;border-color:#6366F1;color:#3730A3}
+.tag.producto{background:#FCE7F3;border-color:#EC4899;color:#9D174D}
+/* Situación box */
+.situacion{background:#F0FDFA;border:2px solid #99F6E4;border-left:8px solid #14B8A6;border-radius:10px;padding:.9rem 1.1rem;margin:1rem 0}
+.situacion h3{margin:0 0 .5rem;font-size:1rem;color:#0D9488}
+/* Cr */
+.criterios{border:3px solid var(--azul);border-radius:14px;padding:1.2rem 1.4rem;margin:1.8rem 0;background:#EFF6FF;box-shadow:0 2px 6px rgba(21,101,192,.1)}
+.criterios h2{margin:0 0 .6rem;font-size:1.3rem;color:var(--azul)}
+.criterios li{margin-bottom:.7rem;font-size:1.05rem;list-style:none}
+.criterios input[type="checkbox"]{width:22px;height:22px;margin-right:.6rem;vertical-align:middle;accent-color:var(--azul)}
+.auto{border:3px solid var(--balance);border-radius:14px;padding:1.2rem 1.4rem;margin:1.8rem 0;background:#ECFDF5;box-shadow:0 2px 6px rgba(22,101,52,.1)}
+.auto h2{margin:0 0 .6rem;font-size:1.3rem;color:var(--balance)}
+.auto ul{list-style:none;padding:0;margin:0}
+.auto li{margin-bottom:.7rem;font-size:1.05rem}
+.sellos{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem}
+.sello-pill{border:2px solid #9CA3AF;background:#FFF;border-radius:999px;padding:.45rem 1rem;font-size:.95rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:.5rem;transition:transform .15s,box-shadow .15s}
+.sello-pill:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,.15)}
+.sello-pill:active{transform:scale(.96)}
+.sello-pill::before{content:'';width:13px;height:13px;border-radius:50%;display:inline-block;flex:none}
+.sello-pill.verde::before{background:#2E7D32}
+.sello-pill.amarillo::before{background:#F9A825}
+.sello-pill.rojo::before{background:#C62828}
+.sello-pill.elegido.verde{background:#BBF7D0;border-color:#22C55E;color:#166534}
+.sello-pill.elegido.amarillo{background:#FDE68A;border-color:#F59E0B;color:#92400E}
+.sello-pill.elegido.rojo{background:#FECACA;border-color:#EF4444;color:#991B1B}
+/* Animaciones */
+@keyframes floatEmoji{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes celebrar{0%{transform:scale(1) rotate(0)}25%{transform:scale(1.08) rotate(-2deg)}50%{transform:scale(1.12) rotate(2deg)}75%{transform:scale(1.08) rotate(-2deg)}100%{transform:scale(1) rotate(0)}}
+@keyframes sacudir{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.anim-celebrar{animation:celebrar .7s ease}
+.anim-sacudir{animation:sacudir .5s ease}
+body.imprenta *{text-transform:uppercase !important;letter-spacing:.03em !important}
+@media(max-width:640px){body{font-size:16px}}
+@media print{.barra{display:none}.btn-revisar,.feedback,.btn-escuchar{display:none}.bloque,.caja,.criterios,.auto{border:2px solid #111;page-break-inside:avoid}.bloque,.caja,.bloque:hover,.caja:hover{transform:none;box-shadow:none}.paso{box-shadow:none;border:2px solid #111;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bloque h2,.caja h2{background:#111 !important;color:#FFF !important;animation:none;box-shadow:none}.encabezado{background:#1E3A5F !important;border-bottom:none;box-shadow:none}.encabezado::before,.encabezado::after{display:none}.encabezado h1{animation:none;text-shadow:none}.encabezado p{background:transparent;border:none}}
+</style>
+</head>
+<body class="imprenta">
+<div class="encabezado">
+  <h1>🌱 CLASE N.º 13: LA ENERGÍA, LA LUZ Y LA TEMPERATURA EN LOS CULTIVOS</h1>
+  <p>Taller de Educación Científica y Tecnológica</p>
+</div>
+
+<div class="barra">
+  <button class="btn btn-mayus" id="btnMayus" onclick="alternarMayusculas()">🔠 IMPRENTA MAYÚSCULA: SÍ</button>
+  <button class="btn btn-imprimir" onclick="window.print()">🖨️ Imprimir</button>
+</div>
+
+<div class="contenedor">
+
+  <div class="bloque objetivo">
+    <h2>🎯 OBJETIVO</h2>
+    <button class="btn btn-escuchar" data-audio="objetivo">🔊</button>
+    <ul>
+      <li>Reconocer que el <strong>sol es una fuente de energía</strong> para las plantas y que la luz participa en la <strong>fotosíntesis</strong>.</li>
+      <li>Diferenciar <strong>calor</strong> y <strong>temperatura</strong>, e identificar los tres mecanismos de transferencia: conducción, convección y radiación.</li>
+      <li>Analizar qué <strong>temperaturas favorecen o limitan</strong> un cultivo.</li>
+    </ul>
+  </div>
+
+  <div class="bloque sol">
+    <h2>1 · LA ENERGÍA DEL SOL LLEGA A LOS CULTIVOS</h2>
+    <button class="btn btn-escuchar" data-audio="sol">🔊</button>
+    <p>Las plantas necesitan agua, nutrientes, dióxido de carbono y <span class="palabra">luz</span>. La luz del sol es importante porque aporta <strong>energía</strong>. Las plantas utilizan esa energía en la <strong>fotosíntesis</strong> para producir su propio alimento.</p>
+    <div class="diagrama">
+      <div class="paso sol"><span class="emoji">☀️</span><span>Sol</span></div>
+      <span class="flecha">→</span>
+      <div class="paso azul"><span class="emoji">💡</span><span>Luz</span></div>
+      <span class="flecha">→</span>
+      <div class="paso verde"><span class="emoji">🌱</span><span>Planta</span></div>
+      <span class="flecha">→</span>
+      <div class="paso verde"><span class="emoji">🍃</span><span>Fotosíntesis</span></div>
+      <span class="flecha">→</span>
+      <div class="paso tierra"><span class="emoji">🍬</span><span>Alimento</span></div>
+    </div>
+    <div class="imagen">
+      <img src="https://i.imgur.com/j32ZcF6.png" alt="Sol y cielo" loading="lazy">
+    </div>
+  </div>
+
+  <div class="bloque sol">
+    <h2>2 · LA LUZ DEL SOL NO LLEGA SIEMPRE IGUAL</h2>
+    <button class="btn btn-escuchar" data-audio="luz">🔊</button>
+    <p>La posición del sol cambia durante el día. Cuando los rayos llegan más <strong>directamente</strong>, la energía se <strong>concentra</strong>. Cuando llegan más <strong>inclinados</strong>, se <strong>distribuye</strong> sobre una superficie mayor.</p>
+    <p class="dato">💡 La energía que recibe un cultivo puede <strong>cambiar durante el día</strong>.</p>
+  </div>
+
+  <div class="bloque balance">
+    <h2>3 · LA LUZ Y LA FOTOSÍNTESIS</h2>
+    <button class="btn btn-escuchar" data-audio="fotosintesis">🔊</button>
+<p>🌱 <strong>La fotosíntesis, paso a paso:</strong></p>
+    <div class="diagrama">
+      <div class="paso sol"><span class="emoji">☀️</span><span>Paso 1<br>La planta recibe luz</span></div>
+      <span class="flecha">→</span>
+      <div class="paso azul"><span class="emoji">💧</span><span>Paso 2<br>La planta toma agua</span></div>
+      <span class="flecha">→</span>
+      <div class="paso gas"><span class="emoji">🌬️</span><span>Paso 3<br>La planta toma CO₂</span></div>
+      <span class="flecha">→</span>
+      <div class="paso tierra"><span class="emoji">🍬</span><span>Paso 4<br>La planta fabrica glucosa</span></div>
+      <span class="flecha">→</span>
+      <div class="paso verde"><span class="emoji">🍃</span><span>Paso 5<br>Se libera oxígeno</span></div>
+    </div>
+    <ul>
+      <li><strong>Paso 1:</strong> La luz del Sol aporta la energía necesaria.</li>
+      <li><strong>Paso 2:</strong> El agua entra principalmente por las raíces.</li>
+      <li><strong>Paso 3:</strong> El dióxido de carbono entra por las hojas desde el aire.</li>
+      <li><strong>Paso 4:</strong> Con la energía de la luz, el agua y el CO₂, la planta produce glucosa, que utiliza como alimento y fuente de energía.</li>
+      <li><strong>Paso 5:</strong> Durante este proceso, la planta libera oxígeno (O₂) al aire.</li>
+    </ul>
+    <div class="situacion">
+      <h3>🧪 Para saber más</h3>
+      <p>Dentro de las células vegetales hay estructuras llamadas <strong>cloroplastos</strong>. Los cloroplastos contienen <strong>clorofila</strong>, un pigmento que absorbe parte de la luz.</p>
+    </div>
+  </div>
+
+  <div class="bloque balance">
+    <h2>4 · ¿QUÉ HACE LA PLANTA CON LA GLUCOSA?</h2>
+    <button class="btn btn-escuchar" data-audio="glucosa">🔊</button>
+    <p>La glucosa puede utilizarse de <strong>tres maneras</strong>:</p>
+    <div class="ramas">
+      <div class="rama absorbida">⚡ <strong>Obtener energía</strong> para sus procesos</div>
+      <div class="rama absorbida">🌿 <strong>Formar nuevas estructuras</strong>: raíces, tallos, hojas, flores y frutos</div>
+      <div class="rama reflejada">📦 <strong>Quedar almacenada</strong> como reserva</div>
+    </div>
+  </div>
+
+  <div class="bloque invernadero">
+    <h2>5 · LA LUZ TAMBIÉN ES UNA SEÑAL</h2>
+    <button class="btn btn-escuchar" data-audio="senal">🔊</button>
+    <p>La luz no solo aporta energía. También le permite a la planta reconocer los cambios en la duración del día y la noche. Esta relación se llama <span class="palabra">fotoperíodo</span>.</p>
+    <div class="diagrama">
+      <div class="paso sol"><span class="emoji">☀️</span><span>Verano<br>Días más largos</span></div>
+      <span class="flecha">  │  </span>
+      <div class="paso azul"><span class="emoji">🌙</span><span>Invierno<br>Días más cortos</span></div>
+    </div>
+  </div>
+
+  <div class="bloque tierra">
+    <h2>6 · EL SOL PRODUCE CALENTAMIENTO</h2>
+    <button class="btn btn-escuchar" data-audio="calentamiento">🔊</button>
+    <p>La radiación solar no solo participa en la fotosíntesis. También puede <strong>calentar</strong> el suelo, las plantas y el aire.</p>
+    <div class="diagrama">
+      <div class="paso sol"><span class="emoji">☀️</span><span>Radiación solar</span></div>
+      <span class="flecha">→</span>
+      <div class="paso verde"><span class="emoji">🌱</span><span>Calienta plantas</span></div>
+      <span class="flecha">+</span>
+      <div class="paso tierra"><span class="emoji">🟫</span><span>Calienta suelo</span></div>
+      <span class="flecha">+</span>
+      <div class="paso gas"><span class="emoji">💨</span><span>Calienta aire</span></div>
+    </div>
+  </div>
+
+  <div class="bloque tierra">
+    <h2>7 · CALOR Y TEMPERATURA NO SON LO MISMO</h2>
+    <button class="btn btn-escuchar" data-audio="calortemp">🔊</button>
+    <div class="ramas">
+      <div class="rama" style="background:#EFF6FF;border:2px solid #93C5FD;color:#1E40AF">
+        🌡️ <strong>TEMPERATURA</strong><br>
+        Indica qué tan caliente o frío está.<br>
+        Se mide con un <strong>termómetro</strong> en <strong>°C</strong>.
+      </div>
+      <div class="rama" style="background:#FEF2F2;border:2px solid #FCA5A5;color:#991B1B">
+        🔥 <strong>CALOR</strong><br>
+        Es <strong>energía</strong> que pasa de un cuerpo caliente a uno frío.<br>
+        No se mide en grados.
+      </div>
+    </div>
+    <div class="imagen">
+      <img src="https://i.imgur.com/yq3xkru.png" alt="Termómetro" loading="lazy">
+    </div>
+  </div>
+
+  <div class="bloque tierra">
+    <h2>8 · ¿CÓMO SE TRANSFIERE EL CALOR?</h2>
+    <button class="btn btn-escuchar" data-audio="transferencia">🔊</button>
+    <div class="diagrama">
+      <div class="paso sol"><span class="emoji">✋</span><span>CONDUCCIÓN<br>Por contacto directo</span></div>
+      <div class="paso azul"><span class="emoji">💨</span><span>CONVECCIÓN<br>Por movimiento del aire</span></div>
+      <div class="paso tierra"><span class="emoji">☀️</span><span>RADIACIÓN<br>Sin contacto</span></div>
+    </div>
+    <ul>
+      <li><strong>Conducción:</strong> el calor pasa por contacto. Ejemplo: el suelo calienta capas más profundas.</li>
+      <li><strong>Convección:</strong> el aire caliente asciende y el frío ocupa su lugar.</li>
+      <li><strong>Radiación:</strong> sin contacto directo. Ejemplo: el sol calienta una planta sin tocarla.</li>
+    </ul>
+  </div>
+
+  <div class="bloque violeta">
+    <h2>9 · EL SUELO Y LA TEMPERATURA</h2>
+    <button class="btn btn-escuchar" data-audio="suelo">🔊</button>
+<p>Un suelo <strong>húmedo</strong> se calienta y enfría más lentamente que uno seco. Para analizar un cultivo no alcanza con mirar solo la temperatura del aire.</p>
+    <div class="imagen">
+      <img src="https://i.imgur.com/56DPLqz.png" alt="Tierra y suelo" loading="lazy">
+    </div>
+  </div>
+
+  <div class="bloque violeta">
+    <h2>10 · ¿QUÉ TEMPERATURA NECESITA UNA PLANTA?</h2>
+    <button class="btn btn-escuchar" data-audio="tempnecesaria">🔊</button>
+    <p>Cada cultivo tiene un rango de temperaturas donde crece mejor:</p>
+    <div class="ramas">
+      <div class="rama" style="background:#EFF6FF;border:2px solid #93C5FD;color:#1E40AF">🥶 <strong>MÍNIMA</strong><br>Por debajo, el crecimiento se detiene</div>
+      <div class="rama absorbida">😊 <strong>ÓPTIMA</strong><br>El cultivo se desarrolla bien</div>
+      <div class="rama" style="background:#FEF2F2;border:2px solid #FCA5A5;color:#991B1B">🔥 <strong>MÁXIMA</strong><br>El calor puede dañar la planta</div>
+    </div>
+    <table class="table-interactive">
+      <tr><th>Cultivo</th><th>Temp. Mínima</th><th>Rango Óptimo</th></tr>
+      <tr><td>🍅 Tomate</td><td>10 °C</td><td>20–28 °C</td></tr>
+      <tr><td>🍎 Manzana y pera</td><td>4–5 °C</td><td>15–25 °C</td></tr>
+      <tr><td>🥬 Lechuga y acelga</td><td>8 °C</td><td>12–20 °C</td></tr>
+    </table>
+    <p class="dato">⚠️ Son valores <strong>aproximados</strong>. Pueden cambiar según la variedad.</p>
+    <div class="imagen">
+      <img src="https://i.imgur.com/MEswlVZ.png" alt="Tomate" loading="lazy">
+    </div>
+  </div>
+
+  <div class="bloque invernadero">
+    <h2>11 · LAS PLANTAS INTERCAMBIAN AGUA Y ENERGÍA</h2>
+    <button class="btn btn-escuchar" data-audio="transpiracion">🔊</button>
+    <p>💨 Las plantas pierden agua en forma de <strong>vapor</strong>. Este proceso se llama <span class="palabra">transpiración</span>.</p>
+    <div class="diagrama">
+      <div class="paso azul"><span class="emoji">💧</span><span>Raíces<br>absorben agua</span></div>
+      <span class="flecha">→</span>
+      <div class="paso verde"><span class="emoji">🌱</span><span>El agua sube<br>por las hojas</span></div>
+      <span class="flecha">→</span>
+      <div class="paso gas"><span class="emoji">⭕</span><span>Estomas<br>(poros)</span></div>
+      <span class="flecha">→</span>
+      <div class="paso violeta"><span class="emoji">💨</span><span>El agua sale<br>como vapor</span></div>
+    </div>
+    <p>Cuando el agua se evapora, hay una <strong>pérdida de energía térmica</strong> que ayuda a enfriar la planta.</p>
+  </div>
+
+  <div class="bloque tierra">
+    <h2>12 · LAS HELADAS</h2>
+    <button class="btn btn-escuchar" data-audio="heladas">🔊</button>
+    <p>Una helada ocurre cuando las temperaturas bajan mucho y se forman <strong>cristales de hielo</strong>. Pueden dañar especialmente las <strong>flores</strong> y los <strong>brotes jóvenes</strong>.</p>
+    <div class="diagrama">
+      <div class="paso azul"><span class="emoji">🌡️</span><span>2 °C<br>Riesgo</span></div>
+      <div class="paso azul"><span class="emoji">❄️</span><span>0 °C<br>Posible hielo</span></div>
+      <div class="paso tierra"><span class="emoji">🥶</span><span>-2 °C<br>Mayor riesgo</span></div>
+    </div>
+    <p class="dato">⚠️ El daño depende del cultivo, de la etapa de desarrollo y de las condiciones del ambiente.</p>
+  </div>
+
+  <div class="bloque invernadero">
+    <h2>13 · LOS INVERNADEROS</h2>
+    <button class="btn btn-escuchar" data-audio="invernadero">🔊</button>
+    <p>Un invernadero permite <strong>modificar algunas condiciones</strong> del ambiente. Puede proteger los cultivos del frío, las heladas, el viento y el granizo.</p>
+    <div class="diagrama">
+      <div class="paso sol"><span class="emoji">☀️</span><span>Radiación solar ingresa</span></div>
+      <span class="flecha">→</span>
+      <div class="paso verde"><span class="emoji">🌱</span><span>Plantas y suelo absorben</span></div>
+      <span class="flecha">→</span>
+      <div class="paso tierra"><span class="emoji">🌡️</span><span>Aumenta la temperatura</span></div>
+      <span class="flecha">→</span>
+      <div class="paso azul"><span class="emoji">🏠</span><span>La cubierta retiene el calor</span></div>
+    </div>
+    <p>La ventilación ayuda a evitar que se caliente demasiado.</p>
+    <div class="imagen">
+      <img src="https://i.imgur.com/SbhELrA.png" alt="Invernadero" loading="lazy">
+    </div>
+  </div>
+
+
+  <div class="caja act1">
+    <h2>📝 Actividad 1 — El Sol y las Plantas</h2>
+
+    <h3>1. Elegí la opción correcta.</h3>
+
+    <div class="situacion">
+      <p><strong>A. ¿De dónde obtiene la planta la energía que utiliza en la fotosíntesis?</strong></p>
+      <div class="diagrama">
+        <div class="paso tierra"><span class="emoji">🟫</span><span>Del suelo</span></div>
+        <div class="paso sol"><span class="emoji">☀️</span><span>Del sol</span></div>
+        <div class="paso gas"><span class="emoji">💨</span><span>Del viento</span></div>
+      </div>
+      <div class="check-group" data-correcto="1">
+        <label><input type="checkbox" value="0"> 🟫 Del suelo</label>
+        <label><input type="checkbox" value="1"> ☀️ Del sol</label>
+        <label><input type="checkbox" value="0"> 💨 Del viento</label>
+      </div>
+    </div>
+
+    <div class="situacion">
+      <p><strong>B. ¿Qué necesita la planta para realizar la fotosíntesis?</strong></p>
+      <div class="diagrama">
+        <div class="paso sol"><span class="emoji">☀️</span><span>Luz</span></div>
+        <div class="paso azul"><span class="emoji">💧</span><span>Agua</span></div>
+        <div class="paso gas"><span class="emoji">💨</span><span>CO₂</span></div>
+      </div>
+      <div class="check-group" data-correcto="0">
+        <label><input type="checkbox" value="0"> ☀️💧💨 Luz, agua y CO₂</label>
+        <label><input type="checkbox" value="1"> 💧 Solo agua</label>
+        <label><input type="checkbox" value="2"> ☀️ Solo luz</label>
+      </div>
+    </div>
+
+    <div class="situacion">
+      <p><strong>C. ¿Qué produce la planta durante la fotosíntesis?</strong></p>
+      <div class="diagrama">
+        <div class="paso verde"><span class="emoji">🍬</span><span>Glucosa</span></div>
+        <div class="paso gas"><span class="emoji">🌬️</span><span>Oxígeno</span></div>
+      </div>
+      <div class="check-group" data-correcto="0">
+        <label><input type="checkbox" value="0"> 🍬 Glucosa y 🌬️ oxígeno</label>
+        <label><input type="checkbox" value="1"> 💧 Solo agua</label>
+        <label><input type="checkbox" value="2"> 🔥 Calor y 💨 viento</label>
+      </div>
+    </div>
+
+    <h3>2. Ordená el proceso.</h3>
+    <p><em>Arrastrá las tarjetas para formar la secuencia correcta.</em></p>
+    <div class="zone" id="zonaOrigen">
+      <span class="tag sun" draggable="true">☀️ Luz</span>
+      <span class="tag water" draggable="true">💧 Agua</span>
+      <span class="tag co2" draggable="true">💨 CO₂</span>
+      <span class="tag foto" draggable="true">🍃 Fotosíntesis</span>
+      <span class="tag producto" draggable="true">🍬 Glucosa + 🌬️ Oxígeno</span>
+    </div>
+    <p><strong>Orden correcto:</strong></p>
+    <div class="zone" id="zonaDestino" data-orden="Luz,Agua,CO₂,Fotosíntesis,Glucosa + Oxígeno"></div>
+    <div class="feedback" id="fbOrden1"></div>
+    <button class="btn-revisar" onclick="revisarArrastre('zonaOrigen','zonaDestino','fbOrden1')">✅ Revisar orden</button>
+
+    <div class="situacion">
+      <h3>💡 Para recordar</h3>
+      <div class="diagrama">
+        <div class="paso sol"><span class="emoji">☀️</span><span>Luz del sol</span></div>
+        <span class="flecha">→</span>
+        <div class="paso verde"><span class="emoji">🌱</span><span>Fotosíntesis</span></div>
+        <span class="flecha">→</span>
+        <div class="paso verde"><span class="emoji">🍃</span><span>Alimento</span></div>
+      </div>
+      <p><strong>La luz del sol aporta energía para la fotosíntesis.</strong></p>
+    </div>
+  </div>
+
+  <div class="caja act2">
+    <h2>📝 Actividad 2 — Calor y Temperatura</h2>
+    <p><em>Observá las siguientes situaciones.</em></p>
+
+    <div class="situacion">
+      <h3>Situación A</h3>
+      <p>El termómetro marca <strong>25 °C</strong>.</p>
+      <div class="diagrama">
+        <div class="paso tierra"><span class="emoji">🌡️</span><span>25 °C</span></div>
+      </div>
+      <p><strong>¿Qué estamos midiendo?</strong></p>
+      <div class="check-group" data-correcto="1">
+        <label><input type="checkbox" value="0"> 🔥 Calor</label>
+        <label><input type="checkbox" value="1"> 🌡️ Temperatura</label>
+      </div>
+    </div>
+
+    <div class="situacion">
+      <h3>Situación B</h3>
+      <p>El sol calienta el suelo <strong>sin tocarlo</strong>.</p>
+      <div class="diagrama">
+        <div class="paso sol"><span class="emoji">☀️</span><span>Sol</span></div>
+        <span class="flecha">〰️</span>
+        <div class="paso tierra"><span class="emoji">🟫</span><span>Suelo</span></div>
+      </div>
+      <p><strong>¿Cómo llega la energía?</strong></p>
+      <div class="check-group" data-correcto="0">
+        <label><input type="checkbox" value="0"> 〰️ Por radiación</label>
+        <label><input type="checkbox" value="1"> ✋ Por contacto</label>
+      </div>
+    </div>
+
+    <div class="situacion">
+      <h3>Situación C</h3>
+      <p>El suelo caliente transfiere energía a una capa más fría <strong>por contacto</strong>.</p>
+      <div class="diagrama">
+        <div class="paso tierra"><span class="emoji">🟫</span><span>Suelo caliente</span></div>
+        <span class="flecha">→</span>
+        <div class="paso azul"><span class="emoji">🧊</span><span>Capa fría</span></div>
+      </div>
+      <p><strong>¿Qué tipo de transferencia es?</strong></p>
+      <div class="check-group" data-correcto="0">
+        <label><input type="checkbox" value="0"> ✋ Conducción</label>
+        <label><input type="checkbox" value="1"> 💨 Convección</label>
+        <label><input type="checkbox" value="2"> 〰️ Radiación</label>
+      </div>
+    </div>
+
+    <div class="situacion">
+      <h3>Situación D</h3>
+      <p>El aire caliente asciende y el aire más frío ocupa su lugar.</p>
+      <div class="diagrama">
+        <div class="paso gas"><span class="emoji">💨</span><span>Aire caliente ↑</span></div>
+        <div class="paso azul"><span class="emoji">❄️</span><span>Aire frío ↓</span></div>
+      </div>
+      <p><strong>¿Qué tipo de transferencia es?</strong></p>
+      <div class="check-group" data-correcto="1">
+        <label><input type="checkbox" value="0"> ✋ Conducción</label>
+        <label><input type="checkbox" value="1"> 💨 Convección</label>
+        <label><input type="checkbox" value="0"> 〰️ Radiación</label>
+      </div>
+    </div>
+
+    <button class="btn-revisar" onclick="revisarMulti(this)">✅ Revisar respuestas</button>
+    <div class="feedback"></div>
+
+    <div class="situacion">
+      <h3>💡 Ayuda</h3>
+      <div class="diagrama">
+        <div class="paso sol"><span class="emoji">✋</span><span>CONDUCCIÓN<br>contacto</span></div>
+        <div class="paso azul"><span class="emoji">💨</span><span>CONVECCIÓN<br>movimiento</span></div>
+        <div class="paso tierra"><span class="emoji">〰️</span><span>RADIACIÓN<br>sin contacto</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caja act3">
+    <h2>📝 Actividad 3 — ¿Qué Temperatura Necesita Cada Cultivo?</h2>
+    <p><em>Observá la tabla.</em></p>
+
+    <table class="table-interactive">
+      <tr><th>Cultivo</th><th>🌡️ Mínima Aprox.</th><th>😊 Rango Óptimo</th></tr>
+      <tr><td>🍅 Tomate</td><td>10 °C</td><td>20–28 °C</td></tr>
+      <tr><td>🍎 Manzana y pera</td><td>4–5 °C</td><td>15–25 °C</td></tr>
+      <tr><td>🥬 Lechuga y acelga</td><td>8 °C</td><td>12–20 °C</td></tr>
+    </table>
+
+    <h3>1. Respondé.</h3>
+
+    <div class="situacion">
+      <p><strong>A. ¿Qué cultivo tiene el rango óptimo más alto?</strong></p>
+      <div class="diagrama">
+        <div class="paso tierra"><span class="emoji">🍅</span><span>Tomate<br>20–28 °C</span></div>
+        <div class="paso verde"><span class="emoji">🥬</span><span>Lechuga<br>12–20 °C</span></div>
+        <div class="paso sol"><span class="emoji">🍎</span><span>Manzana<br>15–25 °C</span></div>
+      </div>
+      <div class="check-group" data-correcto="0">
+        <label><input type="checkbox" value="0"> 🍅 Tomate</label>
+        <label><input type="checkbox" value="1"> 🥬 Lechuga</label>
+        <label><input type="checkbox" value="2"> 🍎 Manzana y pera</label>
+      </div>
+    </div>
+
+    <div class="situacion">
+      <p><strong>B. ¿Qué cultivo puede desarrollarse con una temperatura óptima más baja?</strong></p>
+      <div class="check-group" data-correcto="2">
+        <label><input type="checkbox" value="0"> 🍅 Tomate</label>
+        <label><input type="checkbox" value="0"> 🍎 Manzana y pera</label>
+        <label><input type="checkbox" value="2"> 🥬 Lechuga y acelga</label>
+      </div>
+    </div>
+
+    <div class="situacion">
+      <p><strong>C. Si un tomate está a 5 °C, ¿está dentro de su rango óptimo?</strong></p>
+      <div class="diagrama">
+        <div class="paso azul"><span class="emoji">🥶</span><span>5 °C</span></div>
+        <div class="paso tierra"><span class="emoji">🍅</span><span>Óptimo: 20–28 °C</span></div>
+      </div>
+      <div class="check-group" data-correcto="1">
+        <label><input type="checkbox" value="0"> ✅ Sí</label>
+        <label><input type="checkbox" value="1"> ❌ No</label>
+      </div>
+    </div>
+
+    <h3>2. Situación</h3>
+
+    <div class="situacion">
+      <p><strong>Un cultivo de tomate se encuentra a 24 °C.</strong></p>
+      <div class="diagrama">
+        <div class="paso verde"><span class="emoji">🌡️</span><span>24 °C</span></div>
+        <div class="paso verde"><span class="emoji">📊</span><span>Rango óptimo: 20–28 °C</span></div>
+      </div>
+      <p>¿La temperatura es favorable?</p>
+      <div class="check-group" data-correcto="0">
+        <label><input type="checkbox" value="0"> ✅ Sí</label>
+        <label><input type="checkbox" value="1"> ❌ No</label>
+      </div>
+    </div>
+
+    <div class="situacion">
+      <p><strong>Un cultivo de tomate se encuentra a 3 °C.</strong></p>
+      <div class="diagrama">
+        <div class="paso tierra"><span class="emoji">🌡️</span><span>3 °C</span></div>
+        <div class="paso tierra"><span class="emoji">⚠️</span><span>Muy por debajo del rango</span></div>
+      </div>
+      <p>¿Qué podría ocurrir?</p>
+      <div class="check-group" data-correcto="0">
+        <label><input type="checkbox" value="0"> 📉 El crecimiento puede disminuir.</label>
+        <label><input type="checkbox" value="1"> 🚀 El cultivo crece más rápido.</label>
+      </div>
+    </div>
+
+    <button class="btn-revisar" onclick="revisarMulti(this)">✅ Revisar respuestas</button>
+    <div class="feedback"></div>
+  </div>
+
+
+  <div class="caja act4">
+    <h2>📝 Actividad 4 — Leemos y Comparamos Datos</h2>
+
+    <h3>Paso 1 — Buscá el momento de mayor luz.</h3>
+    <div class="situacion">
+      <div class="diagrama">
+        <div class="paso sol"><span class="emoji">🌅</span><span>08:00</span></div>
+        <div class="paso sol"><span class="emoji">☀️</span><span>12:00</span></div>
+        <div class="paso sol"><span class="emoji">🌇</span><span>17:00</span></div>
+      </div>
+      <p><strong>¿A qué hora es máxima la luz?</strong></p>
+      <div class="check-group" data-correcto="1">
+        <label><input type="checkbox" value="0"> 🌅 08:00</label>
+        <label><input type="checkbox" value="1"> ☀️ 12:00</label>
+        <label><input type="checkbox" value="0"> 🌇 17:00</label>
+      </div>
+    </div>
+
+    <h3>Paso 2 — Buscá la temperatura más alta.</h3>
+    <div class="situacion">
+      <div class="diagrama">
+        <div class="paso azul"><span class="emoji">❄️</span><span>10:00<br>12 °C</span></div>
+        <div class="paso tierra"><span class="emoji">🔥</span><span>14:00<br>27 °C</span></div>
+        <div class="paso azul"><span class="emoji">🌡️</span><span>17:00<br>20 °C</span></div>
+      </div>
+      <p><strong>¿A qué hora se alcanza?</strong></p>
+      <div class="check-group" data-correcto="1">
+        <label><input type="checkbox" value="0"> ❄️ 10:00</label>
+        <label><input type="checkbox" value="1"> 🔥 14:00</label>
+        <label><input type="checkbox" value="0"> 🌡️ 17:00</label>
+      </div>
+    </div>
+
+    <h3>Paso 3 — Compará temperatura y humedad.</h3>
+    <div class="situacion">
+      <div class="diagrama">
+        <div class="paso azul"><span class="emoji">🌅</span><span>08:00<br>12 °C / 80%</span></div>
+        <div class="paso tierra"><span class="emoji">☀️</span><span>14:00<br>25 °C / 45%</span></div>
+      </div>
+      <p><strong>¿Qué pasó?</strong></p>
+      <div class="check-group" data-correcto="0">
+        <label><input type="checkbox" value="0"> 📈 Subió la temperatura y 📉 bajó la humedad.</label>
+        <label><input type="checkbox" value="1"> 📉 Bajó la temperatura y 📈 subió la humedad.</label>
+        <label><input type="checkbox" value="2"> ➡️ Las dos se mantuvieron iguales.</label>
+      </div>
+    </div>
+
+    <button class="btn-revisar" onclick="revisarMulti(this)">✅ Revisar respuestas</button>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="caja act5">
+    <h2>📝 Actividad 5 — ¿Qué Está Pasando con el Cultivo?</h2>
+
+    <h3>Situación 1</h3>
+    <div class="situacion">
+      <p>En un día de <strong>mucho sol</strong>, la <strong>temperatura es alta</strong> y el aire tiene <strong>humedad baja</strong>. Pero el suelo recién regado tiene <strong>agua</strong>.</p>
+      <div class="diagrama">
+        <div class="paso sol"><span class="emoji">☀️</span><span>Mucha luz</span></div>
+        <div class="paso tierra"><span class="emoji">🔥</span><span>Temp. alta</span></div>
+        <div class="paso azul"><span class="emoji">💧</span><span>Humedad baja</span></div>
+      </div>
+      <p><strong>¿Qué puede pasar con el agua del suelo?</strong></p>
+      <div class="check-group" data-correcto="0">
+        <label><input type="checkbox" value="0"> 💨 Puede aumentar la evaporación.</label>
+        <label><input type="checkbox" value="1"> 🧊 Puede congelarse.</label>
+        <label><input type="checkbox" value="2"> ➡️ No puede cambiar.</label>
+      </div>
+    </div>
+
+    <div class="situacion">
+      <p><strong>¿Qué proceso de la planta también implica pérdida de agua?</strong></p>
+      <div class="diagrama">
+        <div class="paso verde"><span class="emoji">💨</span><span>Transpiración</span></div>
+        <div class="paso verde"><span class="emoji">🍃</span><span>Fotosíntesis</span></div>
+        <div class="paso tierra"><span class="emoji">✋</span><span>Conducción</span></div>
+      </div>
+      <div class="check-group" data-correcto="0">
+        <label><input type="checkbox" value="0"> 🫁 Transpiración</label>
+        <label><input type="checkbox" value="1"> 🍃 Fotosíntesis</label>
+        <label><input type="checkbox" value="2"> ✋ Conducción</label>
+      </div>
+    </div>
+
+    <h3>Situación 2</h3>
+    <div class="situacion">
+      <p>❄️ En una noche de helada, la temperatura baja a <strong>-2 °C</strong>. Hay un cultivo de <strong>tomate con flores</strong>, que son muy sensibles al frío.</p>
+      <div class="diagrama">
+        <div class="paso azul"><span class="emoji">❄️</span><span>-2 °C</span></div>
+        <div class="paso verde"><span class="emoji">🌸</span><span>Cultivo en floración</span></div>
+      </div>
+      <p><strong>¿Existe riesgo de daño?</strong></p>
+      <div class="check-group" data-correcto="0">
+        <label><input type="checkbox" value="0"> ⚠️ Sí</label>
+        <label><input type="checkbox" value="1"> ✅ No</label>
+      </div>
+    </div>
+
+    <div class="situacion">
+      <p><strong>¿Qué medida podría ayudar a proteger el cultivo?</strong></p>
+      <div class="check-group" data-correcto="0">
+        <label><input type="checkbox" value="0"> 🏠 Protegerlo de las bajas temperaturas.</label>
+        <label><input type="checkbox" value="1"> ❄️ Dejarlo expuesto al frío.</label>
+        <label><input type="checkbox" value="2"> 💨 Aumentar la ventilación durante la helada.</label>
+      </div>
+    </div>
+
+    <button class="btn-revisar" onclick="revisarMulti(this)">✅ Revisar respuestas</button>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="caja act6">
+    <h2>📝 Actividad 6 — Desafío Final: Tomamos una Decisión</h2>
+
+    <div class="situacion">
+      <h3>Situación</h3>
+      <p>Una <strong>productora</strong> quiere cultivar <strong>tomates</strong> en su zona.</p>
+      <div class="diagrama">
+        <div class="paso tierra"><span class="emoji">👩‍🌾</span><span>Productora</span></div>
+        <div class="paso tierra"><span class="emoji">🍅</span><span>Quiere cultivar tomates</span></div>
+      </div>
+      <p>Su zona presenta:</p>
+      <div class="diagrama">
+        <div class="paso sol"><span class="emoji">☀️</span><span>Días soleados</span></div>
+        <div class="paso azul"><span class="emoji">❄️</span><span>Heladas nocturnas</span></div>
+        <div class="paso azul"><span class="emoji">🥶</span><span>Temp. bajas en invierno</span></div>
+      </div>
+      <p>Es decir, hay <strong>mucho sol durante el día</strong>, pero también <strong>heladas nocturnas</strong> y <strong>temperaturas bajas en invierno</strong>.</p>
+      <p>La productora piensa en utilizar un <strong>invernadero</strong>.</p>
+    </div>
+
+    <div class="situacion">
+      <p><strong>1. ¿Por qué podría ser útil el invernadero?</strong></p>
+      <div class="check-group" data-correcto="0">
+        <label><input type="checkbox" value="0"> 🏠 Puede ayudar a proteger el cultivo del frío.</label>
+        <label><input type="checkbox" value="1"> 💧 Hace que la planta no necesite agua.</label>
+        <label><input type="checkbox" value="2"> 🚫 Elimina todas las condiciones del ambiente.</label>
+      </div>
+    </div>
+
+    <div class="situacion">
+      <p><strong>2. Durante un día muy caluroso, ¿qué podría hacer la productora?</strong></p>
+      <div class="check-group" data-correcto="0">
+        <label><input type="checkbox" value="0"> 🪟 Favorecer la ventilación.</label>
+        <label><input type="checkbox" value="1"> 🚪 Cerrar completamente el invernadero.</label>
+        <label><input type="checkbox" value="2"> 🚫 Evitar la circulación del aire.</label>
+      </div>
+    </div>
+
+    <div class="situacion">
+      <p><strong>3. Completá la idea.</strong></p>
+      <div class="diagrama">
+        <div class="paso invernadero" style="flex:1 1 100%;max-width:100%"><span class="emoji">🏠</span><span>El invernadero permite __________ algunas condiciones del ambiente.</span></div>
+      </div>
+      <div class="check-group" data-correcto="0">
+        <label><input type="checkbox" value="0"> 🔧 Modificar</label>
+        <label><input type="checkbox" value="1"> 🚫 Eliminar</label>
+        <label><input type="checkbox" value="2"> 👀 Ignorar</label>
+      </div>
+    </div>
+
+    <button class="btn-revisar" onclick="revisarMulti(this)">✅ Revisar respuestas</button>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="caja act1">
+    <h2>🎯 Cierre</h2>
+    <p><em>Completá:</em></p>
+    <p><strong>Hoy aprendí que...</strong></p>
+    <div class="check-group">
+      <label><input type="checkbox"> La luz del sol aporta energía a las plantas.</label>
+      <label><input type="checkbox"> La temperatura puede favorecer o limitar un cultivo.</label>
+      <label><input type="checkbox"> El calor puede transferirse por conducción, convección y radiación.</label>
+<label><input type="checkbox"> Las plantas pierden agua mediante la transpiración.</label>
+    </div>
+  </div>
+
+<div class="auto">
+    <h2>🧭 Autoevaluación</h2>
+    <ul>
+      <li><strong>1.</strong> ¿Reconocés el sol como fuente de energía y explicás la fotosíntesis?
+        <div class="sellos"><span class="sello-pill verde" onclick="elegirSello(this)">Lo hice solo</span><span class="sello-pill amarillo" onclick="elegirSello(this)">Necesité ayuda</span><span class="sello-pill rojo" onclick="elegirSello(this)">Necesité mucha ayuda</span></div></li>
+<li><strong>2.</strong> ¿Diferenciás calor de temperatura y describís los tres mecanismos?
+        <div class="sellos"><span class="sello-pill verde" onclick="elegirSello(this)">Lo hice solo</span><span class="sello-pill amarillo" onclick="elegirSello(this)">Necesité ayuda</span><span class="sello-pill rojo" onclick="elegirSello(this)">Necesité mucha ayuda</span></div></li>
+      <li><strong>3.</strong> ¿Explicás la transpiración y el riesgo de heladas?
+        <div class="sellos"><span class="sello-pill verde" onclick="elegirSello(this)">Lo hice solo</span><span class="sello-pill amarillo" onclick="elegirSello(this)">Necesité ayuda</span><span class="sello-pill rojo" onclick="elegirSello(this)">Necesité mucha ayuda</span></div></li>
+      <li><strong>4.</strong> ¿Comprendés cómo funciona un invernadero y para qué sirve?
+        <div class="sellos"><span class="sello-pill verde" onclick="elegirSello(this)">Lo hice solo</span><span class="sello-pill amarillo" onclick="elegirSello(this)">Necesité ayuda</span><span class="sello-pill rojo" onclick="elegirSello(this)">Necesité mucha ayuda</span></div></li>
+    </ul>
+  </div>
+
+</div>
+
+<script>
+/* ====== AUDIO ====== */
+const A = 'es-AR';
+let vozPreferida = null;
+
+function seleccionarVoz() {
+  const voces = speechSynthesis.getVoices();
+  const ar = voces.filter(v => v.lang === 'es-AR');
+  const es = voces.filter(v => v.lang === 'es-ES');
+  const all = [...ar, ...es, ...voces];
+  const fem = all.filter(v => v.name.toLowerCase().includes('femenina') || v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('paulina') || v.name.toLowerCase().includes('monica'));
+  vozPreferida = fem[0] || all[0] || null;
+}
+speechSynthesis.onvoiceschanged = seleccionarVoz;
+seleccionarVoz();
+
+function hablar(texto, btn) {
+  if (speechSynthesis.speaking) {
+    speechSynthesis.cancel();
+    document.querySelectorAll('.btn-escuchar.activo').forEach(b => b.classList.remove('activo'));
+    if (btn) btn.classList.remove('activo');
+    return;
+  }
+  const u = new SpeechSynthesisUtterance(texto);
+  u.lang = A;
+  u.rate = 1.0;
+  u.pitch = 1.0;
+  if (vozPreferida) u.voice = vozPreferida;
+  u.onstart = () => { if (btn) btn.classList.add('activo'); };
+  u.onend = () => { if (btn) btn.classList.remove('activo'); };
+  speechSynthesis.speak(u);
+}
+
+const textosAudio = {
+  objetivo: 'Identificar que el sol es una fuente de energía para las plantas y que la luz participa en la fotosíntesis. Diferenciar calor y temperatura, e identificar los tres mecanismos de transferencia. Analizar qué temperaturas favorecen o limitan un cultivo.',
+  sol: 'Las plantas necesitan agua, nutrientes, dióxido de carbono y luz. La luz del sol es importante porque aporta energía. Las plantas utilizan esa energía en la fotosíntesis para producir su propio alimento.',
+  luz: 'La posición del sol cambia durante el día. Cuando los rayos llegan más directamente, la energía se concentra. Cuando llegan más inclinados, se distribuye sobre una superficie mayor. La energía que recibe un cultivo puede cambiar durante el día.',
+  fotosintesis: 'La fotosíntesis es un proceso que ocurre en varios pasos. Primero, la planta recibe luz del sol, que le aporta energía. Luego toma agua por las raíces y dióxido de carbono por las hojas. Con estos ingredientes produce glucosa, que utiliza como alimento. Durante el proceso, libera oxígeno al aire.',
+  glucosa: 'La glucosa puede utilizarse de tres maneras: obtener energía para sus procesos, formar nuevas estructuras como raíces, tallos, hojas, flores y frutos, o quedar almacenada como reserva.',
+  senal: 'La luz no solo aporta energía. También le permite a la planta reconocer los cambios en la duración del día y la noche. Esta relación se llama fotoperíodo.',
+  calentamiento: 'La radiación solar no solo participa en la fotosíntesis. También puede calentar el suelo, las plantas y el aire.',
+  calortemp: 'La temperatura indica qué tan caliente o frío está un cuerpo. Se mide con un termómetro en grados Celsius. El calor es energía que pasa de un cuerpo con mayor temperatura hacia otro con menor temperatura.',
+  transferencia: 'La conducción es por contacto directo. La convección es por movimiento del aire. La radiación es sin contacto directo.',
+  suelo: 'El suelo también cambia su temperatura. Un suelo húmedo se calienta y enfría más lentamente que uno seco.',
+  tempnecesaria: 'Cada cultivo tiene un rango de temperaturas donde crece mejor. Tiene una mínima por debajo de la cual el crecimiento se detiene, una óptima donde se desarrolla bien, y una máxima donde el calor puede dañar la planta.',
+  transpiracion: 'Las plantas pierden parte del agua en forma de vapor. Este proceso se llama transpiración. Cuando el agua se evapora, hay una pérdida de energía térmica que ayuda a enfriar la planta.',
+  heladas: 'Una helada ocurre cuando las temperaturas bajan mucho y se forman cristales de hielo. Pueden dañar especialmente las flores y los brotes jóvenes.',
+  invernadero: 'Un invernadero permite modificar algunas condiciones del ambiente. Puede proteger los cultivos del frío, las heladas, el viento y el granizo. La ventilación ayuda a evitar que se caliente demasiado.'
+};
+
+document.querySelectorAll('.btn-escuchar').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const k = btn.dataset.audio;
+    if (textosAudio[k]) hablar(textosAudio[k], btn);
+  });
+});
+
+/* ====== REVISAR MULTIPLE CHOICE ====== */
+function revisarMulti(btn) {
+  const caja = btn.closest('.caja');
+  const groups = caja.querySelectorAll('.check-group[data-correcto]');
+  let total = 0, correctas = 0;
+
+  groups.forEach(g => {
+    total++;
+    const checks = g.querySelectorAll('input[type="checkbox"]');
+    const correcto = g.dataset.correcto;
+    let selected = [];
+    checks.forEach(c => { if (c.checked) selected.push(c.value); });
+
+    // Mark labels
+    checks.forEach(c => {
+      const label = c.closest('label');
+      label.classList.remove('checked', 'ok-label', 'mal-label');
+      if (c.checked && c.value === correcto) {
+        label.classList.add('checked');
+      }
+    });
+
+    if (selected.length === 1 && selected[0] === correcto) {
+      correctas++;
+      g.querySelectorAll('label').forEach(l => {
+        if (l.querySelector('input').value === correcto) l.style.borderColor = 'var(--ok)';
+      });
+    } else {
+      g.querySelectorAll('label').forEach(l => {
+        const inp = l.querySelector('input');
+        if (inp.value === correcto) l.style.borderColor = 'var(--ok)';
+        else if (inp.checked) l.style.borderColor = 'var(--mal)';
+      });
+    }
+  });
+
+  const fb = caja.querySelector('.feedback');
+  if (total === 0) { fb.textContent = 'Seleccioná una opción en cada pregunta.'; fb.className = 'feedback'; return; }
+  if (correctas === total) {
+    fb.textContent = '🎉 ¡Perfecto! ' + correctas + '/' + total + ' — ¡Excelente!';
+    fb.className = 'feedback ok-texto';
+    caja.classList.add('anim-celebrar');
+    setTimeout(() => caja.classList.remove('anim-celebrar'), 700);
+  } else {
+    fb.textContent = '✅ ' + correctas + '/' + total + ' correctas. Revisá las marcadas.';
+    fb.className = 'feedback';
+    caja.classList.add('anim-sacudir');
+    setTimeout(() => caja.classList.remove('anim-sacudir'), 500);
+  }
+}
+
+/* ====== DRAG AND DROP ====== */
+let draggedEl = null;
+
+document.addEventListener('dragstart', e => {
+  if (!e.target.classList.contains('tag')) return;
+  draggedEl = e.target;
+  draggedEl.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+  setTimeout(() => { if (draggedEl) draggedEl.style.opacity = '0.4'; }, 0);
+});
+
+document.addEventListener('dragend', e => {
+  if (e.target.classList.contains('tag')) {
+    e.target.classList.remove('dragging');
+    e.target.style.opacity = '1';
+  }
+  draggedEl = null;
+  document.querySelectorAll('.zone').forEach(z => z.classList.remove('over'));
+});
+
+document.querySelectorAll('.zone').forEach(zone => {
+  zone.addEventListener('dragover', e => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    zone.classList.add('over');
+  });
+  zone.addEventListener('dragleave', () => zone.classList.remove('over'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.classList.remove('over');
+    if (!draggedEl) return;
+    // Find the element being hovered over
+    const afterEl = getDragAfterElement(zone, e.clientY);
+    if (afterEl) {
+      zone.insertBefore(draggedEl, afterEl);
+    } else {
+      zone.appendChild(draggedEl);
+    }
+  });
+});
+
+function getDragAfterElement(zone, y) {
+  const els = [...zone.querySelectorAll('.tag:not(.dragging)')];
+  return els.reduce((closest, child) => {
+    const box = child.getBoundingClientRect();
+    const offset = y - box.top - box.height / 2;
+    if (offset < 0 && offset > closest.offset) {
+      return { offset, element: child };
+    }
+    return closest;
+  }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
+
+function revisarArrastre(origenId, destinoId, fbId) {
+  const destino = document.getElementById(destinoId);
+  const tags = destino.querySelectorAll('.tag');
+  const orden = destino.dataset.orden.split(',');
+  const fb = document.getElementById(fbId);
+  const userOrder = Array.from(tags).map(t => t.textContent.replace(/[^\w\s+áéíóúñ]/g, '').trim());
+
+  if (tags.length < 5) {
+    fb.textContent = 'Arrastrá todas las tarjetas al orden correcto.';
+    fb.className = 'feedback';
+    return;
+  }
+
+  let ok = true;
+  for (let i = 0; i < orden.length; i++) {
+    if (!userOrder[i] || !userOrder[i].includes(orden[i])) { ok = false; break; }
+  }
+
+  if (ok) {
+    fb.textContent = '🎉 ¡Orden correcto! Excelente.';
+    fb.className = 'feedback ok-texto';
+    destino.classList.add('anim-celebrar');
+    setTimeout(() => destino.classList.remove('anim-celebrar'), 700);
+  } else {
+    fb.textContent = '❌ Orden incorrecto. Mové las tarjetas y volvé a intentar.';
+    fb.className = 'feedback mal-texto';
+    destino.classList.add('anim-sacudir');
+    setTimeout(() => destino.classList.remove('anim-sacudir'), 500);
+  }
+}
+
+/* ====== AUTOEVALUACIÓN ====== */
+function elegirSello(el) {
+  el.parentElement.querySelectorAll('.sello-pill').forEach(p => p.classList.remove('elegido'));
+  el.classList.add('elegido');
+}
+
+/* ====== IMPRENTA MAYÚSCULA ====== */
+let mayusActivas = true;
+function alternarMayusculas() {
+  mayusActivas = !mayusActivas;
+  document.body.classList.toggle('imprenta', mayusActivas);
+  const b = document.getElementById('btnMayus');
+  b.textContent = mayusActivas ? '🔠 IMPRENTA MAYÚSCULA: SÍ' : '🔠 IMPRENTA MAYÚSCULA: NO';
+  b.classList.toggle('activo', mayusActivas);
+}
+document.getElementById('btnMayus').classList.add('activo');
+</script>
+</body>
+</html>
+

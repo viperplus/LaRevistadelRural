@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Revista del Rural — Edición N.º 1</title>
+<style>
+/* ============================================
+   LA REVISTA DEL RURAL
+   Diseño editorial tipo revista impresa
+   ============================================ */
+:root{
+  --papel:#FFFDF6;
+  --fondo:#E9E4D8;
+  --tinta:#1C1B18;
+  --tinta-suave:#3A362E;
+  --rojo:#A93F26;
+  --rule:#A89F8C;
+  --borde:#C9C1AE;
+  --sombra:0 3px 14px rgba(60,50,30,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Cambria',Georgia,'Times New Roman',serif;
+  background:var(--fondo);
+  color:var(--tinta);
+  font-size:20px;line-height:1.85;
+  padding:0 0 4rem;
+}
+body.mayus{text-transform:uppercase;letter-spacing:.02em}
+
+/* === TOOLBAR (fuera de la página) === */
+.toolbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(28,27,24,.94);color:#EFE9DA;
+  display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:space-between;
+  padding:.55rem 1rem;font-size:.85rem;letter-spacing:.04em;
+}
+.toolbar b{font-weight:700;font-variant:small-caps}
+.toolbar .acciones{display:flex;flex-wrap:wrap;gap:.4rem}
+.tbtn{
+  font-family:inherit;font-variant:small-caps;letter-spacing:.05em;
+  background:#EFE9DA;color:#1C1B18;border:1px solid transparent;
+  padding:.3rem .9rem;font-weight:700;border-radius:2px;cursor:pointer;font-size:.82rem;
+}
+.tbtn:hover{background:#fff}
+
+/* === HOJAS / PÁGINAS === */
+.revista{max-width:960px;margin:1.4rem auto;padding:0 1rem}
+.pagina{
+  background:var(--papel);
+  box-shadow:var(--sombra);
+  padding:2.4rem 2.6rem 2.8rem;
+  margin:0 0 2.6rem;
+  position:relative;
+  counter-increment:pagina;
+  border-top:6px solid var(--tinta);
+}
+.pagina::after{
+  content:counter(pagina);
+  position:absolute;bottom:.9rem;right:1.4rem;
+  font-size:.85rem;color:var(--rule);letter-spacing:.1em;
+}
+/* cabecera de página */
+.running-head{
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--tinta-suave);
+  border-bottom:1px solid var(--rule);
+  padding-bottom:.5rem;margin-bottom:1.6rem;
+}
+.running-head b{color:var(--tinta);font-weight:700}
+.running-head .nro{font-variant-numeric:oldstyle-nums}
+
+/* === PORTADA === */
+.portada{border-bottom:1px solid var(--borde)}
+.portada .marco{border:2px solid var(--tinta);padding:1rem;text-align:center}
+.portada .confines{
+  border:1px solid var(--rule);padding:2rem 1.4rem 1.6rem;position:relative;
+}
+.portada .pasequedan{
+  font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--tinta-suave);
+}
+.portada .masthead{
+  font-size:clamp(2.6rem,8vw,4.6rem);line-height:1;font-weight:700;letter-spacing:.01em;
+  text-transform:uppercase;margin:.5rem 0 .3rem;
+}
+.portada .masthead .rural{display:block;font-size:clamp(3rem,9vw,5.4rem)}
+.portada .edicion{
+  display:inline-block;background:var(--rojo);color:#FFF9EF;
+  font-variant:small-caps;letter-spacing:.25em;font-size:.85rem;
+  padding:.35rem 1.1rem;margin:.6rem 0 1.4rem;
+}
+.portada .bajada{font-style:italic;font-size:1.05rem;color:var(--tinta-suave);max-width:520px;margin:0 auto}
+.portada .sumario-caja{
+  margin-top:1.8rem;border-top:2px solid var(--tinta);
+  text-align:left;columns:2;column-gap:2.2rem;
+  padding-top:1.1rem;font-size:.95rem;
+}
+.portada .sumario-caja h3{
+  font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--tinta-suave);
+  margin-bottom:.6rem;
+}
+.portada .sumario-caja a{
+  display:block;text-decoration:none;color:var(--tinta);
+  padding:.32rem 0;border-bottom:1px dotted var(--rule);font-size:1rem;
+}
+.portada .sumario-caja a b{color:var(--rojo);font-weight:700}
+.portada .sumario-caja a:hover{color:var(--rojo)}
+.portada .destacado{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--tinta-suave);margin-top:1.4rem}
+.portada .virguillas{font-size:1.2rem;letter-spacing:1.2em;color:var(--rule);margin-top:.6rem}
+
+/* === TITULARES DE SECCIÓN === */
+.seccion{margin:0 0 2rem}
+.cabecera-seccion{
+  display:flex;align-items:baseline;gap:1rem;margin-bottom:1.2rem;
+  border-bottom:3px double var(--rule);padding-bottom:.5rem;
+}
+.cabecera-seccion .kicker-num{
+  font-size:.78rem;letter-spacing:.25em;color:var(--rojo);text-transform:uppercase;white-space:nowrap;
+}
+.cabecera-seccion h2{
+  font-size:1.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;line-height:1.1;
+}
+.cabecera-seccion .frase{font-style:italic;margin-left:auto;font-size:.9rem;color:var(--tinta-suave)}
+
+/* === ARTÍCULO === */
+.articulo{max-width:760px;margin:0 auto}
+.articulo .kicker{
+  font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;color:var(--rojo);
+  border-top:1px solid var(--tinta);border-bottom:1px solid var(--tinta);
+  display:inline-block;padding:.35rem 0;margin-bottom:1.1rem;
+}
+.articulo h3.titulo{
+  font-size:clamp(1.9rem,4.5vw,2.8rem);line-height:1.08;font-weight:700;
+  margin-bottom:1.4rem;letter-spacing:-.01em;
+}
+.articulo .byline{
+  font-size:.95rem;font-variant:small-caps;letter-spacing:.08em;
+  color:var(--tinta-suave);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  padding:.5rem 0;margin-bottom:1.6rem;
+}
+.articulo .byline b{color:var(--tinta)}
+/* letra capital en el copete */
+.articulo .copete::first-letter{
+  float:left;font-size:4.2rem;line-height:.82;padding:.08rem .45rem 0 0;
+  font-weight:700;color:var(--rojo);
+}
+.articulo .copete{font-weight:600;color:var(--tinta);margin-bottom:1.4rem}
+.articulo p{margin:0 0 1.1rem;text-align:left}
+.articulo h4.sub{
+  font-size:.95rem;text-transform:uppercase;letter-spacing:.22em;color:var(--tinta);
+  margin:2rem 0 .8rem;font-weight:700;
+}
+.articulo h4.sub::after{
+  content:"";display:block;width:3.2rem;height:3px;background:var(--rojo);margin-top:.45rem;
+}
+.recuadro{
+  border:1px solid var(--tinta);background:#F8F3E8;
+  padding:1rem 1.3rem;margin:1.6rem 0;font-size:1.02rem;
+}
+.recuadro .etiqueta{
+  display:block;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--rojo);font-weight:700;margin-bottom:.4rem;
+}
+.recuadro p{margin:0}
+.articulo .fin{text-align:right;font-size:1.1rem;color:var(--rule);margin-top:1.6rem}
+
+/* figuras con foto y leyenda (cargadas desde .odt / .docx) */
+.figura{
+  margin:1.6rem 0;border:1px solid var(--borde);background:#F8F3E8;padding:.8rem;
+  text-align:center;
+}
+.figura img{max-width:100%;height:auto;display:block;margin:0 auto;border:1px solid var(--borde)}
+.figura figcaption{font-size:.95rem;font-style:italic;color:var(--tinta-suave);margin-top:.6rem}
+
+/* fichas y cita */
+.ficha-autor{
+  border:1px solid var(--borde);border-left:5px solid var(--tinta);
+  padding:.85rem 1.15rem;margin:1.4rem 0;font-size:1rem;font-style:italic;color:var(--tinta-suave);
+}
+.ficha-autor b{font-style:normal;color:var(--tinta);font-variant:small-caps;letter-spacing:.08em}
+
+/* === PRÓXIMAMENTE === */
+.proximamente{
+  border:1px dashed var(--tinta-suave);padding:1.6rem 1.4rem;margin:1.4rem 0;
+  text-align:center;font-size:1.05rem;color:var(--tinta-suave);
+}
+.proximamente strong{color:var(--tinta);font-variant:small-caps;letter-spacing:.1em;font-size:1.1rem}
+.proximamente .ico{font-size:1.4rem;display:block;margin-bottom:.4rem;letter-spacing:.5em}
+
+/* === PASATIEMPOS (estilo impreso interactivo) === */
+.pasatiempo{
+  border:1px solid var(--tinta);margin:1.6rem 0;
+}
+.pasatiempo .encab{
+  background:var(--tinta);color:#EFE9DA;padding:.5rem 1.1rem;
+  font-size:.8rem;letter-spacing:.24em;text-transform:uppercase;font-weight:700;
+  display:flex;justify-content:space-between;align-items:baseline;
+}
+.pasatiempo .cuerpo{padding:1.4rem 1.6rem 1.6rem}
+.pasatiempo p.consigna{font-style:italic;color:var(--tinta-suave);margin-bottom:1rem;font-size:1.05rem}
+.sopa{display:grid;gap:2px;justify-content:center;margin:1rem auto}
+.sopa button{
+  width:38px;height:38px;font-size:1.05rem;font-weight:700;text-transform:uppercase;
+  font-family:'Cambria',Georgia,serif;
+  border:1px solid var(--borde);background:transparent;border-radius:0;cursor:pointer;
+}
+.sopa button:hover{background:#F3EDDC}
+.sopa button.seleccion{background:#F0C9B8;border-color:var(--rojo)}
+.sopa button.bien{background:#DCE3C0;border-color:var(--tinta)}
+.sopa button.mal{background:#F2C9C9;border-color:var(--tinta)}
+.sopa button.found{background:var(--tinta);color:#EFE9DA;border-color:var(--tinta)}
+.palabras-lista{
+  display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center;
+  border-top:1px dotted var(--rule);padding-top:1rem;
+}
+.palabras-lista span{
+  font-variant:small-caps;letter-spacing:.06em;font-size:.95rem;
+  border:1px solid var(--borde);padding:.1rem .7rem;
+}
+.palabras-lista span.encontrada{
+  background:var(--tinta);color:#EFE9DA;border-color:var(--tinta);text-decoration:line-through;
+}
+.fila-btn{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.1rem;justify-content:center}
+.mini-btn{
+  font-family:inherit;font-variant:small-caps;letter-spacing:.06em;font-weight:700;
+  border:1px solid var(--tinta);background:transparent;color:var(--tinta);
+  padding:.35rem 1rem;cursor:pointer;font-size:.85rem;
+}
+.mini-btn:hover{background:var(--tinta);color:#EFE9DA}
+.mini-btn.solido{background:var(--tinta);color:#EFE9DA}
+.mini-btn.solido:hover{background:var(--rojo)}
+
+.descifra{display:flex;flex-direction:column;gap:.7rem;margin:.9rem 0}
+.descifra .fila{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem}
+.descifra .letras{
+  border:1px solid var(--tinta);padding:.15rem .6rem;letter-spacing:.3em;font-weight:700;
+  background:#F8F3E8;font-size:1.1rem;
+}
+.descifra input{
+  font-family:'Cambria',Georgia,serif;font-size:1.05rem;padding:.3rem .5rem;
+  border:1px solid var(--borde);border-radius:0;max-width:210px;background:#fff;
+}
+.descifra input.bien{border-color:var(--tinta);background:#DCE3C0}
+.descifra input.mal{border-color:var(--rojo);background:#F2C9C9}
+.descifra em{font-size:.9rem;color:var(--tinta-suave)}
+
+.pregunta{border-bottom:1px dotted var(--rule);padding:.9rem 0}
+.pregunta .texto{font-weight:700;margin-bottom:.5rem;font-size:1.1rem}
+.opciones{display:flex;flex-wrap:wrap;gap:.6rem}
+.opciones button{
+  font-family:inherit;font-variant:small-caps;letter-spacing:.06em;font-weight:700;
+  border:1px solid var(--borde);padding:.25rem .9rem;cursor:pointer;background:transparent;font-size:.9rem;
+}
+.opciones button.elegida{border-color:var(--tinta);background:#E4E0CF}
+.opciones button.ok{border-color:var(--tinta);background:#DCE3C0}
+.opciones button.no{border-color:var(--rojo);background:#F2C9C9}
+.feedback{margin-top:.4rem;font-size:.95rem;display:none}
+.feedback.ok{color:#4C5A2B;display:block}
+.feedback.mal{color:var(--rojo);display:block}
+
+/* === CONTRATAPA === */
+.contratapa{
+  border:2px solid var(--tinta);background:#F8F3E8;padding:2.2rem 2rem;text-align:center;
+}
+.contratapa h2{font-size:1.9rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.8rem}
+.contratapa p{max-width:600px;margin:0 auto .7rem}
+.contratapa .como{
+  max-width:600px;margin:1rem auto;text-align:left;
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:1rem 0 .4rem;
+}
+.contratapa .como li{margin:.3rem 0 .6rem 1.6rem}
+.contratapa .creditos{
+  margin-top:1.4rem;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--tinta-suave);border-top:1px solid var(--rule);padding-top:1rem;
+}
+
+/* === PIE === */
+footer{text-align:center;color:var(--tinta-suave);font-style:italic;font-size:.85rem;padding:0 1rem 2rem}
+
+@media print{
+  body{background:#fff}
+  .toolbar{display:none !important}
+  .pagina{box-shadow:none;margin:0 0 1rem;break-after:page;border-top:none;counter-reset:pagina 0}
+  .sopa,.opciones button,.mini-btn{display:none !important}
+  .contratapa{background:#fff}
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <b>La Revista del Rural — Edición N.º 1</b>
+  <div class="acciones">
+    <button class="tbtn" id="btnMayus" onclick="alternarMayusculas()">🔠 Mayúsculas: NO</button>
+    <button class="tbtn" onclick="window.print()">🖨️ Imprimir</button>
+  </div>
+</div>
+
+<div class="revista">
+
+  <!-- ================== PORTADA ================== -->
+  <section class="pagina portada">
+    <div class="marco">
+      <div class="confines">
+        <div class="pasequedan">El periódico de nuestra escuela</div>
+        <div class="masthead">La <span class="rural">Revista del Rural</span></div>
+        <span class="edicion">Edición N.º 1 · Primavera de 2026</span>
+        <p class="bajada">
+          Ciencia, tecnología, deportes e historias de nuestro lugar.
+          Cada artículo lo escriben las alumnas y los alumnos.
+        </p>
+        <div class="sumario-caja">
+          <h3>En este número</h3>
+          <a href="#ciencia"><b>01</b> · El Chip en la Cancha: la ciencia dentro de la pelota</a>
+          <a href="#escuela"><b>02</b> · La Fiesta del Paraje Treneta</a>
+          <a href="#deportes"><b>03</b> · Deportes</a>
+          <a href="#humor"><b>04</b> · Humor</a>
+          <a href="#pasatiempos"><b>05</b> · Pasatiempos</a>
+          <a href="#sabias"><b>06</b> · ¿Sabías que...?</a>
+          <a href="#participa"><b>07</b> · Participá</a>
+        </div>
+        <div class="destacado">Hecha por estudiantes · Editada en comunidad</div>
+        <div class="virguillas">❦ ❦ ❦</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================
+       SECCIÓN: CIENCIA Y TECNOLOGÍA
+       ============================================== -->
+  <section class="pagina seccion" id="ciencia">
+    <div class="running-head">
+      <span><b>La Revista del Rural</b> · Edición N.º 1</span>
+      <span class="nro">Primavera 2026</span>
+    </div>
+
+    <div class="cabecera-seccion">
+      <span class="kicker-num">Sección 01</span>
+      <h2>Ciencia y Tecnología</h2>
+      <span class="frase">El mundo que nos rodea, explicado por nosotros.</span>
+    </div>
+
+    <article class="articulo">
+      <span class="kicker">Ciencia y Tecnología</span>
+      <h3 class="titulo">El Chip en la Cancha:<br>La Ciencia Dentro de la Pelota</h3>
+      <p class="byline">Por <b>Julian Echegoy</b> · 4to Año · Taller de Ed. Científica y Tecnológica · Sede Aguada de Guerra</p>
+
+      <p class="copete">
+        ¿Alguna vez te preguntaste cómo hacen los árbitros para saber si una pelota
+        cruzó la línea de gol por un milímetro, o si hubo un fuera de juego invisible
+        al ojo humano? En el fútbol actual, las decisiones ya no dependen solo de la
+        intuición de las personas. Hoy, el corazón del juego es tecnológico: las
+        pelotas oficiales de los torneos más importantes llevan un sensor inteligente
+        en su interior que revoluciona el arbitraje y la ciencia del deporte.
+      </p>
+
+      <p>
+        Conocer cómo funciona esta tecnología nos permite descubrir que una simple
+        pelota es, en realidad, un complejo dispositivo científico. A continuación,
+        abrimos el balón para explorar la física, la electrónica y la matemática que
+        se esconden detrás de cada pase.
+      </p>
+
+      <h4 class="sub">Tecnología Invisible: El Sensor CTR-CORE</h4>
+      <figure class="figura">
+        <img src="enviar_aqui/imagenes_odt/culturas_de_campeones/foto_01.png" alt="Fotografía del artículo (falta leyenda)">
+      </figure>
+      <p>
+        En el centro geométrico de la pelota se suspende un pequeño chip mediante un
+        sistema de tensores elásticos para que el peso no afecte su trayectoria. Este
+        dispositivo contiene una Unidad de Medición Inercial (IMU) que envía datos de
+        posición y movimiento a una velocidad asombrosa de 500 veces por segundo.
+        Funciona con una pequeña batería recargable por inducción (sin cables) y
+        transmite ondas de radiofrecuencia hacia las antenas instaladas alrededor de
+        la cancha para rastrear el balón en tiempo real.
+      </p>
+
+      <div class="recuadro">
+        <span class="etiqueta">Dato del texto completo · 500 mediciones por segundo</span>
+        <p>El sensor del balón no descansa ni un instante: <strong>500 veces por segundo</strong> registra posición y movimiento.</p>
+      </div>
+      <div class="recuadro">
+        <span class="etiqueta">Glosario · IMU</span>
+        <p><strong>IMU:</strong> Unidad de Medición Inercial que registra posición y movimiento del balón.</p>
+      </div>
+
+      <h4 class="sub">La Física de los Datos y el Fuera de Juego</h4>
+      <p>
+        Este chip trabaja en equipo con cámaras de alta velocidad distribuidas en el
+        estadio. Cuando un jugador patea, el sensor detecta el impacto exacto (el
+        milisegundo exacto del «contacto»). Al cruzar estos datos con los algoritmos
+        informáticos, el sistema del VAR puede determinar si había una posición
+        adelantada en el momento preciso del pase. Además, el chip mide la velocidad
+        del disparo, la aceleración y las revoluciones por minuto del giro de la
+        pelota, aplicando principios de cinemática y dinámica física.
+      </p>
+
+      <h4 class="sub">Impacto en la Salud y el Rendimiento</h4>
+      <p>
+        Más allá de cobrar un gol, los datos del sensor se usan para la salud de los
+        atletas. Al medir la fuerza de los impactos, los cuerpos médicos analizan el
+        desgaste muscular y la potencia acumulada de los jugadores. Esto ayuda a
+        diseñar entrenamientos personalizados, regular las cargas de esfuerzo físico
+        para prevenir lesiones graves y planificar una nutrición celular adecuada para
+        la recuperación del plantel.
+      </p>
+
+      <figure class="figura">
+        <img src="enviar_aqui/imagenes_odt/culturas_de_campeones/foto_02.png" alt="Fotografía del artículo (falta leyenda)">
+      </figure>
+
+      <p>
+        La tecnología en la pelota nos demuestra que la ciencia no se queda encerrada
+        en un laboratorio con tubos de ensayo, sino que rueda con nosotros en el patio
+        y en la cancha. Analizar estas innovaciones en nuestra escuela nos invita a
+        pensar cómo las herramientas digitales transforman nuestras actividades
+        cotidianas, transformando la pasión del juego en una oportunidad para aprender
+        y explorar el mundo técnico que nos rodea.
+      </p>
+
+      <div class="ficha-autor">
+        <b>✍️ Autores:</b> Julian Echegoy — <b>Sede:</b> Aguada de Guerra — <b>4to Año</b> · Taller de Ed. Científica y Tecnológica
+      </div>
+
+      <div class="fin">❦</div>
+    </article>
+
+    <div class="proximamente">
+      <span class="ico">✦ ✦ ✦</span>
+      <strong>Y ahora…</strong>
+      <p>Este espacio espera tu próximo artículo de ciencia y tecnología.</p>
+      <p>Dejalo en la carpeta <em>enviar_aqui</em> o escribilo en el chat, y lo ordenamos acá.</p>
+    </div>
+  </section>
+
+  <!-- ==============================================
+       SECCIÓN: NUESTRA ESCUELA
+       ============================================== -->
+  <section class="pagina seccion" id="escuela">
+    <div class="running-head">
+      <span><b>La Revista del Rural</b> · Edición N.º 1</span>
+      <span class="nro">Primavera 2026</span>
+    </div>
+
+    <div class="cabecera-seccion">
+      <span class="kicker-num">Sección 02</span>
+      <h2>Nuestra Escuela</h2>
+      <span class="frase">Noticias, proyectos e historias de nuestro lugar.</span>
+    </div>
+
+    <article class="articulo">
+      <span class="kicker">Nuestra Escuela</span>
+      <h3 class="titulo">La Fiesta del Paraje Treneta:<br>tradición, encuentro y raíces de nuestra comunidad</h3>
+      <p class="byline">Por <b>Estudiantes</b> · Sede Rincón Treneta</p>
+
+      <p class="copete">
+        Cada mes de febrero, el paraje Treneta se prepara para vivir una de las
+        celebraciones más esperadas por su comunidad: una fiesta que reúne a familias,
+        vecinos, instituciones y visitantes para compartir, celebrar y mantener vivas
+        las costumbres que forman parte de nuestra identidad rural.
+      </p>
+
+      <p>
+        La jornada comienza con el acto protocolar, un momento de reconocimiento y
+        encuentro en el que se pone en valor la historia del paraje y el trabajo de
+        quienes, día a día, construyen y sostienen la vida de la comunidad.
+      </p>
+
+      <p>
+        Luego llega uno de los momentos más coloridos: el desfile cívico de las
+        instituciones, donde escuelas, organizaciones y diferentes actores de la
+        comunidad participan mostrando con orgullo su pertenencia. A continuación, el
+        desfile criollo llena las calles de caballos, jinetes y agrupaciones
+        tradicionalistas, recuperando una parte fundamental de nuestras raíces y de la
+        cultura rural.
+      </p>
+
+      <figure class="figura">
+        <img src="enviar_aqui/imagenes_odt/fiestas_y_tradiciones_mundialistas/foto_04.jpg" alt="Participación de ESRN Rural anexo 5 en el desfile cívico.">
+        <figcaption>Participación de ESRN Rural anexo 5 en el desfile cívico.</figcaption>
+      </figure>
+
+      <p>
+        Después del desfile, llega el momento de compartir el tradicional almuerzo
+        popular, una gran mesa comunitaria en la que hay lugar para todos los
+        presentes. Más allá de la comida, este momento representa el encuentro, la
+        conversación y la posibilidad de compartir historias y recuerdos entre vecinos
+        y visitantes.
+      </p>
+
+      <figure class="figura">
+        <img src="enviar_aqui/imagenes_odt/fiestas_y_tradiciones_mundialistas/foto_01.jpg" alt="Almuerzo popular, asado para todos!">
+        <figcaption>Almuerzo popular, asado para todos!</figcaption>
+      </figure>
+
+      <p>
+        Con el almuerzo terminado, la fiesta continúa con el tradicional baile campero,
+        «en la tierra nomás». Sin grandes escenarios ni formalidades, el encuentro se
+        transforma en música, baile y alegría, con la espontaneidad propia de las
+        celebraciones de nuestra ruralidad.
+      </p>
+
+      <figure class="figura">
+        <img src="enviar_aqui/imagenes_odt/fiestas_y_tradiciones_mundialistas/foto_02.jpg" alt="Baile campero en el mismo campo de doma.">
+        <figcaption>Baile campero en el mismo campo de doma.</figcaption>
+      </figure>
+
+      <p>
+        Más tarde llega uno de los momentos que despierta mayor expectativa: las
+        destrezas de a caballo. Jinetes demuestran sus habilidades en diferentes
+        pruebas y juegos tradicionales. Entre ellas se encuentran la boleada del
+        avestruz, las carreras con obstáculos y otras destrezas que ponen de
+        manifiesto la habilidad, la destreza y el conocimiento del caballo.
+      </p>
+
+      <p>
+        Cuando cae la noche, la fiesta no termina. Al contrario, comienza una nueva
+        etapa con el gran baile al aire libre. Bajo el cielo de Treneta, vecinos y
+        visitantes se reúnen para disfrutar de grupos de chamamé y cumbia, compartiendo
+        música, baile y alegría hasta entrada la noche. Es un momento en el que las
+        generaciones se encuentran y donde los ritmos tradicionales conviven con otros
+        que también forman parte de la cultura popular.
+      </p>
+
+      <figure class="figura">
+        <img src="enviar_aqui/imagenes_odt/fiestas_y_tradiciones_mundialistas/foto_03.jpg" alt="Un domingo de tradición criolla">
+        <figcaption>Un domingo de tradición criolla</figcaption>
+      </figure>
+
+      <p>
+        La celebración continúa el domingo con una jornada dedicada especialmente a la
+        jineteada, una de las expresiones más representativas de las fiestas criollas.
+        El campo vuelve a convertirse en escenario de destreza y tradición, con
+        diferentes modalidades de monta.
+      </p>
+
+      <p>
+        Entre ellas se encuentran la monta con encimera y bastos, la gurupa sureña y
+        otras categorías que reúnen a jinetes y espectadores alrededor de una práctica
+        profundamente ligada a la identidad rural.
+      </p>
+
+      <figure class="figura">
+        <img src="enviar_aqui/imagenes_odt/fiestas_y_tradiciones_mundialistas/foto_05.jpg" alt="Campo de jineteada-Día domingo.">
+        <figcaption>Campo de jineteada-Día domingo.</figcaption>
+      </figure>
+
+      <p>
+        La jineteada requiere preparación, experiencia y conocimiento. Para muchos
+        participantes, representa también una tradición transmitida de generación en
+        generación, que mantiene vigente una manera de vivir y de relacionarse con el
+        caballo propia de nuestra cultura criolla.
+      </p>
+
+      <h4 class="sub">Una fiesta que nos representa</h4>
+      <p>
+        La Fiesta del Paraje Treneta es mucho más que un conjunto de actividades. Es
+        un encuentro comunitario que permite mantener vivas las tradiciones y
+        fortalecer los vínculos entre quienes habitan la ruralidad.
+      </p>
+
+      <p>
+        Durante esos días, Treneta se convierte en un punto de encuentro donde
+        conviven las instituciones, las familias, los jóvenes, los mayores, los
+        jinetes y los visitantes. El desfile, el almuerzo, el baile campero, las
+        destrezas, la música y la jineteada forman parte de una celebración que tiene
+        como protagonista a toda la comunidad.
+      </p>
+
+      <p>
+        Para quienes viven en el paraje y sus alrededores, febrero es una época
+        especial: es tiempo de reencontrarse, de recibir a quienes llegan desde otros
+        lugares y, sobre todo, de celebrar las raíces que nos identifican.
+      </p>
+
+      <p>
+        Porque la Fiesta de Treneta no solo recuerda nuestras tradiciones: las
+        mantiene vivas, las comparte y las transmite a las nuevas generaciones.
+      </p>
+
+      <div class="ficha-autor">
+        <b>✍️ Autores:</b> Estudiantes — <b>Sede:</b> Rincón Treneta
+      </div>
+
+      <div class="fin">❦</div>
+    </article>
+
+    <div class="proximamente">
+      <span class="ico">✦ ✦ ✦</span>
+      <strong>Y ahora…</strong>
+      <p>Este espacio espera más noticias, avisos y proyectos de nuestra escuela.</p>
+    </div>
+  </section>
+
+  <!-- ==============================================
+       SECCIÓN: DEPORTES
+       ============================================== -->
+  <section class="pagina seccion" id="deportes">
+    <div class="running-head">
+      <span><b>La Revista del Rural</b> · Edición N.º 1</span>
+      <span class="nro">Primavera 2026</span>
+    </div>
+
+    <div class="cabecera-seccion">
+      <span class="kicker-num">Sección 03</span>
+      <h2>Deportes</h2>
+      <span class="frase">Del patio de la escuela a la cancha del mundo.</span>
+    </div>
+
+    <div class="proximamente">
+      <span class="ico">✦ ✦ ✦</span>
+      <strong>Próximamente:</strong>
+      <p>Crónicas de partidos, torneos y deportistas de nuestra comunidad.</p>
+    </div>
+  </section>
+
+  <!-- ==============================================
+       SECCIÓN: HUMOR
+       ============================================== -->
+  <section class="pagina seccion" id="humor">
+    <div class="running-head">
+      <span><b>La Revista del Rural</b> · Edición N.º 1</span>
+      <span class="nro">Primavera 2026</span>
+    </div>
+
+    <div class="cabecera-seccion">
+      <span class="kicker-num">Sección 04</span>
+      <h2>Humor</h2>
+      <span class="frase">Un momento de risas entre clase y clase.</span>
+    </div>
+
+    <div class="proximamente">
+      <span class="ico">✦ ✦ ✦</span>
+      <strong>Próximamente:</strong>
+      <p>Chistes, viñetas y frases divertidas de las alumnas y los alumnos.</p>
+    </div>
+  </section>
+
+  <!-- ==============================================
+       SECCIÓN: PASATIEMPOS
+       ============================================== -->
+  <section class="pagina seccion" id="pasatiempos">
+    <div class="running-head">
+      <span><b>La Revista del Rural</b> · Edición N.º 1</span>
+      <span class="nro">Primavera 2026</span>
+    </div>
+
+    <div class="cabecera-seccion">
+      <span class="kicker-num">Sección 05</span>
+      <h2>Pasatiempos</h2>
+      <span class="frase">Poné a prueba lo que leíste en esta edición.</span>
+    </div>
+
+    <div class="pasatiempo">
+      <div class="encab"><span>🔎 Sopa de letras</span><span>del artículo</span></div>
+      <div class="cuerpo">
+        <p class="consigna">Encontrá las palabras ocultas del artículo de esta edición.</p>
+        <div class="palabras-lista" id="listaPalabras"></div>
+        <div class="sopa" id="sopa"></div>
+        <div class="fila-btn">
+          <button class="mini-btn solido" onclick="comprobarSopa()">Comprobar</button>
+          <button class="mini-btn" onclick="mostrarSolucion()">Mostrar solución</button>
+          <button class="mini-btn" onclick="reiniciarSopa()">Reiniciar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="pasatiempo">
+      <div class="encab"><span>🔀 Descifrá la palabra</span><span>ordená las letras</span></div>
+      <div class="cuerpo">
+        <p class="consigna">Ordená las letras para formar cada palabra. Usá las pistas.</p>
+        <div class="descifra" id="descifra"></div>
+        <div class="fila-btn">
+          <button class="mini-btn solido" onclick="revisarDescifra()">Revisar</button>
+          <button class="mini-btn" onclick="mostrarDescifra()">Mostrar respuestas</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="pasatiempo">
+      <div class="encab"><span>✔ Verdadero o falso</span><span>sobre el artículo</span></div>
+      <div class="cuerpo">
+        <p class="consigna">Marcá si cada afirmación es verdadera o falsa según lo que leíste.</p>
+        <div id="quiz"></div>
+        <div class="fila-btn">
+          <button class="mini-btn solido" onclick="revisarQuiz()">Revisar respuestas</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================
+       SECCIÓN: ¿SABÍAS QUE...?
+       ============================================== -->
+  <section class="pagina seccion" id="sabias">
+    <div class="running-head">
+      <span><b>La Revista del Rural</b> · Edición N.º 1</span>
+      <span class="nro">Primavera 2026</span>
+    </div>
+
+    <div class="cabecera-seccion">
+      <span class="kicker-num">Sección 06</span>
+      <h2>¿Sabías que...?</h2>
+      <span class="frase">Datos curiosos enviados por nuestros lectores.</span>
+    </div>
+
+    <div class="proximamente">
+      <span class="ico">✦ ✦ ✦</span>
+      <strong>Próximamente:</strong>
+      <p>Datos curiosos que quieras compartir. ¿Descubriste algo interesante? ¡Este es tu lugar!</p>
+    </div>
+  </section>
+
+  <!-- ==============================================
+       CONTRATAPA / PARTICIPÁ
+       ============================================== -->
+  <section class="pagina" id="participa">
+    <div class="running-head">
+      <span><b>La Revista del Rural</b> · Edición N.º 1</span>
+      <span class="nro">Primavera 2026</span>
+    </div>
+
+    <div class="contratapa">
+      <h2>✉ Participá en la revista</h2>
+      <p>La Revista del Rural se hace entre todos. Tu voz tiene lugar en estas páginas.</p>
+      <ul class="como">
+        <li>Escribí tu <strong>artículo</strong>: ciencia, deportes, escuela, arte, historias…</li>
+        <li>Dejalo como archivo de texto en la carpeta <strong>enviar_aqui</strong> o pegá el texto en el chat.</li>
+        <li>Firmá tu nota: <em>nombre, curso y sede</em>.</li>
+        <li>Si querés incluir una <strong>foto</strong>, escribí su leyenda; sin leyenda no se publica.</li>
+      </ul>
+      <p>La redacción organiza los textos tal como los escriben los estudiantes.</p>
+      <div class="creditos">
+        La Revista del Rural · Edición N.º 1 · Primavera de 2026<br>
+        Redacción: nuestras alumnas y alumnos · Coordinación docente
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>La Revista del Rural — hecha por y para las alumnas y los alumnos de nuestra escuela.</footer>
+
+<script>
+/* ============================================
+   Utilidades generales
+   ============================================ */
+function alternarMayusculas(){
+  const b=document.getElementById('btnMayus');
+  document.body.classList.toggle('mayus');
+  const activo=document.body.classList.contains('mayus');
+  b.textContent=activo?'🔠 Mayúsculas: SÍ':'🔠 Mayúsculas: NO';
+}
+
+function shuffleLetras(palabra){
+  let a=palabra.split('');
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  if(a.join('')===palabra)a.reverse();
+  return a.join('');
+}
+
+/* ============================================
+   SOPA DE LETRAS
+   ============================================ */
+const PALABRAS=['PELOTA','SENSOR','CHIP','VAR','CAMARA','ENERGIA','CIENCIA','FUTBOL','FUERZA','TECNOLOGIA'];
+const TAM=14;
+let grilla=[], posicionesPalabras={};
+
+function letraRandom(){
+  const letras='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  return letras[Math.floor(Math.random()*letras.length)];
+}
+
+function intentarUbicar(g,ocupadas,pal){
+  const dirs=[[0,1],[1,0],[1,1],[-1,1]];
+  dirs.sort(()=>Math.random()-.5);
+  for(let intentoReal=0;intentoReal<400;intentoReal++){
+    const d=dirs[Math.floor(Math.random()*dirs.length)];
+    const r=Math.floor(Math.random()*TAM);
+    const c=Math.floor(Math.random()*TAM);
+    const celdaFinR=r+(pal.length-1)*d[0];
+    const celdaFinC=c+(pal.length-1)*d[1];
+    if(celdaFinR<0||celdaFinR>=TAM||celdaFinC<0||celdaFinC>=TAM)continue;
+    let ok=true;
+    for(let i=0;i<pal.length;i++){
+      const rr=r+i*d[0], cc=c+i*d[1];
+      const dato=ocupadas[rr+'-'+cc];
+      if(dato!==undefined && dato!==pal[i]){ok=false;break;}
+    }
+    if(!ok)continue;
+    for(let i=0;i<pal.length;i++){
+      const rr=r+i*d[0], cc=c+i*d[1];
+      g[rr][cc]=pal[i];
+      ocupadas[rr+'-'+cc]=pal[i];
+    }
+    posicionesPalabras[pal]=[];
+    for(let i=0;i<pal.length;i++){
+      posicionesPalabras[pal].push([r+i*d[0],c+i*d[1]]);
+    }
+    return true;
+  }
+  return false;
+}
+
+function construirSopa(){
+  let exito=false;
+  for(let intento=0;intento<120 && !exito;intento++){
+    posicionesPalabras={};
+    const ocupadas={};
+    const g=Array.from({length:TAM},()=>Array(TAM).fill(''));
+    exito=true;
+    for(const pal of PALABRAS){
+      if(!intentarUbicar(g,ocupadas,pal)){exito=false;break;}
+    }
+    if(exito)grilla=g;
+  }
+  for(let r=0;r<TAM;r++)for(let c=0;c<TAM;c++)if(!grilla[r][c])grilla[r][c]=letraRandom();
+}
+
+let celdasElegidas=new Set();
+
+function renderSopa(){
+  const cont=document.getElementById('sopa');
+  cont.style.gridTemplateColumns=`repeat(${TAM},38px)`;
+  cont.innerHTML='';
+  for(let r=0;r<TAM;r++){
+    for(let c=0;c<TAM;c++){
+      const b=document.createElement('button');
+      b.textContent=grilla[r][c];
+      b.dataset.r=r;b.dataset.c=c;
+      b.setAttribute('aria-label','Letra '+grilla[r][c]);
+      b.addEventListener('click',()=>seleccionarCelda(b,r,c));
+      cont.appendChild(b);
+    }
+  }
+  renderListaPalabras();
+}
+
+function seleccionarCelda(b,r,c){
+  if(b.classList.contains('bien')||b.classList.contains('found'))return;
+  const key=r+'-'+c;
+  if(celdasElegidas.has(key)){celdasElegidas.delete(key);b.classList.remove('seleccion');}
+  else{celdasElegidas.add(key);b.classList.add('seleccion');}
+  marcarEncontradas();
+}
+
+function marcarEncontradas(){
+  const lista=document.getElementById('listaPalabras');
+  const spans=[...lista.children];
+  PALABRAS.forEach((pal,i)=>{
+    const celdas=posicionesPalabras[pal];
+    const completa=celdas.every(([r,c])=>celdasElegidas.has(r+'-'+c));
+    if(completa){
+      spans[i].classList.add('encontrada');
+      celdas.forEach(([r,c])=>{
+        const b=document.querySelector(`#sopa button[data-r="${r}"][data-c="${c}"]`);
+        if(b)b.classList.add('found');
+      });
+    }
+  });
+}
+
+function renderListaPalabras(){
+  const lista=document.getElementById('listaPalabras');
+  lista.innerHTML='';
+  PALABRAS.forEach(p=>{
+    const s=document.createElement('span');
+    s.textContent=p;
+    lista.appendChild(s);
+  });
+}
+
+function comprobarSopa(){
+  for(const r of celdasElegidas){
+    const [rr,cc]=r.split('-').map(Number);
+    const b=document.querySelector(`#sopa button[data-r="${rr}"][data-c="${cc}"]`);
+    if(!b)continue;
+    const pertenece=Object.values(posicionesPalabras)
+      .some(cels=>cels.some(([x,y])=>x===rr&&y===cc));
+    if(pertenece){
+      if(!b.classList.contains('found'))b.classList.add('bien');
+      b.classList.remove('seleccion','mal');
+    }else{
+      b.classList.add('mal');
+      b.classList.remove('seleccion');
+    }
+  }
+}
+
+function mostrarSolucion(){
+  for(const pal of PALABRAS){
+    posicionesPalabras[pal].forEach(([r,c])=>{
+      const b=document.querySelector(`#sopa button[data-r="${r}"][data-c="${c}"]`);
+      if(b)b.classList.add('found');
+    });
+  }
+  document.getElementById('listaPalabras').querySelectorAll('span').forEach(s=>s.classList.add('encontrada'));
+}
+
+function reiniciarSopa(){
+  celdasElegidas.clear();
+  construirSopa();
+  renderSopa();
+}
+
+/* ============================================
+   DESCIFRÁ LA PALABRA
+   ============================================ */
+const DESCIFRA=[
+  {original:'PELOTA', pista:'Rueda por la cancha'},
+  {original:'SENSOR', pista:'Detecta el movimiento'},
+  {original:'ENERGIA', pista:'Mueve a los jugadores'}
+];
+
+function renderDescifra(){
+  const cont=document.getElementById('descifra');
+  cont.innerHTML='';
+  DESCIFRA.forEach((item,i)=>{
+    const fila=document.createElement('div');
+    fila.className='fila';
+    fila.innerHTML='<span class="letras">'+shuffleLetras(item.original)+'</span>';
+    const inp=document.createElement('input');
+    inp.dataset.idx=i;
+    inp.placeholder='Respuesta';
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter')revisarDescifra();});
+    fila.appendChild(inp);
+    const p=document.createElement('em');
+    p.textContent='Pista: '+item.pista;
+    fila.appendChild(p);
+    cont.appendChild(fila);
+  });
+}
+
+function revisarDescifra(){
+  const cont=document.getElementById('descifra');
+  [...cont.querySelectorAll('input')].forEach(inp=>{
+    const idx=+inp.dataset.idx;
+    const val=inp.value.trim().toUpperCase().replace(/[ÁÉÍÓÚ]/g,x=>({Á:'A',É:'E',Í:'I',Ó:'O',Ú:'U'}[x]));
+    inp.classList.remove('bien','mal');
+    inp.classList.add(val===DESCIFRA[idx].original?'bien':'mal');
+    if(val===DESCIFRA[idx].original)inp.disabled=true;
+  });
+}
+
+function mostrarDescifra(){
+  const cont=document.getElementById('descifra');
+  [...cont.querySelectorAll('input')].forEach(inp=>{
+    const idx=+inp.dataset.idx;
+    inp.value=DESCIFRA[idx].original;
+    inp.classList.remove('bien','mal');
+    inp.classList.add('bien');
+    inp.disabled=true;
+  });
+}
+
+/* ============================================
+   VERDADERO O FALSO
+   ============================================ */
+const QUIZ=[
+  {texto:'El chip se suspende en el centro geométrico de la pelota mediante tensores elásticos.', correcta:true, dato:'Así lo dice el artículo: el peso no afecta la trayectoria del balón.'},
+  {texto:'La IMU envía datos de posición y movimiento 20 veces por segundo.', correcta:false, dato:'Son 500 veces por segundo.'},
+  {texto:'La batería del chip se recarga por inducción, sin cables.', correcta:true, dato:'El artículo lo explica: recarga por inducción (sin cables).'},
+  {texto:'El sensor solo se usa para cobrar goles, no para la salud de los jugadores.', correcta:false, dato:'También se usa para medir impactos y prevenir lesiones.'},
+  {texto:'El chip trabaja en equipo con cámaras de alta velocidad en el estadio.', correcta:true, dato:'Juntos alimentan los algoritmos del sistema VAR.'}
+];
+
+function renderQuiz(){
+  const cont=document.getElementById('quiz');
+  cont.innerHTML='';
+  QUIZ.forEach((item,i)=>{
+    const div=document.createElement('div');
+    div.className='pregunta';
+    div.dataset.q=i;
+    div.innerHTML='<div class="texto">'+(i+1)+'. '+item.texto+'</div>'+
+      '<div class="opciones">'+
+        '<button data-v="1" onclick="elegirOpcion(this)">Verdadero</button>'+
+        '<button data-v="0" onclick="elegirOpcion(this)">Falso</button>'+
+      '</div>'+
+      '<div class="feedback"></div>';
+    cont.appendChild(div);
+  });
+}
+
+function elegirOpcion(btn){
+  const div=btn.closest('.pregunta');
+  div.querySelectorAll('.opciones button').forEach(b=>b.classList.remove('elegida'));
+  btn.classList.add('elegida');
+  div.querySelector('.feedback').className='feedback';
+  div.querySelector('.feedback').textContent='';
+}
+
+function revisarQuiz(){
+  let pts=0;
+  QUIZ.forEach((item,i)=>{
+    const div=document.querySelector(`.pregunta[data-q="${i}"]`);
+    const elegida=div.querySelector('.opciones button.elegida');
+    const fb=div.querySelector('.feedback');
+    if(!elegida){
+      fb.className='feedback mal';
+      fb.textContent='Elegí una opción para esta pregunta.';
+      return;
+    }
+    const valor=elegida.dataset.v==='1';
+    const ok=valor===item.correcta;
+    elegida.classList.remove('elegida');
+    elegida.classList.add(ok?'ok':'no');
+    fb.className='feedback '+(ok?'ok':'mal');
+    fb.textContent=(ok?'✓ ¡Correcto! ':'✗ Incorrecto. ')+item.dato;
+    if(ok)pts++;
+  });
+  if(pts===QUIZ.length){
+    alert('¡Felicitaciones! Respondiste TODO correctamente.');
+  }
+}
+
+/* ============================================
+   INICIO
+   ============================================ */
+construirSopa();
+renderSopa();
+renderDescifra();
+renderQuiz();
+</script>
+</body>
+</html>

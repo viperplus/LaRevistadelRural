@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="es"><head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260828-05-5fe3063","C":{"Abril Fatface":"YACgEZbkUVE,0","Alfa Slab One":"YACgEYS9sJU,0","Anton":"YACgEcYqQ-A,0","Archivo":"YAHO2-t-jNE,0","Arial":"YAGyDvJ_4Ts,0","Bebas Neue":"YACgESME5ew,0","Bricolage Grotesque":"YAFyMcdwzpc,0","Canva Sans":"YAFLd8sKbwc,2","Caveat":"YALBs2ploWQ,0","Comic Sans MS":"YAHO2VMiyZo,0","Cormorant Garamond":"YAFdJhX-538,0","Courier New":"YAGzXiGs0_8,0","DM Sans":"YAD1aU3sLnI,0","DM Serif Display":"YAD1aYG82rc,0","Forum":"YACgEcnnqB4,0","Fraunces":"YAEul-FRQw4,0","Georgia":"YAGzXkO0pEM,0","Helvetica Neue":"YAFcf6CtJfI,0","Impact":"YAFcfnjI7Vk,0","Inter":"YAFdJvSyp_k,3","Iowan Old Style":"YAGNIFa8j9o,0","Jacques Francois":"YAHO2a5g66Q,0","JetBrains Mono":"YAFdJksXcAk,0","Libre Baskerville":"YACgEUFdPdA,0","Manrope":"YAHO2b2feC4,0","Merriweather":"YACgEXvHxxs,0","Montserrat":"YADLjI9qxTA,0","Nunito":"YACgEX8C5Gg,0","Oleo Script":"YACgEQQ14jI,0","Phantom Sans":"YAHO2E8Pb88,0","Playfair Display":"YACgEYmuCJE,0","Poppins":"YAFdJjbTu24,1","Press Start 2P":"YAFyGr-8pmQ,0","Quicksand":"YADWjpfPmdk,0","Raleway":"YACgEVg3xZg,0","Segoe UI":"YAHNdRD1Klw,0","Source Sans 3":"YAG4lO1Mj10,0","Spectral":"YAHO2rVUHIM,0","Times New Roman":"YAGzXW3gftg,0","Times":"YAGzXW3gftg,0","Ubuntu":"YACgERDU--Q,0","Work Sans":"YAGXhLOKv44,0","Yellowtail":"YACgEYG4kG4,0","ui-monospace":"YADlN8CFZ8Q,0","ui-sans-serif":"YACkoN-xg4g,0"}}');</script><script src="/_sdk/50d846425a1e5082.telemetry_sdk.js" integrity="sha512-Otbex+ztlVbcEGql0rXGd/3E3ee/hqAntg6DeuUEMG6pIPbXGOSvZbFZVzknAXi1tH/itQ+ijEhOTr2aWj6CXg=="></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Viento de la Estepa</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;600;700;800&amp;family=Source+Sans+Pro:wght@400;600;700;900&amp;display=swap" rel="stylesheet">
+  <style>
+    :root{--sky:#D9E8F5;--ochre:#C2A671;--blue:#0F4C81;--red:#D9534F;--ink:#173247;--paper:#f7f2e8}
+    *{box-sizing:border-box} body{margin:0;font-family:"Source Sans Pro",sans-serif;color:var(--ink);overflow-x:hidden}
+    .app{width:100%;min-height:calc(100 * min(var(--vh, 1vh), 1vh));background:#D9E8F5;position:relative;overflow:hidden}
+    .app:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.28;background:repeating-linear-gradient(165deg,transparent 0 45px,rgba(15,76,129,.16) 46px 48px,transparent 49px 102px)}
+    .screen{display:none;min-height:calc(100 * min(var(--vh, 1vh), 1vh));width:100%;position:relative;padding:28px 24px 44px}
+    .screen.active{display:flex;flex-direction:column;animation:arrive .5s ease both}
+    @keyframes arrive{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    .page-shell{width:100%;max-width:1180px;margin:auto;position:relative;z-index:1}
+    .eyebrow{font-size:.78rem;letter-spacing:.16em;font-weight:900;text-transform:uppercase;color:var(--blue)}
+    .title-font{font-family:Alegreya,serif}.main-title{font-size:clamp(3rem,7vw,6.8rem);line-height:.82;letter-spacing:-.045em}
+    .section-title{font-family:Alegreya,serif;font-size:clamp(2.1rem,4.5vw,4.4rem);line-height:.92;letter-spacing:-.035em}
+    .station-head{display:flex;gap:18px;align-items:flex-start;justify-content:space-between;border-bottom:2px solid rgba(15,76,129,.25);padding-bottom:17px;margin-bottom:24px}
+    .station-number{font-family:Alegreya,serif;font-size:3.4rem;font-weight:800;color:var(--ochre);line-height:.8}
+    .return-btn,.info-btn,.choice-btn,.route-btn{border:0;cursor:pointer;font-family:inherit;transition:.2s;box-shadow:0 8px 20px rgba(23,50,71,.13)}
+    .return-btn{background:var(--blue);color:#fff;border-radius:999px;padding:10px 14px;display:flex;align-items:center;gap:7px;font-weight:700}
+    .return-btn:hover,.route-btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+    .paper-card{background:rgba(247,242,232,.92);border:1px solid rgba(23,50,71,.14);border-radius:22px;box-shadow:0 14px 30px rgba(23,50,71,.12)}
+    .wind-line{position:absolute;border-top:2px solid rgba(15,76,129,.45);border-radius:100%;width:260px;height:85px;animation:drift 5s ease-in-out infinite}
+    .wind-line:nth-child(2){top:23%;left:-70px;animation-delay:-2s}.wind-line:nth-child(3){top:55%;right:-100px;animation-delay:-3s}.wind-line:nth-child(4){top:78%;left:8%;animation-delay:-1s}
+    @keyframes drift{50%{transform:translateX(35px) scaleX(1.12);opacity:.45}}
+    .hero{justify-content:center;background:linear-gradient(135deg,rgba(217,232,245,.90),rgba(217,232,245,.63));overflow:hidden}.hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}.hero-panel,.hero .grass{z-index:1}
+    .hero-panel{max-width:860px}.hero h1{color:var(--blue);margin:15px 0}.hero-sub{font-size:clamp(1.2rem,2.4vw,1.65rem);max-width:650px;line-height:1.3}
+    .start-row{display:flex;gap:13px;align-items:center;flex-wrap:wrap;margin-top:32px}.route-btn{padding:15px 22px;border-radius:11px;background:var(--blue);color:white;font-size:1rem;font-weight:900;letter-spacing:.04em}
+    .info-btn{width:46px;height:46px;border-radius:50%;background:var(--ochre);font-size:1.25rem;color:var(--ink);font-weight:900}
+    .grass{height:80px;position:absolute;bottom:0;left:0;right:0;background:repeating-linear-gradient(104deg,transparent 0 12px,rgba(75,92,45,.78) 13px 15px,transparent 16px 23px);clip-path:polygon(0 70%,2% 25%,4% 65%,6% 12%,8% 60%,10% 20%,12% 75%,14% 0,16% 62%,18% 22%,20% 70%,22% 15%,24% 60%,26% 8%,28% 75%,30% 0,32% 70%,34% 16%,36% 57%,38% 11%,40% 74%,42% 8%,44% 58%,46% 16%,48% 75%,50% 5%,52% 65%,54% 12%,56% 59%,58% 0,60% 70%,62% 20%,64% 56%,66% 9%,68% 72%,70% 18%,72% 60%,74% 4%,76% 72%,78% 10%,80% 60%,82% 14%,84% 72%,86% 6%,88% 55%,90% 15%,92% 75%,94% 0,96% 62%,98% 18%,100% 65%,100% 100%,0 100%)}
+    .map-land{min-height:460px;padding:42px;background:linear-gradient(180deg,#bad7ea 0 45%,#c7af79 46% 100%);position:relative;overflow:hidden}.route-map-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.3;mix-blend-mode:multiply;z-index:0}
+    .ridge{position:absolute;bottom:0;left:0;width:100%;height:55%;background:#ab8958;clip-path:polygon(0 65%,11% 42%,23% 58%,34% 25%,48% 52%,61% 18%,72% 45%,85% 30%,100% 55%,100% 100%,0 100%)}
+    .map-road{position:absolute;width:90%;left:5%;top:55%;border-top:5px dashed #f7f2e8;transform:rotate(-3deg)}
+    .marker{position:absolute;border:0;width:56px;height:56px;border-radius:50%;background:var(--blue);color:#fff;cursor:pointer;font-weight:900;font-size:1.2rem;box-shadow:0 0 0 7px rgba(255,255,255,.45);animation:pulse 1.8s infinite}
+    .marker span{position:absolute;top:63px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:.78rem;background:#f7f2e8;color:var(--ink);padding:3px 7px;border-radius:5px;font-weight:700}
+    @keyframes pulse{50%{box-shadow:0 0 0 13px rgba(15,76,129,.08)}}
+    .map-special{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}.map-special button{background:var(--ochre);color:var(--ink)}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:22px}.content-copy{font-size:1.1rem;line-height:1.5}
+    .formula{background:#173247;color:#f7f2e8;padding:28px;border-radius:18px;font-family:Georgia,serif;font-size:clamp(1.9rem,4vw,3.4rem);text-align:center}
+    .formula button{background:none;border:0;color:#d9e8f5;cursor:pointer;font:inherit;border-bottom:2px dashed var(--ochre)}
+    .airflow{position:relative;min-height:260px;background:linear-gradient(180deg,#eef7fb,#d9e8f5);border-radius:18px;overflow:hidden}.airflow:before,.airflow:after{content:"";position:absolute;left:-18%;width:62%;height:34px;border-top:3px solid rgba(15,76,129,.28);border-radius:50%;transform:rotate(-8deg);animation:windstream 4.8s ease-in-out infinite}.airflow:before{top:27%;animation-delay:-2.4s}.airflow:after{top:68%;width:48%;opacity:.65;animation-delay:-1s}.arrow{position:absolute;z-index:2;color:var(--blue);font-size:2rem;opacity:0;animation:flow 3.2s cubic-bezier(.2,.7,.3,1) infinite}.arrow:nth-child(1){top:21%;animation-delay:-2.1s}.arrow:nth-child(2){top:47%;animation-delay:-1s}.arrow:nth-child(3){top:73%;animation-delay:0s}@keyframes flow{0%{left:-12%;opacity:0;transform:translateY(8px)}18%{opacity:.85}82%{opacity:.85}100%{left:76%;opacity:0;transform:translateY(-8px)}}@keyframes windstream{50%{transform:translateX(24%) rotate(-8deg);opacity:.5}}
+    .turbine{position:absolute;z-index:3;right:22%;top:62px;width:10px;height:180px;background:linear-gradient(90deg,#c9d3d8,#f7fbfc,#b5c2c9);border-radius:8px;box-shadow:3px 0 0 rgba(23,50,71,.12)}.turbine:before{content:"";position:absolute;width:26px;height:26px;background:#e7edf0;border:4px solid var(--blue);border-radius:50%;top:-13px;left:-8px;z-index:2}.turbine:after{content:"";position:absolute;width:112px;height:112px;top:-56px;left:-52px;background:conic-gradient(from 0deg,transparent 0 8deg,var(--blue) 9deg 18deg,transparent 19deg 128deg,var(--blue) 129deg 138deg,transparent 139deg 248deg,var(--blue) 249deg 258deg,transparent 259deg);border-radius:50%;animation:rotor 2.6s linear infinite;transform-origin:center}@keyframes rotor{to{transform:rotate(360deg)}}
+    .compare{display:grid;grid-template-columns:1fr 1fr;gap:18px}.machine{padding:20px;min-height:290px;position:relative;overflow:hidden}.machine img{width:100%;height:160px;object-fit:cover;border-radius:13px;margin-bottom:10px}.mini-btn{background:var(--blue);color:#fff;border:0;border-radius:8px;padding:9px 12px;font-weight:700;cursor:pointer}
+    .betz{display:grid;grid-template-columns:.85fr 1.15fr;gap:24px;align-items:center}.betz img{width:100%;height:280px;object-fit:cover;border-radius:18px}.limit{font-size:clamp(3.2rem,8vw,7rem);font-weight:900;color:var(--red);line-height:.8}
+    .curve-wrap{padding:clamp(20px,4vw,42px);background:linear-gradient(145deg,rgba(247,242,232,.98),rgba(235,244,248,.96));border:1px solid rgba(15,76,129,.18);box-shadow:0 18px 38px rgba(23,50,71,.14)}.curve{width:100%;height:auto;min-height:300px;overflow:visible;display:block;margin-top:18px}.curve path{fill:none;stroke:var(--blue);stroke-width:9;stroke-linecap:round;filter:drop-shadow(0 5px 4px rgba(15,76,129,.16))}.curve .drop{stroke:var(--red);stroke-width:8}.curve-hit{cursor:pointer;fill:rgba(255,255,255,.01);outline:none}.curve-hit:hover{fill:rgba(15,76,129,.08)}.curve-label{font-family:"Source Sans Pro",sans-serif;font-weight:800;font-size:22px;letter-spacing:.02em}.curve-subtitle{font-family:"Source Sans Pro",sans-serif;font-size:15px;font-weight:600;fill:#557084}.curve-guide{stroke:#173247;stroke-width:2;stroke-dasharray:6 8;opacity:.22}.curve-point{stroke:#f7f2e8;stroke-width:5;filter:drop-shadow(0 4px 4px rgba(23,50,71,.2))}
+    .circuit{padding:30px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:center}.node{border-radius:14px;background:#f7f2e8;padding:18px 11px;text-align:center;border:2px solid var(--blue);font-weight:800;cursor:pointer;min-height:104px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}.node-image{width:58px;height:58px;object-fit:cover;border-radius:10px;margin-bottom:2px}.node:hover{background:#d9e8f5}.node-image{transition:transform .2s}.node:hover .node-image{transform:scale(1.05)}.wire{height:4px;background:var(--blue);position:relative}.wire:after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:var(--ochre);top:-5px;animation:charge 1.7s linear infinite}@keyframes charge{from{left:0}to{left:100%}}
+    .social-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}.switches{display:flex;gap:8px;margin-bottom:16px}.switches button{border:0;padding:10px 18px;border-radius:999px;background:#e3d6b9;font-weight:900;cursor:pointer}.switches button.selected{background:var(--blue);color:#fff}.social-panel{padding:26px;min-height:290px}.rights{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}.right-box{padding:14px;background:#d9e8f5;border-left:5px solid var(--blue)}
+    .school-plan{min-height:355px;position:relative;padding:26px;background:#f7f2e8;overflow:hidden}.building{position:absolute;left:20%;top:28%;width:58%;height:45%;background:#c2a671;border:5px solid #805f37}.building:before{content:"GIMNASIO";position:absolute;right:-30%;top:20%;width:30%;height:65%;padding-top:55px;text-align:center;background:#a78054;border:5px solid #805f37;font-weight:900}.yard{position:absolute;left:7%;top:38%;width:20%;height:38%;border-radius:50%;background:#d9e8f5;border:2px dashed var(--blue)}.flag{position:absolute;border:0;background:var(--red);color:#fff;border-radius:8px;padding:10px;cursor:pointer;font-weight:900;box-shadow:0 5px 12px #0003}
+    .quiz-card{max-width:930px;padding:clamp(24px,4vw,46px);margin:auto}.choice-btn{display:block;width:100%;text-align:left;padding:17px 18px;border-radius:12px;background:#f7f2e8;border:2px solid rgba(15,76,129,.28);margin-top:12px;font-size:1rem}.choice-btn:hover{border-color:var(--blue);transform:translateX(4px)}
+    .feedback{display:none;text-align:center;padding:32px}.feedback.show{display:block;animation:arrive .3s ease}.feedback h3{font-family:Alegreya,serif;font-size:2.7rem;margin:0}.feedback p{font-size:1.1rem;line-height:1.5}.feedback.bad h3{color:var(--red)}.feedback.good h3{color:var(--blue)}
+    .modal-backdrop{display:none;position:fixed;inset:0;background:rgba(11,34,51,.63);z-index:20;padding:18px;align-items:center;justify-content:center}.modal-backdrop.open{display:flex}.modal{position:relative;width:100%;max-width:680px;max-height:85%;overflow:auto;padding:32px;background:var(--paper);border-radius:20px;box-shadow:0 25px 65px rgba(0,0,0,.3)}.modal-close{position:absolute;right:12px;top:12px;border:0;background:var(--blue);color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer}
+    .detail{display:none}.detail h3{font-family:Alegreya,serif;font-size:2rem;color:var(--blue);margin:0 35px 10px 0}.detail p{line-height:1.5;font-size:1.06rem}
+    @media(max-width:720px){.screen{padding:19px 15px 28px}.two-col,.compare,.betz,.social-grid{grid-template-columns:1fr}.map-land{min-height:540px}.circuit{grid-template-columns:1fr}.wire{height:26px;width:4px;justify-self:center}.wire:after{animation-name:chargeV}.station-head{gap:10px}.return-btn span{display:none}.marker{transform:scale(.85)}.marker span{white-space:normal;width:90px;text-align:center}.betz img{height:190px}}@keyframes chargeV{from{top:0}to{top:100%}}
+  </style>
+  <script src="/_sdk/b3bf9e8ac58e6ad6.data_sdk.js" type="text/javascript" integrity="sha512-otc1u9NYq9Ms5Jt//7vmhrrqR5CLPr8Jdgs6741gqniClfLMcfmC+jK/cKuQdhLv6G0esJ/FzaMS9tv0T/vj/Q=="></script>
+  <script src="/_sdk/a6de989e8af05ea5.resizing_sdk.js" type="text/javascript" integrity="sha512-cceAQMIleYr/3eg7o5WzN46w0HpgI1sxi+5kDUb7CmTjHEpgBtINDxtOpnNeUtujjui8NG0OSDgUMl0/E2lT2A=="></script>
+ </head>
+ <body data-template-id="__page-root">
+  <div class="app">
+   <div class="wind-line"></div>
+   <div class="wind-line"></div>
+   <div class="wind-line"></div>
+   <main>
+    <!-- ======================== SLIDE 1: PORTADA ======================== -->
+    <section id="slide-1" class="screen hero active" aria-labelledby="hero-title"><img data-template-id="hero-image" class="canva-image hero-photo" loading="lazy" src="https://images.pexels.com/photos/4596500/pexels-photo-4596500.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920" alt="Paisaje árido de la Patagonia argentina con guanacos y colinas lejanas.">
+     <div class="page-shell hero-panel">
+      <p data-template-id="hero-kicker" class="canva-text eyebrow" style="color: rgb(15, 76, 129); font-weight: 700; font-style: normal; font-size: 16px; letter-spacing: 0.12rem;">Línea Sur · Río Negro · Energía y territorio</p>
+      <h1 data-template-id="hero-title" class="canva-text main-title title-font" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 32px;">Viento de la Estepa</h1>
+      <p data-template-id="hero-subtitle" class="canva-text hero-sub" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 22px;">Física, tecnología y justicia social en la estepa rionegrina.</p>
+      <div class="start-row">
+       <button data-template-id="start-button" class="canva-button route-btn" type="button" onclick="showSlide('slide-2')" style="background: rgb(194, 166, 113); color: rgb(255, 255, 255); font-weight: 900; font-style: normal; font-size: 16px;">▶️ COMENZAR LA AVENTURA</button> <button data-template-id="guiding-question-button" class="canva-button info-btn" type="button" onclick="openModal('detail-question')" aria-label="Abrir pregunta orientadora" style="background: rgb(194, 166, 113); color: rgb(23, 50, 71); font-weight: 900;">?</button>
+      </div>
+     </div>
+     <div class="grass"></div>
+    </section>
+
+    <!-- ======================== SLIDE 2: MAPA DE RUTA ======================== -->
+    <section id="slide-2" class="screen" aria-labelledby="route-title">
+     <div class="page-shell">
+      <div class="station-head">
+       <div>
+        <p data-template-id="route-kicker" class="canva-text eyebrow" style="color: rgb(15, 76, 129); font-weight: 700; font-style: normal; font-size: 16px;">Elegí tu propio itinerario. Cada marcador es una puerta a un nuevo conocimiento.</p>
+        <h2 data-template-id="route-title" class="canva-text section-title" style="color: rgb(23, 50, 71); font-weight: 800; font-style: normal; font-size: 24px;">Tu Ruta de Exploración</h2>
+       </div><button data-template-id="route-back" class="canva-button return-btn" type="button" onclick="showSlide('slide-1')" style="background: rgb(15, 76, 129); color: rgb(255, 255, 255);"><span data-template-id="route-back-label" class="canva-text" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Portada</span><i data-lucide="arrow-left"></i></button>
+      </div>
+      <div class="map-land paper-card">
+       <img data-template-id="route-map-image" class="canva-image route-map-photo" loading="lazy" src="https://images.pexels.com/photos/4596528/pexels-photo-4596528.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1280" alt="Guanacos recorriendo los terrenos áridos de la Patagonia bajo un cielo azul.">
+       <div class="ridge"></div>
+       <div class="map-road"></div><button class="marker" style="left:10%;top:23%" type="button" onclick="showSlide('slide-3')">1<span>🌀 Física</span></button> <button class="marker" style="left:26%;top:57%" type="button" onclick="showSlide('slide-4')">2<span>⚙️ Campo</span></button> <button class="marker" style="left:43%;top:25%" type="button" onclick="showSlide('slide-5')">3<span>🛑 Betz</span></button> <button class="marker" style="left:59%;top:58%" type="button" onclick="showSlide('slide-6')">4<span>⚠️ Tormenta</span></button> <button class="marker" style="left:74%;top:26%" type="button" onclick="showSlide('slide-7')">5<span>🔋 Off-grid</span></button> <button class="marker" style="left:87%;top:58%" type="button" onclick="showSlide('slide-8')">6<span>🏫 Justicia</span></button>
+      </div>
+      <div class="map-special">
+       <button data-template-id="field-challenge-button" class="canva-button route-btn" type="button" onclick="showSlide('slide-9')" style="background: rgb(194, 166, 113); color: rgb(23, 50, 71); font-weight: 900; font-style: normal; font-size: 16px;">📝 DESAFÍO TÉCNICO</button> <button data-template-id="quiz-route-button" class="canva-button route-btn" type="button" onclick="showSlide('slide-10')" style="background: rgb(194, 166, 113); color: rgb(23, 50, 71); font-weight: 900; font-style: normal; font-size: 16px;">🎮 PONÉ A PRUEBA TU MENTE</button>
+      </div>
+     </div>
+    </section>
+
+    <!-- ======================== SLIDE 3: FÍSICA DEL VIENTO ======================== -->
+    <section id="slide-3" class="screen" aria-labelledby="physics-title">
+     <div class="page-shell">
+      <div class="station-head">
+       <div>
+        <p data-template-id="physics-kicker" class="canva-text eyebrow" style="color: rgb(15, 76, 129); font-weight: 700; font-style: normal; font-size: 16px;">Estación 1 · Ciencia del aire</p>
+        <h2 data-template-id="physics-title" class="canva-text section-title" style="color: rgb(23, 50, 71); font-weight: 800; font-style: normal; font-size: 24px;">La física del viento</h2>
+       </div><button data-template-id="home-3" class="canva-button return-btn" type="button" onclick="showSlide('slide-2')" style="background: rgb(15, 76, 129); color: rgb(255, 255, 255);"><span data-template-id="home-3-label" class="canva-text" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Mapa</span><i data-lucide="home"></i></button>
+      </div>
+      <div class="two-col">
+       <div class="paper-card p-6">
+        <p data-template-id="physics-intro" class="canva-text content-copy" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">La potencia disponible en el viento depende de tres variables físicas. Hacé clic en cada una para descubrir su significado.</p>
+        <div class="formula">
+         P = ½ · <button type="button" onclick="openModal('detail-rho')">ρ</button> · <button type="button" onclick="openModal('detail-area')">A</button> · <button type="button" onclick="openModal('detail-speed')">v³</button>
+        </div>
+       </div>
+       <div class="airflow"><span class="arrow">➜</span><span class="arrow">➜</span><span class="arrow">➜</span>
+        <div class="turbine"></div>
+       </div>
+      </div>
+     </div>
+    </section>
+
+    <!-- ======================== SLIDE 4: TRADICIÓN VS MODERNIDAD ======================== -->
+    <section id="slide-4" class="screen" aria-labelledby="tradition-title">
+     <div class="page-shell">
+      <div class="station-head">
+       <div>
+        <p data-template-id="tradition-kicker" class="canva-text eyebrow" style="color: rgb(15, 76, 129); font-weight: 700; font-style: normal; font-size: 16px;">Estación 2 · Tecnología situada</p>
+        <h2 data-template-id="tradition-title" class="canva-text section-title" style="color: rgb(23, 50, 71); font-weight: 800; font-style: normal; font-size: 24px;">Tradición vs. modernidad</h2>
+       </div><button data-template-id="home-4" class="canva-button return-btn" type="button" onclick="showSlide('slide-2')" style="background: rgb(15, 76, 129); color: rgb(255, 255, 255);"><span data-template-id="home-4-label" class="canva-text" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Mapa</span><i data-lucide="home"></i></button>
+      </div>
+      <div class="compare">
+       <article data-template-id="traditional-card" class="canva-card machine paper-card" style="background: rgb(247, 242, 232);"><img data-template-id="traditional-image" class="canva-image" loading="lazy" src="https://images.pexels.com/photos/36927665/pexels-photo-36927665.jpeg" alt="Molino rural de estructura metálica bajo un cielo azul.">
+        <h3 data-template-id="traditional-heading" class="canva-text title-font text-3xl font-bold" style="color: rgb(23, 50, 71); font-weight: 800; font-style: normal; font-size: 19px;">Molino multipala</h3>
+        <p data-template-id="traditional-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 16px;">Una máquina rural pensada para convertir el viento en fuerza mecánica y bombear agua.</p><button data-template-id="drag-button" class="canva-button mini-btn" type="button" onclick="openModal('detail-drag')" style="background: rgb(15, 76, 129); color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">⚙ Fórmula de arrastre</button>
+       </article>
+       <article data-template-id="modern-card" class="canva-card machine paper-card" style="background: rgb(247, 242, 232);"><img data-template-id="modern-image" class="canva-image" loading="lazy" src="https://images.pexels.com/photos/14746801/pexels-photo-14746801.jpeg" alt="Aerogenerador moderno de tres palas contra un cielo azul.">
+        <h3 data-template-id="modern-heading" class="canva-text title-font text-3xl font-bold" style="color: rgb(23, 50, 71); font-weight: 800; font-style: normal; font-size: 19px;">Aerogenerador moderno</h3>
+        <p data-template-id="modern-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 16px;">Tres palas aerodinámicas giran con velocidad para accionar un alternador eléctrico.</p><button data-template-id="lift-button" class="canva-button mini-btn" type="button" onclick="openModal('detail-lift')" style="background: rgb(15, 76, 129); color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">⚡ Fórmula de sustentación</button>
+       </article>
+      </div>
+     </div>
+    </section>
+
+    <!-- ======================== SLIDE 5: BETZ ======================== -->
+    <section id="slide-5" class="screen" aria-labelledby="betz-title">
+     <div class="page-shell">
+      <div class="station-head">
+       <div>
+        <p data-template-id="betz-kicker" class="canva-text eyebrow" style="color: rgb(15, 76, 129); font-weight: 700; font-style: normal; font-size: 16px;">Estación 3 · Límite termodinámico</p>
+        <h2 data-template-id="betz-title" class="canva-text section-title" style="color: rgb(23, 50, 71); font-weight: 800; font-style: normal; font-size: 24px;">El techo de la naturaleza</h2>
+       </div><button data-template-id="home-5" class="canva-button return-btn" type="button" onclick="showSlide('slide-2')" style="background: rgb(15, 76, 129); color: rgb(255, 255, 255);"><span data-template-id="home-5-label" class="canva-text" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Mapa</span><i data-lucide="home"></i></button>
+      </div>
+      <div class="betz">
+       <img data-template-id="betz-image" class="canva-image" loading="lazy" src="https://images.pexels.com/photos/714699/pexels-photo-714699.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Mano escribiendo ecuaciones de física en un pizarrón.">
+       <div class="paper-card p-7">
+        <p data-template-id="betz-intro" class="canva-text content-copy" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">Una turbina no puede capturar toda la energía del viento: el aire debe seguir moviéndose después de atravesar el rotor.</p>
+        <div class="limit">
+         59,3%
+        </div>
+        <p data-template-id="betz-limit-label" class="canva-text font-bold text-xl" style="color: rgb(217, 83, 79); font-weight: 700; font-style: normal; font-size: 16px;">máximo teórico de extracción de energía</p>
+        <div class="flex gap-3 flex-wrap mt-5"><button data-template-id="air-wall-button" class="canva-button mini-btn" type="button" onclick="openModal('detail-wall')" style="background: rgb(217, 83, 79); color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">🛑 La paradoja del muro de aire</button><button data-template-id="scientific-data-button" class="canva-button mini-btn" type="button" onclick="openModal('detail-betz')" style="background: rgb(15, 76, 129); color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">📊 El límite del 59,3%</button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+
+    <!-- ======================== SLIDE 6: TORMENTAS ======================== -->
+    <section id="slide-6" class="screen" aria-labelledby="storm-title">
+     <div class="page-shell">
+      <div class="station-head">
+       <div>
+        <p data-template-id="storm-kicker" class="canva-text eyebrow" style="color: rgb(15, 76, 129); font-weight: 700; font-style: normal; font-size: 16px;">Estación 4 · Seguridad y control</p>
+        <h2 data-template-id="storm-title" class="canva-text section-title" style="color: rgb(23, 50, 71); font-weight: 800; font-style: normal; font-size: 24px;">La paradoja de las tormentas</h2>
+       </div><button data-template-id="home-6" class="canva-button return-btn" type="button" onclick="showSlide('slide-2')" style="background: rgb(15, 76, 129); color: rgb(255, 255, 255);"><span data-template-id="home-6-label" class="canva-text" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Mapa</span><i data-lucide="home"></i></button>
+      </div>
+      <div class="paper-card curve-wrap">
+       <p data-template-id="storm-instruction" class="canva-text content-copy" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">La paradoja es que más viento no siempre significa más electricidad: el equipo necesita viento para arrancar, entrega su máximo en la zona nominal y, si una tormenta supera el límite de seguridad, se frena para protegerse. Explorá los tres tramos de la curva.</p>
+       <svg class="curve" viewBox="0 0 1000 280" role="img" aria-label="Curva de potencia de un aerogenerador">
+        <line x1="70" y1="230" x2="950" y2="230" stroke="#173247" stroke-width="3"></line><line x1="70" y1="25" x2="70" y2="230" stroke="#173247" stroke-width="3"></line><line class="curve-guide" x1="190" y1="207" x2="190" y2="230"></line><line class="curve-guide" x1="570" y1="55" x2="570" y2="230"></line><line class="curve-guide" x1="780" y1="47" x2="780" y2="230"></line> <path d="M90,230 C160,230 175,210 230,185 S370,100 500,65 S680,47 780,47"></path><path class="drop" d="M780,47 L780,230"></path> <circle cx="190" cy="207" r="18" fill="#5da85d"></circle><circle cx="570" cy="55" r="18" fill="#0F4C81"></circle><circle cx="780" cy="47" r="18" fill="#D9534F"></circle> <rect class="curve-hit" x="110" y="140" width="160" height="100" onclick="openModal('detail-cutin')"></rect><rect class="curve-hit" x="430" y="25" width="210" height="100" onclick="openModal('detail-rated')"></rect><rect class="curve-hit" x="710" y="20" width="130" height="220" onclick="openModal('detail-cutout')"></rect> <text class="curve-label" x="118" y="263" fill="#173247">
+         Arranque
+        </text><text class="curve-label" x="500" y="263" fill="#173247">
+         Nominal
+        </text><text class="curve-label" x="738" y="263" fill="#D9534F">
+         Corte
+        </text><text data-template-id="power-axis-label" class="curve-label" x="430" y="28" text-anchor="middle" fill="#173247">
+         Potencia eléctrica (kW)
+        </text><text data-template-id="wind-axis-label" class="curve-label" x="930" y="258" text-anchor="end" fill="#173247">
+         Velocidad del viento (m/s)
+        </text>
+       </svg>
+      </div>
+     </div>
+    </section>
+
+    <!-- ======================== SLIDE 7: OFF-GRID ======================== -->
+    <section id="slide-7" class="screen" aria-labelledby="grid-title">
+     <div class="page-shell">
+      <div class="station-head">
+       <div>
+        <p data-template-id="grid-kicker" class="canva-text eyebrow" style="color: rgb(15, 76, 129); font-weight: 700; font-style: normal; font-size: 16px;">Estación 5 · Sistema aislado</p>
+        <h2 data-template-id="grid-title" class="canva-text section-title" style="color: rgb(23, 50, 71); font-weight: 800; font-style: normal; font-size: 24px;">El corazón eléctrico rural</h2>
+       </div><button data-template-id="home-7" class="canva-button return-btn" type="button" onclick="showSlide('slide-2')" style="background: rgb(15, 76, 129); color: rgb(255, 255, 255);"><span data-template-id="home-7-label" class="canva-text" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Mapa</span><i data-lucide="home"></i></button>
+      </div>
+      <p data-template-id="grid-intro" class="canva-text content-copy mb-5" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">En una escuela hogar off-grid, la energía debe transformarse y guardarse para sostener las luces, las computadoras y la conectividad aun cuando el viento baja.</p>
+      <div class="paper-card circuit">
+       <button data-template-id="alternator-node" class="canva-panel node" type="button" onclick="openModal('detail-alternator')" style="background: rgb(247, 242, 232); color: rgb(15, 76, 129); font-weight: 800;"><img data-template-id="alternator-image" class="canva-image node-image" loading="lazy" src="https://images.pexels.com/photos/10785837/pexels-photo-10785837.jpeg" alt="Palas de un aerogenerador y equipo mecánico de energía renovable."><span data-template-id="alternator-node-label" class="canva-text" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 16px;">Alternador de góndola</span></button>
+       <div class="wire"></div><button data-template-id="controller-node" class="canva-panel node" type="button" onclick="openModal('detail-controller')" style="background: rgb(247, 242, 232); color: rgb(15, 76, 129); font-weight: 800;"><img data-template-id="controller-image" class="canva-image node-image" loading="lazy" src="https://images.pexels.com/photos/8853468/pexels-photo-8853468.jpeg" alt="Controlador eléctrico con cables para regular la carga."><span data-template-id="controller-node-label" class="canva-text" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 16px;">Regulador de carga</span></button>
+       <div class="wire"></div><button data-template-id="battery-node" class="canva-panel node" type="button" onclick="openModal('detail-battery')" style="background: rgb(247, 242, 232); color: rgb(15, 76, 129); font-weight: 800;"><img data-template-id="battery-image" class="canva-image node-image" loading="lazy" src="https://images.pexels.com/photos/39057090/pexels-photo-39057090.jpeg" alt="Sistema de baterías para almacenar energía renovable."><span data-template-id="battery-node-label" class="canva-text" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 16px;">Banco de baterías</span></button>
+       <div class="wire"></div><button data-template-id="inverter-node" class="canva-panel node" type="button" onclick="openModal('detail-inverter')" style="background: rgb(247, 242, 232); color: rgb(15, 76, 129); font-weight: 800;"><img data-template-id="inverter-image" class="canva-image node-image" loading="lazy" src="https://images.pexels.com/photos/37929911/pexels-photo-37929911.jpeg" alt="Inversor de energía instalado para gestionar electricidad."><span data-template-id="inverter-node-label" class="canva-text" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 16px;">Inversor / ondulador</span></button>
+      </div>
+     </div>
+    </section>
+
+    <!-- ======================== SLIDE 8: PERMER ======================== -->
+    <section id="slide-8" class="screen" aria-labelledby="justice-title">
+     <div class="page-shell">
+      <div class="station-head">
+       <div>
+        <p data-template-id="justice-kicker" class="canva-text eyebrow" style="color: rgb(15, 76, 129); font-weight: 700; font-style: normal; font-size: 16px;">Estación 6 · Energía como derecho</p>
+        <h2 data-template-id="justice-title" class="canva-text section-title" style="color: rgb(23, 50, 71); font-weight: 800; font-style: normal; font-size: 24px;">Justicia Social y Energía</h2>
+       </div><button data-template-id="home-8" class="canva-button return-btn" type="button" onclick="showSlide('slide-2')" style="background: rgb(15, 76, 129); color: rgb(255, 255, 255);"><span data-template-id="home-8-label" class="canva-text" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Mapa</span><i data-lucide="home"></i></button>
+      </div>
+      <div class="social-grid">
+       <img data-template-id="school-image" class="canva-image rounded-2xl object-cover w-full h-full min-h-[280px]" loading="lazy" src="https://images.pexels.com/photos/35433138/pexels-photo-35433138.png" alt="Edificio aislado en una extensa zona de pastizales.">
+       <div class="paper-card social-panel">
+        <div class="switches"><button data-template-id="before-switch" class="canva-button selected" type="button" onclick="setSocial('before',this)" style="background: rgb(15, 76, 129); color: rgb(255, 255, 255); font-weight: 900; font-style: normal; font-size: 16px;">ANTES · Recursos de stock</button><button data-template-id="after-switch" class="canva-button" type="button" onclick="setSocial('after',this)" style="background: rgb(227, 214, 185); color: rgb(23, 50, 71); font-weight: 900; font-style: normal; font-size: 16px;">AHORA · Recursos de flujo</button>
+        </div>
+        <div id="social-before">
+         <h3 data-template-id="before-heading" class="canva-text title-font text-3xl font-bold" style="color: rgb(23, 50, 71); font-weight: 800; font-style: normal; font-size: 19px;">Dependencia del diésel</h3>
+         <p data-template-id="before-copy" class="canva-text content-copy" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">La Dependencia del Combustible Fósil. Tradicionalmente, la escuela dependía de motores generadores diésel. Esto requería la compra y el costoso transporte de gasoil (recurso de stock no renovable) en camiones que debían transitar huellas rurales intransitables por el barro o el hielo invernal de la estepa. El suministro era ruidoso, contaminante y limitado a unas pocas horas al día.</p>
+        </div>
+        <div id="social-after" class="hidden">
+         <h3 data-template-id="after-heading" class="canva-text title-font text-3xl font-bold" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 19px;">Autonomía del viento · PERMER</h3>
+         <p data-template-id="after-copy" class="canva-text content-copy" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">La Autonomía del Viento (PERMER). El Proyecto de Energías Renovables en Mercados Rurales instala sistemas eólicos Off-Grid autónomos. Al aprovechar el recurso de flujo constante de la estepa (viento), se sustituye la quema de combustibles fósiles. Esto garantiza derechos fundamentales:</p>
+         <div class="rights">
+          <div class="right-box"><strong data-template-id="education-right" class="canva-text" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 16px;">Educación y conectividad</strong>
+           <p data-template-id="education-copy" class="canva-text m-0" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 16px;">Permite mantener encendidas las antenas de internet satelital y las netbooks escolares, rompiendo el aislamiento de los jóvenes rurales.</p>
+          </div>
+          <div class="right-box"><strong data-template-id="health-right" class="canva-text" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 16px;">Salud y alimentación</strong>
+           <p data-template-id="health-copy" class="canva-text m-0" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 16px;">Asegura el funcionamiento diario de la heladera de la escuela hogar para almacenar vacunas y comida fresca.</p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+
+    <!-- ======================== SLIDE 9: VENTURI ======================== -->
+    <section id="slide-9" class="screen" aria-labelledby="field-title">
+     <div class="page-shell">
+      <div class="station-head">
+       <div>
+        <p data-template-id="field-kicker" class="canva-text eyebrow" style="color: rgb(15, 76, 129); font-weight: 700; font-style: normal; font-size: 16px;">Estación 7 · Experimentación escolar</p>
+        <h2 data-template-id="field-title" class="canva-text section-title" style="color: rgb(23, 50, 71); font-weight: 800; font-style: normal; font-size: 24px;">Desafío de Campo</h2>
+       </div><button data-template-id="home-9" class="canva-button return-btn" type="button" onclick="showSlide('slide-2')" style="background: rgb(15, 76, 129); color: rgb(255, 255, 255);"><span data-template-id="home-9-label" class="canva-text" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Mapa</span><i data-lucide="home"></i></button>
+      </div>
+      <p data-template-id="field-intro" class="canva-text content-copy mb-5" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">Efectuá el experimento en tu predio escolar con un anemómetro casero de tapitas plásticas.</p>
+      <div class="paper-card school-plan">
+       <div class="yard"></div>
+       <div class="building"></div><button data-template-id="yard-flag" class="canva-button flag" style="left: 9%; top: 22%; background: rgb(217, 83, 79); color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;" type="button" onclick="openModal('detail-yard')">🚩 Punto A · Patio abierto</button><button data-template-id="venturi-flag" class="canva-button flag" style="right: 7%; top: 20%; background: rgb(217, 83, 79); color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;" type="button" onclick="openModal('detail-venturi')">🚩 Punto B · Pasillo estrecho</button>
+      </div>
+     </div>
+    </section>
+
+    <!-- ======================== SLIDE 10: TRIVIA ======================== -->
+    <section id="slide-10" class="screen" aria-labelledby="quiz-title">
+     <div class="page-shell">
+      <div class="station-head">
+       <div>
+        <p data-template-id="quiz-kicker" class="canva-text eyebrow" style="color: rgb(15, 76, 129); font-weight: 700; font-style: normal; font-size: 16px;">Estación 8 · Decisión técnica</p>
+        <h2 data-template-id="quiz-title" class="canva-text section-title" style="color: rgb(23, 50, 71); font-weight: 800; font-style: normal; font-size: 24px;">Trivia eólica</h2>
+       </div><button data-template-id="home-10" class="canva-button return-btn" type="button" onclick="showSlide('slide-2')" style="background: rgb(15, 76, 129); color: rgb(255, 255, 255);"><span data-template-id="home-10-label" class="canva-text" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Mapa</span><i data-lucide="home"></i></button>
+      </div>
+      <div id="quiz-main" class="paper-card quiz-card">
+       <p data-template-id="quiz-question" class="canva-text content-copy font-semibold" style="color: rgb(23, 50, 71); font-weight: 600; font-style: normal; font-size: 19px;">Llega un folleto comercial a la dirección de tu escuela de la Línea Sur de Río Negro. El fabricante asegura que su nuevo aerogenerador de diseño aerodinámico de 2 kW nominales entregará de forma ininterrumpida esa potencia las 24 horas del día gracias a un rendimiento de palas del 75%. ¿Qué decisión técnica debe tomar la escuela?</p><button data-template-id="choice-a" class="canva-button choice-btn" type="button" onclick="showFeedback('feedback-a')" style="background: rgb(247, 242, 232); color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 16px;">A · Comprarlo de inmediato: con 75% de rendimiento alcanzará para el invierno sin baterías.</button> <button data-template-id="choice-b" class="canva-button choice-btn" type="button" onclick="showFeedback('feedback-b')" style="background: rgb(247, 242, 232); color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 16px;">B · Rechazarlo: la potencia nominal no es continua y el límite de Betz restringe la eficiencia máxima al 59,3%.</button> <button data-template-id="choice-c" class="canva-button choice-btn" type="button" onclick="showFeedback('feedback-c')" style="background: rgb(247, 242, 232); color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 16px;">C · Aceptarlo, pero retirar las baterías: las tormentas mantendrán el alternador girando a potencia nominal.</button>
+      </div>
+      <div id="feedback-a" class="feedback bad paper-card">
+       <h3 data-template-id="error-a-title" class="canva-text" style="color: rgb(217, 83, 79); font-weight: 800; font-style: normal; font-size: 19px;">¡Intentá de nuevo! ❌</h3>
+       <p data-template-id="error-a-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">Estás cayendo en el pensamiento lineal de catálogo. Recordá que el sol no brilla de noche y el viento fluctúa; es imposible generar de manera ininterrumpida sin baterías. Además, un rendimiento de palas del 75% es físicamente imposible: viola las leyes de la termodinámica.</p><button data-template-id="retry-a" class="canva-button route-btn" type="button" onclick="resetQuiz()" style="background: rgb(15, 76, 129); color: rgb(255, 255, 255); font-weight: 900; font-style: normal; font-size: 16px;">VOLVER A INTENTAR</button>
+      </div>
+      <div id="feedback-b" class="feedback good paper-card">
+       <h3 data-template-id="success-title" class="canva-text" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 19px;">¡Excelente trabajo técnico! 🏆</h3>
+       <p data-template-id="success-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">Has aplicado el rigor científico con maestría. Comprendiste que la potencia de folleto de un generador comercial no equivale a su generación real continua debido a la variabilidad del viento y el Factor de Capacidad local. Además, recordaste que Albert Betz demostró en 1919 que ninguna máquina del universo puede capturar más del 59,3% del viento, haciendo que una promesa de venta del 75% sea un fraude técnico. ¡Estás listo para graduarte como un ciudadano y técnico crítico en la transición energética de Río Negro!</p><button data-template-id="success-menu" class="canva-button route-btn" type="button" onclick="showSlide('slide-2')" style="background: rgb(15, 76, 129); color: rgb(255, 255, 255); font-weight: 900; font-style: normal; font-size: 16px;">IR AL MAPA PRINCIPAL</button>
+      </div>
+      <div id="feedback-c" class="feedback bad paper-card">
+       <h3 data-template-id="error-c-title" class="canva-text" style="color: rgb(217, 83, 79); font-weight: 800; font-style: normal; font-size: 19px;">¡Fallo estructural! ❌</h3>
+       <p data-template-id="error-c-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">Recordá la paradoja de las tormentas de la estepa. Cuando el viento supera la velocidad de corte de 25 m/s (90 km/h), el sistema frena por completo el aerogenerador y pone las palas en bandera para evitar la rotura de la torre por fatiga de materiales. Por lo tanto, durante un gran temporal tendrás generación cero y el banco de baterías será imprescindible.</p><button data-template-id="retry-c" class="canva-button route-btn" type="button" onclick="resetQuiz()" style="background: rgb(15, 76, 129); color: rgb(255, 255, 255); font-weight: 900; font-style: normal; font-size: 16px;">VOLVER A INTENTAR</button>
+      </div>
+     </div>
+    </section>
+   </main>
+
+   <!-- ======================== MODALES ======================== -->
+   <div id="modal-backdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-content-title">
+    <div class="modal"><button class="modal-close" type="button" onclick="closeModal()" aria-label="Cerrar información">×</button>
+
+     <!-- PREGUNTA ORIENTADORA -->
+     <div id="detail-question" class="detail">
+      <h3 id="modal-content-title" data-template-id="question-heading" class="canva-text" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 19px;">Pregunta orientadora</h3>
+      <p data-template-id="question-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">Si la Patagonia tiene los vientos más potentes del país, ¿por qué un temporal a veces deja sin luz a las escuelas de la estepa? ¡Descubrámoslo explorando estas diapositivas!</p>
+     </div>
+
+     <!-- FÍSICA: ρ -->
+     <div id="detail-rho" class="detail">
+      <h3 data-template-id="rho-heading" class="canva-text" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 19px;">ρ · Densidad del aire</h3>
+      <p data-template-id="rho-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">El viento no es aire vacío: es una corriente de moléculas de gases con masa física real. En la estepa fría, la densidad promedio de esta masa de aire es de aproximadamente 1,2 kg/m³. A menor temperatura, el aire se vuelve más denso y pesado, transportando mayor fuerza de impacto sobre las palas del aerogenerador.</p>
+     </div>
+
+     <!-- FÍSICA: A -->
+     <div id="detail-area" class="detail">
+      <h3 data-template-id="area-heading" class="canva-text" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 19px;">A · El círculo de captación</h3>
+      <p data-template-id="area-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">Representa el área interceptada por el giro de las palas: A = π · r². Cuanto más largas sean las palas del aerogenerador, el círculo barrido será más grande y capturará una porción mayor de la masa de viento en movimiento.</p>
+     </div>
+
+     <!-- FÍSICA: v³ -->
+     <div id="detail-speed" class="detail">
+      <h3 data-template-id="speed-heading" class="canva-text" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 19px;">v³ · La regla del cubo de la velocidad</h3>
+      <p data-template-id="speed-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">¡Aquí es donde la física rompe las estimaciones lineales! La velocidad del viento está elevada al cubo. Esto significa que si el viento en Maquinchao pasa de un día calmo de 5 m/s (18 km/h) a un día ventoso de 10 m/s (36 km/h), la velocidad se duplicó, pero la potencia disponible en el aire ¡se multiplicó por 8! (2³ = 2 · 2 · 2 = 8). Por esta razón, el viento patagónico es un recurso extraordinario.</p>
+     </div>
+
+     <!-- TRADICIÓN: ARRASTRE -->
+     <div id="detail-drag" class="detail">
+      <h3 data-template-id="drag-heading" class="canva-text" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 19px;">El molino multipala — Arrastre aerodinámico</h3>
+      <p data-template-id="drag-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">Funciona porque el viento choca directamente contra sus 12 a 24 chapas de hierro y las empuja mecánicamente (arrastre).</p>
+      <p data-template-id="drag-detail" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 600; font-style: normal; font-size: 16px;"><strong>Física del sistema:</strong> Funciona a baja velocidad y alto torque (fuerza). Requiere ráfagas muy suaves para empezar a girar. Esta inmensa fuerza mecánica es ideal para tirar de la pesada varilla de hierro vertical que bombea agua desde pozos subterráneos muy profundos de la estepa, sin necesidad de corriente eléctrica.</p>
+     </div>
+
+     <!-- MODERNIDAD: SUSTENTACIÓN -->
+     <div id="detail-lift" class="detail">
+      <h3 data-template-id="lift-heading" class="canva-text" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 19px;">El aerogenerador moderno — Sustentación aerodinámica</h3>
+      <p data-template-id="lift-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">Sus 3 palas estilizadas tienen perfiles alares curvados como las alas de un avión. El aire pasa más rápido por una cara de la pala que por la otra, creando una diferencia de presiones que genera una fuerza de "succión" o empuje lateral (sustentación).</p>
+      <p data-template-id="lift-detail" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 600; font-style: normal; font-size: 16px;"><strong>Física del sistema:</strong> Funciona a alta velocidad de rotación y bajo torque. No tiene la fuerza bruta para bombear agua directa, pero su velocidad de giro es ideal para hacer funcionar un alternador y producir corriente eléctrica limpia.</p>
+     </div>
+
+     <!-- BETZ: MURO DE AIRE -->
+     <div id="detail-wall" class="detail">
+      <h3 data-template-id="wall-heading" class="canva-text" style="color: rgb(217, 83, 79); font-weight: 800; font-style: normal; font-size: 19px;">La paradoja del muro de aire</h3>
+      <p data-template-id="wall-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">¿Por qué no existe una máquina 100% eficiente? Si un aerogenerador perfecto pudiera absorber el 100% de la energía cinética del viento, la velocidad del aire detrás de sus palas tendría que ser de 0 m/s (el aire quedaría inmóvil). Pero si el aire se detiene por completo, se formaría un tapón o "muro de aire estancado" detrás del molino. El nuevo viento que viene soplando no podría pasar y tendría que esquivar el aerogenerador por los costados, resultando en una generación de 0 W.</p>
+     </div>
+
+     <!-- BETZ: LÍMITE 59.3% -->
+     <div id="detail-betz" class="detail">
+      <h3 data-template-id="betz-detail-heading" class="canva-text" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 19px;">El límite físico de Betz</h3>
+      <p data-template-id="betz-detail-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">En 1919, Albert Betz calculó matemáticamente el equilibrio de fluidos y la termodinámica óptima. Demostró que el máximo teórico absoluto de energía cinética que cualquier hélice del planeta puede extraer del viento es del 59,3% (fracción de 16/27).</p>
+      <p data-template-id="betz-real-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 600; font-style: normal; font-size: 16px;"><strong>Rendimiento real:</strong> Las turbinas industriales más avanzadas operan al 45% – 50% de eficiencia debido a pérdidas por fricción mecánica y calor residual (entropía). ¡Los catálogos comerciales que prometen eficiencias mayores violan las leyes físicas del universo!</p>
+     </div>
+
+     <!-- TORMENTAS: CUT-IN -->
+     <div id="detail-cutin" class="detail">
+      <h3 data-template-id="cutin-heading" class="canva-text" style="color: rgb(93, 168, 93); font-weight: 800; font-style: normal; font-size: 19px;">🟢 Velocidad de arranque (Cut-in)</h3>
+      <p data-template-id="cutin-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">Es la brisa mínima necesaria para que las palas venzan la inercia interna de los engranajes y arranquen a girar. Suele estar entre 3 m/s y 4 m/s, es decir, unos 11 a 14 km/h. Con menos viento, el rotor permanece quieto y genera cero energía.</p>
+     </div>
+
+     <!-- TORMENTAS: NOMINAL -->
+     <div id="detail-rated" class="detail">
+      <h3 data-template-id="rated-heading" class="canva-text" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 19px;">🔵 Velocidad nominal (Rated Speed)</h3>
+      <p data-template-id="rated-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">Es el punto óptimo de funcionamiento (vientos de 11 a 13 m/s, unos 45 km/h) donde el alternador alcanza la potencia máxima indicada en su folleto técnico. Más allá de esta velocidad, el sistema controla el paso de las palas para no exceder la potencia nominal.</p>
+     </div>
+
+     <!-- TORMENTAS: CUT-OUT -->
+     <div id="detail-cutout" class="detail">
+      <h3 data-template-id="cutout-heading" class="canva-text" style="color: rgb(217, 83, 79); font-weight: 800; font-style: normal; font-size: 19px;">🔴 Velocidad de corte (Cut-out) y palas en bandera</h3>
+      <p data-template-id="cutout-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">Cuando las ráfagas en la estepa patagónica superan los 25 m/s (90 km/h), el viento ejerce fuerzas extremas sobre la torre y el rotor, arriesgando el colapso de la estructura. Por seguridad, el sistema automático frena mecánicamente el equipo y gira las palas sobre su eje para ponerlas "en bandera" (paralelas al viento para no ofrecer resistencia).</p>
+      <p data-template-id="cutout-paradox" class="canva-text" style="color: rgb(217, 83, 79); font-weight: 700; font-style: normal; font-size: 16px;"><strong>La Paradoja:</strong> El equipo se detiene por completo. Por lo tanto, en el día de mayor viento de la tormenta, el generador produce exactamente cero energía.</p>
+     </div>
+
+     <!-- OFF-GRID: ALTERNADOR -->
+     <div id="detail-alternator" class="detail">
+      <h3 data-template-id="alternator-heading" class="canva-text" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 19px;">Generador trifásico</h3>
+      <p data-template-id="alternator-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">Transforma la energía mecánica de rotación de las palas en corriente alterna (CA) de frecuencia variable. La frecuencia de la corriente generada varía con la velocidad del viento, por lo que no es directamente utilizable para los artefactos escolares sin pasar por los siguientes etapas del circuito.</p>
+     </div>
+
+     <!-- OFF-GRID: REGULADOR -->
+     <div id="detail-controller" class="detail">
+      <h3 data-template-id="controller-heading" class="canva-text" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 19px;">El cerebro eléctrico — Regulador de carga</h3>
+      <p data-template-id="controller-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">Recibe la corriente alterna del alternador, la rectifica a corriente continua (CC) y controla con precisión el voltaje de carga para proteger la vida útil química del banco de baterías, evitando sobrecargas térmicas. Sin este componente, las baterías se destruirían en pocas semanas.</p>
+     </div>
+
+     <!-- OFF-GRID: BATERÍAS -->
+     <div id="detail-battery" class="detail">
+      <h3 data-template-id="battery-heading" class="canva-text" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 19px;">El amortiguador químico — Banco de baterías</h3>
+      <p data-template-id="battery-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">Almacena la energía eléctrica en forma de energía química cuando el viento sopla con fuerza, para poder liberarla de forma continua durante la noche o los períodos de calma patagónica, garantizando el suministro ininterrumpido en la escuela rural. Tipos comunes: baterías de plomo-ácido o litio, diseñadas para ciclos profundos de carga y descarga.</p>
+     </div>
+
+     <!-- OFF-GRID: INVERSOR -->
+     <div id="detail-inverter" class="detail">
+      <h3 data-template-id="inverter-heading" class="canva-text" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 19px;">El conversor de onda — Inversor / Ondulador</h3>
+      <p data-template-id="inverter-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">Las baterías entregan corriente continua de 24 V, pero los artefactos escolares y las computadoras funcionan con corriente alterna de 220 V a 50 Hz. El inversor realiza esta conversión mediante conmutación electrónica de alta frecuencia. Sin este componente, no se podrían encender las luces, las computadoras ni el equipamiento escolar.</p>
+     </div>
+
+     <!-- VENTURI: PATIO -->
+     <div id="detail-yard" class="detail">
+      <h3 data-template-id="yard-heading" class="canva-text" style="color: rgb(15, 76, 129); font-weight: 800; font-style: normal; font-size: 19px;">Punto A · El patio abierto</h3>
+      <p data-template-id="yard-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">El viento fluye libremente sin obstáculos. Registra la velocidad promedio aquí con tu anemómetro de tapitas plásticas casero. Esta velocidad representará la corriente eólica de base en tu localidad.</p>
+     </div>
+
+     <!-- VENTURI: PASILLO -->
+     <div id="detail-venturi" class="detail">
+      <h3 data-template-id="venturi-heading" class="canva-text" style="color: rgb(217, 83, 79); font-weight: 800; font-style: normal; font-size: 19px;">Punto B · El estrechamiento (Efecto Venturi)</h3>
+      <p data-template-id="venturi-copy" class="canva-text" style="color: rgb(23, 50, 71); font-weight: 400; font-style: normal; font-size: 18px;">Cuando la masa de aire que viaja por la estepa choca contra el edificio de la escuela, se ve obligada a pasar por el pasillo estrecho formado entre las paredes. Al reducirse el espacio físico de tránsito, el aire disminuye su presión y aumenta drásticamente su velocidad para conservar el flujo constante.</p>
+      <p data-template-id="venturi-math" class="canva-text" style="color: rgb(217, 83, 79); font-weight: 700; font-style: normal; font-size: 16px;"><strong>Desafío Matemático:</strong> Si la velocidad medida en el patio es de 4 m/s y en el pasillo es de 8 m/s (se duplicó por el estrechamiento), calculá la potencia utilizando la regla del cubo: (8 / 4)³ = 2³ = 8. ¡La energía eólica en el pasillo es 8 veces mayor gracias a la micro-arquitectura escolar! Esto demuestra por qué los aerogeneradores reales nunca se instalan al azar en la provincia.</p>
+     </div>
+
+    </div>
+   </div>
+  </div>
+  <script src="/_sdk/c6bcadf20ce5820f.editing_sdk.js" integrity="sha512-LVukVCTKnKSxy98w+wCVzDAxVXBG2vy32XblXlmJD9CPFnF2/FVc75CFngl41IdXcX3sVHJc9olw64zrPM/FIA=="></script>
+  <script>
+    function showSlide(id){
+      document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      closeModal();
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+    function openModal(id){
+      document.querySelectorAll('.detail').forEach(d=>d.style.display='none');
+      document.getElementById(id).style.display='block';
+      document.getElementById('modal-backdrop').classList.add('open');
+    }
+    function closeModal(){document.getElementById('modal-backdrop').classList.remove('open')}
+    function setSocial(mode,button){
+      document.getElementById('social-before').classList.toggle('hidden',mode!=='before');
+      document.getElementById('social-after').classList.toggle('hidden',mode!=='after');
+      document.querySelectorAll('.switches button').forEach(b=>b.classList.remove('selected'));button.classList.add('selected');
+    }
+    function showFeedback(id){
+      document.getElementById('quiz-main').style.display='none';
+      document.querySelectorAll('.feedback').forEach(f=>f.classList.remove('show'));
+      document.getElementById(id).classList.add('show');
+    }
+    function resetQuiz(){
+      document.querySelectorAll('.feedback').forEach(f=>f.classList.remove('show'));
+      document.getElementById('quiz-main').style.display='block';
+    }
+    document.getElementById('modal-backdrop').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal()});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+    document.addEventListener('DOMContentLoaded',()=>lucide.createIcons());
+  </script>
+ 
+</body></html>

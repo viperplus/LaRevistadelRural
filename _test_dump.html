@@ -1,0 +1,24 @@
+<pre id="RESULT" style="display:none"></pre>
+<script>
+window.addEventListener('error',e=>{
+  document.getElementById('RESULT').textContent=btoa(unescape(encodeURIComponent(JSON.stringify({error:e.message}))));
+});
+setTimeout(function(){
+  var datos={
+    CONSIGNAS:CONSIGNAS,
+    INTROS:INTROS,
+    DEFS:DEFS,
+    QUIZ:QUIZ,
+    TRANSFER:TRANSFER,
+    STAGES:STAGES,
+    STAGE_INFO:STAGE_INFO,
+    GROW_SEQ:GROW_SEQ,
+    GROW_MSG:GROW_MSG,
+    MAX_STARS:MAX_STARS,
+    PICK_ITEMS:PICK_ITEMS,
+    mapaTotal:Object.keys(MAPA_AUDIO).length
+  };
+  var json=JSON.stringify(datos);
+  document.getElementById('RESULT').textContent=btoa(unescape(encodeURIComponent(json)));
+},2500);
+</script>

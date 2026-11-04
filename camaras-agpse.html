@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Cámaras AGP - Vía Navegable Troncal</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #000;
+    font-family: "Segoe UI", Arial, sans-serif;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 4px;
+    width: 1920px;
+    height: 1080px;
+    background: #000;
+  }
+  .cell { position: relative; overflow: hidden; background: #111; }
+  .cell video {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #000;
+  }
+  .label {
+    position: absolute;
+    left: 0; bottom: 0;
+    padding: 4px 10px;
+    background: rgba(0, 0, 0, 0.65);
+    color: #fff;
+    font-size: 18px;
+    line-height: 1.2;
+    border-top-right-radius: 6px;
+  }
+  .loc { color: #ffd24a; font-weight: 700; margin-right: 8px; }
+  .status {
+    position: absolute;
+    top: 6px; right: 6px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: #ff3b30;
+    box-shadow: 0 0 6px rgba(255,59,48,.8);
+  }
+  .cell.online .status { background: #34c759; box-shadow: 0 0 6px rgba(52,199,117,.8); }
+  .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #12203f 0%, #1c3260 100%);
+    color: #fff;
+  }
+  .header h1 { font-size: 34px; font-weight: 800; letter-spacing: .5px; }
+  .header h2 { font-size: 20px; font-weight: 400; color: #9fb6e0; margin-top: 6px; }
+  .clock {
+    margin-top: 22px;
+    font-size: 56px;
+    font-weight: 300;
+    font-variant-numeric: tabular-nums;
+    color: #ffd24a;
+  }
+  .date { font-size: 20px; color: #cdd9f0; margin-top: 4px; text-transform: capitalize; }
+
+  /* Modo cámara única: ?cam=1 .. cam=11 */
+  body.single .grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+  body.single .header { display: none; }
+</style>
+</head>
+<body>
+<div class="grid" id="grid">
+  <div class="cell header">
+    <h1>Vía Navegable Troncal</h1>
+    <h2>Administración General de Puertos &middot; Cámaras en vivo</h2>
+    <div class="clock" id="clock">--:--:--</div>
+    <div class="date" id="date"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script>
+const CAMS = [
+  { loc: "Bella Vista",   name: "Cám 1", url: "https://hidrografia2.agpse.gob.ar:8443/stream/47c1584f-73e1-43e5-811e-7ffd8c061540/channel/0/hlsll/live/index.m3u8" },
+  { loc: "Bella Vista",   name: "Cám 2", url: "https://hidrografia2.agpse.gob.ar:8443/stream/41001d9f-5bdc-4f86-8df1-34e58b0f4f6b/channel/0/hlsll/live/index.m3u8" },
+  { loc: "San Lorenzo",   name: "Cám 1", url: "https://hidrografia2.agpse.gob.ar:8443/stream/626a6d61-819e-4841-bdaf-c80d39d609b8/channel/0/hlsll/live/index.m3u8" },
+  { loc: "San Lorenzo",   name: "Cám 2", url: "https://hidrografia2.agpse.gob.ar:8443/stream/b55b8804-8a7c-4adc-888d-2e2c2a7594c0/channel/0/hlsll/live/index.m3u8" },
+  { loc: "San Lorenzo",   name: "Cám 3", url: "https://hidrografia2.agpse.gob.ar:8443/stream/ea06c29a-ce3a-41a2-b901-03d6aa3e2158/channel/0/hlsll/live/index.m3u8" },
+  { loc: "Rosario",       name: "Cám 1", url: "https://hidrografia2.agpse.gob.ar:8443/stream/afc2f6c2-06b3-4224-8cfe-c65972280382/channel/0/hlsll/live/index.m3u8" },
+  { loc: "Rosario",       name: "Cám 2", url: "https://hidrografia2.agpse.gob.ar:8443/stream/ad9c5d3b-8009-48fd-ac47-a83ff9c741bb/channel/0/hlsll/live/index.m3u8" },
+  { loc: "Rosario",       name: "Cám 3", url: "https://hidrografia2.agpse.gob.ar:8443/stream/9895ceb1-6a6c-48c5-869c-070c64398bc8/channel/0/hlsll/live/index.m3u8" },
+  { loc: "Del Guazú",     name: "Cám 1", url: "https://hidrografia2.agpse.gob.ar:8443/stream/d8190a0b-ff41-4f8b-ad33-b91d66d95800/channel/0/hlsll/live/index.m3u8" },
+  { loc: "Del Guazú",     name: "Cám 2", url: "https://hidrografia2.agpse.gob.ar:8443/stream/67f3ecd5-3919-404d-bf25-efcd59d9b02e/channel/0/hlsll/live/index.m3u8" },
+  { loc: "Del Guazú",     name: "Cám 3", url: "https://hidrografia2.agpse.gob.ar:8443/stream/70fe0a68-fdf7-48e4-8a62-9b7195f53880/channel/0/hlsll/live/index.m3u8" },
+];
+
+const params = new URLSearchParams(location.search);
+const only = parseInt(params.get("cam"), 10);
+let list = CAMS.map((c, i) => ({ ...c, n: i + 1 }));
+if (only >= 1 && only <= CAMS.length) {
+  list = [list[only - 1]];
+  document.body.classList.add("single");
+}
+
+const grid = document.getElementById("grid");
+list.forEach(cam => {
+  const cell = document.createElement("div");
+  cell.className = "cell";
+  cell.innerHTML =
+    '<video id="v' + cam.n + '" autoplay muted playsinline></video>' +
+    '<div class="label"><span class="loc">' + cam.loc + '</span>' + cam.name + '</div>' +
+    '<div class="status"></div>';
+  if (!document.body.classList.contains("single")) grid.appendChild(cell);
+  else grid.insertBefore(cell, grid.firstChild);
+
+  const video = cell.querySelector("video");
+  let hls = null;
+
+  function play() {
+    if (hls) { try { hls.destroy(); } catch (e) {} hls = null; }
+    if (Hls.isSupported()) {
+      hls = new Hls({
+        liveSyncDurationCount: 3,
+        liveMaxLatencyDurationCount: 6,
+        maxBufferLength: 12,
+        backBufferLength: 10,
+        manifestLoadingMaxRetry: Infinity,
+        levelLoadingMaxRetry: Infinity,
+        fragLoadingMaxRetry: Infinity
+      });
+      hls.loadSource(cam.url);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        cell.classList.add("online");
+        video.play().catch(() => {});
+      });
+      hls.on(Hls.Events.ERROR, (evt, data) => {
+        if (!data.fatal) return;
+        cell.classList.remove("online");
+        if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
+          try { hls.recoverMediaError(); } catch (e) { setTimeout(play, 3000); }
+        } else {
+          setTimeout(play, 5000);
+        }
+      });
+    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      video.src = cam.url;
+      video.addEventListener("loadedmetadata", () => video.play().catch(() => {}));
+      video.addEventListener("playing", () => cell.classList.add("online"));
+      video.addEventListener("error", () => {
+        cell.classList.remove("online");
+        setTimeout(play, 5000);
+      });
+    }
+  }
+  play();
+
+  // Vigilante: si la imagen se congela, saltar de nuevo al borde en vivo
+  let lastTime = 0, lastAdvance = Date.now();
+  setInterval(() => {
+    const t = video.currentTime;
+    if (!video.paused && t !== lastTime) { lastTime = t; lastAdvance = Date.now(); }
+    else if (Date.now() - lastAdvance > 8000) {
+      lastAdvance = Date.now();
+      if (hls && isFinite(hls.liveSyncPosition)) {
+        try { video.currentTime = hls.liveSyncPosition; video.play().catch(() => {}); }
+        catch (e) { play(); }
+      } else {
+        play();
+      }
+    }
+  }, 2000);
+});
+
+// Reloj (hora Argentina)
+function tick() {
+  const now = new Date();
+  const fmtT = new Intl.DateTimeFormat("es-AR", {
+    timeZone: "America/Argentina/Buenos_Aires",
+    hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false
+  });
+  const fmtD = new Intl.DateTimeFormat("es-AR", {
+    timeZone: "America/Argentina/Buenos_Aires",
+    weekday: "long", day: "numeric", month: "long", year: "numeric"
+  });
+  document.getElementById("clock").textContent = fmtT.format(now);
+  document.getElementById("date").textContent = fmtD.format(now) + " (ART)";
+}
+tick();
+setInterval(tick, 1000);
+</script>
+</body>
+</html>

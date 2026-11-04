@@ -1,0 +1,27 @@
+============================================
+  Cámara: Tren del Fin del Mundo - Ushuaia
+============================================
+
+1. Doble clic en "iniciar_cam.bat"
+   (dejá la consola abierta)
+
+2. En OBS:
+   - Fuentes -> + -> Navegador
+   - URL: http://127.0.0.1:8765
+   - Ancho: 1920  Alto: 1080
+   - Click OK
+
+   La cámara se ve sin anuncios ni watermark.
+   Las URLs se renuevan solas cada 2 horas.
+
+3. Para que inicie con Windows:
+   - Win+R -> shell:startup
+   - Copia "iniciar_cam.bat" ahi
+
+============================================
+  Archivos
+============================================
+
+  iniciar_cam.bat  - Ejecutar ESTO
+  server.py        - Server de la cámara
+  hls.min.js       - Reproductor HLS (local)

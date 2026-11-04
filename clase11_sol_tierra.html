@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clase 11 — El Sol y la Tierra</title>
+<style>
+  :root {
+    --texto: #111111;
+    --fondo: #FFFFFF;
+    --gris-borde: #D1D5DB;
+    --azul: #1565C0;       /* objetivo */
+    --sol: #B45309;        /* energía del Sol */
+    --tierra: #B91C1C;     /* radiación terrestre */
+    --balance: #166534;    /* balance energético */
+    --invernadero: #0E7490;/* efecto invernadero */
+    --ok: #2E7D32;
+    --ok-claro: #E8F5E9;
+    --mal: #C62828;
+    --mal-claro: #FFEBEE;
+    --sel: #E3F2FD;
+    --sel-borde: #1565C0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--fondo);
+    color: var(--texto);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  /* Encabezado: degradado + animación */
+  .encabezado {
+    background: linear-gradient(135deg, #0B3C78 0%, #1565C0 55%, #B45309 130%);
+    color: #FFFFFF;
+    padding: 2rem 1.2rem 1.6rem;
+    text-align: center;
+    border-bottom: 6px solid #FFC107;
+    box-shadow: 0 8px 24px rgba(11, 60, 120, 0.35);
+    position: relative;
+    overflow: hidden;
+  }
+  .encabezado h1 {
+    margin: .2rem 0;
+    font-size: 1.7rem;
+    text-shadow: 2px 2px 0 rgba(0,0,0,.25);
+    animation: floatEmoji 3.5s ease-in-out infinite;
+    display: inline-block;
+  }
+  .encabezado p {
+    margin: .35rem auto 0;
+    font-size: 1rem;
+    display: inline-block;
+    background: rgba(255,255,255,.15);
+    border: 2px solid rgba(255,255,255,.5);
+    border-radius: 999px;
+    padding: .25rem 1.2rem;
+    backdrop-filter: blur(2px);
+  }
+  .encabezado::after {
+    content: '☀️';
+    position: absolute;
+    right: 1.2rem;
+    top: 1rem;
+    font-size: 2.6rem;
+    animation: girarSol 16s linear infinite;
+  }
+  .encabezado::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 12% 90%, rgba(255,193,7,.18), transparent 32%),
+      radial-gradient(circle at 88% 20%, rgba(255,255,255,.12), transparent 30%);
+    pointer-events: none;
+  }
+
+  /* Barra de herramientas: solo lo esencial, IMPRENTA en prioridad */
+  .barra {
+    background: #111111;
+    padding: .8rem 1.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0,0,0,.35);
+  }
+  .btn {
+    border: none;
+    border-radius: 999px;
+    padding: .7rem 1.4rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    color: #FFFFFF;
+    transition: transform .2s, box-shadow .2s, filter .2s;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,.3); }
+  .btn:active { transform: translateY(0) scale(.98); }
+  .btn-mayus {
+    background: linear-gradient(135deg, #FFC107, #F9A825);
+    color: #111111;
+    font-size: 1.1rem;
+    border: 3px solid #FFFFFF;
+    box-shadow: 0 4px 12px rgba(255, 193, 7, .4);
+  }
+  .btn-mayus.activo { background: #FFFFFF; border-color: #FFC107; color: #111111; }
+  .btn-imprimir { background: linear-gradient(135deg, #2E7D32, #388E3C); box-shadow: 0 4px 12px rgba(46, 125, 50, .4); }
+  .btn-escuchar {
+    background: linear-gradient(135deg, #1E88E5, #1565C0);
+    margin: 0 0 .8rem;
+    float: right;
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(21, 101, 192, .45);
+    animation: pulso 2.4s ease-in-out infinite;
+  }
+  .btn-escuchar.activo { background: linear-gradient(135deg, #E53935, #B91C1C); animation: none; }
+  .btn:focus-visible { outline: 4px solid #FFC107; outline-offset: 2px; }
+
+  .contenedor { max-width: 880px; margin: 0 auto; padding: 2rem 1.2rem 3rem; }
+
+  /* Bloques temáticos */
+  .bloque {
+    background: var(--fondo);
+    border: 2px solid var(--gris-borde);
+    border-left: 12px solid #000;
+    border-radius: 12px;
+    padding: 1.4rem 1.5rem;
+    margin: 1.6rem 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    transition: transform .25s, box-shadow .25s;
+  }
+  .bloque:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(0,0,0,.12); }
+  .bloque.objetivo    { border-left-color: var(--azul); }
+  .bloque.sol         { border-left-color: var(--sol); }
+  .bloque.tierra      { border-left-color: var(--tierra); }
+  .bloque.balance     { border-left-color: var(--balance); }
+  .bloque.invernadero { border-left-color: var(--invernadero); }
+  .bloque h2 {
+    margin: 0 0 .6rem;
+    font-size: 1.25rem;
+    display: inline-block;
+    background: #111;
+    color: #FFF;
+    border-radius: 999px;
+    padding: .35rem 1.1rem;
+    box-shadow: 0 3px 8px rgba(0,0,0,.2);
+  }
+  .bloque.objetivo h2 { background: linear-gradient(135deg, #1E88E5, var(--azul)); }
+  .bloque.sol h2 { background: linear-gradient(135deg, #F9A825, var(--sol)); color: #FFF; }
+  .bloque.tierra h2 { background: linear-gradient(135deg, #EF5350, var(--tierra)); }
+  .bloque.balance h2 { background: linear-gradient(135deg, #43A047, var(--balance)); }
+  .bloque.invernadero h2 { background: linear-gradient(135deg, #0891B2, var(--invernadero)); }
+  .bloque p { margin: 0 0 .8rem; font-size: 1rem; }
+  .bloque p:last-child { margin-bottom: 0; }
+  .bloque ul { margin: 0 0 .8rem; padding-left: 1.3rem; }
+  .bloque ul:last-child { margin-bottom: 0; }
+  .bloque ol { margin: 0 0 .8rem; padding-left: 1.6rem; }
+  .bloque ol:last-child { margin-bottom: 0; }
+  .bloque li { margin-bottom: .5rem; font-size: .98rem; }
+  .sub {
+    border: 2px solid #67E8F9;
+    border-left: 8px solid var(--invernadero);
+    border-radius: 10px;
+    background: linear-gradient(180deg, #ECFEFF, #CFFAFE);
+    padding: .8rem 1rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 6px rgba(14, 116, 144, .12);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .sub:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(14, 116, 144, .18); }
+  .sub:first-of-type { margin-top: .4rem; }
+  .sub h3 {
+    margin: 0 0 .4rem;
+    font-size: 1rem;
+    color: var(--invernadero);
+    display: inline-block;
+    border-bottom: 3px solid var(--invernadero);
+    padding-bottom: .1rem;
+  }
+  .sub p { margin: 0; font-size: .98rem; }
+  .sub ol { margin: 0 0 .4rem; padding-left: 1.6rem; }
+  .sub ol:last-child { margin-bottom: 0; }
+  /* Diagramas de flujo: cajas + flechas */
+  .diagrama {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+    gap: .4rem .2rem;
+    margin-top: .6rem;
+  }
+  .paso {
+    flex: 1 1 105px;
+    min-width: 95px;
+    max-width: 190px;
+    background: #111;
+    color: #FFF;
+    border-radius: 10px;
+    padding: .5rem .4rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: .88rem;
+    line-height: 1.3;
+    box-shadow: 0 3px 8px rgba(0,0,0,.18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .2rem;
+  }
+  .paso .emoji { font-size: 1.5rem; line-height: 1.1; }
+  .paso.sol     { background: linear-gradient(135deg, #F9A825, #B45309); }
+  .paso.tierra  { background: linear-gradient(135deg, #EF5350, #B91C1C); }
+  .paso.espacio { background: linear-gradient(135deg, #1E3A5F, #0B3C78); }
+  .paso.gas     { background: linear-gradient(135deg, #0891B2, #0E7490); }
+  .paso.abrigo  { background: linear-gradient(135deg, #43A047, #166534); }
+  .paso.caliente{ background: linear-gradient(135deg, #FF7043, #E53935); }
+  .paso.azul    { background: linear-gradient(135deg, #1E88E5, #1565C0); }
+  .flecha {
+    align-self: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #B45309;
+    padding: 0 .05rem;
+    flex: none;
+  }
+  .ramas { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .7rem; }
+  .rama {
+    flex: 1 1 200px;
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .ramas.apiladas .rama { flex: 1 1 100%; }
+  .rama.absorbida { background: #E8F5E9; border: 2px solid #2E7D32; color: #1B5E20; }
+  .rama.reflejada { background: #E3F2FD; border: 2px solid #1565C0; color: #0B3C78; }
+
+  /* Balanza del balance energético */
+  .balanza {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    margin-top: .8rem;
+    text-align: center;
+  }
+  .plato {
+    flex: 1 1 150px;
+    min-width: 140px;
+    max-width: 220px;
+    border-radius: 12px;
+    padding: .6rem .5rem;
+    font-weight: 700;
+    color: #FFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .2rem;
+    box-shadow: 0 3px 8px rgba(0,0,0,.18);
+  }
+  .plato small { font-weight: 400; opacity: .92; }
+  .plato .emoji { font-size: 1.7rem; line-height: 1.1; }
+  .plato.entrada { background: linear-gradient(135deg, #F9A825, #B45309); }
+  .plato.salida { background: linear-gradient(135deg, #1E3A5F, #0B3C78); }
+  .balanza-centro {
+    font-size: 2.2rem;
+    background: #FFF;
+    border: 3px solid #B45309;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 8px rgba(0,0,0,.15);
+    flex: none;
+  }
+  .equilibrio {
+    margin-top: .8rem;
+    font-weight: 700;
+    text-align: center;
+    background: #E8F5E9;
+    border: 2px solid #2E7D32;
+    border-radius: 10px;
+    padding: .55rem .7rem;
+    color: #1B5E20;
+  }
+  .rama.sube { background: #FFEBEE; border: 2px solid #C62828; color: #B71C1C; }
+  .rama.baja { background: #E3F2FD; border: 2px solid #1565C0; color: #0B3C78; }
+  .rama .tri { font-size: 1.05rem; margin-right: .3rem; }
+  .rama.sube .tri { color: #C62828; }
+  .rama.baja .tri { color: #1565C0; }
+  .palabra {
+    background: linear-gradient(180deg, #FFF8E1, #FFE082);
+    padding: 0 .25rem;
+    border-radius: 3px;
+  }
+  .dato {
+    border: 2px solid var(--azul);
+    background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+    border-radius: 10px;
+    padding: .6rem .8rem;
+    font-weight: 700;
+    color: #0B3C78;
+    box-shadow: 0 2px 6px rgba(21, 101, 192, .15);
+  }
+  .imagen {
+    margin: 1rem 0 0;
+    text-align: center;
+  }
+  .imagen.portada { margin: 0 0 1rem; }
+  .imagen img {
+    max-width: 100%;
+    border: 3px solid #9CA3AF;
+    border-radius: 8px;
+    background: #FFF;
+  }
+  .imagen figcaption {
+    font-size: .9rem;
+    font-weight: 700;
+    color: #0E7490;
+    margin-top: .3rem;
+  }
+
+  /* Actividades */
+  .caja {
+    background: var(--fondo);
+    border: 3px solid #9CA3AF;
+    border-radius: 14px;
+    padding: 1.5rem 1.5rem;
+    margin: 1.8rem 0;
+    box-shadow: 0 3px 10px rgba(0,0,0,.07);
+    position: relative;
+    transition: box-shadow .25s;
+  }
+  .caja:hover { box-shadow: 0 10px 24px rgba(0,0,0,.13); }
+  .caja h2 {
+    margin: 0 0 .8rem;
+    font-size: 1.2rem;
+    display: inline-block;
+    color: #FFF;
+    padding: .45rem .95rem;
+    border-radius: 999px;
+    box-shadow: 0 4px 10px rgba(0,0,0,.2);
+    animation: brillo 6s ease-in-out infinite;
+    background-size: 200% 200%;
+  }
+  .caja.act1 h2 { background: linear-gradient(135deg, #F9A825, #B45309, #F9A825); }
+  .caja.act2 h2 { background: linear-gradient(135deg, #0891B2, #0E7490, #0891B2); }
+  .caja.act3 h2 { background: linear-gradient(135deg, #1E88E5, #1565C0, #1E88E5); }
+  .caja .consigna { margin: 0 0 .8rem; font-size: 1rem; }
+
+  /* Completar frases con menús desplegables */
+  .frase { font-size: 1.05rem; margin: .8rem 0; }
+  .hueco select {
+    font-size: 1rem;
+    font-weight: 700;
+    border: 3px solid #9CA3AF;
+    border-radius: 6px;
+    padding: .4rem .6rem;
+    background: var(--fondo);
+    color: var(--texto);
+    cursor: pointer;
+  }
+  .hueco select.ok { border-color: var(--ok); background: var(--ok-claro); }
+  .hueco select.mal { border-color: var(--mal); background: var(--mal-claro); }
+  .btn-revisar {
+    background: linear-gradient(135deg, #1E88E5, var(--azul));
+    color: #FFF;
+    border: none;
+    border-radius: 999px;
+    padding: .7rem 1.8rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 1rem;
+    box-shadow: 0 4px 10px rgba(21, 101, 192, .35);
+    transition: transform .2s, box-shadow .2s, filter .2s;
+  }
+  .btn-revisar:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(21, 101, 192, .45); filter: brightness(1.05); }
+  .btn-revisar:active { transform: translateY(0) scale(.98); }
+  .feedback { margin-top: .8rem; font-weight: 700; font-size: 1.05rem; }
+  .feedback.ok-texto { color: var(--ok); }
+  .feedback.mal-texto { color: var(--mal); }
+  .hueco-linea { display: none; }
+  .respuesta {
+    width: 100%;
+    min-height: 96px;
+    font-family: inherit;
+    font-size: 1rem;
+    border: 3px solid var(--azul);
+    border-radius: 8px;
+    padding: .6rem;
+    background: #E3F2FD;
+    color: var(--texto);
+    resize: vertical;
+  }
+  .respuesta:focus-visible { outline: 4px solid #FFC107; outline-offset: 2px; }
+  .nota-audio {
+    border: 2px solid var(--invernadero);
+    background: linear-gradient(135deg, #0891B2, var(--invernadero));
+    color: #FFF;
+    border-radius: 10px;
+    padding: .6rem .8rem;
+    font-size: .95rem;
+    font-weight: 700;
+    margin-top: .6rem;
+    box-shadow: 0 3px 8px rgba(14, 116, 144, .3);
+  }
+  .grupo {
+    border: 2px solid #B45309;
+    border-radius: 12px;
+    padding: .8rem 1rem;
+    margin: .6rem 0 1.2rem;
+    background: linear-gradient(180deg, #FFF8E1, #FFECB3);
+    box-shadow: 0 2px 8px rgba(180, 83, 9, .12);
+  }
+  .sim {
+    width: 100%;
+    height: 480px;
+    border: 3px solid #9CA3AF;
+    border-radius: 8px;
+    background: #FFFFFF;
+    margin: .6rem 0;
+  }
+
+  /* Criterios de evaluación */
+  .criterios {
+    border: 3px solid var(--azul);
+    border-radius: 14px;
+    padding: 1.2rem 1.4rem;
+    margin: 1.8rem 0;
+    background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+    box-shadow: 0 4px 12px rgba(21, 101, 192, .18);
+  }
+  .criterios h2 { margin: 0 0 .6rem; font-size: 1.3rem; color: var(--azul); }
+  .criterios li { margin-bottom: .7rem; font-size: 1.05rem; list-style: none; }
+  .criterios input {
+    width: 22px;
+    height: 22px;
+    margin-right: .6rem;
+    vertical-align: middle;
+    accent-color: var(--azul);
+  }
+
+  /* Autoevaluación mínima */
+  .auto {
+    border: 3px solid var(--balance);
+    border-radius: 14px;
+    padding: 1.2rem 1.4rem;
+    margin: 1.8rem 0;
+    background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+    box-shadow: 0 4px 12px rgba(22, 101, 52, .18);
+  }
+  .auto h2 { margin: 0 0 .6rem; font-size: 1.3rem; color: var(--balance); }
+  .auto ul { list-style: none; padding: 0; margin: 0; }
+  .auto li { margin-bottom: .7rem; font-size: 1.05rem; }
+  .sellos { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .5rem; }
+  .sello-pill {
+    border: 2px solid #9CA3AF;
+    background: #FFF;
+    border-radius: 999px;
+    padding: .45rem 1rem;
+    font-size: .95rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .sello-pill:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,.15); }
+  .sello-pill:active { transform: scale(.96); }
+  .sello-pill::before {
+    content: '';
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    display: inline-block;
+    flex: none;
+  }
+  .sello-pill.verde::before   { background: #2E7D32; }
+  .sello-pill.amarillo::before { background: #F9A825; }
+  .sello-pill.rojo::before    { background: #C62828; }
+  .sello-pill.elegido.verde   { background: #A5D6A7; border-color: var(--balance); color: #0B3D1A; }
+  .sello-pill.elegido.amarillo { background: #FFE082; border-color: #B45309; color: #5D3A00; }
+  .sello-pill.elegido.rojo    { background: #EF9A9A; border-color: var(--mal); color: #5F0F0F; }
+
+  .pie { text-align: center; color: #111; font-size: .95rem; margin-top: 2rem; }
+
+  /* ===== ANIMACIONES ===== */
+  @keyframes floatEmoji {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  @keyframes girarSol {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes pulso {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(21, 101, 192, .45); }
+    50% { transform: scale(1.08); box-shadow: 0 0 0 12px rgba(21, 101, 192, 0); }
+  }
+  @keyframes celebrar {
+    0% { transform: scale(1) rotate(0); }
+    25% { transform: scale(1.08) rotate(-2deg); }
+    50% { transform: scale(1.12) rotate(2deg); }
+    75% { transform: scale(1.08) rotate(-2deg); }
+    100% { transform: scale(1) rotate(0); }
+  }
+  @keyframes sacudir {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+  }
+  @keyframes brillo {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  .anim-celebrar { animation: celebrar .7s ease; }
+  .anim-sacudir { animation: sacudir .5s ease; }
+
+  /* IMPRENTA MAYÚSCULA: todo en mayúsculas menos los menús */
+  body.imprenta * { text-transform: uppercase !important; letter-spacing: 0.03em !important; }
+
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+  }
+
+  /* Impresión: plana, sin controles, huecos como líneas */
+  @media print {
+    .barra { display: none; }
+    .sello-pill, .btn-escuchar, .btn-revisar, .feedback { display: none; }
+    .hueco select { display: none; }
+    .hueco-linea { display: inline-block; width: 170px; border-bottom: 2px solid #111; }
+    .bloque, .caja, .criterios, .auto, .grupo { border: 2px solid #111; page-break-inside: avoid; }
+    .bloque, .caja, .bloque:hover, .caja:hover, .sub, .sub:hover { transform: none; box-shadow: none; }
+    .paso { box-shadow: none; border: 2px solid #111; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .plato { box-shadow: none; border: 2px solid #111; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .balanza-centro { box-shadow: none; border: 2px solid #111; }
+    .equilibrio { border: 2px solid #111; }
+    .rama { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .flecha { color: #111; }
+    .bloque h2, .caja h2 { background: #111 !important; animation: none; box-shadow: none; }
+    .encabezado { background: #0B3C78 !important; border-bottom: none; box-shadow: none; }
+    .encabezado::before, .encabezado::after { display: none; }
+    .encabezado h1 { animation: none; text-shadow: none; }
+    .encabezado p { background: transparent; border: none; }
+    .sim { display: none; }
+    .nota-audio { display: none; }
+    .respuesta {
+      border: 2px solid #111;
+      background: #FFF;
+      min-height: 90px;
+    }
+    .criterios input { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .encabezado { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .criterios, .auto, .grupo { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<div class="encabezado">
+  <h1>☀️ CLASE N.º 11: EL SOL Y LA TIERRA</h1>
+  <p>Física Ambiental</p>
+</div>
+
+<div class="barra">
+  <button class="btn btn-mayus" id="btnMayus" onclick="alternarMayusculas()">🔠 IMPRENTA MAYÚSCULA: SÍ</button>
+  <button class="btn btn-imprimir" onclick="window.print()">🖨️ Imprimir</button>
+</div>
+
+<div class="contenedor">
+
+  <figure class="imagen portada">
+    <img src="https://i.imgur.com/rvSxlYh.png" alt="Paisaje iluminado por el Sol y la Tierra">
+  </figure>
+
+  <!-- OBJETIVO -->
+  <div class="bloque objetivo">
+    <h2>🎯 OBJETIVO</h2>
+    <button class="btn btn-escuchar" data-audio="objetivo">🔊</button>
+    <ul>
+      <li>Reconocer que la Tierra recibe energía del Sol, <strong>absorbe una parte</strong> y <strong>refleja otra</strong>.</li>
+      <li>Comprender el <strong>balance de energía terrestre</strong>.</li>
+      <li>Identificar el <strong>efecto invernadero</strong> como un proceso natural producido por la interacción entre la radiación infrarroja y los gases de la atmósfera.</li>
+    </ul>
+  </div>
+
+  <!-- 1. ENERGÍA DEL SOL -->
+  <div class="bloque sol">
+    <h2>1 · ¿QUÉ SUCEDE CON LA ENERGÍA QUE LLEGA DEL SOL?</h2>
+    <button class="btn btn-escuchar" data-audio="sol">🔊</button>
+    <p>El Sol es nuestra <span class="palabra">principal fuente de energía</span> y llega mediante <span class="palabra">radiación electromagnética</span>. Cuando la energía llega al sistema Tierra-Atmósfera:</p>
+    <ul>
+      <li><strong>30 % se refleja:</strong> vuelve hacia el espacio.</li>
+      <li><strong>70 % es absorbida:</strong> por la superficie, los océanos, la atmósfera y las nubes.</li>
+    </ul>
+    <div class="diagrama">
+      <div class="paso sol"><span class="emoji">☀️</span><span>Sol<br>Fuente de energía</span></div>
+      <span class="flecha">→</span>
+      <div class="paso azul"><span class="emoji">🌍</span><span>Tierra-Atmósfera</span></div>
+    </div>
+    <div class="ramas">
+      <div class="rama absorbida">✔️ 70 % absorbida · superficie, océanos, atmósfera y nubes</div>
+      <div class="rama reflejada">↩️ 30 % reflejada · vuelve hacia el espacio</div>
+    </div>
+  </div>
+
+  <!-- 2. DE LA RADIACIÓN SOLAR A LA RADIACIÓN TERRESTRE -->
+  <div class="bloque tierra">
+    <h2>2 · DE LA RADIACIÓN SOLAR A LA RADIACIÓN TERRESTRE</h2>
+    <button class="btn btn-escuchar" data-audio="tierra">🔊</button>
+    <ul>
+      <li><span class="palabra">Onda corta (Sol):</span> luz visible, ultravioleta e infrarroja cercana.</li>
+      <li><span class="palabra">Onda larga (Tierra):</span> radiación infrarroja emitida por la superficie terrestre al calentarse.</li>
+    </ul>
+    <p class="dato">💡 La Tierra no solo recibe energía: <strong>también emite radiación hacia el espacio</strong>.</p>
+    <div class="diagrama">
+      <div class="paso sol"><span class="emoji">☀️</span><span>Sol<br>Onda corta</span></div>
+      <span class="flecha">→</span>
+      <div class="paso tierra"><span class="emoji">🌍</span><span>La Tierra se calienta</span></div>
+      <span class="flecha">→</span>
+      <div class="paso tierra"><span class="emoji">🔴</span><span>La Tierra emite<br>onda larga<br>(infrarroja)</span></div>
+      <span class="flecha">→</span>
+      <div class="paso espacio"><span class="emoji">🌌</span><span>El calor viaja<br>hacia el espacio</span></div>
+    </div>
+  </div>
+
+  <!-- 3. BALANCE DE ENERGÍA TERRESTRE -->
+  <div class="bloque balance">
+    <h2>3 · EL BALANCE DE ENERGÍA TERRESTRE</h2>
+    <button class="btn btn-escuchar" data-audio="balance">🔊</button>
+    <p><span class="palabra">Balance energético:</span> existe cuando la cantidad de energía que entra es igual a la que sale hacia el espacio.</p>
+    <p class="equilibrio">✔️ Cuando <strong>la energía que entra = la energía que sale</strong>, hay equilibrio y la temperatura se mantiene estable.</p>
+    <div class="ramas apiladas">
+      <div class="rama sube"><span class="tri">▲</span>Entra más energía de la que sale → se acumula energía → <strong>la temperatura aumenta</strong></div>
+      <div class="rama baja"><span class="tri">▼</span>Sale más energía de la que entra → el sistema pierde energía → <strong>la temperatura disminuye</strong></div>
+    </div>
+  </div>
+
+  <!-- 4. EFECTO INVERNADERO -->
+  <div class="bloque invernadero">
+    <h2>4 · EL PAPEL DE LA ATMÓSFERA: EFECTO INVERNADERO</h2>
+    <button class="btn btn-escuchar" data-audio="invernadero">🔊</button>
+    <p>En este bloque aprendemos qué es el efecto invernadero, por qué es natural y en qué se diferencia del calentamiento global.</p>
+
+    <div class="sub">
+      <h3>🌡️ ¿Qué es el efecto invernadero?</h3>
+      <p>Es el proceso natural por el cual la atmósfera <strong>retiene una parte del calor</strong> que emite la Tierra y evita que se escape todo al espacio. Gracias a él, la Tierra tiene una temperatura adecuada para la vida.</p>
+      <figure class="imagen">
+        <img src="https://i.imgur.com/VdAGAXq.png" alt="Ilustración del efecto invernadero: el Sol calienta la Tierra y parte del calor queda retenido por la atmósfera">
+        <figcaption>¿Qué es el efecto invernadero?</figcaption>
+      </figure>
+    </div>
+
+    <div class="sub">
+      <h3>☁️ ¿Qué gases lo producen?</h3>
+      <p>Los <span class="palabra">gases de efecto invernadero (GEI)</span> son: <strong>vapor de agua</strong>, <strong>dióxido de carbono (CO₂)</strong> y <strong>metano (CH₄)</strong>.</p>
+    </div>
+
+    <div class="sub">
+      <h3>🔁 ¿Cómo funciona? En pasos</h3>
+      <ol>
+        <li>El Sol calienta la superficie de la Tierra.</li>
+        <li>La Tierra emite esa energía como <span class="palabra">radiación infrarroja</span> (calor).</li>
+        <li>Ese calor quiere salir al espacio.</li>
+        <li>En el camino, los GEI <strong>absorben una parte</strong> de ese calor y lo <strong>devuelven hacia la Tierra</strong>.</li>
+        <li>Así, la Tierra queda <strong>más abrigada</strong>: retiene parte del calor en vez de perderlo todo.</li>
+      </ol>
+      <figure class="imagen">
+        <img src="https://i.imgur.com/jTt3KRt.png" alt="Esquema del efecto invernadero: los rayos del Sol entran a la Tierra y parte del calor que emite la superficie queda atrapado por los gases de la atmósfera">
+        <figcaption>Esquema del efecto invernadero</figcaption>
+      </figure>
+    </div>
+
+    <div class="sub">
+      <h3>🧣 La frazada de la Tierra</h3>
+      <p>La atmósfera es como una <span class="palabra">frazada</span>: envuelve a la Tierra y no deja que todo el calor se escape.</p>
+    </div>
+
+    <div class="sub">
+      <h3>⭐ ¿Por qué es importante?</h3>
+      <p>Es un proceso <strong>natural</strong> y necesario. Sin esos gases, la temperatura media de la Tierra sería de <strong>-18 °C</strong> (muy fría para vivir).</p>
+    </div>
+
+    <div class="sub">
+      <h3>🔥 ¿Qué es el calentamiento global?</h3>
+      <p>Si el ser humano <strong>agrega más GEI</strong> (por ejemplo, quemando combustibles fósiles), la frazada se vuelve <strong>más gruesa</strong>: retiene más calor del que debería y la Tierra <strong>se calienta de más</strong>. Eso <strong>desequilibra el balance energético</strong>.</p>
+      <figure class="imagen">
+        <img src="https://i.imgur.com/iwIxEev.png" alt="Actividades humanas que aumentan los gases de efecto invernadero: fábricas, autos y quema de combustibles">
+        <figcaption>Actividades humanas que aumentan los GEI</figcaption>
+      </figure>
+    </div>
+    <div class="diagrama">
+      <div class="paso sol"><span class="emoji">☀️</span><span>Sol calienta la Tierra</span></div>
+      <span class="flecha">→</span>
+      <div class="paso tierra"><span class="emoji">🌍</span><span>La Tierra emite calor</span></div>
+      <span class="flecha">→</span>
+      <div class="paso gas"><span class="emoji">☁️</span><span>Los GEI devuelven el calor</span></div>
+      <span class="flecha">→</span>
+      <div class="paso abrigo"><span class="emoji">🧣</span><span>Queda abrigada<br>(natural)</span></div>
+      <span class="flecha">→</span>
+      <div class="paso caliente"><span class="emoji">🔥</span><span>Demasiado abrigo = calentamiento global</span></div>
+    </div>
+  </div>
+
+  <!-- ACTIVIDAD 1 -->
+  <div class="caja act1">
+    <h2>Actividad 1 · Seguimos la radiación (simulación PhET)</h2>
+    <button class="btn btn-escuchar" data-audio="act1">🔊</button>
+    <p class="consigna"><strong>Consigna:</strong> usá la simulación <em>“Efecto Invernadero”</em> de PhET (opción <em>“Ondas”</em>). Observá la diferencia entre la luz que llega (Sol) y el calor que sale (Tierra).</p>
+    <iframe class="sim" src="https://phet.colorado.edu/sims/html/greenhouse-effect/latest/greenhouse-effect_all.html?locale=es" title="Simulación Efecto Invernadero de PhET" allow="fullscreen" loading="lazy"></iframe>
+    <p class="consigna"><strong>Observá y completá:</strong> mirá la simulación y elegí la opción correcta en cada menú.</p>
+    <div class="grupo">
+    <p class="frase">1. Las ondas que vienen del Sol son de color
+      <span class="hueco">
+        <select data-correcto="amarillo" aria-label="color de las ondas del Sol">
+          <option value="">elegí…</option>
+          <option>amarillo</option>
+          <option>rojo</option>
+        </select>
+        <span class="hueco-linea"></span>
+      </span>.
+    </p>
+    <p class="frase">2. Las ondas que salen de la Tierra son de color
+      <span class="hueco">
+        <select data-correcto="rojo" aria-label="color de las ondas de la Tierra">
+          <option value="">elegí…</option>
+          <option>amarillo</option>
+          <option>rojo</option>
+        </select>
+        <span class="hueco-linea"></span>
+      </span>.
+    </p>
+    <p class="frase">3. Las ondas del Sol llegan desde
+      <span class="hueco">
+        <select data-correcto="arriba (del cielo) hacia el suelo" aria-label="dirección de las ondas del Sol">
+          <option value="">elegí…</option>
+          <option>arriba (del cielo) hacia el suelo</option>
+          <option>el suelo hacia el cielo</option>
+        </select>
+        <span class="hueco-linea"></span>
+      </span>.
+    </p>
+    <p class="frase">4. Las ondas de la Tierra salen desde
+      <span class="hueco">
+        <select data-correcto="el suelo hacia el cielo" aria-label="dirección de las ondas de la Tierra">
+          <option value="">elegí…</option>
+          <option>arriba (del cielo) hacia el suelo</option>
+          <option>el suelo hacia el cielo</option>
+        </select>
+        <span class="hueco-linea"></span>
+      </span>.
+    </p>
+    <p class="frase">5. Las ondas del Sol son más
+      <span class="hueco">
+        <select data-correcto="cortas" aria-label="tamaño de las ondas del Sol">
+          <option value="">elegí…</option>
+          <option>cortas</option>
+          <option>largas</option>
+        </select>
+        <span class="hueco-linea"></span>
+      </span> y las de la Tierra son más
+      <span class="hueco">
+        <select data-correcto="largas" aria-label="tamaño de las ondas de la Tierra">
+          <option value="">elegí…</option>
+          <option>cortas</option>
+          <option>largas</option>
+        </select>
+        <span class="hueco-linea"></span>
+      </span>.
+    </p>
+    <button class="btn-revisar" onclick="revisar(this)">🔎 Revisar</button>
+    <div class="feedback" id="fbAct1"></div>
+    </div>
+    <p class="consigna" style="margin-top:1.2rem"><strong>Pregunta:</strong> mirando las respuestas, escribí con tus palabras: ¿en qué se diferencian las ondas que llegan del Sol de las que salen de la Tierra?</p>
+    <textarea class="respuesta" id="respAct1" aria-label="Respuesta de la actividad 1" placeholder="Las ondas del Sol son… y las que salen de la Tierra son…"></textarea>
+    <p class="nota-audio">🎙️ Si preferís, podés enviar un audio con tus respuestas por la plataforma.</p>
+  </div>
+
+  <!-- ACTIVIDAD 2 -->
+  <div class="caja act2">
+    <h2>Actividad 2 · Efecto invernadero</h2>
+    <button class="btn btn-escuchar" data-audio="act2">🔊</button>
+    <p class="consigna"><strong>Consigna:</strong> en la simulación (pantalla <em>“Ondas”</em>), mové el control de gases de efecto invernadero: empezá en <strong>“Ninguno”</strong> o <strong>“Bajo”</strong> y mirá, después aumentalo a <strong>“Alto”</strong> o <strong>“Máximo”</strong> y volvé a mirar.</p>
+    <iframe class="sim" src="https://phet.colorado.edu/sims/html/greenhouse-effect/latest/greenhouse-effect_all.html?locale=es" title="Simulación Efecto Invernadero de PhET" allow="fullscreen" loading="lazy"></iframe>
+    <p class="consigna"><strong>Guía de observación:</strong> cuando aumentás los gases, elegí la opción correcta en cada menú.</p>
+    <div class="grupo">
+      <p class="frase">1. Hay
+        <span class="hueco">
+          <select data-correcto="más" aria-label="cantidad de ondas rojas con más gases">
+            <option value="">elegí…</option>
+            <option>más</option>
+            <option>menos</option>
+          </select>
+          <span class="hueco-linea"></span>
+        </span> ondas rojas dando vueltas entre la Tierra y el cielo.
+      </p>
+      <p class="frase">2.
+        <span class="hueco">
+          <select data-correcto="menos" aria-label="cantidad de ondas rojas que escapan">
+            <option value="">elegí…</option>
+            <option>más</option>
+            <option>menos</option>
+          </select>
+          <span class="hueco-linea"></span>
+        </span> ondas rojas escapan hacia el espacio.
+      </p>
+      <p class="frase">3. Muchas ondas rojas
+        <span class="hueco">
+          <select data-correcto="vuelven hacia la superficie" aria-label="qué hacen las ondas rojas">
+            <option value="">elegí…</option>
+            <option>vuelven hacia la superficie</option>
+            <option>desaparecen al instante</option>
+          </select>
+          <span class="hueco-linea"></span>
+        </span> de la Tierra.
+      </p>
+      <p class="frase">4. El termómetro
+        <span class="hueco">
+          <select data-correcto="sube" aria-label="qué hace el termómetro">
+            <option value="">elegí…</option>
+            <option>sube</option>
+            <option>baja</option>
+          </select>
+          <span class="hueco-linea"></span>
+        </span>: la temperatura aumenta.
+      </p>
+      <p class="frase">5. Con pocos gases, casi todo el calor
+        <span class="hueco">
+          <select data-correcto="sale al espacio" aria-label="qué hace el calor con pocos gases">
+            <option value="">elegí…</option>
+            <option>sale al espacio</option>
+            <option>se queda en la Tierra</option>
+          </select>
+          <span class="hueco-linea"></span>
+        </span>.
+      </p>
+      <button class="btn-revisar" onclick="revisar(this)">🔎 Revisar</button>
+      <div class="feedback"></div>
+    </div>
+    <p class="consigna"><strong>Completá la frase:</strong> elegí la palabra correcta en cada espacio.</p>
+    <div class="grupo">
+    <p class="frase">Cuando <strong>aumento</strong> los gases de efecto invernadero, la radiación infrarroja
+      <span class="hueco">
+        <select data-correcto="rebota varias veces" aria-label="qué hace la radiación infrarroja con más gases">
+          <option value="">elegí…</option>
+          <option>rebota varias veces</option>
+          <option>sale toda al espacio</option>
+        </select>
+        <span class="hueco-linea"></span>
+      </span>. No escapa toda al espacio porque los gases la
+      <span class="hueco">
+        <select data-correcto="devuelven hacia la Tierra" aria-label="qué hacen los gases con la radiación">
+          <option value="">elegí…</option>
+          <option>devuelven hacia la Tierra</option>
+          <option>convierten en luz</option>
+        </select>
+        <span class="hueco-linea"></span>
+      </span>.
+    </p>
+    <button class="btn-revisar" onclick="revisar(this)">🔎 Revisar</button>
+    <div class="feedback" id="fbAct2"></div>
+    </div>
+    <p class="consigna" style="margin-top:1.2rem"><strong>Ahora escribilo con tus palabras:</strong></p>
+    <textarea class="respuesta" id="respAct2" aria-label="Respuesta de la actividad 2" placeholder="Cuando aumento los gases, la radiación infrarroja… no escapa toda al espacio porque…"></textarea>
+    <p class="nota-audio">🎙️ Si preferís, podés enviar un audio con tus respuestas por la plataforma.</p>
+  </div>
+
+  <!-- ACTIVIDAD 3 -->
+  <div class="caja act3">
+    <h2>Actividad 3 · Cierre integrador</h2>
+    <button class="btn btn-escuchar" data-audio="act3">🔊</button>
+    <p class="consigna"><strong>Pregunta:</strong> explicá con tus palabras por qué la Tierra <strong>no se calienta indefinidamente</strong> a pesar de recibir radiación solar todos los días.</p>
+    <p class="consigna"><strong>Ayuda para responder:</strong> primero completá la frase con las 3 palabras correctas y después escribila con tus palabras.</p>
+    <div class="grupo">
+      <p class="frase">La Tierra no se calienta indefinidamente porque existe un
+        <span class="hueco">
+          <select data-correcto="balance energético" aria-label="primer concepto">
+            <option value="">elegí…</option>
+            <option>balance energético</option>
+            <option>radiación infrarroja</option>
+            <option>atmósfera</option>
+          </select>
+          <span class="hueco-linea"></span>
+        </span>: entra tanta energía como la que sale. Cuando la superficie se calienta, emite
+        <span class="hueco">
+          <select data-correcto="radiación infrarroja" aria-label="segundo concepto">
+            <option value="">elegí…</option>
+            <option>balance energético</option>
+            <option>radiación infrarroja</option>
+            <option>atmósfera</option>
+          </select>
+          <span class="hueco-linea"></span>
+        </span> (calor) hacia el espacio. La
+        <span class="hueco">
+          <select data-correcto="atmósfera" aria-label="tercer concepto">
+            <option value="">elegí…</option>
+            <option>balance energético</option>
+            <option>radiación infrarroja</option>
+            <option>atmósfera</option>
+          </select>
+          <span class="hueco-linea"></span>
+        </span> retiene solo una parte de ese calor y el resto escapa. Por eso la temperatura se mantiene estable.
+      </p>
+      <button class="btn-revisar" onclick="revisar(this)">🔎 Revisar</button>
+      <div class="feedback"></div>
+    </div>
+    <p class="consigna" style="margin-top:1.2rem"><strong>Ahora escribilo con tus palabras:</strong></p>
+    <textarea class="respuesta" id="respAct3" aria-label="Respuesta de la actividad 3" placeholder="La Tierra no se calienta indefinidamente porque… Primero, la superficie… Después, la atmósfera… Por último, gracias al balance energético…"></textarea>
+    <p class="nota-audio">🎙️ Si preferís, podés enviar un audio con tus respuestas por la plataforma.</p>
+  </div>
+
+  <!-- CRITERIOS DE EVALUACIÓN -->
+  <div class="criterios">
+    <h2>📋 Criterios de evaluación</h2>
+    <ul>
+      <li><input type="checkbox" aria-label="criterio 1"> Capacidad de describir situaciones con lenguaje científico.</li>
+      <li><input type="checkbox" aria-label="criterio 2"> Claridad al relacionar teoría y práctica.</li>
+      <li><input type="checkbox" aria-label="criterio 3"> Precisión en la interrelación de conceptos.</li>
+    </ul>
+  </div>
+
+  <!-- AUTOEVALUACIÓN MÍNIMA -->
+  <div class="auto">
+    <h2>¿Qué aprendí? Elegí cómo te fue</h2>
+    <button class="btn btn-escuchar" data-audio="auto">🔊</button>
+    <ul>
+      <li>Puedo decir qué parte de la energía del Sol se absorbe y qué parte se refleja.
+        <span class="sellos">
+          <button class="sello-pill verde" onclick="marcarSello(this)">Lo hago solo</button>
+          <button class="sello-pill amarillo" onclick="marcarSello(this)">Con ayuda</button>
+          <button class="sello-pill rojo" onclick="marcarSello(this)">Todavía no</button>
+        </span>
+      </li>
+      <li>Puedo explicar qué pasa si entra más energía de la que sale.
+        <span class="sellos">
+          <button class="sello-pill verde" onclick="marcarSello(this)">Lo hago solo</button>
+          <button class="sello-pill amarillo" onclick="marcarSello(this)">Con ayuda</button>
+          <button class="sello-pill rojo" onclick="marcarSello(this)">Todavía no</button>
+        </span>
+      </li>
+      <li>Puedo explicar qué es el efecto invernadero y por qué es un proceso natural.
+        <span class="sellos">
+          <button class="sello-pill verde" onclick="marcarSello(this)">Lo hago solo</button>
+          <button class="sello-pill amarillo" onclick="marcarSello(this)">Con ayuda</button>
+          <button class="sello-pill rojo" onclick="marcarSello(this)">Todavía no</button>
+        </span>
+      </li>
+    </ul>
+  </div>
+
+  <p class="pie">Clase N.º 11 · Física Ambiental · "El Sol y la Tierra"</p>
+
+</div>
+
+<script>
+/* ===== IMPRENTA MAYÚSCULA (prioridad) ===== */
+function alternarMayusculas() {
+  const activo = document.body.classList.toggle('imprenta');
+  const btn = document.getElementById('btnMayus');
+  btn.textContent = activo ? '🔠 IMPRENTA MAYÚSCULA: SÍ' : '🔠 IMPRENTA MAYÚSCULA: NO';
+  btn.classList.toggle('activo', activo);
+}
+document.body.classList.add('imprenta');
+
+/* ===== AUDIO (texto a voz, simple) ===== */
+let vozActiva = false;
+function detenerVoz() {
+  speechSynthesis.cancel();
+  vozActiva = false;
+  document.querySelectorAll('.btn[data-audio]').forEach(b => {
+    b.classList.remove('activo');
+    b.textContent = '🔊';
+  });
+}
+function obtenerVoz() {
+  const voces = speechSynthesis.getVoices();
+  return voces.find(v => v.lang === 'es-AR') ||
+         voces.find(v => v.lang && v.lang.toLowerCase().startsWith('es')) || null;
+}
+document.addEventListener('click', function(e) {
+  const b = e.target.closest('.btn[data-audio]');
+  if (!b) return;
+  const textos = {
+    'objetivo': 'Objetivo. Reconocer que la Tierra recibe energía del Sol, absorbe una parte y refleja otra. Comprender el balance de energía terrestre. Identificar el efecto invernadero como un proceso natural producido por la interacción entre la radiación infrarroja y los gases de la atmósfera.',
+    'sol': '¿Qué sucede con la energía que llega del Sol? El Sol es nuestra principal fuente de energía y llega mediante radiación electromagnética. Cuando la energía llega al sistema Tierra atmósfera: el treinta por ciento se refleja y vuelve hacia el espacio, y el setenta por ciento es absorbida por la superficie, los océanos, la atmósfera y las nubes.',
+    'tierra': 'De la radiación solar a la radiación terrestre. La radiación de onda corta, del Sol, es luz visible, ultravioleta e infrarroja cercana. La radiación de onda larga, de la Tierra, es radiación infrarroja emitida por la superficie al calentarse. La Tierra no solo recibe energía, también emite radiación hacia el espacio.',
+    'balance': 'El balance de energía terrestre. El balance energético existe cuando la cantidad de energía que entra es igual a la que sale hacia el espacio. Si entra más de lo que sale, se acumula energía y la temperatura aumenta. Si sale más de lo que entra, el sistema pierde energía y la temperatura disminuye.',
+    'invernadero': 'El papel de la atmósfera: efecto invernadero. Los gases de efecto invernadero son vapor de agua, dióxido de carbono y metano. Estos gases absorben parte de la radiación infrarroja emitida por la Tierra y la reemiten en todas direcciones, incluso hacia la superficie. Es un proceso natural: sin él, la temperatura media de la Tierra sería cercana a los menos dieciocho grados. El calentamiento global es el aumento de la temperatura media por la actividad humana, que aumenta la concentración de estos gases y desequilibra el balance energético.',
+    'act1': 'Actividad uno: seguimos la radiación. En la simulación efecto invernadero, opción ondas, observá la diferencia entre la luz que llega del Sol y el calor que sale de la Tierra.',
+    'act2': 'Actividad dos: efecto invernadero. En la simulación, modificá la concentración de gases de efecto invernadero y observá qué ocurre con la radiación infrarroja. ¿Escapa toda al espacio?',
+    'act3': 'Actividad tres: cierre integrador. Explicá con tus palabras por qué la Tierra no se calienta indefinidamente. Usá los conceptos: radiación infrarroja, atmósfera y balance energético.',
+    'auto': '¿Qué aprendí? Elegí tu sello. Verde: lo hago solo. Amarillo: con ayuda. Rojo: todavía no.'
+  };
+  if (vozActiva) { detenerVoz(); return; }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(textos[b.dataset.audio] || '');
+  u.lang = 'es-AR';
+  u.rate = 0.9;
+  const v = obtenerVoz();
+  if (v) u.voice = v;
+  vozActiva = true;
+  b.classList.add('activo');
+  b.textContent = '🔇';
+  u.onend = u.onerror = () => { vozActiva = false; b.classList.remove('activo'); b.textContent = '🔊'; };
+  speechSynthesis.speak(u);
+});
+
+/* ===== REVISAR MENÚS DESPLEGABLES (por grupo) ===== */
+function revisar(btn) {
+  const grupo = btn.closest('.grupo');
+  const fb = grupo.querySelector('.feedback');
+  const selects = Array.from(grupo.querySelectorAll('.hueco select[data-correcto]'));
+  let aciertos = 0;
+  selects.forEach(s => {
+    s.classList.remove('ok', 'mal');
+    if (s.value && s.value.toLowerCase() === s.dataset.correcto.toLowerCase()) {
+      s.classList.add('ok');
+      aciertos++;
+    } else {
+      s.classList.add('mal');
+    }
+  });
+  const total = selects.length;
+  const ganar = aciertos === total;
+  fb.classList.remove('anim-celebrar', 'anim-sacudir');
+  void fb.offsetWidth;
+  fb.className = 'feedback ' + (ganar ? 'ok-texto' : 'mal-texto') + (ganar ? ' anim-celebrar' : ' anim-sacudir');
+  fb.textContent = ganar
+    ? '✅ ¡Correcto! Completaste todas las opciones.'
+    : `Todavía no: ${aciertos}/${total} bien. Revisá lo marcado en rojo.`;
+}
+
+/* ===== AUTOEVALUACIÓN ===== */
+function marcarSello(boton) {
+  boton.parentNode.querySelectorAll('.sello-pill').forEach(b => b.classList.remove('elegido'));
+  boton.classList.add('elegido');
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') detenerVoz();
+});
+</script>
+
+</body>
+</html>

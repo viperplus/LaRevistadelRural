@@ -1,0 +1,10 @@
+[TITULO]LA PRIMERA LEY DE NEWTON
+[PARRAFO]Todo permanece quieto, salvo que una fuerza lo cambie. De esto tratara el siguienteartículo.
+[PARRAFO]La ley de inercia es uno de los principios fundamentales de la física que permite comprender como se comportan los objetos cuando no actúan fuerzas sobre ellos y es la base para estudiar el movimiento en mecánica.
+[FOTO:foto_01.jpeg]
+[LEYENDA]¿Qué es la ley delainercia?[/LEYENDA]
+[PARRAFO]Un objeto quieto se queda quieto y un objeto en movimiento sigue moviéndose enlínearecta y a la misma velocidad. Esto pasa siempre, a menos que una fuerza de afuera actué sobreél.
+[FOTO:foto_02.jpg]
+[PARRAFO]La inercia es la tendencia de los objetos a mantener su estado de reposo o de movimiento a menos que una fuerza externa actué sobre ellos. Se observa en situaciones comunes como el frenado brusco de un auto, donde el cuerpo se va hacia adelante, o cuando un objeto quieto en una mesa no se mueve solo. La primera ley de newton, también conocida como la ley de la inercia, establece que unobjeto en reposo permanecerá en reposo y un objeto en movimientocontinuaráen movimiento con velocidad constante,a menosque una fuerza externa actué sobreél.
+[PARRAFO]Esta ley es fundamental en la mecánica clásica y sienta las bases para comprender el comportamiento de losobjetos bajo la influencia de fuerza, siendo crucial para la física y la ingeniería.
+[PARRAFO]Parademostraresta ley, les dejaremos el link del experimento de la ley de la inercia:

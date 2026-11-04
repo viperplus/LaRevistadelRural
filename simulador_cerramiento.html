@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulador de Cerramiento</title>
+<style>
+:root{
+  --bg:#eef1f5; --panel:#fff; --line:#d5dce3; --ink:#1d2329; --mut:#6a7480;
+  --acc:#0b6bcb; --acc-soft:#e7f0fb; --warn:#b45309; --err:#b3261e; --ok:#127a3d;
+  --chapa1:#c9d4e0; --chapa2:#b7c4d3; --poste:#8a6647; --porton:#9aa7b5; --ovl:#f0a93b;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+.app{display:flex;min-height:100vh;align-items:stretch}
+.panel{width:352px;flex:0 0 352px;background:var(--panel);border-right:1px solid var(--line);padding:14px 16px 48px;overflow:auto;height:100vh}
+.view{flex:1 1 auto;display:flex;flex-direction:column;min-width:0}
+h1{font-size:16px;margin:0 0 2px}
+.sub{font-size:11.5px;color:var(--mut);margin:0 0 14px}
+fieldset{border:1px solid var(--line);border-radius:10px;padding:9px 11px 11px;margin:0 0 12px}
+legend{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);padding:0 4px}
+.row{display:flex;align-items:center;gap:8px;margin:7px 0}
+.row>label{flex:1 1 auto;font-size:12.5px}
+.row input[type=number]{width:88px;text-align:right;font-weight:600}
+input[type=number],input[type=range]{font:inherit}
+input[type=number]{padding:5px 7px;border:1px solid var(--line);border-radius:7px;background:#fbfcfd}
+input[type=number]:focus{outline:2px solid var(--acc-soft);border-color:var(--acc)}
+input[type=range]{width:100%;accent-color:var(--acc)}
+.unit{font-size:11px;color:var(--mut);width:26px}
+.chk{display:flex;align-items:center;gap:8px;font-size:12.5px;margin:7px 0;cursor:pointer}
+.chk input{width:16px;height:16px;accent-color:var(--acc)}
+.range-val{font-variant-numeric:tabular-nums;font-weight:700;color:var(--acc)}
+.toolbar{display:flex;gap:6px;align-items:center;padding:10px 14px;background:var(--panel);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.btn{font:inherit;font-size:12.5px;font-weight:600;padding:6px 11px;border:1px solid var(--line);background:#fff;border-radius:8px;cursor:pointer}
+.btn:hover{background:var(--acc-soft);border-color:#b9d3ef}
+.btn:active{transform:translateY(1px)}
+.tb-sep{flex:1}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11.5px;color:var(--mut);align-items:center}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-2px;border:1px solid rgba(0,0,0,.18)}
+.canvas-wrap{flex:1 1 auto;overflow:hidden;background:#fafbfc;position:relative;border-bottom:1px solid var(--line)}
+.canvas-wrap::before{content:"";position:absolute;inset:0;
+  background-image:linear-gradient(rgba(0,0,0,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.035) 1px,transparent 1px);
+  background-size:24px 24px;pointer-events:none}
+svg{display:block;width:100%;height:100%;cursor:grab}
+svg.grabbing{cursor:grabbing}
+.dimline{stroke:#8b98a6;stroke-width:.012;fill:none}
+.dimtext{font-size:.125px;fill:#4a5560;font-weight:600;paint-order:stroke;stroke:#fafbfc;stroke-width:.05;text-anchor:middle;font-family:inherit}
+.dimtext.sm{font-size:.098px}
+.dimtext.ovl{font-size:.098px;fill:#8a5a00}
+.chapa-lbl{font-size:.135px;font-weight:700;fill:#2b3947;paint-order:stroke;stroke:rgba(255,255,255,.9);stroke-width:.055;text-anchor:middle;font-family:inherit;pointer-events:none}
+.chapa-lbl.cut{fill:#8a3b00}
+.poste-lbl{font-size:.10px;fill:#4a3520;text-anchor:middle;font-family:inherit;font-weight:700}
+.gate-lbl{font-size:.16px;font-weight:800;fill:#3c4854;text-anchor:middle;font-family:inherit;letter-spacing:.03em}
+.gate-sub{font-size:.11px;fill:#5d6a77;text-anchor:middle;font-family:inherit}
+.terrain-lbl{font-size:.10px;fill:#6a7480;font-family:inherit}
+.halo{paint-order:stroke;stroke:#fafbfc;stroke-width:.05}
+.chapa{cursor:pointer}
+.chapa:hover .cbody{filter:brightness(1.06)}
+.chapa.sel .cbody{stroke:var(--acc);stroke-width:.03}
+.results{padding:14px 16px 40px;background:var(--panel)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:10px;margin-bottom:14px}
+.card{border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:#fbfcfd}
+.card .k{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--mut);font-weight:700}
+.card .v{font-size:19px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:2px}
+.card .n{font-size:11px;color:var(--mut)}
+.tables{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+table{border-collapse:collapse;width:100%;font-size:12px}
+th,td{border-bottom:1px solid var(--line);padding:5px 7px;text-align:right;font-variant-numeric:tabular-nums}
+th{background:#f3f6f9;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);position:sticky;top:0}
+th:first-child,td:first-child{text-align:left}
+tbody tr:hover{background:var(--acc-soft)}
+tbody tr.hl{background:#fff4e0}
+.tblbox{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.tblbox h3{font-size:12px;margin:0;padding:9px 11px;background:#f3f6f9;border-bottom:1px solid var(--line);text-transform:uppercase;letter-spacing:.05em;color:#4a5560}
+.tblbox .scroll{max-height:250px;overflow:auto}
+.msgs{margin:0 0 12px}
+.msg{display:flex;gap:8px;padding:8px 10px;border-radius:8px;font-size:12.5px;margin-bottom:6px;border:1px solid}
+.msg.ok{background:#eaf7ef;border-color:#bfe3cc;color:#14683a}
+.msg.warn{background:#fff6e6;border-color:#f2d9a8;color:#8a5a00}
+.msg.err{background:#fdecea;border-color:#f3c3be;color:#94271f}
+.msg b{font-weight:800}
+.msg .ico{font-weight:800}
+#tip{position:fixed;pointer-events:none;background:rgba(29,35,41,.94);color:#fff;padding:7px 10px;border-radius:8px;font-size:12px;z-index:99;display:none;max-width:280px;line-height:1.4}
+#tip b{color:#ffd479}
+@media (max-width:900px){
+  .app{flex-direction:column}
+  .panel{width:auto;flex:0 0 auto;height:auto;border-right:none;border-bottom:1px solid var(--line);max-height:none}
+  .canvas-wrap{height:52vh;flex:0 0 auto}
+}
+@media print{
+  .panel,.toolbar{display:none}
+  .canvas-wrap{height:45vh}
+  .results{padding:0}
+  body{background:#fff}
+  .tblbox .scroll{max-height:none}
+  @page{size:A4 landscape;margin:10mm}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <aside class="panel">
+    <h1>Simulador de cerramiento</h1>
+    <p class="sub">Medidas, solapamiento de chapas y clavado sobre los postes.</p>
+
+    <fieldset>
+      <legend>Terreno y portón</legend>
+      <div class="row"><label>Distancia total a cubrir</label><input type="number" id="distTotal" value="12.53" step="0.01" min="0.5"><span class="unit">m</span></div>
+      <div class="row"><label>Ancho del portón (a un extremo)</label><input type="number" id="porton" value="3.00" step="0.01" min="0"><span class="unit">m</span></div>
+      <label class="chk"><input type="checkbox" id="luzPorton" checked> El ancho del portón es luz interna (entre caras de los postes)</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Chapas</legend>
+      <div class="row"><label>Ancho de cada chapa</label><input type="number" id="anchoChapa" value="2.00" step="0.01" min="0.2"><span class="unit">m</span></div>
+      <div class="row"><label>Alto de cada chapa</label><input type="number" id="altoChapa" value="1.10" step="0.01" min="0.2"><span class="unit">m</span></div>
+      <div class="row"><label>Solape vertical entre renglones</label><input type="number" id="solapVert" value="10" step="0.5" min="0" max="100"><span class="unit">cm</span></div>
+      <div class="row"><label>Alto total del cerramiento</label><b id="altoTotalTxt" style="font-size:15px;color:var(--acc);margin-left:auto">2,10 m</b></div>
+      <label class="chk"><input type="checkbox" id="exacto" checked> Cerrar exacto (calcula el solapamiento)</label>
+      <div class="row"><label>Solape horizontal entre chapas</label><input type="number" id="solapCm" value="10" step="0.5" min="0" max="150"><span class="unit">cm</span></div>
+      <input type="range" id="solap" value="10" min="0" max="60" step="0.5">
+      <div class="row" style="margin-top:2px"><label style="font-size:11.5px;color:var(--mut)">Valor del deslizador</label><span class="range-val" id="solapVal">10,0 cm</span></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Postes y clavado</legend>
+      <div class="row"><label>Postes del portón (caño)</label><input type="number" id="postePorton" value="2" step="0.25" min="0.5"><span class="unit">pulg</span></div>
+      <div class="row"><label>Postes del cerramiento (lado)</label><input type="number" id="posteIn" value="3" step="0.5" min="0.5"><span class="unit">pulg</span></div>
+      <div class="row"><label>Clavos por unión</label><input type="number" id="clavos" value="2" step="1" min="1" max="6"><span class="unit">u</span></div>
+      <div class="row"><label>Distancia máx. entre postes</label><input type="number" id="maxSep" value="2.50" step="0.05" min="0.5"><span class="unit">m</span></div>
+      <label class="chk"><input type="checkbox" id="insPostes"> Insertar postes sugeridos si se supera</label>
+      <div class="row"><label>Hincado bajo tierra</label><input type="number" id="hincado" value="0.60" step="0.05" min="0"><span class="unit">m</span></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Dibujo</legend>
+      <label class="chk"><input type="checkbox" id="cCotas" checked> Mostrar cotas</label>
+      <label class="chk"><input type="checkbox" id="cClavos" checked> Mostrar clavos</label>
+      <label class="chk"><input type="checkbox" id="cOvl" checked> Marcar zonas de solapamiento</label>
+      <label class="chk"><input type="checkbox" id="cPostes" checked> Numerar postes</label>
+    </fieldset>
+
+    <button class="btn" id="imprimir" style="width:100%">Imprimir / guardar PDF</button>
+  </aside>
+
+  <main class="view">
+    <div class="toolbar">
+      <button class="btn" id="zIn">Acercar</button>
+      <button class="btn" id="zOut">Alejar</button>
+      <button class="btn" id="zReset">Ver todo</button>
+      <button class="btn" id="zOvl">Ver un empalme</button>
+      <button class="btn" id="zGate">Ver el portón</button>
+      <span class="tb-sep"></span>
+      <span class="legend">
+        <span><i style="background:var(--chapa1)"></i>Chapa</span>
+        <span><i style="background:var(--ovl)"></i>Solapamiento</span>
+        <span><i style="background:var(--poste)"></i>Poste</span>
+        <span><i style="background:var(--porton)"></i>Portón</span>
+      </span>
+    </div>
+
+    <div class="canvas-wrap">
+      <svg id="svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+
+    <section class="results">
+      <div class="msgs" id="msgs"></div>
+      <div class="cards" id="cards"></div>
+      <div class="tables">
+        <div class="tblbox">
+          <h3>Postes — dónde van</h3>
+          <div class="scroll"><table id="tPostes"><thead><tr><th>N°</th><th>Tipo</th><th>Sección</th><th>Posición</th><th>Al anterior</th></tr></thead><tbody></tbody></table></div>
+        </div>
+        <div class="tblbox">
+          <h3>Chapas — posición y corte</h3>
+          <div class="scroll"><table id="tChapas"><thead><tr><th>Chapa</th><th>Desde</th><th>Hasta</th><th>Largo</th><th>Solape izq.</th><th>Altura</th></tr></thead><tbody></tbody></table></div>
+        </div>
+        <div class="tblbox">
+          <h3>Dónde clavar</h3>
+          <div class="scroll"><table id="tClavos"><thead><tr><th>Chapa</th><th>Clavos</th><th>Poste</th><th>Dónde (m desde el inicio)</th><th>Altura</th></tr></thead><tbody></tbody></table></div>
+        </div>
+        <div class="tblbox">
+          <h3>Materiales</h3>
+          <div class="scroll"><table id="tMat"><thead><tr><th>Ítem</th><th>Cantidad</th><th>Detalle</th></tr></thead><tbody></tbody></table></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="tip"></div>
+
+<script>
+(function(){
+"use strict";
+
+var svg = document.getElementById('svg');
+var tip = document.getElementById('tip');
+var EPS = 1e-9;
+
+function num(id, def){
+  var v = parseFloat(document.getElementById(id).value);
+  return isFinite(v) ? v : def;
+}
+function nf(v, d){ d = (d===undefined?2:d); return v.toFixed(d).replace('.', ','); }
+function cm(v, d){ d = (d===undefined?1:d); return nf(v*100, d); }
+function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+
+var M = null;
+var vb = null;      // viewBox actual
+var baseVB = null;  // viewBox completo
+var selChapa = -1;
+var drag = null;
+var lastDragDist = 0;
+
+/* ------------------------------------------------------------------ */
+/* CÁLCULOS                                                            */
+/* ------------------------------------------------------------------ */
+function calcular(){
+  var D   = num('distTotal', 12.53);
+  var G   = num('porton', 3.00);
+  var W   = Math.max(0.05, num('anchoChapa', 2));
+  var Hc  = Math.max(0.2, num('altoChapa', 1.10));
+  var ovV = clamp(num('solapVert', 10)/100, 0, Hc);
+  var Hin = Math.max(0.25, num('posteIn', 3));
+  var Hp  = Math.max(0.25, num('postePorton', 2));
+  var k   = clamp(Math.round(num('clavos', 2)), 1, 6);
+  var maxSep = Math.max(0.3, num('maxSep', 2.5));
+  var hincado = Math.max(0, num('hincado', 0.6));
+  var exacto  = document.getElementById('exacto').checked;
+  var insP    = document.getElementById('insPostes').checked;
+  var oField  = num('solapCm', 10)/100;
+
+  var pw = Hin * 0.0254;              // poste cuadrado del cerramiento: 3" -> 7,62 cm
+  var pd = Hp * 0.0254;               // caño circular del portón: Ø2" -> 5,08 cm
+  var sob = 0.10;                     // el poste sobresale sobre la última chapa
+  var H  = 2 * Hc - ovV;              // alto total: dos renglones solapados
+  var nRen = 2;
+  var luz = document.getElementById('luzPorton').checked;
+  // los dos postes del portón son caños: la luz interna se mide entre caras tangentes
+  var xJamba = luz ? (G + pd) : G;
+
+  var msgs = [];
+  M = { D:D, G:G, W:W, H:H, Hc:Hc, ovV:ovV, nRen:nRen, Hin:Hin, Hp:Hp,
+        pw:pw, pd:pd, sob:sob, k:k, maxSep:maxSep, hincado:hincado,
+        insP:insP, exacto:exacto, msgs:msgs,
+        xJamba:xJamba, luz:luz,
+        gateL:(luz ? pd/2 : 0), gateR:(luz ? G + pd/2 : G),
+        chapas:[], postes:[], joints:[], clavos:[], nailsTotal:0, err:false };
+
+  if (xJamba >= D - 0.02){
+    msgs.push(['err','<b>Datos incoherentes:</b> el portón no puede ser mayor o igual que la distancia total.']);
+    M.err = true;
+    render();
+    return;
+  }
+
+  var run = D - xJamba;
+  M.run = run;
+
+  /* --- solape horizontal y cantidad de chapas por renglón --- */
+  var o, n;
+  if (exacto){
+    n = Math.max(1, Math.ceil(run / W - 1e-9));
+    o = (n > 1) ? W - (run - W) / (n - 1) : 0;
+    o = clamp(o, 0, W);
+  } else {
+    o = clamp(oField, 0, W - 0.001);
+    n = Math.max(1, Math.ceil((run - W) / (W - o) + 1 - 1e-9));
+  }
+  var coverage = W + (n - 1) * (W - o);
+  var cut = Math.max(0, coverage - run);
+  M.o = o; M.n = n; M.nChapas = n * nRen; M.coverage = coverage; M.cut = cut;
+
+  /* --- chapas: dos renglones con los mismos empalmes y los mismos postes --- */
+  for (var r = 0; r < nRen; r++){
+    var y0 = r * (Hc - ovV);
+    for (var i = 0; i < n; i++){
+      var left = xJamba + i * (W - o);
+      var largo = (i === n - 1) ? (W - cut) : W;
+      var right = left + largo;
+      var exA = left + (i > 0 ? o : 0);
+      var exB = right - (i < n - 1 ? o : 0);
+      M.chapas.push({ id:(r*n + i), i:i, renglon:r+1, left:left, right:right,
+                      largo:largo, y0:y0, y1:y0 + Hc,
+                      exA:exA, exB:Math.max(exA, exB),
+                      cut:(i === n-1 && cut > EPS) });
+    }
+  }
+
+  /* --- empalmes horizontales (comunes a los dos renglones) --- */
+  for (var j = 0; j < n - 1; j++){
+    var a = M.chapas[j], b = M.chapas[j + 1];
+    var ovlLeft = b.left, ovlRight = Math.min(a.right, b.right);
+    if (ovlRight < ovlLeft){ ovlRight = ovlLeft; }
+    M.joints.push({ i:j, left:ovlLeft, right:ovlRight,
+                    width:ovlRight - ovlLeft, center:(ovlLeft + ovlRight)/2 });
+  }
+
+  /* --- postes --- */
+  var P = [];
+  P.push({ x:0, tipo:'Poste del portón', w:pd, circ:true, nota:'caño Ø' + cm(pd) + ' cm' });
+  P.push({ x:xJamba, tipo:'Jamba del portón', w:pd, circ:true, nota:'caño Ø' + cm(pd) + ' cm' });
+  M.joints.forEach(function(jt){
+    P.push({ x:jt.center, tipo:'Empalme chapa ' + (jt.i+1) + ' / ' + (jt.i+2),
+             w:pw, circ:false, nota:'cuadrado ' + cm(pw) + ' cm', joint:jt.i });
+  });
+  P.push({ x:D, tipo:'Extremo del cerramiento', w:pw, circ:false, nota:'cuadrado ' + cm(pw) + ' cm' });
+  P.sort(function(a,b){ return a.x - b.x; });
+  var clean = [];
+  P.forEach(function(p){
+    var last = clean[clean.length-1];
+    if (last && Math.abs(last.x - p.x) < 0.001) return;
+    clean.push(p);
+  });
+
+  if (insP){
+    var extra = [];
+    for (var s = 0; s < clean.length - 1; s++){
+      var d = clean[s+1].x - clean[s].x;
+      if (d > maxSep){
+        var m = Math.ceil(d / maxSep) - 1;
+        for (var q = 1; q <= m; q++){
+          extra.push({ x: clean[s].x + d*q/(m+1), tipo:'Sugerido (tramo largo)',
+                       w:pw, circ:false, nota:'cuadrado ' + cm(pw) + ' cm', extra:true });
+        }
+      }
+    }
+    clean = clean.concat(extra).sort(function(a,b){ return a.x - b.x; });
+  }
+  M.postes = clean;
+  M.postes.forEach(function(p, idx){ p.num = idx + 1; });
+
+  /* --- clavado: cada chapa en cada poste que la sostiene --- */
+  M.chapas.forEach(function(ch){
+    ch.nails = []; ch.postesRec = [];
+    M.postes.forEach(function(p){
+      if (p.x < ch.left - 0.001 || p.x > ch.right + 0.001) return;
+      ch.nails = ch.nails.concat(nailsFor(ch, p, k));
+      if (ch.postesRec.indexOf(p.num) < 0) ch.postesRec.push(p.num);
+    });
+  });
+  M.nailsTotal = M.chapas.reduce(function(t, ch){ return t + ch.nails.length; }, 0);
+  M.chapas.forEach(function(ch){ ch.nails.forEach(function(na){ M.clavos.push(na); }); });
+
+  /* --- chequeos --- */
+  if (o < pw - 1e-6){
+    msgs.push(['warn','El solape horizontal (<b>' + cm(o) + ' cm</b>) es menor que el ancho del poste (' + cm(pw) + ' cm): los clavos no atraviesan las dos chapas en todo el ancho del poste.']);
+  } else {
+    msgs.push(['ok','Solape horizontal de <b>' + cm(o) + ' cm</b> — alcanza para clavar las dos chapas sobre el poste (' + cm(pw) + ' cm).']);
+  }
+  if (luz){
+    msgs.push(['ok','Portón de <b>' + nf(G) + ' m de luz interna</b>: la jamba va a <b>' + nf(xJamba) + ' m</b> (luz + Ø del caño de ' + cm(pd) + ' cm).']);
+  } else {
+    msgs.push(['warn','El ancho del portón está medido <b>entre centros de postes</b>. Si en obra es de luz interna, activá esa opción.']);
+  }
+  msgs.push(['ok','Alto total de <b>' + nf(H) + ' m</b>: dos renglones de ' + nf(Hc) + ' m solapados ' + cm(ovV) + ' cm.']);
+  if (cut > EPS && !exacto){
+    msgs.push(['warn','Con ' + n + ' chapas se cubren <b>' + nf(coverage) + ' m</b> y sobran <b>' + nf(cut) + ' m</b>: la última chapa de cada renglón se corta a <b>' + nf(W - cut) + ' m</b>.']);
+  }
+  if (ovV > Hc - 0.05){ msgs.push(['warn','El solape vertical es casi tan grande como la chapa: no queda renglón útil.']); }
+  if (o < 0.03 && o > 0){ msgs.push(['warn','Solape horizontal muy chico (' + cm(o) + ' cm). Se recomienda entre 8 y 20 cm.']); }
+  if (o > 0.35){ msgs.push(['warn','Solape horizontal grande (' + cm(o) + ' cm): se desperdicia chapa.']); }
+  if (run > 0 && !insP){
+    var maxd = 0;
+    for (var t = 0; t < M.postes.length - 1; t++){
+      if (M.postes[t].x < M.xJamba - 0.001) continue;   // el tramo del portón no cuenta
+      if (M.postes[t].extra) continue;
+      maxd = Math.max(maxd, M.postes[t+1].x - M.postes[t].x);
+    }
+    if (maxd > maxSep + 0.001){
+      msgs.push(['warn','Hay un tramo de <b>' + nf(maxd) + ' m</b> entre postes (máx. ' + nf(maxSep) + ' m). Activá "Insertar postes sugeridos".']);
+    }
+  }
+  render();
+}
+
+function nailsFor(ch, p, k){
+  var m = 0.015;                       // 15 mm desde el borde del poste
+  var out = [], ys = [], j;
+  var h = ch.y1 - ch.y0;
+  if (k === 1){ ys.push(ch.y0 + h*0.5); }
+  else if (k === 2){ ys.push(ch.y0 + h*0.18); ys.push(ch.y0 + h*0.82); }
+  else { for (j = 0; j < k; j++) ys.push(ch.y0 + h*(j+1)/(k+1)); }
+  // lado del poste donde tiene más cuerpo la chapa
+  var w = p.w;
+  var onLeft = (p.x - ch.left) >= (ch.right - p.x);
+  var x = onLeft ? (p.x - w/2 + m) : (p.x + w/2 - m);
+  x = clamp(x, ch.left + m, ch.right - m);
+  ys.forEach(function(y){ out.push({ x:x, y:y, poste:p.num, chapa:ch.id, renglon:ch.renglon, nch:ch.i+1 }); });
+  return out;
+}
+
+/* ------------------------------------------------------------------ */
+/* GEOMETRÍA DEL DIBUJO                                                */
+/* ------------------------------------------------------------------ */
+function geom(){
+  var D = M.D, H = M.H, sob = M.sob, hincado = M.hincado;
+  var MX = 1.15;
+  var TOP = 1.42;
+  var postTop = H + sob;
+  var groundY = TOP + postTop;
+  var below = hincado + 0.55;
+  return {
+    MX: MX, TOP: TOP, groundY: groundY,
+    viewW: D + 2*MX,
+    viewH: groundY + below,
+    postTop: postTop,
+    X: function(x){ return Math.round((MX + x) * 10000) / 10000; },
+    Y: function(y){ return Math.round((groundY - y) * 10000) / 10000; }
+  };
+}
+
+function dLabel(x1, x2, yw, label, small, cls){
+  var g = geom(), X = g.X, Y = g.Y;
+  var y = Y(yw), mid = X((x1 + x2)/2);
+  var t = small ? 0.07 : 0.085;
+  return '<g>'
+    + '<line class="dimline" x1="'+X(x1)+'" y1="'+y+'" x2="'+X(x2)+'" y2="'+y+'"/>'
+    + '<line class="dimline" x1="'+(X(x1)-t)+'" y1="'+(y+t)+'" x2="'+(X(x1)+t)+'" y2="'+(y-t)+'"/>'
+    + '<line class="dimline" x1="'+(X(x2)-t)+'" y1="'+(y+t)+'" x2="'+(X(x2)+t)+'" y2="'+(y-t)+'"/>'
+    + '<text class="dimtext '+(cls||'')+(small?' sm':'')+'" x="'+mid+'" y="'+(y-0.055)+'">'+label+'</text>'
+    + '</g>';
+}
+
+function extLine(xw, y1w, y2w){
+  var g = geom(), X = g.X, Y = g.Y;
+  return '<line class="dimline" style="stroke-dasharray:.05 .04;stroke-opacity:.6" x1="'+X(xw)+'" y1="'+Y(y1w)+'" x2="'+X(xw)+'" y2="'+Y(y2w)+'"/>';
+}
+
+function hExtLine(yw, x1w, x2w){
+  var g = geom(), X = g.X, Y = g.Y;
+  return '<line class="dimline" style="stroke-dasharray:.05 .04;stroke-opacity:.6" x1="'+X(x1w)+'" y1="'+Y(yw)+'" x2="'+X(x2w)+'" y2="'+Y(yw)+'"/>';
+}
+
+function vLabel(xw, y1w, y2w, label, small, cls){
+  var g = geom(), X = g.X, Y = g.Y;
+  var x = X(xw), y1 = Y(y1w), y2 = Y(y2w), mid = (y1 + y2)/2;
+  var t = small ? 0.07 : 0.085;
+  return '<g>'
+    + '<line class="dimline" x1="'+x+'" y1="'+y1+'" x2="'+x+'" y2="'+y2+'"/>'
+    + '<line class="dimline" x1="'+(x-t)+'" y1="'+(y1+t)+'" x2="'+(x+t)+'" y2="'+(y1-t)+'"/>'
+    + '<line class="dimline" x1="'+(x-t)+'" y1="'+(y2+t)+'" x2="'+(x+t)+'" y2="'+(y2-t)+'"/>'
+    + '<text class="dimtext '+(cls||'')+(small?' sm':'')+'" x="'+(x-0.07)+'" y="'+mid+'" transform="rotate(-90 '+(x-0.07)+' '+mid+')" dominant-baseline="middle">'+label+'</text>'
+    + '</g>';
+}
+
+/* ------------------------------------------------------------------ */
+/* DIBUJO                                                              */
+/* ------------------------------------------------------------------ */
+function render(){
+  if (!M) return;
+  var g = geom(), X = g.X, Y = g.Y;
+  var H = M.H, sob = M.sob, pw = M.pw, hincado = M.hincado;
+  var s = [];
+
+  var showCotas = document.getElementById('cCotas').checked;
+  var showClavos = document.getElementById('cClavos').checked;
+  var markOvl = document.getElementById('cOvl').checked;
+  var numPostes = document.getElementById('cPostes').checked;
+
+  s.push('<defs>');
+  s.push('<pattern id="hatch" width="0.12" height="0.12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">'
+        +'<rect width="0.12" height="0.12" fill="#fdf0d8"/>'
+        +'<line x1="0" y1="0" x2="0" y2="0.12" stroke="#f0a93b" stroke-width="0.028"/></pattern>');
+  s.push('<pattern id="gatep" width="0.16" height="0.16" patternUnits="userSpaceOnUse">'
+        +'<rect width="0.16" height="0.16" fill="#a9b5c2"/>'
+        +'<line x1="0.08" y1="0" x2="0.08" y2="0.16" stroke="#8894a2" stroke-width="0.05"/></pattern>');
+  s.push('<pattern id="tierra" width="0.14" height="0.09" patternUnits="userSpaceOnUse">'
+        +'<rect width="0.14" height="0.09" fill="#f0e6d6"/>'
+        +'<line x1="0" y1="0.075" x2="0.07" y2="0.02" stroke="#cbb99c" stroke-width="0.018"/>'
+        +'<line x1="0.07" y1="0.02" x2="0.14" y2="0.075" stroke="#cbb99c" stroke-width="0.018"/></pattern>');
+  s.push('</defs>');
+
+  /* ---- terreno ---- */
+  var yG = Y(0);
+  s.push('<rect x="'+X(0)+'" y="'+yG+'" width="'+M.D+'" height="'+(g.viewH - yG)+'" fill="#f7f3ec" opacity=".55"/>');
+  s.push('<line x1="'+X(0)+'" y1="'+yG+'" x2="'+X(M.D)+'" y2="'+yG+'" stroke="#9a8f7c" stroke-width="0.018"/>');
+  for (var hx = 0; hx <= M.D; hx += 0.25){
+    s.push('<line x1="'+X(hx)+'" y1="'+yG+'" x2="'+(X(hx)-0.08)+'" y2="'+(yG+0.09)+'" stroke="#c9bfae" stroke-width="0.012"/>');
+  }
+  s.push('<text class="terrain-lbl" x="'+X(0)+'" y="'+(Y(-hincado)+0.30)+'">línea de terreno</text>');
+
+  /* ---- portón ---- */
+  var gL = M.gateL, gR = M.gateR, gW = gR - gL;
+  s.push('<rect x="'+X(gL)+'" y="'+Y(H)+'" width="'+gW+'" height="'+H+'" fill="url(#gatep)" stroke="#78838f" stroke-width="0.016"/>');
+  s.push('<line x1="'+X(gL)+'" y1="'+Y(H)+'" x2="'+X(gR)+'" y2="'+Y(0)+'" stroke="#78838f" stroke-width="0.012" opacity=".8"/>');
+  s.push('<line x1="'+X(gR)+'" y1="'+Y(H)+'" x2="'+X(gL)+'" y2="'+Y(0)+'" stroke="#78838f" stroke-width="0.012" opacity=".8"/>');
+  s.push('<rect x="'+X(gL)+'" y="'+Y(H)+'" width="'+gW+'" height="0.05" fill="#8894a2"/>');
+  s.push('<rect x="'+X(gL)+'" y="'+Y(0.05)+'" width="'+gW+'" height="0.05" fill="#8894a2"/>');
+  s.push('<text class="gate-lbl" x="'+X((gL+gR)/2)+'" y="'+Y(H/2)+'">PORTÓN</text>');
+  s.push('<text class="gate-sub halo" x="'+X((gL+gR)/2)+'" y="'+(Y(H/2)+0.22)+'">'+nf(M.G)+' m'+(M.luz?' luz':'')+'</text>');
+
+  /* ---- postes ---- */
+  M.postes.forEach(function(p){
+    var x = X(p.x), w = p.w, col = p.circ ? '#6f7b88' : '#8a6647';
+    s.push('<rect x="'+(x-w/2)+'" y="'+Y(0)+'" width="'+w+'" height="'+hincado+'" fill="url(#tierra)" stroke="#b8a488" stroke-width="0.012" stroke-dasharray=".06 .04" opacity=".9"/>');
+    s.push('<rect x="'+(x-w/2)+'" y="'+Y(g.postTop)+'" width="'+w+'" height="'+(Y(0)-Y(g.postTop))+'" fill="'+(p.extra?'#a58a6d':col)+'" stroke="'+(p.circ?'#4d5763':'#5f452c')+'" stroke-width="0.014"'+(p.extra?' stroke-dasharray=".07 .05"':'')+'/>');
+    if (p.circ){
+      s.push('<ellipse cx="'+x+'" cy="'+Y(g.postTop)+'" rx="'+(w/2)+'" ry="'+(w/5.5)+'" fill="'+col+'" stroke="#4d5763" stroke-width="0.014"/>');
+    }
+    if (numPostes){
+      s.push('<text class="poste-lbl" x="'+x+'" y="'+(Y(g.postTop)-0.12)+'">P'+p.num+'</text>');
+    }
+  });
+
+  /* ---- chapas (dos renglones) ---- */
+  M.chapas.forEach(function(ch, idx){
+    var sel = (selChapa === idx);
+    var hBand = ch.y1 - ch.y0;
+    s.push('<g class="chapa'+(sel?' sel':'')+'" data-chapa="'+idx+'">');
+    s.push('<rect class="cbody" x="'+X(ch.left)+'" y="'+Y(ch.y1)+'" width="'+ch.largo+'" height="'+hBand+'" fill="'+(ch.renglon%2? '#c9d4e0':'#b7c4d3')+'" stroke="#7d8b9a" stroke-width="0.013"/>');
+    // corrugado horizontal dentro del renglón
+    var cyStart = Y(ch.y1) + 0.06, cyEnd = Y(ch.y0);
+    for (var cy = cyStart; cy < cyEnd - 0.01; cy += 0.11){
+      s.push('<line x1="'+X(ch.left)+'" y1="'+cy+'" x2="'+X(ch.right)+'" y2="'+cy+'" stroke="#7d8b9a" stroke-width="0.009" opacity=".38"/>');
+    }
+    var cw = ch.exB - ch.exA;
+    if (cw > 0.30){
+      var cxl = X((ch.exA + ch.exB)/2), ymid = Y((ch.y0 + ch.y1)/2);
+      s.push('<text class="chapa-lbl'+(ch.cut?' cut':'')+'" x="'+cxl+'" y="'+(ymid+0.04)+'">R'+ch.renglon+' · CHAPA '+(ch.i+1)+'</text>');
+      s.push('<text class="chapa-lbl'+(ch.cut?' cut':'')+'" x="'+cxl+'" y="'+(ymid-0.13)+'" style="font-size:.105px;font-weight:600">'+nf(ch.largo)+' m'+(ch.cut?' (cortada)':'')+'</text>');
+    }
+    s.push('</g>');
+  });
+
+  /* ---- solape vertical entre renglones ---- */
+  if (markOvl && M.ovV > 0.001){
+    s.push('<rect x="'+X(M.xJamba)+'" y="'+Y(M.Hc)+'" width="'+M.run+'" height="'+M.ovV+'" fill="url(#hatch)" stroke="#e08a1e" stroke-width="0.016" opacity=".85"/>');
+  }
+
+  /* ---- zonas de solapamiento horizontal ---- */
+  if (markOvl){
+    for (var ri = 0; ri < M.nRen; ri++){
+      var base = ri * M.n;
+      for (var ji = 0; ji < M.n - 1; ji++){
+        var jt = M.joints[ji];
+        var chA = M.chapas[base + ji];
+        s.push('<rect x="'+X(jt.left)+'" y="'+Y(chA.y1)+'" width="'+Math.max(0.005, jt.width)+'" height="'+(chA.y1-chA.y0)+'" fill="url(#hatch)" stroke="#e08a1e" stroke-width="0.016" data-joint="'+ji+'" style="cursor:pointer"/>');
+      }
+    }
+  }
+
+  /* ---- clavos ---- */
+  if (showClavos){
+    M.clavos.forEach(function(na){
+      var cx = X(na.x), cy = Y(na.y);
+      s.push('<g><circle cx="'+cx+'" cy="'+cy+'" r="0.028" fill="#b3261e" stroke="#fff" stroke-width="0.012"/>'
+        +'<line x1="'+(cx-0.014)+'" y1="'+(cy-0.014)+'" x2="'+(cx+0.014)+'" y2="'+(cy+0.014)+'" stroke="#fff" stroke-width="0.008"/>'
+        +'<line x1="'+(cx-0.014)+'" y1="'+(cy+0.014)+'" x2="'+(cx+0.014)+'" y2="'+(cy-0.014)+'" stroke="#fff" stroke-width="0.008"/></g>');
+    });
+  }
+
+  /* ---- cotas ---- */
+  if (showCotas){
+    var yOvl = g.postTop + 0.28;
+    var ySep = g.postTop + 0.56;
+    var ySeg = g.postTop + 0.86;
+    var yTot = g.postTop + 1.18;
+
+    // extensiones
+    s.push(extLine(0, 0, yTot));
+    s.push(extLine(M.D, 0, yTot));
+    s.push(extLine(M.gateL, H*0.5, ySeg+0.04));
+    s.push(extLine(M.gateR, H*0.5, ySeg+0.04));
+    s.push(extLine(M.xJamba, H*0.5, ySeg+0.04));
+
+    M.postes.forEach(function(p){ s.push(extLine(p.x, g.postTop, ySep + 0.03)); });
+
+    // total
+    s.push(dLabel(0, M.D, yTot, nf(M.D) + ' m'));
+    // segmentos portón / chapa
+    s.push(dLabel(M.gateL, M.gateR, ySeg, (M.luz ? 'Portón ' : 'Portón ') + nf(M.G) + ' m', true));
+    s.push(dLabel(M.xJamba, M.D, ySeg, 'Chapa ' + nf(M.run) + ' m'));
+    // separación entre postes
+    for (var t = 0; t < M.postes.length - 1; t++){
+      var dx = M.postes[t+1].x - M.postes[t].x;
+      s.push(dLabel(M.postes[t].x, M.postes[t+1].x, ySep, nf(dx) + ' m', dx < 1.4));
+    }
+    // solapamientos horizontales
+    M.joints.forEach(function(jt){
+      s.push(dLabel(jt.left, jt.right, yOvl, cm(jt.width) + ' cm', true, 'ovl'));
+    });
+
+    /* --- cotas verticales --- */
+    var ySol = M.H - M.Hc;                    // base del solape vertical
+    s.push(hExtLine(M.H, 0, -0.58));
+    s.push(hExtLine(0, 0, -0.58));
+    s.push(hExtLine(M.Hc, 0, -0.34));
+    s.push(vLabel(-0.48, 0, M.H, nf(M.H) + ' m'));
+    s.push(vLabel(-0.24, 0, M.Hc, nf(M.Hc) + ' m', true));
+    if (M.ovV > 0.001){
+      s.push(hExtLine(ySol, 0, -0.34));
+      s.push(hExtLine(M.Hc, M.D, M.D + 0.34));
+      s.push(hExtLine(ySol, M.D, M.D + 0.34));
+      s.push(vLabel(M.D + 0.24, ySol, M.Hc, cm(M.ovV) + ' cm', true, 'ovl'));
+    }
+  }
+
+  svg.innerHTML = s.join('');
+  svg.setAttribute('viewBox', '0 0 ' + g.viewW + ' ' + g.viewH);
+  baseVB = { x:0, y:0, w:g.viewW, h:g.viewH };
+  if (!vb) vb = { x:baseVB.x, y:baseVB.y, w:baseVB.w, h:baseVB.h };
+  applyVB();
+  bindSVG();
+  pintarTablas();
+}
+
+function applyVB(){
+  svg.setAttribute('viewBox', vb.x + ' ' + vb.y + ' ' + vb.w + ' ' + vb.h);
+}
+
+/* ------------------------------------------------------------------ */
+/* ZOOM / PAN                                                          */
+/* ------------------------------------------------------------------ */
+function svgPoint(clientX, clientY){
+  var r = svg.getBoundingClientRect();
+  return { x: vb.x + (clientX - r.left) / r.width * vb.w,
+           y: vb.y + (clientY - r.top) / r.height * vb.h };
+}
+function zoomAt(px, py, f){
+  var nw = clamp(vb.w * f, baseVB.w / 80, baseVB.w * 1.05);
+  var realF = nw / vb.w;
+  var nh = vb.h * realF;
+  vb.x = px - (px - vb.x) * realF;
+  vb.y = py - (py - vb.y) * realF;
+  vb.w = nw; vb.h = nh;
+  applyVB();
+}
+function fitTo(x1, x2){
+  var g = geom();
+  var pad = Math.max(0.25, (x2 - x1) * 0.35);
+  var w = (x2 - x1) + 2*pad;
+  var cx = (x1 + x2) / 2;
+  var h = w * (g.viewH / g.viewW);
+  vb = { x: g.X(cx) - w/2, y: g.Y(M.H/2) - h/2, w: w, h: h };
+  applyVB();
+}
+function bindSVG(){
+  svg.querySelectorAll('.chapa').forEach(function(el){
+    el.addEventListener('click', function(ev){
+      ev.stopPropagation();
+      if (lastDragDist > 3) return;
+      var i = +el.getAttribute('data-chapa');
+      selChapa = (selChapa === i) ? -1 : i;
+      render();
+      if (selChapa >= 0) resaltarFila('tChapas', selChapa);
+    });
+  });
+  svg.querySelectorAll('[data-joint]').forEach(function(el){
+    el.addEventListener('mousemove', function(ev){
+      var ji = +el.getAttribute('data-joint');
+      var jt = M.joints[ji];
+      var clavos = 0, ren = [];
+      for (var r = 0; r < M.nRen; r++){
+        var base = r * M.n;
+        [M.chapas[base + ji], M.chapas[base + ji + 1]].forEach(function(ch){
+          if (!ch) return;
+          clavos += ch.nails.filter(function(n){ return Math.abs(n.x - jt.center) < M.o + 0.05; }).length;
+          if (ren.indexOf(ch.renglon) < 0) ren.push(ch.renglon);
+        });
+      }
+      mostrarTip(ev, '<b>Empalme chapa '+(ji+1)+' / '+(ji+2)+'</b><br>'
+        + 'Solape horizontal: ' + cm(jt.width) + ' cm<br>'
+        + 'Centro: ' + nf(jt.center) + ' m desde el inicio<br>'
+        + 'Poste P' + posteEn(jt.center) + ' — acá se clavan los ' + M.nRen + ' renglones<br>'
+        + 'Clavos en este poste: ' + clavos);
+    });
+    el.addEventListener('mouseleave', ocultarTip);
+  });
+}
+function posteEn(x){
+  var best = null, bd = 1e9;
+  M.postes.forEach(function(p){ var d = Math.abs(p.x - x); if (d < bd){ bd = d; best = p; } });
+  return best ? best.num : '-';
+}
+function mostrarTip(ev, html){
+  tip.innerHTML = html;
+  tip.style.display = 'block';
+  var x = ev.clientX + 14, y = ev.clientY + 14;
+  var w = tip.offsetWidth, h = tip.offsetHeight;
+  if (x + w > window.innerWidth - 8) x = ev.clientX - w - 14;
+  if (y + h > window.innerHeight - 8) y = ev.clientY - h - 14;
+  tip.style.left = x + 'px';
+  tip.style.top = y + 'px';
+}
+function ocultarTip(){ tip.style.display = 'none'; }
+
+svg.addEventListener('wheel', function(ev){
+  ev.preventDefault();
+  var p = svgPoint(ev.clientX, ev.clientY);
+  zoomAt(p.x, p.y, Math.exp(ev.deltaY * 0.0015));
+}, { passive:false });
+
+svg.addEventListener('mousedown', function(ev){
+  drag = { x:ev.clientX, y:ev.clientY, vx:vb.x, vy:vb.y };
+  lastDragDist = 0;
+  svg.classList.add('grabbing');
+});
+window.addEventListener('mousemove', function(ev){
+  if (!drag) return;
+  var r = svg.getBoundingClientRect();
+  var dx = ev.clientX - drag.x, dy = ev.clientY - drag.y;
+  lastDragDist = Math.max(lastDragDist, Math.abs(dx) + Math.abs(dy));
+  vb.x = drag.vx - dx / r.width * vb.w;
+  vb.y = drag.vy - dy / r.height * vb.h;
+  applyVB();
+});
+window.addEventListener('mouseup', function(){ drag = null; svg.classList.remove('grabbing'); });
+
+/* ------------------------------------------------------------------ */
+/* TABLAS Y TARJETAS                                                   */
+/* ------------------------------------------------------------------ */
+function resaltarFila(tablaId, idx){
+  var tb = document.querySelector('#'+tablaId+' tbody');
+  Array.prototype.forEach.call(tb.children, function(tr, i){
+    tr.classList.toggle('hl', i === idx);
+  });
+}
+
+function pintarTablas(){
+  var msgs = document.getElementById('msgs');
+  msgs.innerHTML = M.msgs.map(function(m){
+    var ico = m[0]==='ok' ? '✔' : (m[0]==='warn' ? '!' : '✖');
+    return '<div class="msg '+m[0]+'"><span class="ico">'+ico+'</span><span>'+m[1]+'</span></div>';
+  }).join('');
+
+  var altoPoste = M.H + M.sob + M.hincado;
+  var nEnteras = M.cut > EPS ? M.n - 1 : M.n;
+  var nPorton = 0;
+  M.postes.forEach(function(p){ if (p.circ) nPorton++; });
+  var nCerr = M.postes.length - nPorton;
+
+  var elAlto = document.getElementById('altoTotalTxt');
+  if (elAlto) elAlto.textContent = nf(M.H) + ' m';
+
+  document.getElementById('cards').innerHTML = [
+    card('Chapas', M.nChapas + ' u', M.nRen + ' renglones de ' + M.n + ' · ' + nf(M.W) + ' × ' + nf(M.Hc) + ' m'),
+    card('Solape horizontal', cm(M.o) + ' cm', M.exacto ? 'cierre exacto' : 'fijado a mano'),
+    card('Solape vertical', cm(M.ovV) + ' cm', 'entre renglones'),
+    card('Postes', M.postes.length + ' u', nPorton + ' caños Ø' + cm(M.pd) + ' cm · ' + nCerr + ' cuadrados ' + cm(M.pw) + ' cm'),
+    card('Tramo de chapa', nf(M.run) + ' m', M.n + ' empalmes en cada renglón'),
+    card('Clavos', M.nailsTotal + ' u', M.k + ' por chapa y poste'),
+    card('Alto del cerramiento', nf(M.H) + ' m', nf(M.Hc) + ' + ' + nf(M.Hc) + ' − ' + cm(M.ovV) + ' cm'),
+    card('Poste largo', nf(altoPoste) + ' m', nf(M.H) + ' m a la vista + ' + nf(M.hincado) + ' hincado')
+  ].join('');
+
+  // postes
+  var tbP = document.querySelector('#tPostes tbody');
+  tbP.innerHTML = M.postes.map(function(p, i){
+    var prev = i > 0 ? (p.x - M.postes[i-1].x) : 0;
+    return '<tr><td><b>P'+p.num+'</b></td><td style="text-align:left">'+p.tipo+'</td>'
+      + '<td style="text-align:left">'+p.nota+'</td>'
+      + '<td>'+nf(p.x)+' m</td><td>'+(i>0?nf(prev)+' m':'—')+'</td></tr>';
+  }).join('');
+
+  // chapas
+  var tbC = document.querySelector('#tChapas tbody');
+  tbC.innerHTML = M.chapas.map(function(ch, i){
+    var ovl = ch.i > 0 ? cm(M.joints[ch.i-1].width) + ' cm' : '—';
+    return '<tr class="'+(i===selChapa?'hl':'')+'"><td><b>R'+ch.renglon+'·'+(ch.i+1)+'</b></td>'
+      + '<td>'+nf(ch.left)+' m</td><td>'+nf(ch.right)+' m</td>'
+      + '<td>'+nf(ch.largo)+' m'+(ch.cut?' ✂':'')+'</td><td>'+ovl+'</td>'
+      + '<td>'+nf(ch.y0)+' → '+nf(ch.y1)+' m</td></tr>';
+  }).join('');
+
+  // dónde clavar
+  var tbK = document.querySelector('#tClavos tbody');
+  var filas = [];
+  M.chapas.forEach(function(ch){
+    var porPoste = {};
+    ch.nails.forEach(function(na){
+      (porPoste[na.poste] = porPoste[na.poste] || []).push(na);
+    });
+    Object.keys(porPoste).forEach(function(numP){
+      var ns = porPoste[numP];
+      var xs = ns.map(function(n){ return n.x; }).sort(function(a,b){ return a-b; });
+      var xU = [];
+      xs.forEach(function(v){ if (!xU.length || Math.abs(xU[xU.length-1]-v) > 0.002) xU.push(v); });
+      var ys = ns.map(function(n){ return n.y; }).sort(function(a,b){ return b-a; });
+      var alturas = {};
+      ys.forEach(function(y){ alturas[nf(y)] = 1; });
+      filas.push('<tr><td><b>R'+ch.renglon+'·'+(ch.i+1)+'</b></td><td>'+ns.length+'</td><td>P'+numP+'</td>'
+        + '<td>'+xU.map(function(v){ return nf(v); }).join(' · ')+'</td>'
+        + '<td>'+Object.keys(alturas).join(' · ')+' m</td></tr>');
+    });
+  });
+  tbK.innerHTML = filas.join('');
+
+  // materiales
+  var rows = [
+    ['Caños circulares Ø' + cm(M.pd) + ' cm', nPorton + ' u',
+      'portón: P1 y P2 · largo ' + nf(altoPoste) + ' m (' + nf(M.H+M.sob) + ' a la vista + ' + nf(M.hincado) + ' hincado)'],
+    ['Postes ' + nf(M.Hin) + '"×' + nf(M.Hin) + '"', nCerr + ' u',
+      cm(M.pw) + ' cm de lado · largo ' + nf(altoPoste) + ' m'],
+    ['Chapas ' + nf(M.W) + ' × ' + nf(M.Hc) + ' m', M.nChapas + ' u',
+      M.nRen + ' renglones · ' + nEnteras + ' enteras' + (M.cut > EPS ? ' + ' + M.nRen + ' a cortar a ' + nf(M.W - M.cut) + ' m' : '')],
+    ['Superficie de chapa', nf(M.nChapas * M.W * M.Hc) + ' m²', 'sobre chapa plana'],
+    ['Clavos', M.nailsTotal + ' u', M.k + ' por chapa y poste · ' + M.nChapas + ' chapas'],
+    ['Empalmes', (M.joints.length * M.nRen) + ' u', M.joints.length + ' por renglón, sobre los mismos postes'],
+    ['Recorte sobrante', M.cut > EPS ? nf(M.cut) + ' m' : '—', M.cut > EPS ? 'de la última chapa de cada renglón' : 'no hace falta cortar']
+  ];
+  document.querySelector('#tMat tbody').innerHTML = rows.map(function(r){
+    return '<tr><td>'+r[0]+'</td><td><b>'+r[1]+'</b></td><td style="text-align:left">'+r[2]+'</td></tr>';
+  }).join('');
+}
+function card(k, v, n){
+  return '<div class="card"><div class="k">'+k+'</div><div class="v">'+v+'</div><div class="n">'+n+'</div></div>';
+}
+
+/* ------------------------------------------------------------------ */
+/* CONTROLES                                                           */
+/* ------------------------------------------------------------------ */
+function aplicarSolap(){
+  if (document.getElementById('exacto').checked) return;
+  document.getElementById('solapCm').value = document.getElementById('solap').value;
+  document.getElementById('solapVal').textContent = nf(parseFloat(document.getElementById('solap').value),1) + ' cm';
+  recalcularVista();
+}
+
+function recalcularVista(){
+  vb = null;           // recalcula encuadre
+  calcular();
+}
+function soloRecalcular(){
+  calcular();
+}
+
+var inputs = ['distTotal','porton','anchoChapa','altoChapa','solapVert','postePorton','posteIn','clavos','maxSep','hincado'];
+inputs.forEach(function(id){
+  document.getElementById(id).addEventListener('input', recalcularVista);
+  document.getElementById(id).addEventListener('change', recalcularVista);
+});
+document.getElementById('luzPorton').addEventListener('change', recalcularVista);
+document.getElementById('solapCm').addEventListener('input', function(){
+  document.getElementById('solap').value = clamp(parseFloat(this.value)||0, 0, 60);
+  document.getElementById('solapVal').textContent = nf(parseFloat(document.getElementById('solap').value),1) + ' cm';
+  recalcularVista();
+});
+document.getElementById('solap').addEventListener('input', aplicarSolap);
+document.getElementById('exacto').addEventListener('change', function(){
+  document.getElementById('solap').disabled = this.checked;
+  document.getElementById('solapCm').disabled = this.checked;
+  recalcularVista();
+});
+document.getElementById('insPostes').addEventListener('change', soloRecalcular);
+['cCotas','cClavos','cOvl','cPostes'].forEach(function(id){
+  document.getElementById(id).addEventListener('change', soloRecalcular);
+});
+
+document.getElementById('zIn').addEventListener('click', function(){
+  zoomAt(vb.x + vb.w/2, vb.y + vb.h/2, 0.7);
+});
+document.getElementById('zOut').addEventListener('click', function(){
+  zoomAt(vb.x + vb.w/2, vb.y + vb.h/2, 1.4);
+});
+document.getElementById('zReset').addEventListener('click', function(){
+  vb = { x:baseVB.x, y:baseVB.y, w:baseVB.w, h:baseVB.h };
+  applyVB();
+});
+document.getElementById('zOvl').addEventListener('click', function(){
+  if (M && M.joints.length) fitTo(M.joints[0].left - 0.05, M.joints[0].right + 0.05);
+});
+document.getElementById('zGate').addEventListener('click', function(){
+  fitTo(M.gateL, M.gateR);
+});
+document.getElementById('imprimir').addEventListener('click', function(){ window.print(); });
+
+document.getElementById('solap').disabled = true;
+document.getElementById('solapCm').disabled = true;
+calcular();
+})();
+</script>
+</body>
+</html>

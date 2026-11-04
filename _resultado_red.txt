@@ -1,0 +1,23 @@
+RESULTADOS DE RED (19 OK, 0 FALLO)
+--------------------------------------------------
+OK   las dos copias cargaron y expusieron __dbg
+OK   ambos visitantes entraron a la feria
+OK   el anfitrión toma el id de la sala   [esrn-feria-TEST1]
+OK   WebRTC conectó a los dos visitantes   [A ve a 1 · B ve a 1]
+OK   el anfitrión tiene 1 conexión entrante   [1]
+OK   el anfitrión identifica correctamente a Beto   [21c3d66f-d417-4dc4-9944-06e321d07c70]
+OK   Beto identifica correctamente al anfitrión   [esrn-feria-TEST1]
+OK   el nombre de Beto viajó por la red   [Beto]
+OK   el nombre de Ana viajó por la red   [Ana]
+OK   el roster del anfitrión lista a Beto
+OK   el roster de Beto lista a Ana
+OK   el chat de Beto llega al anfitrión
+OK   Beto ve su propio mensaje
+OK   el chat del anfitrión llega a Beto
+OK   Beto dibuja el avatar de Ana   [true]
+OK   Beto recibe la posición de Ana   [tx=6 tyaw=1.25]
+OK   el avatar de Ana se desplaza hasta la posición recibida   [x=5.84]
+OK   cuando Beto se va, el anfitrión retira su avatar   [quedan 0]
+OK   el roster del anfitrión ya no lista a Beto
+--------------------------------------------------
+TODOS LOS CASOS PASARON

@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLASE N°4: ¿CÓMO SE MUEVE EL CALOR?</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.8;
+            color: #000000;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #FFFFFF;
+            text-transform: uppercase;
+        }
+        .CONTENEDOR-TITULO {
+            background: linear-gradient(135deg, #FEEBC8 0%, #FBD38D 50%, #F6AD55 100%);
+            color: #744210;
+            padding: 40px;
+            border: 4px solid #DD6B20;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(221, 107, 32, 0.2);
+        }
+        .CONTENEDOR-TITULO h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            color: #744210;
+        }
+        .CONTENEDOR-TITULO h2 {
+            font-size: 1.8em;
+            background-color: #DD6B20;
+            color: #FFFFFF;
+            display: inline-block;
+            padding: 10px 30px;
+            border-radius: 25px;
+            animation: float 3s ease-in-out infinite;
+        }
+        .TARJETA {
+            background: #FFFFFF;
+            padding: 30px;
+            border: 3px solid #000000;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .TARJETA:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+        .TARJETA h2 {
+            padding-right: 50px;
+        }
+        .BTN-AUDIO {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #DD6B20;
+            color: white;
+            border: 2px solid #000000;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .BTN-AUDIO:hover {
+            background-color: #744210;
+            transform: scale(1.1);
+        }
+        .BTN-AUDIO.ACTIVE {
+            background-color: #E53E3E;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        h1, h2, h3 {
+            color: #000000;
+            margin-top: 0;
+            text-decoration: underline;
+        }
+        .DESTACADO {
+            background-color: #FFFFE0;
+            border: 2px solid #000000;
+            padding: 20px;
+            margin: 20px 0;
+            font-weight: BOLD;
+        }
+        .CONTENEDOR-VIDEO {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            margin: 20px 0;
+            border: 3px solid #000000;
+        }
+        .CONTENEDOR-VIDEO iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .INFO-CARTA {
+            background-color: #FFFAF0;
+            border-left: 8px solid #DD6B20;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            position: relative;
+            padding-right: 50px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .INFO-CARTA:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .INFO-CARTA h3 {
+            margin: 0 0 5px 0;
+            font-size: inherit;
+            text-decoration: none;
+        }
+        
+        .IMAGEN-CONTENEDOR {
+            text-align: center;
+            margin: 25px 0;
+            padding: 15px;
+            background-color: #F0F0F0;
+            border: 1px solid #CCCCCC;
+            border-radius: 10px;
+        }
+        .IMAGEN-CONTENEDOR img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #000000;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 2px solid #000000;
+            padding: 15px;
+            text-align: center;
+        }
+        th { background-color: #E2E2E2; }
+        input[type="text"] {
+            width: 95%;
+            padding: 10px;
+            border: 2px solid #000000;
+            text-transform: uppercase;
+            font-weight: BOLD;
+            background-color: #FFFDE7;
+        }
+        .BOTON {
+            display: inline-block;
+            color: WHITE;
+            padding: 20px 40px;
+            text-decoration: none;
+            border: 3px solid #000000;
+            border-radius: 10px;
+            font-weight: BOLD;
+            margin: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .BOTON:hover {
+            transform: scale(1.05);
+        }
+        .AZUL { background-color: #3182CE; }
+        .VERDE { background-color: #38A169; }
+        .ROJO { background-color: #E53E3E; }
+        
+        .BTN-DESCARGA {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #38A169;
+            color: white;
+            padding: 12px 25px;
+            border: 3px solid #1A365D;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            font-size: 14px;
+        }
+        .BTN-DESCARGA:hover {
+            background-color: #2F855A;
+            transform: scale(1.05);
+        }
+
+        .LISTA-EJEMPLOS {
+            list-style: none;
+            padding: 0;
+        }
+        .LISTA-EJEMPLOS li {
+            background-color: white;
+            border: 2px solid #E2E2E2;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .LISTA-EJEMPLOS li::before {
+            content: "✓";
+            color: #38A169;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        @keyframes celebrate {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(-5deg); }
+            50% { transform: scale(1.2) rotate(5deg); }
+            75% { transform: scale(1.1) rotate(-5deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+        .ANIMATE-BOUNCE { animation: bounce 0.6s; }
+        .ANIMATE-SHAKE { animation: shake 0.5s; }
+        .ANIMATE-CELEBRATE { animation: celebrate 0.8s; }
+
+        .OPCIONES-ENERGIA {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .TARJETA-ENERGIA {
+            flex: 1;
+            min-width: 250px;
+            padding: 20px;
+            border-radius: 10px;
+            border: 3px solid;
+        }
+        .TARJETA-ENERGIA.CALOR {
+            background-color: #FFF5F5;
+            border-color: #E53E3E;
+        }
+        .TARJETA-ENERGIA.FRIO {
+            background-color: #E6FFFA;
+            border-color: #38A169;
+        }
+
+        .EMPAREJAMIENTO {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            gap: 20px;
+        }
+        .COLUMNA-IZQ {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .COLUMNA-DER {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .ITEM {
+            background-color: #DD6B20;
+            color: white;
+            padding: 12px 15px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: grab;
+            font-weight: bold;
+            font-size: 0.9em;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .ITEM:hover {
+            background-color: #744210;
+            transform: scale(1.02);
+        }
+        .ITEM:active {
+            cursor: grabbing;
+        }
+        .ITEM.USADO {
+            background-color: #718096;
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .ITEM.CORRECTO {
+            background-color: #38A169;
+        }
+        .ITEM.INCORRECTO {
+            background-color: #E53E3E;
+        }
+        .DROPZONA {
+            background-color: #FEEBC8;
+            border: 3px dashed #DD6B20;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+        .DROPZONA:hover {
+            background-color: #FBD38D;
+        }
+        .DROPZONA span {
+            font-size: 1.1em;
+        }
+        .DROPZONA small {
+            font-size: 0.75em;
+            color: #666;
+            font-weight: normal;
+        }
+        .DROPZONA .ITEM {
+            width: 90%;
+            margin: 5px 0;
+            font-size: 0.85em;
+            padding: 8px 10px;
+        }
+        .DROPZONA.SOBRESALIR {
+            background-color: #FBD38D;
+        }
+        .DROPZONA.OCUPADO {
+            background-color: #C6F6D5;
+            border-style: solid;
+            border-color: #38A169;
+        }
+        .DROPZONA.CORRECTO {
+            background-color: #C6F6D5;
+            border-color: #38A169;
+        }
+        .DROPZONA.INCORRECTO {
+            background-color: #FED7D7;
+            border-color: #E53E3E;
+        }
+
+        .TITULO-PASO {
+            background-color: #DD6B20;
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        .PREGUNTA {
+            font-weight: bold;
+            margin-top: 15px;
+            color: #744210;
+        }
+
+        .RADIO-GRUPO {
+            margin: 15px 0;
+            padding: 15px;
+            background-color: #FFFAF0;
+            border: 2px solid #E2E8F0;
+            border-radius: 8px;
+        }
+        .RADIO-GRUPO label {
+            display: block;
+            margin: 10px 0;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .RADIO-GRUPO label:hover {
+            color: #DD6B20;
+        }
+
+        .RESULTADO {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .CIERRE {
+            background-color: #C6F6D5;
+            border: 3px solid #38A169;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .FLECHA-DIRECCION {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            gap: 30px;
+        }
+        .CAJA-FLECHA {
+            padding: 20px;
+            border-radius: 10px;
+            border: 3px solid;
+            text-align: center;
+            font-weight: bold;
+            min-width: 150px;
+        }
+        .CAJA-CALIENTE {
+            background-color: #FFF5F5;
+            border-color: #E53E3E;
+            color: #C62828;
+        }
+        .CAJA-FRIO {
+            background-color: #E3F2FD;
+            border-color: #2196F3;
+            color: #1565C0;
+        }
+        .FLECHA {
+            font-size: 40px;
+            color: #DD6B20;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        .TEXTO-RESPUESTA {
+            width: 100%;
+            padding: 15px;
+            border: 3px solid #DD6B20;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            background-color: #FFFAF0;
+            margin: 10px 0;
+        }
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 3px solid #DD6B20;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            background-color: #FFFAF0;
+            font-family: 'Arial', sans-serif;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+
+<button class="BTN-DESCARGA" onclick="descargarPDF()">📥 DESCARGAR PDF</button>
+
+<div class="CONTENEDOR-TITULO">
+    <h1>FÍSICA AMBIENTAL</h1>
+    <h2>CLASE N°4: ¿CÓMO SE MUEVE EL CALOR?</h2>
+</div>
+
+<p style="text-align: center; margin: 20px 0; font-size: 1.1em; background-color: #FEEBC8; border: 3px solid #DD6B20; padding: 15px; border-radius: 10px;">SI TE RESULTA MÁS FÁCIL, PODÉS RESOLVER LAS ACTIVIDADES ENVIANDO UN AUDIO.</p>
+
+<div class="TARJETA" data-audio>
+    <button class="BTN-AUDIO" onclick="leerTexto(this)" title="Escuchar">🔊</button>
+    <h2>BIENVENIDA</h2>
+    <p>¡HOLA A TODOS! BIENVENIDOS A LA CLASE NÚMERO 4. EN LA CLASE ANTERIOR VIMOS LA TEMPERATURA. HOY VAMOS A CONOCER AL CALOR.</p>
+    
+    <div class="DESTACADO">
+        <h3>🎯 MISIÓN DE HOY</h3>
+        <ul class="LISTA-EJEMPLOS">
+            <li>✅ SABER QUÉ ES EL CALOR</li>
+            <li>✅ ENTENDER EL EQUILIBRIO TÉRMICO</li>
+            <li>✅ HACER UNA CUENTA FÁCIL DE ENERGÍA</li>
+        </ul>
+    </div>
+</div>
+
+<div class="TARJETA" data-audio>
+    <button class="BTN-AUDIO" onclick="leerTexto(this)" title="Escuchar">🔊</button>
+    <h2>🔥 1. REGLAS DEL CALOR</h2>
+    
+    <div class="DESTACADO" style="background-color: #FFF5F5; border-color: #E53E3E;">
+        <h3>EL CALOR NO SE "TIENE", EL CALOR SE MUEVE.</h3>
+    </div>
+    
+    <div class="INFO-CARTA" style="border-left-color: #E53E3E;">
+        <button class="BTN-AUDIO" onclick="leerTexto(this)" title="Escuchar">🔊</button>
+        <h3>📌 DIFERENCIA</h3>
+        <p>PARA QUE HAYA CALOR, UN OBJETO DEBE ESTAR MÁS CALIENTE QUE EL OTRO.</p>
+    </div>
+    
+    <div class="INFO-CARTA" style="border-left-color: #DD6B20;">
+        <button class="BTN-AUDIO" onclick="leerTexto(this)" title="Escuchar">🔊</button>
+        <h3>📌 DIRECCIÓN</h3>
+        <p>EL CALOR SIEMPRE VIAJA DEL MÁS CALIENTE AL MÁS FRÍO.</p>
+    </div>
+    
+    <div class="INFO-CARTA" style="border-left-color: #38A169;">
+        <button class="BTN-AUDIO" onclick="leerTexto(this)" title="Escuchar">🔊</button>
+        <h3>📌 FINAL</h3>
+        <p>EL VIAJE TERMINA CUANDO LOS DOS OBJETOS ESTÁN A LA MISMA TEMPERATURA (EQUILIBRIO TÉRMICO).</p>
+    </div>
+    
+    <div class="DESTACADO" style="background-color: #E3F2FD; border-color: #2196F3;">
+        <h3>💡 EJEMPLO:</h3>
+        <p>SI TOCÁS UN HIELO, VOS LE DAS CALOR AL HIELO (PORQUE VOS ESTÁS MÁS CALIENTE). POR ESO EL HIELO SE DERRITE Y TU MANO SE ENFRÍA.</p>
+    </div>
+    
+    <div class="FLECHA-DIRECCION">
+        <div class="CAJA-FLECHA CAJA-CALIENTE">
+            🔥 OBJETO CALIENTE
+        </div>
+        <div class="FLECHA">➡️</div>
+        <div class="CAJA-FLECHA CAJA-FRIO">
+            ❄️ OBJETO FRÍO
+        </div>
+    </div>
+</div>
+
+<div class="TARJETA" data-audio>
+    <button class="BTN-AUDIO" onclick="leerTexto(this)" title="Escuchar">🔊</button>
+    <h2>🔬 2. ¿QUÉ PASA POR DENTRO? (PARTÍCULAS)</h2>
+    
+    <p>IMAGINÁ LAS PARTÍCULAS (BOLITAS INVISIBLES) DENTRO DE LAS COSAS:</p>
+    
+    <div class="OPCIONES-ENERGIA">
+        <div class="TARJETA-ENERGIA CALOR">
+            <button class="BTN-AUDIO" onclick="leerTexto(this)" title="Escuchar">🔊</button>
+            <h3>🔥 OBJETO CALIENTE</h3>
+            <p>LAS PARTÍCULAS CORREN Y CHOCAN RÁPIDO.</p>
+            
+            <div class="IMAGEN-CONTENEDOR">
+                <img src="https://i.imgur.com/4aO3wPY.gif" alt="Partículas rápido">
+            </div>
+        </div>
+        
+        <div class="TARJETA-ENERGIA FRIO">
+            <button class="BTN-AUDIO" onclick="leerTexto(this)" title="Escuchar">🔊</button>
+            <h3>❄️ OBJETO FRÍO</h3>
+            <p>LAS PARTÍCULAS SE MUEVEN LENTO.</p>
+            
+            <div class="IMAGEN-CONTENEDOR">
+                <img src="https://i.imgur.com/HrEXhCV.gif" alt="Partículas lento">
+            </div>
+        </div>
+    </div>
+    
+    <div class="DESTACADO">
+        <p>AL TOCARSE: LAS RÁPIDAS GOLPEAN A LAS LENTAS Y LES PASAN SU FUERZA. AL FINAL, TODAS SE MUEVEN A LA MISMA VELOCIDAD.</p>
+    </div>
+</div>
+
+<div class="TARJETA" data-audio>
+    <button class="BTN-AUDIO" onclick="leerTexto(this)" title="Escuchar">🔊</button>
+    <h2>📏 3. LA CUENTA DEL CALOR (Q)</h2>
+    
+    <p>PARA SABER CUÁNTA ENERGÍA SE MOVIÓ, USAMOS ESTA FÓRMULA:</p>
+    
+    <div class="DESTACADO" style="background-color: #FEEBC8; border-color: #DD6B20; text-align: center;">
+        <h3 style="font-size: 1.5em; color: #744210;">Q = m × ΔT</h3>
+    </div>
+    
+    <div class="OPCIONES-ENERGIA">
+        <div class="TARJETA-ENERGIA" style="background-color: #E3F2FD; border-color: #2196F3;">
+            <h3>Q</h3>
+            <p>CALOR (ENERGÍA)</p>
+        </div>
+        
+        <div class="TARJETA-ENERGIA" style="background-color: #E8F5E9; border-color: #38A169;">
+            <h3>m</h3>
+            <p>MASA (GRAMOS)</p>
+        </div>
+        
+        <div class="TARJETA-ENERGIA" style="background-color: #FFF3E0; border-color: #FF9800;">
+            <h3>ΔT</h3>
+            <p>CAMBIO DE TEMPERATURA</p>
+            <small>(RESTA: ALTA - BAJA)</small>
+        </div>
+    </div>
+</div>
+
+
+<div class="TARJETA" data-audio>
+    <button class="BTN-AUDIO" onclick="leerTexto(this)" title="Escuchar">🔊</button>
+    <h2>✏️ ACTIVIDAD 1: OPCIÓN MÚLTIPLE</h2>
+    <p>MARCÁ LA RESPUESTA CORRECTA:</p>
+    
+    <div class="RADIO-GRUPO" style="background: #FFF5F5; border-left: 5px solid #E53E3E;">
+        <p><strong>1. ¿QUIÉN LE PASA CALOR A QUIÉN CUANDO TOCÁS UN HIELO?</strong> <span onclick="leerTexto(this)" style="cursor:pointer; font-size:16px;">🔊</span></p>
+        <label style="display: block; margin: 10px 0; padding: 12px 15px; background: white; border: 2px solid #E53E3E; border-radius: 8px; cursor: pointer; transition: all 0.3s;">
+            <input type="radio" name="om1" value="a" style="margin-right: 10px;"> 
+            <span onclick="leerOpcion(this)">a) EL HIELO TE PASA CALOR A VOS 🔊</span>
+        </label>
+        <label style="display: block; margin: 10px 0; padding: 12px 15px; background: white; border: 2px solid #E53E3E; border-radius: 8px; cursor: pointer; transition: all 0.3s;">
+            <input type="radio" name="om1" value="b" style="margin-right: 10px;"> 
+            <span onclick="leerOpcion(this)">b) VOS LE PASÁS CALOR AL HIELO 🔊</span>
+        </label>
+        <label style="display: block; margin: 10px 0; padding: 12px 15px; background: white; border: 2px solid #E53E3E; border-radius: 8px; cursor: pointer; transition: all 0.3s;">
+            <input type="radio" name="om1" value="c" style="margin-right: 10px;"> 
+            <span onclick="leerOpcion(this)">c) NADIE LE PASA CALOR A NADIE 🔊</span>
+        </label>
+    </div>
+
+    <div class="RADIO-GRUPO" style="background: #E8F5E9; border-left: 5px solid #38A169;">
+        <p><strong>2. ¿CUÁNDO SE LOGRA EL EQUILIBRIO TÉRMICO?</strong> <span onclick="leerTexto(this)" style="cursor:pointer; font-size:16px;">🔊</span></p>
+        <label style="display: block; margin: 10px 0; padding: 12px 15px; background: white; border: 2px solid #38A169; border-radius: 8px; cursor: pointer; transition: all 0.3s;">
+            <input type="radio" name="om2" value="a" style="margin-right: 10px;"> 
+            <span onclick="leerOpcion(this)">a) CUANDO UNO ESTÁ MUY CALIENTE Y EL OTRO MUY FRÍO 🔊</span>
+        </label>
+        <label style="display: block; margin: 10px 0; padding: 12px 15px; background: white; border: 2px solid #38A169; border-radius: 8px; cursor: pointer; transition: all 0.3s;">
+            <input type="radio" name="om2" value="b" style="margin-right: 10px;"> 
+            <span onclick="leerOpcion(this)">b) CUANDO AMBOS TIENEN LA MISMA TEMPERATURA 🔊</span>
+        </label>
+        <label style="display: block; margin: 10px 0; padding: 12px 15px; background: white; border: 2px solid #38A169; border-radius: 8px; cursor: pointer; transition: all 0.3s;">
+            <input type="radio" name="om2" value="c" style="margin-right: 10px;"> 
+            <span onclick="leerOpcion(this)">c) CUANDO DEJA DE HABER CALOR 🔊</span>
+        </label>
+    </div>
+
+    <button class="BOTON AZUL" onclick="verificarOM()">VERIFICAR RESPUESTAS</button>
+    <button class="BOTON ROJO" onclick="reiniciarOM()">REINICIAR</button>
+    <div class="RESULTADO" id="resultadoOM"></div>
+</div>
+
+
+
+<div class="TARJETA" data-audio>
+    <button class="BTN-AUDIO" onclick="leerTexto(this)" title="Escuchar">🔊</button>
+    <h2>💬 ACTIVIDAD N°2: PENSAR EL CALOR</h2>
+    
+    <div class="PREGUNTA">1. SI PONÉS UNA CUCHARA DE METAL EN UN TÉ CALIENTE: ¿QUIÉN LE PASA CALOR A QUIÉN?</div>
+    <textarea id="respuesta2-1" rows="3" placeholder="ESCRIBÍ TU RESPUESTA ACÁ..."></textarea>
+    
+    <div class="PREGUNTA">2. ¿CUÁNDO SE DEJA DE CALENTAR LA CUCHARA?</div>
+    <textarea id="respuesta2-2" rows="3" placeholder="ESCRIBÍ TU RESPUESTA ACÁ..."></textarea>
+    
+    <button class="BOTON AZUL" onclick="verificarAct2()">VERIFICAR RESPUESTAS</button>
+    <button class="BOTON ROJO" onclick="reiniciarAct2()">REINICIAR</button>
+    <div class="RESULTADO" id="resultadoAct2"></div>
+</div>
+
+<div class="TARJETA" data-audio>
+    <button class="BTN-AUDIO" onclick="leerTexto(this)" title="Escuchar">🔊</button>
+    <h2>🧮 ACTIVIDAD N°3: MINI PROBLEMA (ELEGÍ UNO SOLO)</h2>
+    
+    <div class="OPCIONES-ENERGIA">
+        <div class="TARJETA-ENERGIA" style="background-color: #FFF5F5; border-color: #E53E3E;">
+            <h3>OPCIÓN A: EL AGUA DEL MATE</h3>
+            <p>MASA (m) = 1000 G</p>
+            <p>CAMBIO DE TEMPERATURA (ΔT) = 73°</p>
+            <p style="color: #666;">(PORQUE 85−12=73)</p>
+            <p><strong>CUENTA: 1000 × 73 = </strong></p>
+            <input type="text" id="respuesta3a" placeholder="RESULTADO" style="text-align: center; width: 80%;">
+            <p><strong>CALORÍAS</strong></p>
+        </div>
+        
+        <div class="TARJETA-ENERGIA" style="background-color: #E3F2FD; border-color: #2196F3;">
+            <h3>OPCIÓN B: EL VASO DE JUGO</h3>
+            <p>MASA (m) = 250 G</p>
+            <p>CAMBIO DE TEMPERATURA (ΔT) = 10°</p>
+            <p style="color: #666;">(PORQUE 17−7=10)</p>
+            <p><strong>CUENTA: 250 × 10 = </strong></p>
+            <input type="text" id="respuesta3b" placeholder="RESULTADO" style="text-align: center; width: 80%;">
+            <p><strong>CALORÍAS</strong></p>
+        </div>
+    </div>
+    
+    <button class="BOTON AZUL" onclick="verificarAct3()">VERIFICAR RESPUESTAS</button>
+    <button class="BOTON ROJO" onclick="reiniciarAct3()">REINICIAR</button>
+    <div class="RESULTADO" id="resultadoAct3"></div>
+</div>
+
+<div class="TARJETA" data-audio>
+    <button class="BTN-AUDIO" onclick="leerTexto(this)" title="Escuchar">🔊</button>
+    <h2>🗣️ ACTIVIDAD N°4: TRADUCTOR DE LA NOTICIA</h2>
+    <p>EN LA TELE DICEN: "¡LA ARENA ESTÁ HIRVIENDO!"</p>
+    
+    <div class="PREGUNTA">¿CÓMO LO DIRÍA UN CIENTÍFICO? (USÁ LA PALABRA TEMPERATURA)</div>
+    <textarea id="respuesta4" rows="3" placeholder="ESCRIBÍ TU TRADUCCIÓN COMO CIENTÍFICO..."></textarea>
+    
+    <button class="BOTON AZUL" onclick="verificarAct4()">VERIFICAR RESPUESTAS</button>
+    <button class="BOTON ROJO" onclick="reiniciarAct4()">REINICIAR</button>
+    <div class="RESULTADO" id="resultadoAct4"></div>
+</div>
+
+<div class="TARJETA" data-audio>
+    <button class="BTN-AUDIO" onclick="leerTexto(this)" title="Escuchar">🔊</button>
+    <h2>ACTIVIDAD N°5: VERDADERO O FALSO</h2>
+    <p>LEÉ CADA AFIRMACIÓN Y MARCÁ VERDADERO O FALSO:</p>
+    
+    <style>
+        .vof-label { display: inline-block; margin: 8px 15px 8px 0; padding: 10px 25px; border-radius: 25px; cursor: pointer; font-weight: bold; transition: all 0.3s; border: 3px solid transparent; }
+        .vof-v { background: #C8E6C9; color: #2E7D32; border-color: #4CAF50; }
+        .vof-f { background: #FFCDD2; color: #C62828; border-color: #f44336; }
+        .vof-v:hover, .vof-f:hover { transform: scale(1.05); }
+        input[type="radio"]:checked + span { font-weight: bold; }
+        .vof-label:has(input:checked) { transform: scale(1.1); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+    </style>
+    
+    <div class="RADIO-GRUPO" style="background: #FFF5F5; border-left: 5px solid #E53E3E;">
+        <p><strong>1. EL CALOR SIEMPRE VIAJA DEL OBJETO FRÍO AL CALIENTE.</strong> <span onclick="leerTexto(this)" style="cursor:pointer; font-size:16px;">🔊</span></p>
+        <label class="vof-label vof-v"><input type="radio" name="vof1" value="v" style="margin-right: 8px;" onclick="leerOpcion(this)"> <span>✓ VERDADERO</span></label>
+        <label class="vof-label vof-f"><input type="radio" name="vof1" value="f" style="margin-right: 8px;" onclick="leerOpcion(this)"> <span>✗ FALSO</span></label>
+    </div>
+
+    <div class="RADIO-GRUPO" style="background: #E8F5E9; border-left: 5px solid #38A169;">
+        <p><strong>2. CUANDO DOS OBJETOS ESTÁN EN EQUILIBRIO TÉRMICO, TIENEN LA MISMA TEMPERATURA.</strong> <span onclick="leerTexto(this)" style="cursor:pointer; font-size:16px;">🔊</span></p>
+        <label class="vof-label vof-v"><input type="radio" name="vof2" value="v" style="margin-right: 8px;" onclick="leerOpcion(this)"> <span>✓ VERDADERO</span></label>
+        <label class="vof-label vof-f"><input type="radio" name="vof2" value="f" style="margin-right: 8px;" onclick="leerOpcion(this)"> <span>✗ FALSO</span></label>
+    </div>
+
+    <div class="RADIO-GRUPO" style="background: #E3F2FD; border-left: 5px solid #2196F3;">
+        <p><strong>3. LAS PARTÍCULAS DE UN OBJETO FRÍO SE MUEVEN MÁS RÁPIDO QUE LAS DE UNO CALIENTE.</strong> <span onclick="leerTexto(this)" style="cursor:pointer; font-size:16px;">🔊</span></p>
+        <label class="vof-label vof-v"><input type="radio" name="vof3" value="v" style="margin-right: 8px;" onclick="leerOpcion(this)"> <span>✓ VERDADERO</span></label>
+        <label class="vof-label vof-f"><input type="radio" name="vof3" value="f" style="margin-right: 8px;" onclick="leerOpcion(this)"> <span>✗ FALSO</span></label>
+    </div>
+
+    <div class="RADIO-GRUPO" style="background: #FFF3E0; border-left: 5px solid #FF9800;">
+        <p><strong>4. LA FÓRMULA Q = m × ΔT SE USA PARA CALCULAR EL CALOR TRANSFERIDO.</strong> <span onclick="leerTexto(this)" style="cursor:pointer; font-size:16px;">🔊</span></p>
+        <label class="vof-label vof-v"><input type="radio" name="vof4" value="v" style="margin-right: 8px;" onclick="leerOpcion(this)"> <span>✓ VERDADERO</span></label>
+        <label class="vof-label vof-f"><input type="radio" name="vof4" value="f" style="margin-right: 8px;" onclick="leerOpcion(this)"> <span>✗ FALSO</span></label>
+    </div>
+
+    <button class="BOTON AZUL" onclick="verificarVOF()">VERIFICAR RESPUESTAS</button>
+    <button class="BOTON ROJO" onclick="reiniciarVOF()">REINICIAR</button>
+    <div class="RESULTADO" id="resultadoVOF"></div>
+</div>
+
+
+
+
+
+<div class="CIERRE" data-audio>
+    <button class="BTN-AUDIO" onclick="leerTexto(this)" title="Escuchar">🔊</button>
+    <h2>🧠 PARA RECORDAR (CIERRE)</h2>
+    
+    <ul class="LISTA-EJEMPLOS">
+        <li>📌 EL CALOR SIEMPRE VA DEL MÁS CALIENTE AL MÁS FRÍO</li>
+        <li>📌 EL EQUILIBRIO TÉRMICO SE LOGRA CUANDO AMBOS OBJETOS TIENEN LA MISMA TEMPERATURA</li>
+        <li>📌 Q = m × ΔT ES LA FÓRMULA PARA CALCULAR EL CALOR</li>
+        <li>📌 LAS PARTÍCULAS SE MUEVEN MÁS RÁPIDO CUANDO ESTÁN CALIENTES</li>
+    </ul>
+    
+    <div class="DESTACADO" style="background-color: #C6F6D5; border-color: #38A169;">
+        <h3>📌 RECORDÁ: SI TENÉS DUDAS, ESCRIBINOS. ¡BUEN TRABAJO!</h3>
+    </div>
+</div>
+
+<script>
+    // VOZ
+    let vozActual = null;
+
+    function obtenerVozEspanol() {
+        const voces = speechSynthesis.getVoices();
+        let vozEspanol = voces.find(v => v.lang.includes('es'));
+        
+        if (!vozEspanol) {
+            vozEspanol = voces.find(v => v.lang.includes('ES'));
+        }
+        
+        return vozEspanol || voces[0];
+    }
+
+    function cargarVoces() {
+        if (speechSynthesis.getVoices().length === 0) {
+            speechSynthesis.addEventListener('voiceschanged', () => {
+                obtenerVozEspanol();
+            });
+        }
+    }
+
+    function leerTexto(boton) {
+        if (boton.tagName === 'SPAN' && boton.closest('p, h3')) {
+            let texto = boton.closest('p, h3').innerText;
+            texto = texto.replace(/🔊/g, '').trim();
+            
+            if (vozActual && speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+            }
+
+            const utterance = new SpeechSynthesisUtterance(texto);
+            utterance.lang = 'es-ES';
+            utterance.rate = 0.9;
+
+            const voz = obtenerVozEspanol();
+            if (voz) {
+                utterance.voice = voz;
+            }
+
+            speechSynthesis.speak(utterance);
+            return;
+        }
+        
+        let elemento = boton.closest('.TARJETA, .CIERRE');
+        
+        let texto = elemento.innerText;
+        
+        const btnAudio = elemento.querySelectorAll('.BTN-AUDIO');
+        btnAudio.forEach(btn => {
+            texto = texto.replace(btn.innerText, '');
+        });
+        
+        texto = texto.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}]/gu, '');
+        texto = texto.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+
+        if (vozActual && speechSynthesis.speaking) {
+            speechSynthesis.cancel();
+            boton.classList.remove('ACTIVE');
+            boton.innerHTML = '🔊';
+            return;
+        }
+
+        const utterance = new SpeechSynthesisUtterance(texto);
+        utterance.lang = 'es-ES';
+        utterance.rate = 0.9;
+        utterance.pitch = 1;
+        
+        const voz = obtenerVozEspanol();
+        if (voz) {
+            utterance.voice = voz;
+        }
+
+        utterance.onstart = () => {
+            boton.classList.add('ACTIVE');
+            boton.innerHTML = '⏹';
+        };
+
+        utterance.onend = () => {
+            boton.classList.remove('ACTIVE');
+            boton.innerHTML = '🔊';
+        };
+
+        utterance.onerror = () => {
+            boton.classList.remove('ACTIVE');
+            boton.innerHTML = '🔊';
+        };
+
+        speechSynthesis.speak(utterance);
+        vozActual = utterance;
+    }
+
+    function leerOpcion(elemento) {
+        let texto = elemento.parentElement.textContent;
+        texto = texto.replace(/🔊/g, '').trim();
+        
+        if (vozActual && speechSynthesis.speaking) {
+            speechSynthesis.cancel();
+        }
+
+        const utterance = new SpeechSynthesisUtterance(texto);
+        utterance.lang = 'es-ES';
+        utterance.rate = 0.9;
+        utterance.pitch = 1;
+
+        const voz = obtenerVozEspanol();
+        if (voz) {
+            utterance.voice = voz;
+        }
+
+        speechSynthesis.speak(utterance);
+        vozActual = utterance;
+    }
+
+    // VERDADERO O FALSO
+    const respuestasVOF = {
+        vof1: 'f',
+        vof2: 'v',
+        vof3: 'f',
+        vof4: 'v'
+    };
+
+    function verificarVOF() {
+        let correctas = 0;
+        let total = 4;
+        
+        for (let i = 1; i <= total; i++) {
+            const name = 'vof' + i;
+            const seleccionada = document.querySelector('input[name="' + name + '"]:checked');
+            const grupo = document.querySelector('input[name="' + name + '"]').closest('.RADIO-GRUPO');
+            
+            if (seleccionada) {
+                if (seleccionada.value === respuestasVOF[name]) {
+                    correctas++;
+                    grupo.style.backgroundColor = '#C6F6D5';
+                } else {
+                    grupo.style.backgroundColor = '#FED7D7';
+                }
+            } else {
+                grupo.style.backgroundColor = '#FFFAF0';
+            }
+        }
+        
+        const resultado = document.getElementById('resultadoVOF');
+        if (correctas === 4) {
+            resultado.innerHTML = '¡EXCELENTE! ¡TODAS LAS RESPUESTAS SON CORRECTAS! 🌟';
+            resultado.className = 'RESULTADO ANIMATE-CELEBRATE';
+        } else {
+            resultado.innerHTML = `OBTUVISTE ${correctas} DE 4 RESPUESTAS CORRECTAS`;
+            resultado.className = 'RESULTADO';
+        }
+    }
+
+    function reiniciarVOF() {
+        document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+        document.querySelectorAll('.RADIO-GRUPO').forEach(g => g.style.backgroundColor = '#FFFAF0');
+        document.getElementById('resultadoVOF').innerHTML = '';
+    }
+
+    // OPCIÓN MÚLTIPLE
+    const respuestasOM = {
+        om1: 'b',
+        om2: 'b'
+    };
+
+    function verificarOM() {
+        let correctas = 0;
+        let total = 2;
+        
+        for (let i = 1; i <= total; i++) {
+            const name = 'om' + i;
+            const seleccionada = document.querySelector('input[name="' + name + '"]:checked');
+            const grupo = document.querySelector('input[name="' + name + '"]').closest('.RADIO-GRUPO');
+            
+            if (seleccionada) {
+                if (seleccionada.value === respuestasOM[name]) {
+                    correctas++;
+                    grupo.style.backgroundColor = '#C6F6D5';
+                } else {
+                    grupo.style.backgroundColor = '#FED7D7';
+                }
+            } else {
+                grupo.style.backgroundColor = '#FFFAF0';
+            }
+        }
+        
+        const resultado = document.getElementById('resultadoOM');
+        if (correctas === 2) {
+            resultado.innerHTML = '¡EXCELENTE! ¡TODAS LAS RESPUESTAS SON CORRECTAS! 🌟';
+            resultado.className = 'RESULTADO ANIMATE-CELEBRATE';
+        } else {
+            resultado.innerHTML = `OBTUVISTE ${correctas} DE 2 RESPUESTAS CORRECTAS`;
+            resultado.className = 'RESULTADO';
+        }
+    }
+
+    function reiniciarOM() {
+        document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+        document.querySelectorAll('.RADIO-GRUPO').forEach(g => g.style.backgroundColor = '#FFFAF0');
+        document.getElementById('resultadoOM').innerHTML = '';
+    }
+
+    // EMPAREJAMIENTO
+    const items = document.querySelectorAll('.ITEM');
+    const dropzonas = document.querySelectorAll('.DROPZONA');
+    let itemArrastrado = null;
+
+    items.forEach(item => {
+        item.addEventListener('dragstart', (e) => {
+            itemArrastrado = item;
+            setTimeout(() => item.style.opacity = '0.5', 0);
+        });
+
+        item.addEventListener('dragend', () => {
+            item.style.opacity = '1';
+            itemArrastrado = null;
+        });
+    });
+
+    dropzonas.forEach(drop => {
+        drop.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            drop.classList.add('SOBRESALIR');
+        });
+
+        drop.addEventListener('dragleave', () => {
+            drop.classList.remove('SOBRESALIR');
+        });
+
+        drop.addEventListener('drop', (e) => {
+            e.preventDefault();
+            drop.classList.remove('SOBRESALIR');
+            
+            if (itemArrastrado) {
+                const itemOriginal = itemArrastrado;
+                
+                const nuevoItem = document.createElement('div');
+                nuevoItem.className = 'ITEM';
+                nuevoItem.draggable = true;
+                nuevoItem.dataset.tipo = itemOriginal.dataset.tipo;
+                nuevoItem.innerHTML = itemOriginal.innerHTML;
+                
+                nuevoItem.addEventListener('click', function() {
+                    quitarItem(this, drop);
+                });
+                
+                const spanOriginal = drop.querySelector('span');
+                if (spanOriginal) spanOriginal.style.display = 'none';
+                
+                drop.appendChild(nuevoItem);
+                drop.classList.add('OCUPADO');
+                drop.dataset.respuesta = itemOriginal.dataset.tipo;
+                
+                itemOriginal.classList.add('USADO');
+                itemOriginal.setAttribute('draggable', 'false');
+                itemOriginal.style.display = 'none';
+            }
+        });
+    });
+
+    function quitarItem(item, drop) {
+        const tipo = item.dataset.tipo;
+        
+        items.forEach(i => {
+            if (i.dataset.tipo === tipo && i.classList.contains('USADO')) {
+                i.classList.remove('USADO');
+                i.setAttribute('draggable', 'true');
+                i.style.display = 'block';
+            }
+        });
+        
+        item.remove();
+        
+        const itemsRestantes = drop.querySelectorAll('.ITEM');
+        if (itemsRestantes.length === 0) {
+            const span = drop.querySelector('span');
+            if (span) span.style.display = 'block';
+            drop.classList.remove('OCUPADO');
+            delete drop.dataset.respuesta;
+        } else {
+            drop.dataset.respuesta = itemsRestantes[itemsRestantes.length - 1].dataset.tipo;
+        }
+    }
+
+    function reiniciarEmparejamiento() {
+        items.forEach(item => {
+            item.classList.remove('USADO');
+            item.setAttribute('draggable', 'true');
+            item.style.display = 'block';
+        });
+        
+        dropzonas.forEach(drop => {
+            const span = drop.querySelector('span');
+            if (span) span.style.display = 'block';
+            
+            const itemsEnDrop = drop.querySelectorAll('.ITEM');
+            itemsEnDrop.forEach(i => i.remove());
+            
+            drop.classList.remove('OCUPADO', 'CORRECTO', 'INCORRECTO');
+            delete drop.dataset.respuesta;
+        });
+        
+        document.getElementById('resultadoEMP').innerHTML = '';
+        document.getElementById('resultadoEMP').className = 'RESULTADO';
+    }
+
+    function verificarEmparejamiento() {
+        let correctas = 0;
+        let totalItems = 0;
+        
+        dropzonas.forEach(drop => {
+            drop.classList.remove('CORRECTO', 'INCORRECTO');
+            
+            const itemsEnDrop = drop.querySelectorAll('.ITEM');
+            totalItems += itemsEnDrop.length;
+            
+            itemsEnDrop.forEach(item => {
+                item.classList.remove('CORRECTO', 'INCORRECTO');
+                if (item.dataset.tipo === drop.dataset.tipo) {
+                    correctas++;
+                    item.classList.add('CORRECTO');
+                } else {
+                    item.classList.add('INCORRECTO');
+                }
+            });
+        });
+        
+        const resultado = document.getElementById('resultadoEMP');
+        if (correctas === 4 && totalItems === 4) {
+            resultado.innerHTML = '¡EXCELENTE! ¡TODAS LAS RESPUESTAS SON CORRECTAS! 🌟';
+            resultado.className = 'RESULTADO ANIMATE-CELEBRATE';
+        } else {
+            resultado.innerHTML = `OBTUVISTE ${correctas} DE 4 RESPUESTAS CORRECTAS`;
+            resultado.className = 'RESULTADO';
+        }
+    }
+
+    function descargarPDF() {
+        const btn = document.querySelector('.BTN-DESCARGA');
+        const btnsAudio = document.querySelectorAll('.BTN-AUDIO');
+        
+        btn.style.display = 'none';
+        btnsAudio.forEach(b => b.style.display = 'none');
+        
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @media print {
+                body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+                .TARJETA, .CIERRE { break-inside: avoid; margin-bottom: 20px; }
+                .CONTENEDOR-TITULO { background: #FBD38D !important; color: #000 !important; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        window.print();
+        
+        setTimeout(() => {
+            btn.style.display = 'block';
+            btnsAudio.forEach(b => b.style.display = 'flex');
+            style.remove();
+        }, 100);
+    }
+
+    cargarVoces();
+</script>
+
+</body>
+</html>

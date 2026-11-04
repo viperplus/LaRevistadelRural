@@ -1,0 +1,55 @@
+ENVIAR_AQUI - Carpeta de articulos
+==================================
+
+Deja aca los materiales para "La Revista del Rural".
+Cuando agregues algo, avisale al asistente y el lo organiza
+dentro de revista_del_rural.html (que es la revista completa).
+
+------------------------------------------------------------------
+LA FORMA MAS FACIL: UN ARCHIVO .odt O .docx
+------------------------------------------------------------------
+
+1) Escribi el articulo en LibreOffice Writer (o Word) como lo
+   escriben los estudiantes.
+
+2) Para que quede bien ordenado usen estos estilos:
+   - TITULO del articulo  -> estilo "Titulo"
+   - Subtitulos           -> estilo "Titulo 1" / "Heading 1"
+   - Parrafos de texto    -> estilo "Texto" (normal)
+   - Firma al final       -> linea que empiece con "Autor: "
+     (ej: "Autor: Alumna X, 4to Anio, Sede Aguada de Guerra")
+
+3) Inserte las FOTOS donde corresponda dentro del texto.
+
+4) Debajo de cada foto, escriba UNA LINEA CORTA que sea su
+   leyenda. Esa linea se convierte automaticamente en el pie
+   de foto. (Si la foto no tiene leyenda, se publica sin pie.)
+
+5) Guarde el archivo como .odt o .docx y deje el archivo ACA
+   en esta carpeta.
+
+6) avise al asistente: "cargar articulo: nombre_del_archivo.odt"
+
+QUE HACE EL ASISTENTE
+---------------------
+Ejecuta: python cargar_odt.py "enviar_aqui/nombre_del_archivo.odt"
+
+Eso deja:
+   - El texto ordenado en:  enviar_aqui/articulo_extraido.txt
+   - Las fotos en:          enviar_aqui/imagenes_odt/foto_XX.jpg
+
+El asistente lee ese texto y lo integra a la revista con el
+mismo formato uniforme (titulo, subtitulos, parrafos, fotos con
+leyenda y caja de autor), SIN reescribir lo que escribieron los
+estudiantes.
+
+------------------------------------------------------------------
+OTRAS OPCIONES
+------------------------------------------------------------------
+
+- Texto plano: pueden pegar el articulo directamente en el chat.
+- Imagenes sueltas: cada foto necesita su leyenda escrita
+  (el asistente NO ve las fotos, por eso no adivina su contenido).
+
+Recordatorio: el asistente organiza los textos, no los escribe.
+Quien firma cada articulo es el estudiante.

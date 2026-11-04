@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>RED_RUNNING</title></head>
+<body style="font-family:monospace;background:#0a1220;color:#d7e6f5">
+<pre id="out">cargando dos visitantes…</pre>
+<iframe id="fa" src="/_tmp_escena.html?harness=0" style="position:fixed;left:0;top:0;width:640px;height:400px;border:0;opacity:0"></iframe>
+<iframe id="fb" src="/_tmp_escena2.html?harness=0" style="position:fixed;left:0;top:0;width:640px;height:400px;border:0;opacity:0"></iframe>
+<script>
+var results=[],done=false;
+var pre=document.getElementById('out');
+var fa=document.getElementById('fa'),fb=document.getElementById('fb');
+function chk(ok,label,got){ results.push((ok?'OK   ':'FALLO ')+label+(got!==undefined?'   ['+got+']':'')); }
+function finish(){
+  if(done)return; done=true;
+  var nOK=0,nF=0;
+  for(var i=0;i<results.length;i++){
+    if(results[i].indexOf('OK')===0)nOK++; else if(results[i].indexOf('FALLO')===0)nF++;
+  }
+  pre.textContent='RESULTADOS DE RED ('+nOK+' OK, '+nF+' FALLO)\n'+
+    '--------------------------------------------------\n'+results.join('\n')+
+    '\n--------------------------------------------------\n'+
+    (nF===0?'TODOS LOS CASOS PASARON':'HAY FALLOS');
+  document.title='TEST_DONE';
+  /* se informa al servidor de pruebas (tiempo real) */
+  try{
+    fetch('/resultado?d='+encodeURIComponent(pre.textContent),{cache:'no-store'})
+      .catch(function(){});
+  }catch(e){}
+}
+function fail(m){ results.push('FALLO '+m); finish(); }
+function sleep(ms){ return new Promise(function(r){setTimeout(r,ms);}); }
+async function until(fn,ms){
+  var t0=Date.now();
+  while(Date.now()-t0<ms){ if(fn())return true; await sleep(120); }
+  return false;
+}
+function D(f){ try{ return f.contentWindow.__dbg(); }catch(e){ return null; } }
+
+(async function(){
+  var ok=await until(function(){ return D(fa)&&D(fb); },25000);
+  if(!ok) return fail('las dos copias de la feria no cargaron');
+  results.push('OK   las dos copias cargaron y expusieron __dbg');
+
+  var A=D(fa), B=D(fb);
+  A.start(); B.start();
+  results.push('OK   ambos visitantes entraron a la feria');
+
+  /* ---- A abre la sala ---- */
+  fa.contentDocument.getElementById('mpCode').value='TEST1';
+  fa.contentDocument.getElementById('mpName').value='Ana';
+  A.mpStart(true);
+  ok=await until(function(){ return A.MP.on&&A.MP.isHost&&A.MP.id; },20000);
+  if(!ok) return fail('el anfitrión no abrió la sala en 20 s');
+  chk(A.MP.id==='esrn-feria-TEST1','el anfitrión toma el id de la sala',A.MP.id);
+
+  /* ---- B se une ---- */
+  fb.contentDocument.getElementById('mpCode').value='TEST1';
+  fb.contentDocument.getElementById('mpName').value='Beto';
+  B.mpStart(false);
+  ok=await until(function(){
+    return B.MP.on&&B.MP.hostConn&&B.MP.hostConn.open&&
+           Object.keys(A.MP.peers).length===1&&Object.keys(B.MP.peers).length===1;
+  },30000);
+  if(!ok){
+    var stA=fa.contentDocument.getElementById('mpState').textContent;
+    var stB=fb.contentDocument.getElementById('mpState').textContent;
+    return fail('WebRTC no conectó. A.conns='+Object.keys(A.MP.conns).length+
+                ' A.peers='+Object.keys(A.MP.peers).length+
+                ' B.peers='+Object.keys(B.MP.peers).length+
+                ' B.hostOpen='+(B.MP.hostConn?B.MP.hostConn.open:'nulo')+
+                ' || A: '+stA+' || B: '+stB);
+  }
+  chk(true,'WebRTC conectó a los dos visitantes',
+      'A ve a '+Object.keys(A.MP.peers).length+' · B ve a '+Object.keys(B.MP.peers).length);
+  chk(Object.keys(A.MP.conns).length===1,'el anfitrión tiene 1 conexión entrante',Object.keys(A.MP.conns).length);
+
+  var idB=Object.keys(A.MP.peers)[0], idA=Object.keys(B.MP.peers)[0];
+  chk(idB===B.MP.id,'el anfitrión identifica correctamente a Beto',idB);
+  chk(idA===A.MP.id,'Beto identifica correctamente al anfitrión',idA);
+  chk(A.MP.peers[idB].name==='Beto','el nombre de Beto viajó por la red',A.MP.peers[idB].name);
+  chk(B.MP.peers[idA].name==='Ana','el nombre de Ana viajó por la red',B.MP.peers[idA].name);
+
+  A.updateRoster(); B.updateRoster();
+  chk(A.rosterEl.innerHTML.indexOf('Beto')>=0,'el roster del anfitrión lista a Beto');
+  chk(B.rosterEl.innerHTML.indexOf('Ana')>=0,'el roster de Beto lista a Ana');
+
+  /* ---- chat de Beto -> Ana ---- */
+  var logA=A.chatLog.children.length;
+  B.chatIn.value='hola desde Beto';
+  B.sendChat();
+  ok=await until(function(){ return A.chatLog.children.length>logA; },8000);
+  chk(ok&&A.chatLog.innerHTML.indexOf('hola desde Beto')>=0,'el chat de Beto llega al anfitrión');
+  chk(B.chatLog.innerHTML.indexOf('hola desde Beto')>=0,'Beto ve su propio mensaje');
+
+  /* ---- chat de Ana -> Beto ---- */
+  var logB=B.chatLog.children.length;
+  A.chatIn.value='bienvenido Beto';
+  A.sendChat();
+  ok=await until(function(){ return B.chatLog.children.length>logB; },8000);
+  chk(ok&&B.chatLog.innerHTML.indexOf('bienvenido Beto')>=0,'el chat del anfitrión llega a Beto');
+
+  /* ---- posición de Ana vista por Beto ---- */
+  var avB=B.MP.peers[idA];
+  chk(!!avB,'Beto dibuja el avatar de Ana',!!avB);
+  A.setPos(6,1.25);
+  ok=await until(function(){ return avB.tx===6&&Math.abs(avB.tyaw-1.25)<0.01; },8000);
+  chk(ok,'Beto recibe la posición de Ana','tx='+avB.tx+' tyaw='+avB.tyaw);
+  ok=await until(function(){ return Math.abs(avB.g.position.x-6)<0.4; },6000);
+  chk(ok,'el avatar de Ana se desplaza hasta la posición recibida',
+      'x='+avB.g.position.x.toFixed(2));
+
+  /* ---- chat en el mundo: Beto se aleja y desaparece del roster al salir ---- */
+  B.mpStop();
+  ok=await until(function(){ return Object.keys(A.MP.peers).length===0; },10000);
+  chk(ok,'cuando Beto se va, el anfitrión retira su avatar',
+      'quedan '+Object.keys(A.MP.peers).length);
+  ok=await until(function(){ return A.rosterEl.innerHTML.indexOf('Beto')<0; },6000);
+  chk(ok,'el roster del anfitrión ya no lista a Beto');
+
+  A.mpStop();
+  finish();
+})().catch(function(e){ fail('excepción: '+e.message+' @ '+((e.stack||'').split('\n')[1]||'')); });
+
+setTimeout(function(){ if(!done){ results.push('FALLO TIMEOUT global'); finish(); } },110000);
+</script>
+</body></html>

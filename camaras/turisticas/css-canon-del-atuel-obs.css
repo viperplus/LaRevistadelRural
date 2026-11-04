@@ -1,0 +1,124 @@
+/* ============================================================
+   SkylineWebcams - CSS anti-publicidad + video fullscreen
+   Pegar en: Fuente Navegador -> Propiedades -> campo "CSS"
+   ============================================================ */
+
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: #000 !important;
+  overflow: hidden !important;
+}
+
+/* Ocultar toda la pagina */
+body * { visibility: hidden !important; }
+
+/* Dejar visible solo el video */
+div[data-player],
+div[data-container],
+div[data-container] video,
+div[data-container] video * {
+  visibility: visible !important;
+}
+
+/* Forzar que el video llene la pantalla sin recorte */
+video,
+div[data-container] video {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  object-fit: fill !important;
+  z-index: 2147483647 !important;
+  background: #000 !important;
+  border: none !important;
+  outline: none !important;
+}
+canvas {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 2147483647 !important;
+}
+
+/* Romper cualquier contenedor padre que recorte */
+div[data-player] {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  overflow: visible !important;
+  z-index: 2147483646 !important;
+}
+div[data-container] {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  overflow: visible !important;
+}
+
+/* Quitar cualquier clip-path, mask o clip heredado */
+div[data-player] * {
+  clip-path: none !important;
+  -webkit-clip-path: none !important;
+  mask: none !important;
+}
+
+/* ---- OCULTAR PUBLICIDAD Y RUIDO ---- */
+
+/* IMA (ads de video Google) */
+[id*="ima-ad"],
+[class*="ima-"],
+iframe[src*="imasdk"],
+iframe[src*="doubleclick"],
+iframe[src*="googlesyndication"] {
+  display: none !important;
+}
+
+/* Banner patrocinado y enlace al host */
+#skylinewebcams-ads,
+.ads-top,
+[id*="advert"],
+[class*="advert"],
+img.ihost,
+a[href*="click.php"] {
+  display: none !important;
+}
+
+/* Marca de agua, controles, poster */
+.watermark,
+[data-watermark],
+.player-poster,
+.media-control {
+  display: none !important;
+}
+
+/* Modales, cookies, consent, newsletter */
+.modal,
+.modal-backdrop,
+#utility,
+.modal-utl,
+#rtng,
+[class*="cookie"],
+[id*="cookie"],
+[class*="consent"],
+[id*="consent"],
+[class*="newsletter"] {
+  display: none !important;
+}
+
+/* Iframes publicitarios sueltos */
+ins.adsbygoogle,
+iframe[src*="ad."],
+iframe[src*="/ads/"],
+iframe[id*="aswift"] {
+  display: none !important;
+}

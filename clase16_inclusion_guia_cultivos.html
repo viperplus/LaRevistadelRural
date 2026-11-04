@@ -1,0 +1,2689 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clase 16 — Constructor de la Guía de Cultivos</title>
+<style>
+:root{
+  --verde:#1B5E20;--verde-oscuro:#0D3B12;--verde-claro:#DCFCE7;--ambar:#B45309;--ambar-claro:#FEF3C7;
+  --texto:#111;--fondo:#F5F7F3;--tarjeta:#FFF;--gris:#CBD5E1;--gris-oscuro:#64748B;
+  --azul:#0E7490;--azul-claro:#E0F2FE;--rojo:#991B1B;--rojo-claro:#FEE2E2;--ok:#166534;--ok-claro:#DCFCE7;
+  --foco:#F59E0B;--sombra:0 8px 24px rgba(15,42,23,.10);
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.65}
+img,svg{max-width:100%}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid #0F172A;outline-offset:3px;box-shadow:0 0 0 6px #FFF}
+#h-menu:focus,#h-capitulo:focus,#h-pregunta:focus,#h-articulo:focus,#h-libro:focus,#feedbackPregunta:focus{outline:none;box-shadow:none}
+#h-menu,#h-capitulo,#h-pregunta,#h-articulo,#h-libro,.panel-articulo{scroll-margin-top:7rem}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip-link{position:absolute;left:.8rem;top:-4rem;z-index:100;background:#111;color:#FFF;padding:.7rem 1.1rem;border-radius:0 0 10px 10px;font-weight:700;text-decoration:none}
+.skip-link:focus{top:0}
+.encabezado{background:radial-gradient(circle at 18% 0,rgba(74,222,128,.18),transparent 38%),linear-gradient(135deg,#0D3B12,#14532D 58%,#0D3B12);color:#FFF;padding:1.5rem 1.2rem 1.25rem;text-align:center;border-bottom:6px solid var(--foco);box-shadow:0 6px 20px rgba(13,59,18,.18)}
+.encabezado .etiqueta{color:#FDE68A;margin:0 0 .3rem}
+.encabezado .marca{margin:0;font-size:clamp(1.25rem,3.2vw,1.8rem);font-weight:800;letter-spacing:.03em;line-height:1.25}
+.encabezado .subtitulo{margin:.35rem 0 0;font-size:.98rem;color:#E5E7EB}
+.etiqueta{margin:0 0 .35rem;font-size:.8rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#475569}
+.barra{background:#111;padding:.7rem 1rem;display:flex;flex-wrap:wrap;gap:.55rem;justify-content:center;position:sticky;top:0;z-index:30;box-shadow:0 4px 14px rgba(0,0,0,.28)}
+.btn{border:0;border-radius:999px;min-height:44px;padding:.7rem 1.2rem;font-size:1rem;font-weight:800;line-height:1.2;font-family:inherit;color:#FFF;background:var(--gris-oscuro);transition:transform .15s,box-shadow .15s,background .15s;display:inline-flex;align-items:center;justify-content:center;gap:.45rem;text-align:center}
+.btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.2)}
+.btn:disabled{opacity:1;background:#E2E8F0;color:#475569;border:1px solid #CBD5E1;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-mayus{background:var(--foco);color:#111;border:2px solid #FFF}
+.btn-mayus.activo{background:#FFF;color:#111;border-color:var(--foco)}
+.btn-imprimir{background:#15803D}
+.btn-inicio{background:#334155}
+.btn-primario{background:var(--verde)}
+.btn-sec{background:#FFF;color:#111;border:2px solid var(--gris)}
+.btn-sec:hover:not(:disabled){background:#F1F5F9}
+.btn-peligro{background:var(--rojo)}
+.btn-texto{background:transparent;color:#1E3A8A;text-decoration:underline;padding:.6rem .8rem}
+.btn-audio{background:#2563EB;color:#FFF;border-radius:999px;padding:.65rem 1rem;min-height:44px;border:0;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:.35rem}
+.btn-audio.activo{background:var(--rojo)}
+.btn-mini-audio{background:#EFF6FF;color:#1E3A8A;border:2px solid #BFDBFE;border-radius:999px;min-height:44px;padding:.3rem .8rem;font-size:.85rem;font-weight:800;margin-top:.55rem}
+.btn-mini-audio.activo{background:var(--rojo);color:#FFF;border-color:var(--rojo)}
+.contenedor{max-width:1180px;margin:0 auto;padding:1.6rem 1.1rem 3rem}
+.pantalla{display:none}
+.pantalla.activa{display:block;animation:aparecer .25s ease}
+@keyframes aparecer{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.portada{background:linear-gradient(135deg,#F0FDF4,#FFFFFF);border:1px solid #BBF7D0;border-left:8px solid var(--verde);border-radius:16px;padding:1.5rem 1.5rem 1.3rem;margin:0 0 1.4rem;box-shadow:var(--sombra)}
+#pantalla-inicio,#pantalla-inicio *{text-transform:uppercase}
+.tutorial{max-width:920px;margin:0 auto;padding:1rem 0 2rem}
+.tutorial-cabecera{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem}
+.tutorial .etiqueta{margin:0;color:#166534;font-size:.72rem}
+.tutorial-progreso{flex:0 0 auto;margin:0;padding:.32rem .7rem;border:1px solid #CBDFCF;border-radius:999px;background:#EAF4EC;color:#166534;font-size:.7rem;font-weight:800}
+.tutorial-paso{display:none}
+.tutorial-paso.activo{display:block;animation:aparecer .25s ease}
+.tutorial h1{margin:0 0 .7rem;font-size:clamp(1.75rem,4.5vw,2.7rem);line-height:1.15;color:var(--verde-oscuro);max-width:22ch}
+.tutorial h2{margin:0 0 .55rem;font-size:clamp(1.35rem,3vw,1.9rem);line-height:1.2;color:var(--verde-oscuro);max-width:30ch}
+.tutorial-bajada{margin:0 0 1rem;font-size:1rem;line-height:1.65;color:#475569;max-width:64ch}
+.inicio-pasos{list-style:none;padding:0;margin:1.5rem 0 0;display:grid;gap:.6rem}
+.inicio-pasos li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:.85rem;align-items:start;background:#FFF;border:1px solid #DCE5DE;border-radius:12px;padding:.9rem 1rem}
+.inicio-num{width:34px;height:34px;border-radius:50%;background:#EAF4EC;color:#166534;display:grid;place-items:center;font-weight:900;font-size:.95rem}
+.inicio-pasos h2{margin:0 0 .2rem;font-size:1rem;line-height:1.35;color:#0F172A}
+.inicio-pasos p{margin:0;font-size:.92rem;line-height:1.55;color:#475569}
+.objetivo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.55rem;margin:1.1rem 0 0}
+.objetivo-card{background:#FFF;border:1px solid #DCE5DE;border-radius:10px;padding:.8rem .85rem}
+.objetivo-card span{display:inline-block;margin-bottom:.4rem;padding:.2rem .5rem;border-radius:999px;background:#EAF4EC;color:#166534;font-size:.62rem;font-weight:900;letter-spacing:.08em}
+.objetivo-card p{margin:0;font-size:.84rem;line-height:1.5;color:#475569}
+.demo-capitulos{display:grid;gap:.45rem;margin:0 0 1rem}
+.demo-cap{display:grid;grid-template-columns:30px minmax(0,1fr) auto;align-items:center;gap:.65rem;background:#FFF;border:1px solid #DCE5DE;border-radius:9px;padding:.55rem .7rem}
+.demo-cap-num{width:30px;height:30px;border-radius:50%;background:#EAF4EC;color:#166534;display:grid;place-items:center;font-size:.78rem;font-weight:900}
+.demo-cap strong{display:block;font-size:.78rem;line-height:1.35;color:#0F172A}
+.demo-cap small{display:block;margin-top:.1rem;font-size:.64rem;color:#64748B}
+.demo-cap b{color:#166534;font-size:1rem}
+.demo-pregunta-articulo{display:grid;grid-template-columns:1.02fr .98fr;gap:.7rem;margin:0 0 1rem}
+.demo-pregunta{background:#FFF;border:1px solid #DCE5DE;border-radius:10px;padding:.75rem}
+.demo-pregunta small{display:block;font-size:.62rem;font-weight:800;color:#64748B;margin-bottom:.3rem}
+.demo-pregunta-texto{margin:0 0 .55rem;font-size:.78rem;line-height:1.45;color:#0F172A;font-weight:700}
+.demo-opcion{display:block;border:1px solid #E2E8F0;border-radius:7px;padding:.38rem .48rem;margin:0 0 .3rem;font-size:.66rem;line-height:1.4;color:#334155}
+.demo-opcion.correcta{background:#F0FDF4;border-color:#86EFAC;color:#14532D;font-weight:800}
+.demo-hoja{position:relative;background-color:#FFFDF7;background-image:linear-gradient(to right,transparent 0 1.5rem,#EAB5AE 1.5rem 1.54rem,transparent 1.54rem),repeating-linear-gradient(to bottom,transparent 0 23px,#E9EFF5 23px 24px);background-size:100% 100%,100% 24px;border:1px solid #E8E0CE;border-radius:6px;padding:.7rem .7rem .7rem 1.95rem;font-size:.72rem;line-height:24px;color:#1E293B}
+.demo-hoja::before{content:"";position:absolute;left:.35rem;top:.55rem;bottom:.55rem;width:6px;background:radial-gradient(circle,#C9D2DD 0 1.8px,transparent 2.3px) center top/6px 24px repeat-y;opacity:.65}
+.demo-hoja small{display:block;font-size:.58rem;font-weight:800;color:#64748B;line-height:1.4;margin-bottom:.25rem}
+.demo-hoja p{margin:0;line-height:24px}
+.demo-resaltado{background:#FEF3C7}
+.demo-acciones{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1rem}
+.demo-acciones span{display:inline-flex;align-items:center;min-height:32px;border:1px solid #DCE5DE;border-radius:999px;background:#FFF;padding:.25rem .65rem;font-size:.68rem;font-weight:800;color:#334155}
+.tutorial-pista{margin:.8rem 0 0;font-size:.84rem;line-height:1.55;color:#64748B}
+.tutorial-cierre{margin:1rem 0 0;padding:.8rem .9rem;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;color:#14532D;font-size:.9rem;line-height:1.55}
+.tutorial-acciones{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-top:1.4rem}
+.btn-comenzar{min-height:52px;padding:.8rem 1.4rem;font-size:1.02rem}
+.tutorial-nota{margin:.9rem 0 0;font-size:.85rem;color:#64748B}
+.portada h1{margin:0 0 .5rem;font-size:clamp(1.45rem,4vw,2.15rem);line-height:1.2;color:var(--verde-oscuro);max-width:24ch}
+.bajada{margin:0 0 1rem;font-size:1.08rem;max-width:68ch}
+.menu-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(240px,.7fr);gap:1rem;margin:1.3rem 0}
+.campo-nombre,.progreso{background:var(--tarjeta);border:1px solid var(--gris);border-radius:14px;padding:1.1rem 1.2rem;box-shadow:0 2px 8px rgba(15,23,42,.05)}
+.campo-nombre label,.progreso-titulo{display:block;font-weight:800;margin:0 0 .55rem;color:#0F172A}
+.opcional{font-weight:400;color:#475569}
+input[type=text],textarea{width:100%;border:2px solid var(--gris);border-radius:10px;padding:.75rem .9rem;font-size:1.02rem;line-height:1.5;background:#FFF;color:#111}
+input[type=text]:focus,textarea:focus{border-color:#2563EB}
+.ayuda{margin:.45rem 0 0;font-size:.94rem;color:#475569;line-height:1.55}
+progress{width:100%;height:18px;accent-color:var(--verde)}
+.progreso-texto{margin:.4rem 0 0;font-weight:800;color:var(--verde-oscuro)}
+.guardado{margin:.5rem 0 0;font-size:.87rem;color:#475569}
+.ayuda-caja{background:#FFF;border:1px solid var(--gris);border-radius:12px;padding:.9rem 1.1rem;margin:1rem 0 1.6rem}
+.ayuda-caja summary{cursor:pointer;font-weight:800;color:#0F172A;min-height:44px;display:flex;align-items:center;gap:.5rem;list-style:none}
+.ayuda-caja summary::-webkit-details-marker{display:none}
+.ayuda-caja summary::after{content:'+';margin-left:auto;font-size:1.35rem;line-height:1;color:var(--verde)}
+.ayuda-caja[open] summary::after{content:'−'}
+.ayuda-caja ol{margin:.8rem 0 0;padding-left:1.3rem}
+.ayuda-caja li{margin:.4rem 0}
+.menu-titulo{margin:1.8rem 0 .8rem}
+.menu-titulo h2{margin:0 0 .2rem;font-size:1.35rem;color:var(--verde-oscuro)}
+.menu-titulo p{margin:0;color:#475569}
+.capitulos{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem}
+.tarjeta-cap{display:grid;grid-template-columns:52px minmax(0,1fr);grid-template-areas:"icon info" "pie pie";align-items:start;gap:.85rem 1rem;text-align:left;background:#FFF;border:1px solid var(--gris);border-left:7px solid var(--verde);border-radius:16px;padding:1.15rem 1.15rem 1rem;color:#111;min-height:190px;box-shadow:0 2px 8px rgba(15,23,42,.05);transition:transform .15s,box-shadow .15s,border-color .15s}
+.tarjeta-cap:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(15,23,42,.12)}
+.tarjeta-cap.aire{border-left-color:#0E7490}
+.tarjeta-cap.agua{border-left-color:#2563EB}
+.tarjeta-cap.sol{border-left-color:#D97706}
+.tarjeta-cap.clima{border-left-color:#0F766E}
+.tarjeta-cap.suelo{border-left-color:#8D6E63}
+.tarjeta-cap.completo{background:#F0FDF4;border-color:#86EFAC}
+.cap-icono{grid-area:icon;font-size:1.85rem;line-height:1;background:#F1F5F9;border-radius:14px;width:52px;height:52px;display:flex;align-items:center;justify-content:center}
+.tarjeta-cap.aire .cap-icono{background:#CFFAFE}
+.tarjeta-cap.agua .cap-icono{background:#DBEAFE}
+.tarjeta-cap.sol .cap-icono{background:#FEF3C7}
+.tarjeta-cap.clima .cap-icono{background:#CCFBF1}
+.tarjeta-cap.suelo .cap-icono{background:#F5F0E8}
+.cap-info{grid-area:info;display:flex;flex-direction:column;gap:.28rem;min-width:0}
+.cap-meta{display:flex;flex-wrap:wrap;align-items:baseline;gap:.2rem .55rem;line-height:1.3}
+.cap-num{font-size:.74rem;font-weight:800;letter-spacing:.06em;color:#334155;text-transform:uppercase}
+.cap-fuente{font-size:.75rem;font-weight:700;color:#64748B}
+.cap-tit{font-size:1.08rem;font-weight:800;line-height:1.32;color:#0F172A}
+.cap-sub{font-size:.9rem;color:#475569;line-height:1.4}
+.cap-pie{grid-area:pie;display:flex;align-items:center;justify-content:space-between;gap:.6rem;border-top:1px solid #E2E8F0;padding-top:.75rem;margin-top:.15rem}
+.cap-estado{font-size:.78rem;font-weight:800;border-radius:999px;padding:.25rem .6rem;background:#F1F5F9;color:#334155;white-space:nowrap}
+.cap-estado.ok{background:#DCFCE7;color:#166534}
+.cap-estado.curso{background:#FEF3C7;color:#92400E}
+.cap-avance{font-size:.8rem;font-weight:800;color:#475569;white-space:nowrap}
+.acciones-menu{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin:1.6rem 0 0}
+.confirmar{background:#FEF2F2;border:2px solid #FCA5A5;border-radius:12px;padding:1rem 1.1rem;margin:1rem 0 0}
+.confirmar p{margin:0 0 .8rem}
+.cap-cabecera{display:flex;flex-wrap:wrap;align-items:flex-start;gap:1rem;background:#FFF;border:1px solid var(--gris);border-radius:16px;padding:1.1rem 1.2rem;box-shadow:0 2px 8px rgba(15,23,42,.05);margin-bottom:1.2rem}
+.cap-titulos{flex:1 1 320px;min-width:0}
+.cap-titulos h1{margin:0;font-size:clamp(1.35rem,3.4vw,1.9rem);line-height:1.2;color:var(--verde-oscuro)}
+.cap-cab-sub{margin:.25rem 0 0;color:#475569;font-size:.98rem}
+.cap-progreso{flex:0 1 250px;min-width:210px}
+.cap-progreso p{margin:.35rem 0 0;font-size:.9rem;font-weight:800;color:#475569}
+.capitulo-grid{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);gap:1.2rem;align-items:start}
+.panel-preguntas,.panel-articulo{background:#FFF;border:1px solid var(--gris);border-radius:16px;box-shadow:var(--sombra)}
+.panel-preguntas{padding:1.2rem 1.25rem 1.3rem}
+.panel-articulo{padding:1.1rem 1.2rem 1.2rem;border-top:6px solid var(--verde);position:sticky;top:5rem;max-height:calc(100vh - 6rem);overflow:auto}
+.pregunta-cabecera{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.6rem;margin-bottom:.35rem}
+.pregunta-titulo{margin:.1rem 0 .8rem;font-size:1.22rem;line-height:1.4;color:#0F172A}
+.grupo-opciones{border:0;padding:0;margin:1rem 0}
+.opcion{display:flex;align-items:flex-start;gap:.7rem;border:2px solid var(--gris);border-radius:12px;padding:.85rem 1rem;margin:.55rem 0;background:#FFF;font-weight:700;line-height:1.5;cursor:pointer;transition:background .15s,border-color .15s}
+.opcion:hover{background:#F8FAFC;border-color:#94A3B8}
+.opcion:focus-within{outline:3px solid #0F172A;outline-offset:2px;box-shadow:0 0 0 6px #FFF}
+.opcion input{width:22px;height:22px;accent-color:var(--verde);flex:none;margin:.15rem 0 0}
+.opcion.sel{background:#EFF6FF;border-color:#2563EB}
+.opcion.correcta{background:var(--ok-claro);border-color:#22C55E}
+.opcion.incorrecta{background:#FEF2F2;border-color:#EF4444}
+.opcion-texto{flex:1;min-width:0}
+.letra{display:inline-flex;align-items:center;justify-content:center;width:1.55rem;height:1.55rem;border-radius:50%;background:#E2E8F0;color:#0F172A;font-size:.82rem;font-weight:900;margin-right:.25rem;vertical-align:1px}
+.opcion.sel .letra{background:#2563EB;color:#FFF}
+.opcion.correcta .letra{background:var(--verde);color:#FFF}
+.opcion.incorrecta .letra{background:#991B1B;color:#FFF}
+.marca-ok{font-weight:900;color:var(--verde);font-size:1.2rem;line-height:1;flex:none;margin-top:.15rem}
+.marca-mal{font-weight:900;color:#991B1B;font-size:1.2rem;line-height:1;flex:none;margin-top:.15rem}
+.pista-caja{margin:.8rem 0 0}
+.btn-pista,.btn-revelar{border:2px solid #CBD5E1;background:#F8FAFC;color:#0F172A;border-radius:999px;min-height:44px;padding:.55rem .95rem;font-weight:800}
+.btn-revelar{margin:.7rem 0 0;background:#FEF3C7;border-color:#F59E0B;color:#78350F}
+.pista{background:#FFFBEB;border:2px dashed #F59E0B;border-radius:10px;padding:.7rem .85rem;margin:.6rem 0 0;color:#78350F;font-weight:700;line-height:1.55}
+.reco-card{background:#F0FDF4;border:2px solid #86EFAC;border-left:7px solid var(--verde);border-radius:12px;padding:.9rem 1rem;margin:1rem 0}
+.reco-card p{margin:0}
+.reco-label{margin:0 0 .35rem!important;font-weight:900;color:var(--verde-oscuro);font-size:.88rem;text-transform:uppercase;letter-spacing:.05em}
+.campo-propio{margin:.8rem 0 0}
+.campo-propio label{display:block;font-weight:800;margin:0 0 .45rem}
+.contador{font-size:.9rem;color:#475569;font-weight:700;margin:.35rem 0 0}
+.feedback{margin-top:1rem;border-radius:10px;padding:.8rem .95rem;font-weight:800;line-height:1.5;display:flex;gap:.55rem;align-items:flex-start;border:2px solid transparent}
+.feedback:empty{display:none}
+.feedback.ok{background:var(--ok-claro);border-color:#86EFAC;color:#14532D}
+.feedback.mal{background:var(--rojo-claro);border-color:#FCA5A5;color:#7F1D1D}
+.feedback.aviso{background:#FFFBEB;border-color:#FCD34D;color:#78350F}
+.feedback .icono{font-size:1.15rem;line-height:1.2;flex:none}
+.pregunta-acciones{display:flex;flex-wrap:wrap;gap:.55rem;align-items:center;margin-top:1.3rem;padding-top:1.1rem;border-top:2px dashed #E2E8F0}
+.banner-completo{background:#DCFCE7;border:2px solid #22C55E;border-radius:10px;padding:.7rem .9rem;margin:.8rem 0;color:#14532D;font-weight:800}
+.articulo-cabecera{display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;margin-bottom:.7rem}
+.articulo-titulo{margin:0 0 .3rem;font-size:1.25rem;line-height:1.3;color:#0F172A}
+.byline{margin:0;font-size:.92rem;color:#475569;font-style:italic}
+.progreso-articulo{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .8rem;margin:.6rem 0 .7rem;font-size:.88rem;font-weight:800;color:#475569}
+.progreso-articulo progress{flex:1 1 130px;height:14px}
+.checklist{list-style:none;display:flex;flex-wrap:wrap;gap:.35rem;padding:0;margin:0 0 .9rem;font-size:.8rem;font-weight:800}
+.checklist li{background:#F1F5F9;border:1px solid #E2E8F0;border-radius:999px;padding:.2rem .55rem;color:#475569}
+.checklist li.hecho{background:#DCFCE7;border-color:#86EFAC;color:#166534}
+.articulo-parrafos{background:#FFFDF7;border:1px solid #E7E5E4;border-radius:12px;padding:.9rem 1rem;min-height:200px}
+.parrafo-articulo{border-bottom:1px dashed #D6D3D1;padding:0 0 .75rem;margin:0 0 .8rem}
+.parrafo-articulo:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+.marca-parrafo{margin:0 0 .25rem;font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#78716C}
+.parrafo-articulo p{margin:0;line-height:1.75}
+.parrafo-articulo .consejo{background:#F0FDF4;border-left:4px solid var(--verde);padding:.55rem .7rem;border-radius:0 8px 8px 0}
+.placeholder{color:#64748B;font-style:italic;border:2px dashed #CBD5E1;border-radius:8px;padding:.7rem .8rem}
+.pendiente{margin:.5rem 0 0;font-size:.88rem;font-weight:800;color:#B45309}
+.fragmento.recien-agregado{animation:entrarFragmento .45s ease,resaltar 2.6s ease}
+@keyframes entrarFragmento{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+@keyframes resaltar{0%{background:#FEF3C7}65%{background:#FEF3C7}100%{background:transparent}}
+.acciones-articulo{border-top:2px dashed #86EFAC;margin-top:1rem;padding-top:.8rem}
+.completo-titulo{margin:0 0 .6rem;font-weight:900;color:#166534}
+.acciones-fila{display:flex;flex-wrap:wrap;gap:.45rem}
+.acciones-fila .btn{font-size:.92rem;padding:.55rem .9rem}
+.editor-contenedor{margin-top:1rem;border-top:2px dashed #E2E8F0;padding-top:.9rem}
+.editor-label{display:block;font-weight:900;margin:0 0 .45rem}
+.editor-articulo{min-height:190px}
+.btn-ir-articulo{margin-top:1rem}
+.libro-contenido{max-width:760px;margin:0 auto}
+.libro-portada{background:#FFF;border:1px solid var(--gris);border-radius:16px;padding:3rem 2rem;text-align:center;box-shadow:var(--sombra);margin-bottom:1.2rem}
+.libro-portada h2{margin:.5rem 0;font-size:clamp(1.7rem,5vw,2.5rem);color:var(--verde-oscuro)}
+.libro-sub{color:#475569;margin:.25rem 0 1.2rem}
+.libro-capitulo{background:#FFF;border:1px solid var(--gris);border-radius:16px;padding:1.5rem 1.6rem;box-shadow:var(--sombra);margin-bottom:1.2rem;page-break-inside:avoid}
+.libro-capitulo h2{margin:.2rem 0 .35rem;color:var(--verde-oscuro);font-size:1.4rem;line-height:1.3}
+.libro-capitulo p{margin:0 0 1rem;line-height:1.75}
+.libro-capitulo p:last-child{margin-bottom:0}
+.libro-vacio{background:#FFF;border:2px dashed var(--gris);border-radius:16px;padding:2rem;text-align:center;color:#475569}
+.libro-nota{background:#FFFBEB;border:1px solid #FCD34D;border-radius:10px;padding:.75rem .9rem;margin:0 0 1rem;font-weight:700;color:#78350F}
+.print-area{display:none}
+body.imprenta *{text-transform:uppercase;letter-spacing:.018em}
+body.imprenta input,body.imprenta textarea{text-transform:none;letter-spacing:normal}
+body.imprenta .no-mayus{text-transform:none}
+body.imprenta .ph{text-transform:none}
+.encabezado{background:linear-gradient(135deg,#123D18,#1B5E20);padding:1.15rem 1.2rem 1rem;border-bottom:3px solid #D9B45B;box-shadow:none}
+.encabezado .marca{font-size:clamp(1.18rem,2.8vw,1.6rem);letter-spacing:.02em}
+.encabezado .subtitulo{font-size:.9rem;color:#E8F0E9}
+.barra{background:#FFF;padding:.55rem 1rem;gap:.45rem;border-bottom:1px solid #DCE5DE;box-shadow:0 2px 10px rgba(15,23,42,.05)}
+.barra .btn{background:#F8FAFC;color:#1E293B;border:1px solid #CBD5E1;font-weight:700;box-shadow:none}
+.barra .btn:hover:not(:disabled){background:#F1F5F9;transform:none;box-shadow:none}
+.barra .btn-mayus{background:#EEF7EF;color:#14532D;border-color:#A7C9B0}
+.barra .btn-mayus.activo{background:#DCFCE7;color:#14532D;border-color:#4D9A5D}
+.barra .btn-imprimir,.barra .btn-inicio{background:#F8FAFC;color:#334155;border-color:#CBD5E1}
+.barra .btn-audio{background:#EFF6FF;color:#1E3A8A;border-color:#BFDBFE}
+.barra .btn-audio.activo{background:#FEE2E2;color:#7F1D1D;border-color:#FCA5A5}
+.contenedor{max-width:1120px;padding:1.35rem 1.1rem 3rem}
+.portada{background:#FFF;border:1px solid #DCE5DE;border-left:4px solid var(--verde);border-radius:14px;padding:1.3rem 1.4rem;box-shadow:none}
+.portada h1{font-size:clamp(1.35rem,3.5vw,1.95rem);max-width:26ch}
+.portada .etiqueta{font-size:.72rem}
+.bajada{font-size:1rem;line-height:1.6;max-width:72ch;color:#334155}
+.btn-audio-suave{background:#EFF6FF;color:#1E3A8A;border:1px solid #BFDBFE;border-radius:999px;min-height:44px;padding:.5rem .9rem;font-size:.88rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:.35rem}
+.btn-audio-suave:hover{background:#DBEAFE}
+.btn-audio-suave.activo{background:#FEE2E2;color:#7F1D1D;border-color:#FCA5A5}
+.menu-grid{grid-template-columns:minmax(0,1.4fr) minmax(180px,.6fr);gap:.9rem;margin:1.1rem 0;align-items:stretch}
+.campo-nombre{border-color:#DCE5DE;border-radius:12px;padding:.9rem 1rem;box-shadow:none}
+.progreso{border:0;border-radius:0;padding:.2rem 0 .2rem .8rem;box-shadow:none;background:transparent;display:flex;flex-direction:column;justify-content:center}
+.progreso progress{height:8px}
+.progreso-titulo{font-size:.82rem;color:#475569;margin-bottom:.35rem}
+.progreso-texto{font-size:.9rem;margin-top:.3rem}
+.guardado{font-size:.78rem}
+.ayuda-caja{border-color:#DCE5DE;border-radius:10px;padding:.55rem 1rem;margin:1rem 0 1.4rem}
+.ayuda-final{margin:1.6rem 0 0}
+.capitulos{max-width:760px;margin:0 auto;grid-template-columns:1fr;gap:.6rem}
+.tarjeta-cap{grid-template-columns:44px minmax(0,1fr) auto;grid-template-areas:"icon info accion";align-items:center;gap:.2rem .8rem;border-color:#DCE5DE;border-left-width:4px;border-radius:12px;padding:.85rem 1rem;min-height:0;box-shadow:none}
+.tarjeta-cap:hover{transform:none;box-shadow:0 6px 18px rgba(15,23,42,.08);border-color:#94A3B8}
+.cap-icono{width:40px;height:40px;font-size:1.45rem;border-radius:0}
+.tarjeta-cap.aire .cap-icono,.tarjeta-cap.agua .cap-icono,.tarjeta-cap.sol .cap-icono,.tarjeta-cap.clima .cap-icono,.tarjeta-cap.suelo .cap-icono{background:transparent}
+.cap-info{gap:.08rem}
+.cap-num{font-size:.68rem;color:#64748B}
+.cap-fuente{font-size:.72rem}
+.cap-tit{font-size:1rem;line-height:1.35}
+.cap-sub{font-size:.82rem}
+.cap-accion{grid-area:accion;display:flex;align-items:center;gap:.25rem;font-size:.78rem;font-weight:700;color:#14532D;white-space:nowrap}
+.cap-accion b{font-size:1.3rem;font-weight:400;line-height:1}
+.cap-pie,.cap-estado,.cap-avance{display:none}
+.cap-cabecera{max-width:1120px;margin-left:auto;margin-right:auto;border-color:#DCE5DE;border-left:4px solid var(--verde);border-radius:12px;padding:1rem 1.1rem;box-shadow:none}
+.capitulo-grid{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);align-items:start;gap:1rem}
+.panel-preguntas,.panel-articulo{border-color:#DCE5DE;border-radius:12px;box-shadow:none}
+.panel-preguntas{padding:1rem 1.1rem 1.1rem}
+.panel-articulo{position:sticky;top:5rem;max-height:calc(100vh - 6rem);overflow:auto;border-top-width:4px;padding:1rem 1.05rem}
+.pregunta-cabecera{justify-content:flex-end;margin-bottom:.1rem}
+.pregunta-titulo{font-size:1.15rem;line-height:1.5}
+#ayudaPregunta:empty{display:none}
+.grupo-opciones{margin:.8rem 0}
+.opcion{border:1px solid #D7DEE8;border-radius:10px;padding:.72rem .85rem;margin:.45rem 0;font-weight:500;line-height:1.5}
+.opcion:hover{background:#F8FAFC;border-color:#94A3B8}
+.opcion.sel{border-color:#3B82F6;background:#F5F9FF;box-shadow:inset 0 0 0 1px #3B82F6}
+.opcion.correcta{border-color:#22C55E;background:#F2FDF5;box-shadow:inset 0 0 0 1px #22C55E}
+.opcion.incorrecta{border-color:#EF4444;background:#FEF5F5;box-shadow:inset 0 0 0 1px #EF4444}
+.letra{width:auto;height:auto;background:transparent;border-radius:0;color:#64748B;font-size:.9rem;margin-right:.4rem;vertical-align:0}
+.opcion.sel .letra{background:transparent;color:#1D4ED8}
+.opcion.correcta .letra{background:transparent;color:#166534}
+.opcion.incorrecta .letra{background:transparent;color:#991B1B}
+.marca-ok,.marca-mal{font-size:1rem;margin-top:.2rem}
+.pista{background:#FFFBF2;border:1px solid #EBD3A3;border-left:4px solid #D99A1E;border-radius:8px;padding:.65rem .8rem;font-weight:500;color:#5C430D}
+.btn-pista,.btn-revelar{font-weight:600;background:#FFF;border:1px solid #CBD5E1;color:#1E293B}
+.btn-pista:hover,.btn-revelar:hover{background:#F8FAFC}
+.btn-revelar{background:#FFFBF2;border-color:#D99A1E;color:#6B4700}
+.reco-card{background:#F7FBF7;border:1px solid #CFE3D3;border-left:4px solid var(--verde);border-radius:10px;padding:.8rem .9rem;margin:.9rem 0}
+.reco-card p{font-weight:400}
+.reco-label{font-size:.76rem}
+.feedback{border-width:1px;border-radius:8px;padding:.65rem .8rem;font-weight:600;margin-top:.85rem}
+.feedback .icono{font-size:1rem}
+.pregunta-acciones{border-top:1px solid #E2E8F0;margin-top:1rem;padding-top:.9rem;gap:.5rem}
+.checklist{display:none}
+.articulo-cabecera{align-items:center;margin-bottom:.55rem}
+.articulo-titulo{font-size:1.12rem;letter-spacing:-.01em}
+.byline{font-size:.78rem;color:#64748B}
+.progreso-articulo{margin:.5rem 0 .8rem;font-size:.76rem;font-weight:600;color:#64748B}
+.progreso-articulo progress{height:8px}
+.articulo-parrafos{position:relative;background-color:#FFFDF7;background-image:linear-gradient(to right,transparent 0 2.3rem,#EAB5AE 2.3rem 2.34rem,transparent 2.34rem),repeating-linear-gradient(to bottom,transparent 0 27px,#E9EFF5 27px 28px);background-size:100% 100%,100% 28px;border:1px solid #E8E0CE;border-radius:6px;padding:.85rem 1rem .9rem 2.85rem;min-height:0}
+.articulo-parrafos::before{content:"";position:absolute;left:.55rem;top:.7rem;bottom:.7rem;width:7px;background:radial-gradient(circle,#C9D2DD 0 2.2px,transparent 2.7px) center top/7px 28px repeat-y;opacity:.65;pointer-events:none}
+.parrafo-articulo{border-bottom:0;padding:0;margin:0 0 .7rem}
+.parrafo-articulo p{font-size:.95rem;line-height:28px;color:#1E293B}
+.marca-parrafo{font-size:.64rem;font-weight:700;letter-spacing:.09em;color:#94A3B8}
+.parrafo-articulo .consejo{background:#F3FAF4;border-left:3px solid var(--verde);border-radius:0 6px 6px 0;padding:.35rem .6rem}
+.pendiente{display:none}
+.articulo-vacio{margin:0;padding:.35rem 0;color:#94A3B8;font-size:.9rem;font-style:italic;line-height:28px}
+.btn-reiniciar{color:#991B1B}
+@media(max-width:980px){
+  .menu-grid{grid-template-columns:1fr}
+  .capitulo-grid{grid-template-columns:1fr}
+  .progreso{padding:0 .2rem}
+  .panel-articulo{position:static;max-height:none;overflow:visible;margin-top:.2rem}
+}
+@media(max-width:640px){
+  body{font-size:16px}
+  .barra{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem;padding:.6rem .65rem;position:static;box-shadow:none}
+  .barra.sin-imprimir #btnAyudaAudio{grid-column:1/-1}
+  .barra .btn{width:100%;min-height:44px;padding:.45rem .3rem;font-size:.72rem;line-height:1.15;letter-spacing:0}
+  .contenedor{padding:1rem .8rem 2.4rem}
+  .tutorial{padding-top:.6rem}
+  .tutorial h1{max-width:none}
+  .inicio-pasos li{padding:.8rem}
+  .tutorial-acciones .btn{flex:1 1 100%}
+  .demo-pregunta-articulo{grid-template-columns:1fr}
+  .objetivo-grid{grid-template-columns:1fr}
+  #h-menu,#h-capitulo,#h-pregunta,#h-articulo,#h-libro,.panel-articulo{scroll-margin-top:1rem}
+  .capitulos{grid-template-columns:1fr}
+  .encabezado{padding:1rem .8rem .9rem}
+  .portada{padding:1.1rem 1rem}
+  .panel-preguntas,.panel-articulo{padding:.9rem .85rem}
+  .articulo-parrafos{background-image:linear-gradient(to right,transparent 0 1.9rem,#EAB5AE 1.9rem 1.94rem,transparent 1.94rem),repeating-linear-gradient(to bottom,transparent 0 27px,#E9EFF5 27px 28px);padding-left:2.4rem}
+  .articulo-parrafos::before{left:.4rem}
+  .cap-cabecera{padding:.9rem .9rem}
+  .pregunta-acciones .btn{flex:1 1 100%}
+  .acciones-menu .btn{flex:1 1 100%}
+  .articulo-cabecera{flex-direction:column}
+  .articulo-cabecera .btn-audio-suave{width:100%}
+  .tarjeta-cap{min-height:0}
+  .cap-accion-texto{display:none}
+}
+/* Refinamiento visual: papel cálido, verde editorial y acentos ocre */
+:root{
+  --fondo:#F6F2E9;--tarjeta:#FFFDF8;--linea:#E2D8C6;--texto:#23261F;
+  --verde:#1F5B34;--verde-oscuro:#12351D;--verde-claro:#EAF3E8;
+  --ambar:#A16207;--ambar-claro:#FBF0D9;--rojo:#9B2C2C;--ok:#1F6B3A;--ok-claro:#EDF7EE;
+  --gris:#D8CEBB;--gris-oscuro:#5B6155;--azul:#2F5D8A;--azul-claro:#EDF4FB;
+  --foco:#B45309;--sombra:0 1px 2px rgba(35,38,31,.05),0 12px 28px rgba(35,38,31,.07);
+}
+html{background:var(--fondo)}
+body{background:linear-gradient(180deg,#F8F5EE 0,#F5F0E4 26rem,var(--fondo) 100%);color:var(--texto);font-size:17px;line-height:1.7;letter-spacing:.01em}
+body.imprenta *{letter-spacing:.014em}
+body.imprenta input,body.imprenta textarea{letter-spacing:normal}
+:focus-visible{outline:3px solid var(--foco);outline-offset:2px;box-shadow:0 0 0 2px var(--tarjeta)}
+.ico{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.encabezado{padding:1.15rem 1.2rem;background:linear-gradient(110deg,#0E2C18,#17452A 70%,#123B22);border-bottom:3px solid #C7A24A;text-align:left;box-shadow:none}
+.encabezado-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;gap:1rem}
+.sello{width:54px;height:54px;flex:none;border:1px solid rgba(245,231,184,.55);border-radius:50%;display:grid;place-items:center;color:#F5E7B8;font-weight:900;font-size:1.18rem;letter-spacing:.04em;box-shadow:inset 0 0 0 4px rgba(245,231,184,.08);background:rgba(255,255,255,.04)}
+.encabezado-texto{min-width:0}
+.encabezado .etiqueta{color:#D8C48A;font-size:.68rem;letter-spacing:.12em;margin:0 0 .12rem}
+.encabezado .marca{font-size:clamp(1.18rem,2.7vw,1.7rem);line-height:1.18;letter-spacing:.012em}
+.encabezado .subtitulo{font-size:.8rem;line-height:1.45;color:#DCE6DD;margin:.22rem 0 0}
+.header-hoja{width:104px;height:64px;margin-left:auto;color:#A9C7A4;opacity:.6;flex:none}
+.barra{background:rgba(255,253,248,.96);padding:.5rem .8rem;gap:.4rem;border-bottom:1px solid var(--linea);box-shadow:0 4px 18px rgba(35,38,31,.05);backdrop-filter:blur(8px)}
+.barra .btn{min-height:40px;padding:.45rem .8rem;font-size:.78rem;font-weight:800;background:var(--tarjeta);color:#394136;border:1px solid var(--linea);border-radius:8px;box-shadow:none}
+.barra .btn:hover:not(:disabled){background:#F4EFE4;border-color:#C9BEA8;transform:none;box-shadow:none}
+.barra .btn-mayus,.barra .btn-mayus.activo{background:#EFF5ED;color:#1F5B34;border-color:#BFD3BE}
+.barra .btn-imprimir{background:#1F5B34;color:#FFF;border-color:#1F5B34}
+.barra .btn-imprimir:hover:not(:disabled){background:#12351D}
+.barra .btn-inicio{background:#F8F3E7;color:#5B4A2B;border-color:#DDCDA9}
+.barra .btn-audio{background:#FBF0D9;color:#7C4A10;border-color:#E4C98E}
+.btn{border-radius:10px;min-height:46px;padding:.68rem 1.05rem;font-size:.94rem;font-weight:800;letter-spacing:.01em;box-shadow:0 1px 2px rgba(35,38,31,.12)}
+.btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 7px 16px rgba(35,38,31,.14)}
+.btn:disabled{background:#EEE8DC;color:#8A8171;border:1px solid #D8CEBB;opacity:1;box-shadow:none;transform:none}
+.btn-primario{background:var(--verde);color:#FFF}
+.btn-primario:hover:not(:disabled){background:var(--verde-oscuro)}
+.btn-sec{background:var(--tarjeta);color:#394136;border:1.5px solid #D3C7B3}
+.btn-sec:hover:not(:disabled){background:#F4EFE4;border-color:#BDAF97}
+.btn-texto{background:transparent;color:var(--verde);text-decoration:underline;text-underline-offset:3px;padding:.55rem .65rem;box-shadow:none}
+.btn-texto:hover:not(:disabled){background:#EFF5ED;transform:none;box-shadow:none}
+.btn-reiniciar{color:var(--rojo)}
+.btn-reiniciar:hover:not(:disabled){background:#FCF0ED}
+.btn-peligro{background:var(--rojo)}
+.btn-audio-suave{background:#FBF0D9;color:#6F420C;border:1px solid #E3C98E;border-radius:999px;font-size:.82rem;font-weight:800;padding:.5rem .85rem}
+.btn-audio-suave .ico,.barra .btn-audio .ico{width:17px;height:17px}
+.btn-audio-suave:hover{background:#F6E5C4}
+.btn-audio-suave.activo{background:#FCE8E4;color:#7F1D1D;border-color:#E4B4AA}
+.btn-pista,.btn-revelar{min-height:42px;padding:.5rem .85rem;font-size:.84rem;font-weight:800;border-radius:8px;background:var(--tarjeta);border:1px solid #D3C7B3;color:#394136;box-shadow:none}
+.btn-pista:hover,.btn-revelar:hover{background:#F4EFE4}
+.btn-revelar{background:var(--ambar-claro);border-color:#D8B56B;color:#6F420C}
+.btn-comenzar{min-height:52px;padding:.8rem 1.35rem;font-size:1rem}
+input[type=text],textarea{background:var(--tarjeta);border:1.5px solid #CFC5B1;border-radius:9px}
+input[type=text]:focus,textarea:focus{border-color:var(--verde);box-shadow:0 0 0 4px rgba(31,91,52,.14)}
+input::placeholder,textarea::placeholder{color:#8A8171;text-transform:uppercase;letter-spacing:.04em}
+progress{height:8px;accent-color:var(--verde)}
+.tutorial{max-width:1040px;padding:1.15rem 0 2.4rem}
+.tutorial-cabecera{align-items:flex-end;padding-bottom:.8rem;margin-bottom:1.15rem;border-bottom:1px solid var(--linea)}
+.tutorial .etiqueta{color:#7C6A4A;font-size:.7rem;letter-spacing:.12em}
+.tutorial-progreso{background:var(--verde-oscuro);color:#F5E7B8;border:1px solid var(--verde-oscuro);font-size:.68rem;letter-spacing:.08em;padding:.4rem .8rem}
+.tutorial h1,.tutorial h2{font-size:clamp(1.7rem,4vw,2.35rem);line-height:1.15;letter-spacing:.005em;color:var(--verde-oscuro);max-width:26ch;text-wrap:balance}
+.tutorial-bajada{font-size:1rem;line-height:1.75;letter-spacing:.012em;max-width:60ch;color:#4A4F45}
+.inicio-hero{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(280px,.92fr);gap:1.5rem;align-items:center}
+.inicio-copy{min-width:0}
+.inicio-ilustracion{margin:0;background:linear-gradient(145deg,#EFF5E9,#FBF5E5);border:1px solid #D8DCC9;border-radius:18px;padding:1rem;box-shadow:var(--sombra)}
+.inicio-ilustracion svg{display:block;width:100%;height:auto}
+.inicio-pasos{margin:1.25rem 0 0;gap:.55rem}
+.inicio-pasos li{background:rgba(255,253,248,.86);border:1px solid var(--linea);border-radius:12px;padding:.82rem .95rem;box-shadow:0 1px 1px rgba(35,38,31,.03)}
+.inicio-num{width:32px;height:32px;border-radius:9px;background:var(--verde-oscuro);color:#F5E7B8;font-size:.85rem}
+.inicio-pasos h2{font-size:.98rem;line-height:1.35;color:var(--texto);letter-spacing:.008em}
+.inicio-pasos p{font-size:.9rem;line-height:1.6;color:#5B6155;letter-spacing:.01em}
+.objetivo-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;margin:1.2rem 0 0}
+.objetivo-card{position:relative;background:var(--tarjeta);border:1px solid var(--linea);border-top:3px solid #C7A24A;border-radius:12px;padding:1rem;box-shadow:0 1px 2px rgba(35,38,31,.04)}
+.objetivo-card .obj-icono{width:34px;height:34px;padding:0;margin:0 0 .6rem;display:grid;place-items:center;border-radius:50%;background:#EFF5ED;color:var(--verde);font-size:0;letter-spacing:0;border:0}
+.obj-icono .ico{width:18px;height:18px}
+.objetivo-card .obj-label{margin:0 0 .3rem;font-size:.75rem;font-weight:900;letter-spacing:.09em;color:#7C6A4A}
+.objetivo-card p{margin:0;font-size:.89rem;line-height:1.6;color:#4A4F45;letter-spacing:.012em}
+.demo-capitulos{gap:.5rem}
+.demo-cap{background:var(--tarjeta);border:1px solid var(--linea);border-left:3px solid var(--verde);border-radius:10px;padding:.65rem .75rem}
+.demo-cap-num{background:var(--verde-claro);color:var(--verde);border-radius:8px;font-size:.78rem}
+.demo-cap strong{font-size:.84rem;color:var(--texto)}
+.demo-cap small{font-size:.72rem;color:#7C6A4A}
+.demo-cap b{color:var(--verde)}
+.demo-pregunta{background:var(--tarjeta);border:1px solid var(--linea);border-radius:10px}
+.demo-pregunta small{font-size:.7rem;color:#7C6A4A}
+.demo-pregunta-texto{font-size:.8rem;line-height:1.55;letter-spacing:.01em}
+.demo-opcion{border:1px solid #DED5C4;border-radius:7px;background:#FFFDF8;font-size:.7rem}
+.demo-opcion.correcta{background:#EDF7EE;border-color:#9FC8A5;color:#1D4D2B}
+.demo-hoja{background-color:#FFFDF7;background-image:linear-gradient(to right,transparent 0 1.5rem,#EAB5AE 1.5rem 1.54rem,transparent 1.54rem),repeating-linear-gradient(to bottom,transparent 0 23px,#E6E0D2 23px 24px);background-size:100% 100%,100% 24px;background-position:0 0,0 6px;border:1px solid #DED3BE}
+.demo-acciones span{background:var(--tarjeta);border-color:var(--linea);color:#5B4A2B}
+.tutorial-pista{font-size:.83rem;line-height:1.6;color:#7B7160}
+.tutorial-cierre{background:#F1F7EF;border-color:#C9DCC6;color:#1D4D2B;font-size:.88rem;line-height:1.6}
+.tutorial-nota{font-size:.82rem;color:#7B7160}
+.portada{max-width:900px;margin:0 auto 1rem;background:linear-gradient(120deg,#FFFDF8,#F8F3E7);border:1px solid var(--linea);border-left:3px solid var(--verde);border-radius:14px;padding:1.4rem 1.45rem;box-shadow:var(--sombra)}
+.portada h1{font-size:clamp(1.55rem,3.5vw,2.15rem);line-height:1.16;letter-spacing:.005em}
+.portada .bajada{font-size:1rem;line-height:1.7;color:#4A4F45}
+.menu-grid{max-width:900px;margin:1.05rem auto;gap:.8rem}
+.campo-nombre,.progreso{background:var(--tarjeta);border:1px solid var(--linea);border-radius:12px;box-shadow:0 1px 2px rgba(35,38,31,.04)}
+.campo-nombre{padding:.9rem 1rem}
+.progreso{padding:.7rem 0 .7rem 1rem;border:0;border-left:1px solid var(--linea);border-radius:0;background:transparent}
+.progreso-titulo{font-size:.8rem;color:#7C6A4A;letter-spacing:.08em}
+.progreso-texto{font-size:.88rem;color:var(--verde-oscuro)}
+.progreso progress{height:6px}
+.guardado{font-size:.76rem;color:#7B7160}
+.capitulos{max-width:900px;gap:.65rem}
+.tarjeta-cap{grid-template-columns:48px minmax(0,1fr) auto;align-items:center;gap:.2rem .8rem;text-align:left;background:var(--tarjeta);border:1px solid var(--linea);border-left:3px solid var(--verde);border-radius:12px;padding:.88rem 1rem;min-height:76px;box-shadow:0 1px 2px rgba(35,38,31,.04);transition:transform .16s,box-shadow .16s,border-color .16s}
+.tarjeta-cap:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(35,38,31,.09);border-color:#C9BEA8}
+.cap-icono{width:44px;height:44px;border-radius:11px;background:var(--verde-claro);color:var(--verde);display:grid;place-items:center;font-size:0}
+.cap-icono .ico{width:23px;height:23px}
+.tarjeta-cap.aire,.tarjeta-cap.agua,.tarjeta-cap.sol,.tarjeta-cap.clima,.tarjeta-cap.suelo{border-left-color:var(--verde)}
+.tarjeta-cap.aire .cap-icono,.tarjeta-cap.agua .cap-icono,.tarjeta-cap.sol .cap-icono,.tarjeta-cap.clima .cap-icono,.tarjeta-cap.suelo .cap-icono{background:#EAF3E8;color:#2D6A43}
+.tarjeta-cap.aire .cap-icono{background:#E7F2F0;color:#236B63}
+.tarjeta-cap.agua .cap-icono{background:#EAF1F7;color:#2F5D8A}
+.tarjeta-cap.sol .cap-icono{background:#FBF0D9;color:#8A5A12}
+.tarjeta-cap.clima .cap-icono{background:#EEF1E4;color:#536B3D}
+.tarjeta-cap.suelo .cap-icono{background:#F3EDE2;color:#6F5539}
+.cap-num{font-size:.7rem;font-weight:900;letter-spacing:.09em;color:#7C6A4A}
+.cap-tit{font-size:1.02rem;line-height:1.32;color:var(--texto);letter-spacing:.006em}
+.cap-sub{font-size:.82rem;line-height:1.45;color:#5B6155}
+.cap-accion{background:#EFF5ED;border:1px solid #C8D8C5;border-radius:999px;padding:.32rem .65rem;font-size:.72rem;font-weight:900;letter-spacing:.05em;color:#1F5B34;white-space:nowrap}
+.cap-accion b{font-size:1rem;line-height:1}
+.tarjeta-cap.completo{background:#F3F9F1;border-color:#BED6BA}
+.cap-cabecera{background:var(--tarjeta);border:1px solid var(--linea);border-left:3px solid var(--verde);border-radius:12px;padding:1rem 1.1rem;box-shadow:0 1px 2px rgba(35,38,31,.04);align-items:center}
+#btnVolverMenu{align-self:center;min-height:36px;padding:.38rem .7rem;border:1px solid var(--linea);border-radius:999px;background:var(--tarjeta);color:#5B4A2B;font-size:.78rem;text-decoration:none;white-space:nowrap}
+#btnVolverMenu:hover:not(:disabled){background:#F4EFE4;border-color:#C9BEA8}
+.cap-titulos{display:flex;align-items:flex-start;gap:.8rem}
+.cap-titulos-texto{min-width:0}
+.cap-cab-icono{width:44px;height:44px;flex:none;border-radius:11px;display:grid;place-items:center;background:var(--verde-claro);color:var(--verde)}
+.cap-cab-icono .ico{width:23px;height:23px}
+.cap-titulos h1{font-size:clamp(1.28rem,3.2vw,1.75rem);line-height:1.2;letter-spacing:.005em}
+.cap-cab-sub{font-size:.88rem;color:#5B6155}
+.cap-progreso p{font-size:.82rem;color:#5B6155}
+.panel-preguntas,.panel-articulo{background:var(--tarjeta);border:1px solid var(--linea);border-radius:14px;box-shadow:0 1px 2px rgba(35,38,31,.04)}
+.panel-preguntas{padding:1.15rem 1.2rem}
+.panel-articulo{border-top:3px solid var(--verde);padding:1rem 1.05rem;top:4.7rem}
+.pregunta-titulo{font-size:1.16rem;line-height:1.55;letter-spacing:.008em;color:var(--texto)}
+.opcion{border:1.5px solid #D9D0BF;border-radius:10px;padding:.8rem .9rem;margin:.5rem 0;background:var(--tarjeta);font-weight:600;line-height:1.55;transition:background .15s,border-color .15s,box-shadow .15s}
+.opcion:hover{background:#F7F3E9;border-color:#B9AD96}
+.opcion.sel{background:#F1F7F0;border-color:#3C7A4A;box-shadow:inset 0 0 0 1px #3C7A4A}
+.opcion.correcta{background:#EDF7EE;border-color:#3E8A53;box-shadow:inset 0 0 0 1px #3E8A53}
+.opcion.incorrecta{background:#FCF0ED;border-color:#B4544A;box-shadow:inset 0 0 0 1px #B4544A}
+.opcion:focus-within{outline:3px solid var(--foco);outline-offset:2px;box-shadow:0 0 0 2px var(--tarjeta)}
+.letra{color:#7C6A4A;font-size:.86rem;font-weight:900;letter-spacing:.02em}
+.opcion.sel .letra{color:#1F5B34}
+.opcion.correcta .letra{color:#1D4D2B}
+.opcion.incorrecta .letra{color:#7A2A23}
+.marca-ok,.marca-mal{font-size:1rem}
+.glosario{margin:.8rem 0 0;background:#FBF7EC;border:1px solid #E5D8BD;border-left:3px solid #C7A24A;border-radius:9px;padding:.1rem .85rem}
+.glosario summary{cursor:pointer;list-style:none;min-height:42px;display:flex;align-items:center;gap:.5rem;font-size:.82rem;font-weight:900;letter-spacing:.04em;color:#6F4E12}
+.glosario summary::-webkit-details-marker{display:none}
+.glosario summary .ico{width:17px;height:17px}
+.glosario summary::after{content:'+';margin-left:auto;font-size:1.25rem;line-height:1;color:#8A5A12}
+.glosario[open] summary::after{content:'–'}
+.glosario dl{display:grid;gap:.55rem;margin:0 0 .8rem;padding:.65rem 0 0;border-top:1px dashed #DCCBA8}
+.glosario-item dt{font-size:.81rem;font-weight:900;color:#4A3A1E;letter-spacing:.03em}
+.glosario-item dd{margin:.12rem 0 0;font-size:.83rem;line-height:1.55;color:#5B4A2B;letter-spacing:.01em}
+.pista{background:#FFFBF0;border:1px solid #E5D0A2;border-left:3px solid #C7A24A;border-radius:8px;color:#5C430D;font-weight:500;line-height:1.6}
+.feedback{border-radius:9px;padding:.75rem .9rem;font-weight:600;line-height:1.55}
+.feedback.ok{background:var(--ok-claro);border-color:#B7D8BC;color:#1E4D2B}
+.feedback.mal{background:#FCF0ED;border-color:#E5B7AF;color:#7A2A23}
+.feedback.aviso{background:#FBF7EC;border-color:#E5D0A2;color:#6F4E12}
+.reco-card{background:#F5F9F2;border:1px solid #CFE0C8;border-left:3px solid var(--verde);border-radius:10px}
+.reco-label{font-size:.75rem;letter-spacing:.08em;color:#7C6A4A}
+.reco-card p{color:#3E4A39}
+.campo-propio label{font-size:.88rem;color:#394136}
+.contador{font-size:.78rem;color:#7B7160}
+.articulo-cabecera{align-items:flex-start;margin-bottom:.55rem}
+.articulo-cabecera .btn-audio-suave{white-space:nowrap;flex:none;font-size:.74rem;padding:.45rem .7rem}
+.articulo-titulo{font-size:1.13rem;line-height:1.35;letter-spacing:.003em}
+.etiqueta{font-size:.72rem;letter-spacing:.1em;color:#7C6A4A}
+.byline{font-size:.76rem;color:#7B7160}
+.progreso-articulo{font-size:.74rem;color:#7B7160;letter-spacing:.02em}
+.progreso-articulo progress{height:6px;accent-color:#A16207}
+.articulo-parrafos{background-color:#FFFDF7;background-image:linear-gradient(to right,transparent 0 2.3rem,#EAB5AE 2.3rem 2.34rem,transparent 2.34rem),repeating-linear-gradient(to bottom,transparent 0 27px,#E8E1D2 27px 28px);background-size:100% 100%,100% 28px;background-position:0 0,0 8px;border:1px solid #DED3BE;padding:.7rem 1rem .9rem 2.85rem}
+.parrafo-articulo p{font-size:.94rem;line-height:28px;letter-spacing:.012em;color:#2E3029}
+.marca-parrafo{font-size:.65rem;line-height:28px;margin:0;font-weight:900;letter-spacing:.1em;color:#9A8867}
+.parrafo-articulo .consejo{background:#F1F7F0;border-left:3px solid var(--verde);border-radius:0 6px 6px 0;padding:.35rem .6rem}
+.articulo-vacio{color:#9A8867;line-height:28px}
+.acciones-articulo{position:sticky;bottom:0;background:var(--tarjeta);border-top:1px solid #CFE0CF;margin-top:1rem;padding:.8rem 0 .2rem;box-shadow:0 -8px 18px rgba(255,253,248,.92)}
+.completo-titulo{font-size:.86rem;color:#1D4D2B;letter-spacing:.04em}
+.acciones-fila .btn{font-size:.82rem;min-height:40px;padding:.5rem .75rem}
+.banner-completo{background:#EDF7EE;border:1px solid #B7D8BC;color:#1D4D2B;font-size:.9rem}
+.libro-portada,.libro-capitulo{background:var(--tarjeta);border:1px solid var(--linea);box-shadow:var(--sombra)}
+.libro-portada h2,.libro-capitulo h2{color:var(--verde-oscuro);letter-spacing:.005em}
+.libro-sub{color:#5B6155}
+.libro-nota{background:#FBF7EC;border-color:#E5D0A2;color:#6F4E12}
+.ayuda-caja{background:var(--tarjeta);border-color:var(--linea);border-radius:10px}
+.ayuda-caja summary{font-size:.9rem;color:#394136}
+.ayuda-caja ol{color:#4A4F45;line-height:1.7}
+@media(min-width:1100px){
+  .capitulo-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.1rem}
+}
+@media(max-width:900px){
+  .inicio-hero{grid-template-columns:1fr;gap:1rem}
+  .inicio-ilustracion{max-width:420px;margin:0 auto;order:-1}
+}
+@media(max-width:640px){
+  body{font-size:16px}
+  .encabezado{padding:.9rem .8rem}
+  .encabezado-inner{gap:.7rem}
+  .sello{width:44px;height:44px;font-size:1rem}
+  .header-hoja{display:none}
+  .encabezado .etiqueta{font-size:.62rem}
+  .encabezado .marca{font-size:1.12rem}
+  .encabezado .subtitulo{font-size:.72rem}
+  .barra{background:var(--tarjeta);padding:.55rem .6rem;gap:.4rem}
+  .barra .btn{min-height:42px;font-size:clamp(.72rem,3.5vw,.8rem);padding:.4rem .25rem;line-height:1.2;white-space:normal}
+  .contenedor{padding:1rem .8rem 2.4rem}
+  .tutorial h1,.tutorial h2{font-size:clamp(1.6rem,7vw,1.95rem)}
+  .tutorial-bajada{font-size:.95rem;line-height:1.7}
+  .inicio-ilustracion{padding:.65rem;border-radius:14px}
+  .inicio-pasos li{padding:.78rem .82rem}
+  .objetivo-grid{grid-template-columns:1fr}
+  .portada{padding:1.1rem 1rem}
+  .portada h1{font-size:1.55rem}
+  .menu-grid{gap:.6rem}
+  .progreso{padding:.7rem .1rem .7rem 0;border-left:0;border-top:1px solid var(--linea);border-radius:0}
+  .capitulos{gap:.55rem}
+  .tarjeta-cap{padding:.8rem .85rem;border-radius:10px}
+  .cap-icono{width:40px;height:40px}
+  .cap-cabecera{padding:.85rem .85rem;align-items:flex-start}
+  .cap-cab-icono{width:40px;height:40px}
+  .cap-titulos{gap:.65rem}
+  .panel-preguntas,.panel-articulo{padding:.9rem .85rem}
+  .pregunta-titulo{font-size:1.08rem;line-height:1.55}
+  .articulo-parrafos{background-image:linear-gradient(to right,transparent 0 1.9rem,#EAB5AE 1.9rem 1.94rem,transparent 1.94rem),repeating-linear-gradient(to bottom,transparent 0 27px,#E8E1D2 27px 28px);background-position:0 0,0 8px;padding:.65rem .8rem .8rem 2.4rem}
+  .articulo-parrafos::before{left:.4rem}
+  .acciones-fila .btn{font-size:.78rem}
+  .glosario{padding:.1rem .7rem}
+  .feedback{font-size:.9rem}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+@media print{
+  @page{margin:1.6cm}
+  body{background:#FFF;color:#000;font-size:11.5pt;line-height:1.5}
+  body.print-activo > *:not(#printArea){display:none!important}
+  body.print-activo #printArea{display:block!important}
+  #printArea .print-capitulo{page-break-after:always}
+  #printArea .print-capitulo:last-child{page-break-after:auto}
+  #printArea .print-portada{page-break-after:always;text-align:center;padding-top:5cm}
+  #printArea h1{font-size:20pt;line-height:1.25;margin:0 0 .3cm}
+  #printArea h2{font-size:15pt;line-height:1.3;margin:.6cm 0 .3cm}
+  #printArea p{margin:0 0 .35cm;font-size:11.5pt;line-height:1.55}
+  #printArea .byline{font-style:italic;margin-bottom:.6cm}
+  #printArea .print-etiqueta{font-size:9pt;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.2cm}
+  #printArea .print-libro-titulo{font-size:24pt;margin:0 0 .4cm}
+  #printArea .print-libro-sub{font-size:12pt;margin-bottom:1cm}
+  #printArea .print-capitulo-label{font-size:10pt;font-weight:bold;letter-spacing:.06em;text-transform:uppercase;margin-top:.6cm}
+}
+</style>
+</head>
+<body class="imprenta">
+<svg aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;overflow:hidden">
+  <symbol id="i-aire" viewBox="0 0 24 24">
+    <path d="M3 8h11a3 3 0 1 0-3-3"></path>
+    <path d="M3 12h15a3 3 0 1 1-3 3"></path>
+    <path d="M3 16h7"></path>
+  </symbol>
+  <symbol id="i-agua" viewBox="0 0 24 24">
+    <path d="M12 2.7c-.3 0-.6.2-.8.4C9.9 5.3 5.5 10.7 5.5 14.5a6.5 6.5 0 0 0 13 0c0-3.8-4.4-9.2-5.7-11.4a1 1 0 0 0-.8-.4Z"></path>
+    <path d="M9 15.2a3 3 0 0 0 3 2.8"></path>
+  </symbol>
+  <symbol id="i-sol" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+  </symbol>
+  <symbol id="i-clima" viewBox="0 0 24 24">
+    <path d="M7 18h10a3 3 0 0 0 .2-6A5 5 0 0 0 7.7 13 3 3 0 0 0 7 18Z"></path>
+    <path d="M3 7h6a2 2 0 1 0-2-2"></path>
+    <path d="M3 11h4"></path>
+  </symbol>
+  <symbol id="i-suelo" viewBox="0 0 24 24">
+    <path d="M3 19h18M5 15.5h14M12 15.5V9"></path>
+    <path d="M12 11.5c-3.2 0-4.7-2.2-4.7-4.7 3.2 0 4.7 2.2 4.7 4.7Z"></path>
+    <path d="M12 10.5c3.1 0 4.6-2 4.6-4.4-3.1 0-4.6 2-4.6 4.4Z"></path>
+  </symbol>
+  <symbol id="i-ojo" viewBox="0 0 24 24">
+    <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"></path>
+    <circle cx="12" cy="12" r="2.8"></circle>
+  </symbol>
+  <symbol id="i-lapiz" viewBox="0 0 24 24">
+    <path d="m4 20 4.2-1 10.6-10.6a2.1 2.1 0 0 0-3-3L5.2 16 4 20Z"></path>
+    <path d="m14.5 6.5 3 3"></path>
+  </symbol>
+  <symbol id="i-compartir" viewBox="0 0 24 24">
+    <circle cx="18" cy="5" r="2.5"></circle>
+    <circle cx="6" cy="12" r="2.5"></circle>
+    <circle cx="18" cy="19" r="2.5"></circle>
+    <path d="m8.3 10.8 7.4-4.3M8.3 13.2l7.4 4.3"></path>
+  </symbol>
+  <symbol id="i-libro" viewBox="0 0 24 24">
+    <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z"></path>
+    <path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5v-16Z"></path>
+  </symbol>
+  <symbol id="i-altavoz" viewBox="0 0 24 24">
+    <path d="M4 10v4h3l4 3V7l-4 3H4Z"></path>
+    <path d="M15 9.5a4 4 0 0 1 0 5M18 7a8 8 0 0 1 0 10"></path>
+  </symbol>
+</svg>
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+<header class="encabezado">
+  <div class="encabezado-inner">
+    <div class="sello" aria-hidden="true">16</div>
+    <div class="encabezado-texto">
+      <p class="etiqueta">ESRN Rural Virtual · Clase N.º 16</p>
+      <p class="marca">Guía de Cultivos del Curso</p>
+      <p class="subtitulo">Taller de Educación Científica y Tecnológica</p>
+    </div>
+    <svg class="header-hoja" viewBox="0 0 100 64" aria-hidden="true">
+      <path d="M78 7C45 14 21 34 14 60c27-4 51-23 64-53Z" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+      <path d="M12 62c18-8 34-20 48-37" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+      <path d="M42 42c-7 0-11-4-13-11 7 0 12 4 13 11ZM55 30c7 0 11-4 13-11-7 0-12 4-13 11Z" fill="none" stroke="currentColor" stroke-width="1.2"></path>
+    </svg>
+  </div>
+</header>
+
+<nav class="barra" aria-label="Herramientas de accesibilidad">
+  <button class="btn btn-mayus" id="btnMayus" type="button" aria-pressed="true">Imprenta mayúscula: sí</button>
+  <button class="btn btn-imprimir" id="btnImprimir" type="button">Imprimir</button>
+  <button class="btn btn-inicio" id="btnInicio" type="button">Menú principal</button>
+  <button class="btn btn-audio" id="btnAyudaAudio" type="button" aria-label="Escuchar la ayuda general"><svg class="ico" aria-hidden="true"><use href="#i-altavoz"></use></svg> Escuchar ayuda</button>
+</nav>
+
+<main id="contenido" class="contenedor">
+
+  <section id="pantalla-inicio" class="pantalla activa" aria-label="Tutorial de la Guía de Cultivos">
+    <div class="tutorial" id="tutorial" data-paso="0">
+      <div class="tutorial-cabecera">
+        <p class="etiqueta">Antes de empezar</p>
+        <p class="tutorial-progreso" id="tutorialProgreso" aria-live="polite">Paso 1 de 5</p>
+      </div>
+
+      <article class="tutorial-paso activo" data-paso="0" aria-labelledby="h-inicio">
+        <div class="inicio-hero">
+          <div class="inicio-copy">
+            <h1 id="h-inicio" tabindex="-1">Escribí tu propia guía de cultivos</h1>
+            <p class="tutorial-bajada">Cinco capítulos. Una pregunta por vez. Un artículo que se va armando con tus respuestas.</p>
+
+            <ol class="inicio-pasos">
+              <li>
+                <span class="inicio-num" aria-hidden="true">1</span>
+                <div>
+                  <h2>Elegí un capítulo</h2>
+                  <p>Hay cinco temas para investigar: aire, agua, sol, clima y suelo.</p>
+                </div>
+              </li>
+              <li>
+                <span class="inicio-num" aria-hidden="true">2</span>
+                <div>
+                  <h2>Respondé y mirá cómo crece</h2>
+                  <p>Cada respuesta correcta agrega una idea a tu artículo.</p>
+                </div>
+              </li>
+              <li>
+                <span class="inicio-num" aria-hidden="true">3</span>
+                <div>
+                  <h2>Terminá y compartí</h2>
+                  <p>Podés escuchar, editar, imprimir o sumar tu artículo al libro del curso.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <figure class="inicio-ilustracion" aria-hidden="true">
+            <svg viewBox="0 0 340 300" role="presentation">
+              <circle cx="170" cy="165" r="118" fill="#E4EFDF" opacity=".9"></circle>
+              <circle cx="270" cy="62" r="44" fill="#F6E3B4"></circle>
+              <circle cx="270" cy="62" r="28" fill="#E9C46A" opacity=".55"></circle>
+              <path d="M270 4v13M270 107v13M212 62h13M315 62h13M229 21l9 9M302 94l9 9M311 21l-9 9M238 94l-9 9" stroke="#C7A24A" stroke-width="3" stroke-linecap="round" opacity=".55"></path>
+              <g transform="rotate(-3 168 190)">
+                <rect x="57" y="111" width="216" height="150" rx="11" fill="#D9CFBA" opacity=".55"></rect>
+                <rect x="49" y="103" width="216" height="150" rx="11" fill="#FFFDF8" stroke="#D8CCB6" stroke-width="2"></rect>
+                <path d="M82 103v150" stroke="#E6B1A6" stroke-width="2"></path>
+                <path d="M99 137h136M99 161h146M99 185h118M99 209h142M99 233h104" stroke="#DFE6D8" stroke-width="3" stroke-linecap="round"></path>
+                <rect x="132" y="95" width="50" height="15" rx="4" fill="#E8DCC3" opacity=".95"></rect>
+                <circle cx="230" cy="190" r="16" fill="#EDF7EE" stroke="#8DBD92" stroke-width="2"></circle>
+                <path d="m222 190 6 6 11-13" fill="none" stroke="#2D6A43" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+              </g>
+              <path d="M196 158c0-38 5-68 19-93" fill="none" stroke="#2D6A43" stroke-width="4" stroke-linecap="round"></path>
+              <path d="M204 111c-26 2-41-11-47-33 26-2 42 12 47 33Z" fill="#6E9D68"></path>
+              <path d="M211 91c18-15 35-14 48-2-15 17-33 19-48 2Z" fill="#8BB882"></path>
+              <path d="M216 130c26 0 41 13 45 34-26 2-42-11-45-34Z" fill="#5D945F"></path>
+              <path d="M188 156c-18 0-28-9-32-23 18-2 29 8 32 23Z" fill="#97C08D"></path>
+              <path d="M76 60c7 9 9 16 2 23-8-3-10-11-2-23ZM96 84c6 8 7 14 1 20-7-3-8-10-1-20Z" fill="#8FB7C7" opacity=".75"></path>
+              <circle cx="63" cy="220" r="7" fill="#E9C46A" opacity=".7"></circle>
+              <circle cx="280" cy="220" r="5" fill="#6E9D68" opacity=".55"></circle>
+            </svg>
+          </figure>
+        </div>
+      </article>
+
+      <article class="tutorial-paso" data-paso="1" aria-labelledby="h-tutorial-objetivo">
+        <h2 id="h-tutorial-objetivo" tabindex="-1">El objetivo de la actividad</h2>
+        <p class="tutorial-bajada">Vas a reconocer cómo el aire, el agua, el sol, el clima y el suelo afectan los cultivos. Con esas ideas vas a armar un artículo por capítulo y tu versión de la guía de cultivos.</p>
+
+        <div class="objetivo-grid">
+          <div class="objetivo-card">
+            <span class="obj-icono" aria-hidden="true"><svg class="ico"><use href="#i-ojo"></use></svg></span>
+            <p class="obj-label">Aprender</p>
+            <p>Explicar qué necesita una planta para crecer y qué la puede afectar.</p>
+          </div>
+          <div class="objetivo-card">
+            <span class="obj-icono" aria-hidden="true"><svg class="ico"><use href="#i-lapiz"></use></svg></span>
+            <p class="obj-label">Producir</p>
+            <p>Elegir, ordenar y cerrar las ideas de cada capítulo.</p>
+          </div>
+          <div class="objetivo-card">
+            <span class="obj-icono" aria-hidden="true"><svg class="ico"><use href="#i-compartir"></use></svg></span>
+            <p class="obj-label">Tu artículo</p>
+            <p>Un título, tres párrafos de ideas y un consejo para la huerta.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="tutorial-paso" data-paso="2" aria-labelledby="h-tutorial-capitulos">
+        <h2 id="h-tutorial-capitulos" tabindex="-1">Los cinco capítulos</h2>
+        <p class="tutorial-bajada">Podés empezar por cualquiera. Cada capítulo tiene seis preguntas y arma un artículo diferente.</p>
+
+        <div class="demo-capitulos" aria-hidden="true">
+          <div class="demo-cap">
+            <span class="demo-cap-num">1</span>
+            <div><strong>El aire y la vida subterránea</strong><small>Aire · 6 preguntas</small></div>
+            <b>→</b>
+          </div>
+          <div class="demo-cap">
+            <span class="demo-cap-num">2</span>
+            <div><strong>El agua en la planta y el suelo</strong><small>Agua · 6 preguntas</small></div>
+            <b>→</b>
+          </div>
+          <div class="demo-cap">
+            <span class="demo-cap-num">3</span>
+            <div><strong>El sol, el calor y las heladas</strong><small>Sol · 6 preguntas</small></div>
+            <b>→</b>
+          </div>
+        </div>
+
+        <p class="tutorial-pista">La barra de avance indica cuántos capítulos completaste. Cuando terminás uno, queda marcado.</p>
+      </article>
+
+      <article class="tutorial-paso" data-paso="3" aria-labelledby="h-tutorial-pregunta">
+        <h2 id="h-tutorial-pregunta" tabindex="-1">La pregunta y tu artículo</h2>
+        <p class="tutorial-bajada">Respondés una pregunta por vez. Cada respuesta correcta agrega una idea a tu artículo.</p>
+
+        <div class="demo-pregunta-articulo" aria-hidden="true">
+          <div class="demo-pregunta">
+            <small>Pregunta 2 de 6</small>
+            <p class="demo-pregunta-texto">¿Qué gas del aire capturan las hojas durante la fotosíntesis?</p>
+            <span class="demo-opcion correcta">A. Dióxido de carbono (CO₂)</span>
+            <span class="demo-opcion">B. Oxígeno (O₂)</span>
+            <span class="demo-opcion">C. Nitrógeno (N₂)</span>
+          </div>
+          <div class="demo-hoja">
+            <small>Mi artículo</small>
+            <p>Durante la fotosíntesis, las hojas capturan dióxido de carbono para fabricar su alimento.</p>
+            <p><span class="demo-resaltado">La nueva idea se resalta al agregarse.</span></p>
+          </div>
+        </div>
+
+        <p class="tutorial-pista">Si te equivocás, podés pedir ayuda o volver a intentar. El artículo se guarda automáticamente.</p>
+      </article>
+
+      <article class="tutorial-paso" data-paso="4" aria-labelledby="h-tutorial-final">
+        <h2 id="h-tutorial-final" tabindex="-1">Al terminar</h2>
+        <p class="tutorial-bajada">Cuando completás un capítulo, tu artículo queda listo para usar y compartir.</p>
+
+        <div class="demo-acciones" aria-hidden="true">
+          <span>Escuchar</span>
+          <span>Editar</span>
+          <span>Copiar</span>
+          <span>Descargar</span>
+          <span>Imprimir</span>
+        </div>
+
+        <p class="tutorial-bajada">También podés sumar tu artículo al libro del curso y llevarte todos los capítulos juntos.</p>
+        <p class="tutorial-cierre"><strong>¿Listo?</strong> Empezá por el capítulo que quieras.</p>
+      </article>
+
+      <div class="tutorial-acciones">
+        <button class="btn btn-sec" id="btnTutorialAnterior" type="button" hidden>← Anterior</button>
+        <button class="btn btn-primario" id="btnTutorialSiguiente" type="button">Continuar →</button>
+        <button class="btn btn-primario btn-comenzar" id="btnComenzar" type="button" hidden>Comenzar la actividad →</button>
+        <button class="btn btn-audio-suave" id="btnEscucharInicio" type="button"><svg class="ico" aria-hidden="true"><use href="#i-altavoz"></use></svg> Escuchar paso</button>
+      </div>
+      <p class="tutorial-nota">Tu avance se guarda automáticamente en este dispositivo.</p>
+    </div>
+  </section>
+
+  <section id="pantalla-menu" class="pantalla" aria-labelledby="h-menu">
+    <div class="portada">
+      <h1 id="h-menu" tabindex="-1">Elegí un capítulo</h1>
+      <p class="bajada">Respondé una pregunta por vez. Tu artículo se escribe con tus respuestas.</p>
+      <button class="btn btn-audio-suave" id="btnEscucharMenu" type="button"><svg class="ico" aria-hidden="true"><use href="#i-altavoz"></use></svg> Escuchar</button>
+    </div>
+
+    <div class="menu-grid">
+      <div class="campo-nombre">
+        <label for="nombre">Tu nombre <span class="opcional">(opcional)</span></label>
+        <input id="nombre" name="nombre" type="text" maxlength="60" autocomplete="name" placeholder="Nombre y apellido">
+        <p class="ayuda">Solo se usa para firmar tu artículo.</p>
+      </div>
+      <div class="progreso">
+        <p class="progreso-titulo">Tu avance</p>
+        <progress id="progMenu" max="5" value="0">0 de 5</progress>
+        <p class="progreso-texto" id="progMenuTexto">0 de 5 capítulos</p>
+        <p class="guardado" id="estadoGuardado">Guardado automático</p>
+      </div>
+    </div>
+
+    <h2 class="sr-only">Capítulos disponibles</h2>
+    <div id="listaCapitulos" class="capitulos"></div>
+
+    <div class="acciones-menu">
+      <button class="btn btn-sec" id="btnLibro" type="button">Ver/Imprimir libro del curso</button>
+      <button class="btn btn-texto btn-reiniciar" id="btnReiniciar" type="button">Reiniciar todo</button>
+    </div>
+
+    <div id="confirmarReinicio" class="confirmar" hidden>
+      <p><strong>¿Borrar todo?</strong> Se eliminarán el nombre, las respuestas y los artículos guardados en este dispositivo.</p>
+      <div class="acciones-menu">
+        <button class="btn btn-peligro" id="btnConfirmarReinicio" type="button">Sí, borrar todo</button>
+        <button class="btn btn-sec" id="btnCancelarReinicio" type="button">Cancelar</button>
+      </div>
+    </div>
+
+    <details class="ayuda-caja ayuda-final">
+      <summary>¿Cómo funciona?</summary>
+      <ol>
+        <li>Elegí uno de los cinco capítulos.</li>
+        <li>Respondé una pregunta por vez. El artículo se va escribiendo mientras avanzás.</li>
+        <li>Las respuestas correctas agregan oraciones. Si te equivocás, podés volver a intentar o pedir ayuda.</li>
+        <li>Al terminar, podés escuchar, editar, copiar, descargar e imprimir tu artículo.</li>
+        <li>Cuando completes varios capítulos, podés armar el libro del curso.</li>
+      </ol>
+    </details>
+  </section>
+
+  <section id="pantalla-capitulo" class="pantalla" aria-labelledby="h-capitulo">
+    <div class="cap-cabecera">
+      <button class="btn btn-texto" id="btnVolverMenu" type="button">← Menú</button>
+      <div class="cap-titulos">
+        <span class="cap-cab-icono" id="capIcono" aria-hidden="true"></span>
+        <div class="cap-titulos-texto">
+          <p class="etiqueta" id="capEtiqueta">Capítulo 1</p>
+          <h1 id="h-capitulo" tabindex="-1">El Aire y la Vida Subterránea</h1>
+        </div>
+      </div>
+      <div class="cap-progreso">
+        <progress id="progCapitulo" max="6" value="1">Pregunta 1 de 6</progress>
+        <p id="progCapituloTexto">Pregunta 1 de 6</p>
+      </div>
+    </div>
+
+    <div class="capitulo-grid">
+      <section class="panel-preguntas" aria-labelledby="h-pregunta">
+        <div class="pregunta-cabecera">
+          <button class="btn btn-audio-suave" id="btnEscucharPregunta" type="button" aria-pressed="false"><svg class="ico" aria-hidden="true"><use href="#i-altavoz"></use></svg> Escuchar pregunta y opciones</button>
+        </div>
+        <h2 id="h-pregunta" class="pregunta-titulo" tabindex="-1">Cargando pregunta…</h2>
+        <p id="ayudaPregunta" class="ayuda"></p>
+        <details id="glosarioCapitulo" class="glosario" hidden>
+          <summary><svg class="ico" aria-hidden="true"><use href="#i-libro"></use></svg> Palabras clave del capítulo</summary>
+          <dl id="glosarioLista"></dl>
+        </details>
+        <div id="bannerCompleto" class="banner-completo" hidden>✓ Tu artículo está listo. Podés revisarlo y compartirlo.</div>
+        <form id="formPregunta" novalidate></form>
+        <div id="feedbackPregunta" class="feedback" tabindex="-1"></div>
+        <div class="pregunta-acciones">
+          <button class="btn btn-sec" id="btnAnterior" type="button">← Anterior</button>
+          <button class="btn btn-primario" id="btnSiguiente" type="button">Siguiente →</button>
+          <button class="btn btn-texto" id="btnGuardarSalir" type="button">Guardar y salir</button>
+        </div>
+      </section>
+
+      <aside id="panelArticulo" class="panel-articulo" aria-labelledby="h-articulo">
+        <div class="articulo-cabecera">
+          <div>
+            <p class="etiqueta">Mi artículo en construcción</p>
+            <h2 id="h-articulo" class="articulo-titulo" tabindex="-1">Tu título aparecerá acá</h2>
+            <p class="byline" id="byline">Por: Estudiante — ESRN Rural Virtual</p>
+          </div>
+          <button class="btn btn-audio-suave" id="btnEscucharArticulo" type="button" aria-pressed="false"><svg class="ico" aria-hidden="true"><use href="#i-altavoz"></use></svg> Escuchar artículo</button>
+        </div>
+        <div class="progreso-articulo">
+          <progress id="progArticulo" max="5" value="0">0 de 5</progress>
+          <span id="progArticuloTexto">0 de 5 ideas</span>
+        </div>
+        <ul id="checklistArticulo" class="checklist" aria-label="Estado del artículo"></ul>
+        <div id="articuloParrafos" class="articulo-parrafos"></div>
+        <div id="accionesArticulo" class="acciones-articulo" hidden></div>
+        <div id="editorContenedor" class="editor-contenedor" hidden>
+          <label for="editorArticulo" class="editor-label">Editar mi artículo</label>
+          <textarea id="editorArticulo" class="editor-articulo" rows="12"></textarea>
+          <p class="ayuda">Esta versión se usará al imprimir, copiar o descargar. Si cambiás una respuesta, podés volver a generar el texto.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="pantalla-libro" class="pantalla" aria-labelledby="h-libro">
+    <div class="cap-cabecera">
+      <button class="btn btn-sec" id="btnVolverMenuLibro" type="button">← Volver al menú</button>
+      <div class="cap-titulos">
+        <p class="etiqueta">Libro del curso</p>
+        <h1 id="h-libro" tabindex="-1">Guía de Cultivos del Curso</h1>
+        <p class="cap-cab-sub">Artículos escritos por los estudiantes</p>
+      </div>
+    </div>
+    <div id="libroContenido" class="libro-contenido"></div>
+    <div class="acciones-menu">
+      <button class="btn btn-primario" id="btnImprimirLibro" type="button">Imprimir libro</button>
+      <button class="btn btn-sec" id="btnDescargarLibro" type="button">Descargar libro .txt</button>
+      <button class="btn btn-sec" id="btnCopiarLibro" type="button">Copiar libro</button>
+    </div>
+  </section>
+
+</main>
+
+<div id="anuncio" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+<div id="printArea" class="print-area" aria-hidden="true"></div>
+
+<script>
+(function(){
+  'use strict';
+
+  const CLAVE = 'clase16_guia_cultivos_v1';
+  const $ = (sel, ctx = document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+
+  const CAPITULOS = [
+    {
+      id: 1,
+      titulo: 'El Aire y la Vida Subterránea',
+      subtitulo: 'Física del Suelo y Gases',
+      fuente: 'Clase N.º 10',
+      icono: 'i-aire',
+      color: 'aire',
+      glosario: [
+        { t: 'Porosidad', d: 'Espacio entre las partículas del suelo que puede llenarse de aire o de agua.' },
+        { t: 'Respiración celular', d: 'Proceso que usa oxígeno para obtener energía; también ocurre en las raíces.' },
+        { t: 'Compactación', d: 'Pérdida de poros cuando el suelo se aprieta y expulsa el aire.' }
+      ],
+      preguntas: [
+        {
+          id: 'q1', tipo: 'titulo',
+          enunciado: 'Elegí el título para tu artículo:',
+          ayuda: 'No hay una opción correcta: elegí el título que más te guste.',
+          opciones: [
+            { valor: 'a', texto: '¿Cómo respiran las raíces bajo la tierra?' },
+            { valor: 'b', texto: 'Suelo esponja: el aire que no vemos' },
+            { valor: 'c', texto: 'El intercambio de gases en la huerta' }
+          ]
+        },
+        {
+          id: 'q2', tipo: 'opcion',
+          enunciado: '¿Qué gas del aire capturan las hojas durante la fotosíntesis para fabricar su alimento (glucosa)?',
+          ayuda: 'Elegí una sola opción.',
+          pista: 'Las plantas toman un gas del aire para fabricar glucosa. No es el oxígeno.',
+          opciones: [
+            { valor: 'a', texto: 'Dióxido de carbono (CO₂), que representa el 0,04 % de los gases del aire.', correcta: true, fragmento: 'Durante la fotosíntesis, las hojas de nuestras hortalizas capturan dióxido de carbono (CO₂) para fabricar su alimento.' },
+            { valor: 'b', texto: 'Oxígeno (O₂), que se utiliza únicamente para regar.' },
+            { valor: 'c', texto: 'Nitrógeno (N₂), que las hojas transforman en glucosa durante el día.' }
+          ]
+        },
+        {
+          id: 'q3', tipo: 'opcion',
+          enunciado: '¿Qué gas necesitan incorporar constantemente las raíces desde los poros del suelo para estar vivas y con energía?',
+          ayuda: 'Elegí una sola opción.',
+          pista: 'Las raíces también respiran y necesitan oxígeno.',
+          opciones: [
+            { valor: 'a', texto: 'Oxígeno (O₂), indispensable para sostener la respiración celular en todas las células vivas de la planta.', correcta: true, fragmento: 'Sin embargo, bajo la tierra ocurre otro proceso invisible: las raíces necesitan incorporar oxígeno (O₂) del suelo de forma constante para su respiración celular.' },
+            { valor: 'b', texto: 'Argón, que no cumple funciones en la raíz.' },
+            { valor: 'c', texto: 'Dióxido de carbono (CO₂), que las raíces almacenan como reserva para crecer.' }
+          ]
+        },
+        {
+          id: 'q4', tipo: 'opcion',
+          enunciado: 'En un suelo ideal y saludable, ¿cómo debe estar distribuido el espacio de los poros?',
+          ayuda: 'Elegí una sola opción.',
+          pista: 'Un suelo saludable tiene poros con aire y agua.',
+          opciones: [
+            { valor: 'a', texto: 'Debe tener un 50 % de espacio poroso total, ocupado idealmente por un 25 % de aire y un 25 % de agua.', correcta: true, fragmento: 'Para que esto sea posible, el suelo debe tener un 50 % de porosidad total, ocupado idealmente por un 25 % de aire y un 25 % de agua.' },
+            { valor: 'b', texto: 'Debe estar repleto de piedras, sin espacio para el aire.' },
+            { valor: 'c', texto: 'Debe tener un 90 % de poros llenos de agua y apenas un 10 % de aire.' }
+          ]
+        },
+        {
+          id: 'q5', tipo: 'opcion',
+          enunciado: '¿Qué sucede cuando el suelo se compacta por el paso de maquinaria o pisoteo, o se inunda por exceso de riego?',
+          ayuda: 'Elegí una sola opción.',
+          pista: 'Si el suelo se compacta o se inunda, el aire no puede entrar.',
+          opciones: [
+            { valor: 'a', texto: 'Se aplastan los poros o se llenan de agua, expulsando el aire y provocando la asfixia de las raíces por falta de oxígeno.', correcta: true, fragmento: 'Cuando pisamos el terreno húmedo o regamos de más, provocamos compactación o anegamiento, lo que expulsa el aire y asfixia a las raíces por falta de oxígeno.' },
+            { valor: 'b', texto: 'Las raíces crecen más rápido y con más fuerza.' },
+            { valor: 'c', texto: 'Los poros se agrandan y el oxígeno circula mejor, por lo que las raíces crecen sin límites.' }
+          ]
+        },
+        {
+          id: 'q6', tipo: 'recomendacion',
+          enunciado: 'Leé esta recomendación y decidí cómo incluirla en tu artículo:',
+          ayuda: 'Podés usar la recomendación sugerida o escribir tu propio consejo.',
+          recomendacion: 'Evitá pisar el terreno húmedo, ablandá la tierra con compost y no apliques riego excesivo para no ahogar las raíces.',
+          fragmento: 'Evitá pisar el terreno húmedo, ablandá la tierra con compost y no apliques riego excesivo para no ahogar las raíces.'
+        }
+      ],
+      parrafos: [
+        { id: 'p1', etiqueta: 'El aire y la vida subterránea', piezas: ['q2', 'q3'], placeholder: 'Acá aparecerá el párrafo sobre la fotosíntesis y la respiración de las raíces.' },
+        { id: 'p2', etiqueta: 'Los poros del suelo', piezas: ['q4'], placeholder: 'Acá aparecerá el párrafo sobre el espacio de los poros.' },
+        { id: 'p3', etiqueta: 'Cuando falta aire', piezas: ['q5'], placeholder: 'Acá aparecerá el párrafo sobre la compactación y el anegamiento.' },
+        { id: 'p4', etiqueta: 'Consejo para la huerta', piezas: ['q6'], placeholder: 'Acá aparecerá tu consejo para la huerta.', tipo: 'consejo' }
+      ]
+    },
+    {
+      id: 2,
+      titulo: 'El Agua en la Planta y el Suelo',
+      subtitulo: 'Dinámica Hídrica',
+      fuente: 'Clase N.º 11',
+      icono: 'i-agua',
+      color: 'agua',
+      glosario: [
+        { t: 'Turgencia', d: 'Presión del agua que mantiene firmes las hojas y los tallos.' },
+        { t: 'Evapotranspiración', d: 'Agua que se evapora del suelo y la que transpira la planta.' },
+        { t: 'Riego por goteo', d: 'Riego localizado que lleva el agua directamente a la raíz.' }
+      ],
+      preguntas: [
+        {
+          id: 'q1', tipo: 'titulo',
+          enunciado: 'Elegí el título para tu artículo:',
+          ayuda: 'No hay una opción correcta: elegí el título que más te guste.',
+          opciones: [
+            { valor: 'a', texto: 'El agua: el motor transparente de la planta' },
+            { valor: 'b', texto: 'Cuidar cada gota en nuestro clima seco' },
+            { valor: 'c', texto: '¿Cómo se mueve el agua en la huerta?' }
+          ]
+        },
+        {
+          id: 'q2', tipo: 'opcion',
+          enunciado: '¿Cuáles son las tres funciones vitales del agua dentro de la planta?',
+          ayuda: 'Elegí una sola opción.',
+          pista: 'Pensá en todo lo que el agua transporta y en cómo sostiene a la planta.',
+          opciones: [
+            { valor: 'a', texto: 'Transporte de nutrientes disueltos, turgencia (rigidez estructural para no marchitarse) y termorregulación.', correcta: true, fragmento: 'Dentro de la planta, el agua cumple tres funciones vitales: transporta los nutrientes disueltos, mantiene la turgencia —la rigidez que evita que la planta se marchite— y participa en la termorregulación.' },
+            { valor: 'b', texto: 'Absorber la luz del sol directamente y cambiar el color de las flores.' },
+            { valor: 'c', texto: 'Fabricar directamente la savia con la luz del sol, sin tomar nada del suelo.' }
+          ]
+        },
+        {
+          id: 'q3', tipo: 'opcion',
+          enunciado: '¿Qué es la evapotranspiración en un cultivo?',
+          ayuda: 'Elegí una sola opción.',
+          pista: 'Es la evaporación del suelo más la transpiración de la planta.',
+          opciones: [
+            { valor: 'a', texto: 'Es la suma de la evaporación directa del agua del suelo más la transpiración de la planta a través de los estomas de sus hojas.', correcta: true, fragmento: 'La evapotranspiración es la suma de la evaporación directa del agua del suelo y la transpiración de la planta a través de los estomas de sus hojas.' },
+            { valor: 'b', texto: 'Es el agua de lluvia que cae congelada durante la noche.' },
+            { valor: 'c', texto: 'Es el agua que la planta produce durante la fotosíntesis y luego devuelve al suelo.' }
+          ]
+        },
+        {
+          id: 'q4', tipo: 'opcion',
+          enunciado: '¿Qué variables ambientales aceleran la pérdida de agua en las plantas de nuestra zona?',
+          ayuda: 'Elegí una sola opción.',
+          pista: 'Nuestra zona es seca, con mucho viento y altas temperaturas.',
+          opciones: [
+            { valor: 'a', texto: 'Las altas temperaturas, el viento fuerte y la baja humedad del ambiente.', correcta: true, fragmento: 'En nuestra zona, las altas temperaturas, el viento fuerte y la baja humedad del ambiente aceleran la pérdida de agua.' },
+            { valor: 'b', texto: 'La presencia de sombras y la falta de luz.' },
+            { valor: 'c', texto: 'La baja temperatura, la calma y la humedad alta, porque hacen transpirar más.' }
+          ]
+        },
+        {
+          id: 'q5', tipo: 'opcion',
+          enunciado: '¿Qué sistema de riego es el más eficiente para ahorrar agua y evitar el anegamiento?',
+          ayuda: 'Elegí una sola opción.',
+          pista: 'La mejor forma de ahorrar agua es llevarla directo a la raíz.',
+          opciones: [
+            { valor: 'a', texto: 'El riego por goteo (localizado), porque aplica agua en pequeñas cantidades directamente sobre las raíces.', correcta: true, fragmento: 'Por eso, el riego por goteo es el más eficiente: aplica agua en pequeñas cantidades directamente sobre las raíces y evita el anegamiento.' },
+            { valor: 'b', texto: 'El riego por inundación, dejando correr la manguera abierta a pleno sol.' },
+            { valor: 'c', texto: 'El riego por aspersión al mediodía, porque moja toda la planta y el suelo por igual.' }
+          ]
+        },
+        {
+          id: 'q6', tipo: 'recomendacion',
+          enunciado: 'Leé esta recomendación y decidí cómo incluirla en tu artículo:',
+          ayuda: 'Podés usar la recomendación sugerida o escribir tu propio consejo.',
+          recomendacion: 'Instalá riego por goteo y cubrí el suelo con paja seca (mulching) para evitar que el viento y el sol evaporen el agua.',
+          fragmento: 'Instalá riego por goteo y cubrí el suelo con paja seca (mulching) para evitar que el viento y el sol evaporen el agua.'
+        }
+      ],
+      parrafos: [
+        { id: 'p1', etiqueta: 'El agua y la planta', piezas: ['q2', 'q3'], placeholder: 'Acá aparecerá el párrafo sobre las funciones del agua y la evapotranspiración.' },
+        { id: 'p2', etiqueta: 'El clima y la pérdida de agua', piezas: ['q4'], placeholder: 'Acá aparecerá el párrafo sobre las variables ambientales.' },
+        { id: 'p3', etiqueta: 'Riego eficiente', piezas: ['q5'], placeholder: 'Acá aparecerá el párrafo sobre el riego por goteo.' },
+        { id: 'p4', etiqueta: 'Consejo para la huerta', piezas: ['q6'], placeholder: 'Acá aparecerá tu consejo para la huerta.', tipo: 'consejo' }
+      ]
+    },
+    {
+      id: 3,
+      titulo: 'El Sol, el Calor y las Heladas',
+      subtitulo: 'Física Ambiental',
+      fuente: 'Clase N.º 13',
+      icono: 'i-sol',
+      color: 'sol',
+      glosario: [
+        { t: 'Radiación', d: 'Energía que viaja desde el Sol y llega a las plantas.' },
+        { t: 'Fotoperíodo', d: 'Relación entre las horas de luz y de oscuridad de un día.' },
+        { t: 'Helada', d: 'Descenso de temperatura por debajo de 0 °C que daña los tejidos.' }
+      ],
+      preguntas: [
+        {
+          id: 'q1', tipo: 'titulo',
+          enunciado: 'Elegí el título para tu artículo:',
+          ayuda: 'No hay una opción correcta: elegí el título que más te guste.',
+          opciones: [
+            { valor: 'a', texto: 'La energía del Sol y los límites del frío' },
+            { valor: 'b', texto: 'Calor, temperatura y protección de cultivos' },
+            { valor: 'c', texto: 'Cómo defender la huerta de las heladas' }
+          ]
+        },
+        {
+          id: 'q2', tipo: 'opcion',
+          enunciado: '¿Cómo llega la energía del Sol a nuestros cultivos?',
+          ayuda: 'Elegí una sola opción.',
+          pista: 'El Sol no toca el suelo: su energía viaja por radiación.',
+          opciones: [
+            { valor: 'a', texto: 'A través de radiación electromagnética, aportando la luz necesaria para la fotosíntesis.', correcta: true, fragmento: 'La energía del Sol llega a nuestros cultivos a través de la radiación electromagnética y aporta la luz necesaria para la fotosíntesis.' },
+            { valor: 'b', texto: 'Por conducción directa, tocando el suelo.' },
+            { valor: 'c', texto: 'Por convección desde el aire caliente, que empuja la luz hasta las hojas.' }
+          ]
+        },
+        {
+          id: 'q3', tipo: 'opcion',
+          enunciado: '¿Qué es el fotoperíodo y por qué es importante para la planta?',
+          ayuda: 'Elegí una sola opción.',
+          pista: 'Se relaciona con las horas de luz y oscuridad.',
+          opciones: [
+            { valor: 'a', texto: 'Es la relación entre las horas de luz y oscuridad del día, que la planta usa como señal para florecer o entrar en reposo.', correcta: true, fragmento: 'El fotoperíodo es la relación entre las horas de luz y de oscuridad del día; la planta lo usa como señal para florecer o entrar en reposo.' },
+            { valor: 'b', texto: 'Es el instrumento que se usa para medir la temperatura del agua.' },
+            { valor: 'c', texto: 'Es la cantidad de agua que recibe la planta según las horas de sol.' }
+          ]
+        },
+        {
+          id: 'q4', tipo: 'opcion',
+          enunciado: '¿Cuál es la diferencia entre calor y temperatura?',
+          ayuda: 'Elegí una sola opción.',
+          pista: 'Calor y temperatura no son sinónimos.',
+          opciones: [
+            { valor: 'a', texto: 'La temperatura mide el estado térmico en grados Celsius (°C); el calor es la energía que se transfiere por conducción, convección y radiación.', correcta: true, fragmento: 'La temperatura mide el estado térmico en grados Celsius (°C), mientras que el calor es la energía que se transfiere por conducción, convección y radiación.' },
+            { valor: 'b', texto: 'Son exactamente el mismo concepto científico.' },
+            { valor: 'c', texto: 'La temperatura es la energía total y el calor es solo la sensación que sentimos en la piel.' }
+          ]
+        },
+        {
+          id: 'q5', tipo: 'opcion',
+          enunciado: '¿Qué le ocurre a la planta cuando la temperatura desciende por debajo de 0 °C (helada)?',
+          ayuda: 'Elegí una sola opción.',
+          pista: 'El hielo rompe las células de la planta.',
+          opciones: [
+            { valor: 'a', texto: 'Se congela el agua interna de los tejidos, formando cristales de hielo que rompen las células y queman brotes y flores.', correcta: true, fragmento: 'Cuando la temperatura desciende por debajo de 0 °C, se congela el agua interna de los tejidos y se forman cristales de hielo que rompen las células, quemando brotes y flores.' },
+            { valor: 'b', texto: 'La planta absorbe más nitrógeno del aire.' },
+            { valor: 'c', texto: 'La planta se deshidrata porque el frío evapora rápidamente toda el agua de sus hojas.' }
+          ]
+        },
+        {
+          id: 'q6', tipo: 'recomendacion',
+          enunciado: 'Leé esta recomendación y decidí cómo incluirla en tu artículo:',
+          ayuda: 'Podés usar la recomendación sugerida o escribir tu propio consejo.',
+          recomendacion: 'Protegé los cultivos sensibles del viento y el frío extremo usando mantas antihelada, coberturas o mini-invernaderos.',
+          fragmento: 'Protegé los cultivos sensibles del viento y el frío extremo usando mantas antihelada, coberturas o mini-invernaderos.'
+        }
+      ],
+      parrafos: [
+        { id: 'p1', etiqueta: 'El Sol y la planta', piezas: ['q2', 'q3'], placeholder: 'Acá aparecerá el párrafo sobre la radiación solar y el fotoperíodo.' },
+        { id: 'p2', etiqueta: 'Calor y temperatura', piezas: ['q4'], placeholder: 'Acá aparecerá el párrafo sobre la diferencia entre calor y temperatura.' },
+        { id: 'p3', etiqueta: 'Las heladas', piezas: ['q5'], placeholder: 'Acá aparecerá el párrafo sobre lo que ocurre durante una helada.' },
+        { id: 'p4', etiqueta: 'Consejo para la huerta', piezas: ['q6'], placeholder: 'Acá aparecerá tu consejo para la huerta.', tipo: 'consejo' }
+      ]
+    },
+    {
+      id: 4,
+      titulo: 'El Clima y los Cultivos en Río Negro',
+      subtitulo: 'Sistemas Agrícolas',
+      fuente: 'Clase N.º 14',
+      icono: 'i-clima',
+      color: 'clima',
+      glosario: [
+        { t: 'Clima árido', d: 'Clima con lluvias muy escasas y alta demanda de riego.' },
+        { t: 'Invernadero', d: 'Cubierta que retiene calor y protege del viento, el granizo y el frío.' },
+        { t: 'Cortina rompevientos', d: 'Plantación o barrera que reduce la fuerza del viento.' }
+      ],
+      preguntas: [
+        {
+          id: 'q1', tipo: 'titulo',
+          enunciado: 'Elegí el título para tu artículo:',
+          ayuda: 'No hay una opción correcta: elegí el título que más te guste.',
+          opciones: [
+            { valor: 'a', texto: 'Producir al aire libre en el territorio rionegrino' },
+            { valor: 'b', texto: 'El viento y el clima árido de nuestras localidades' },
+            { valor: 'c', texto: 'Estrategias agrícolas para el campo patagónico' }
+          ]
+        },
+        {
+          id: 'q2', tipo: 'opcion',
+          enunciado: '¿Cuáles son las características climáticas de los valles productivos de Río Negro?',
+          ayuda: 'Elegí una sola opción.',
+          pista: 'Río Negro tiene valles secos y necesita riego.',
+          opciones: [
+            { valor: 'a', texto: 'Un clima árido a semiárido con lluvias muy escasas (alrededor de 200 mm anuales), lo que exige el uso indispensable de riego artificial.', correcta: true, fragmento: 'Los valles productivos de Río Negro tienen un clima árido a semiárido, con lluvias muy escasas —alrededor de 200 mm anuales—, por lo que el uso de riego artificial es indispensable.' },
+            { valor: 'b', texto: 'Un clima húmedo y tropical, con lluvias constantes todos los días.' },
+            { valor: 'c', texto: 'Un clima templado oceánico, con lluvias abundantes todo el año y sin necesidad de riego.' }
+          ]
+        },
+        {
+          id: 'q3', tipo: 'opcion',
+          enunciado: '¿Qué ventaja ofrece la producción bajo cubierta (invernadero) frente al cultivo al aire libre?',
+          ayuda: 'Elegí una sola opción.',
+          pista: 'El invernadero protege y retiene calor.',
+          opciones: [
+            { valor: 'a', texto: 'Retiene la radiación térmica (efecto invernadero) y protege a las plantas del viento, el granizo y las bajas temperaturas invernales.', correcta: true, fragmento: 'La producción bajo cubierta retiene la radiación térmica —efecto invernadero— y protege a las plantas del viento, el granizo y las bajas temperaturas invernales.' },
+            { valor: 'b', texto: 'Reemplaza por completo la necesidad de regar y fertilizar.' },
+            { valor: 'c', texto: 'Deja pasar menos luz para que las plantas no crezcan demasiado y produzcan más.' }
+          ]
+        },
+        {
+          id: 'q4', tipo: 'opcion',
+          enunciado: '¿Por qué es fundamental plantar cortinas rompevientos alrededor de la huerta?',
+          ayuda: 'Elegí una sola opción.',
+          pista: 'El viento patagónico deshidrata y rompe las plantas.',
+          opciones: [
+            { valor: 'a', texto: 'Porque reducen la velocidad del viento patagónico, disminuyendo la deshidratación y evitando que se rompan las hortalizas.', correcta: true, fragmento: 'Las cortinas rompevientos reducen la velocidad del viento patagónico, disminuyen la deshidratación y evitan que se rompan las hortalizas.' },
+            { valor: 'b', texto: 'Porque evitan que la luz del sol toque las hojas.' },
+            { valor: 'c', texto: 'Absorben toda el agua de lluvia antes de que llegue a las raíces de la huerta.' }
+          ]
+        },
+        {
+          id: 'q5', tipo: 'opcion',
+          enunciado: 'Si la temperatura dentro del invernadero supera los 30 °C o 34 °C, ¿qué medida de manejo se debe aplicar?',
+          ayuda: 'Elegí una sola opción.',
+          pista: 'Si hace mucho calor dentro del invernadero, hay que ventilar.',
+          opciones: [
+            { valor: 'a', texto: 'Abrir las ventanas o activar la ventilación natural o mecánica para permitir la circulación del aire y bajar la temperatura.', correcta: true, fragmento: 'Si la temperatura dentro del invernadero supera los 30 °C o 34 °C, hay que abrir las ventanas o activar la ventilación natural o mecánica para permitir la circulación del aire y bajar la temperatura.' },
+            { valor: 'b', texto: 'Cerrar herméticamente todas las puertas durante varios días.' },
+            { valor: 'c', texto: 'Regar con mucha agua fría para que el suelo absorba el exceso de calor.' }
+          ]
+        },
+        {
+          id: 'q6', tipo: 'recomendacion',
+          enunciado: 'Leé esta recomendación y decidí cómo incluirla en tu artículo:',
+          ayuda: 'Podés usar la recomendación sugerida o escribir tu propio consejo.',
+          recomendacion: 'Orientá la huerta de Este a Oeste, colocá cortinas rompevientos y garantizá una buena ventilación para regular el calor.',
+          fragmento: 'Orientá la huerta de Este a Oeste, colocá cortinas rompevientos y garantizá una buena ventilación para regular el calor.'
+        }
+      ],
+      parrafos: [
+        { id: 'p1', etiqueta: 'El clima de los valles', piezas: ['q2', 'q3'], placeholder: 'Acá aparecerá el párrafo sobre el clima árido y la producción bajo cubierta.' },
+        { id: 'p2', etiqueta: 'El viento y la huerta', piezas: ['q4'], placeholder: 'Acá aparecerá el párrafo sobre las cortinas rompevientos.' },
+        { id: 'p3', etiqueta: 'El calor dentro del invernadero', piezas: ['q5'], placeholder: 'Acá aparecerá el párrafo sobre la ventilación.' },
+        { id: 'p4', etiqueta: 'Consejo para la huerta', piezas: ['q6'], placeholder: 'Acá aparecerá tu consejo para la huerta.', tipo: 'consejo' }
+      ]
+    },
+    {
+      id: 5,
+      titulo: 'El Suelo, la Nutrición y la Salud de la Tierra',
+      subtitulo: 'Química y Manejo Agroecológico',
+      fuente: 'Clase N.º 15',
+      icono: 'i-suelo',
+      color: 'suelo',
+      glosario: [
+        { t: 'Solución del suelo', d: 'Agua con nutrientes disueltos que las raíces pueden absorber.' },
+        { t: 'Clorosis', d: 'Amarillamiento de las hojas por falta de clorofila.' },
+        { t: 'Lixiviación', d: 'Arrastre de nutrientes hacia capas profundas por el agua.' },
+        { t: 'pH', d: 'Medida de acidez o alcalinidad que influye en la disponibilidad de nutrientes.' }
+      ],
+      preguntas: [
+        {
+          id: 'q1', tipo: 'titulo',
+          enunciado: 'Elegí el título para tu artículo:',
+          ayuda: 'No hay una opción correcta: elegí el título que más te guste.',
+          opciones: [
+            { valor: 'a', texto: 'La solución del suelo y el alimento de las plantas' },
+            { valor: 'b', texto: 'Compost y leguminosas: nutrición agroecológica' },
+            { valor: 'c', texto: '¿Por qué se ponen amarillas las hojas?' }
+          ]
+        },
+        {
+          id: 'q2', tipo: 'opcion',
+          enunciado: '¿Qué es la solución del suelo y cómo absorben los nutrientes las raíces?',
+          ayuda: 'Elegí una sola opción.',
+          pista: 'Los nutrientes viajan disueltos en agua, como iones.',
+          opciones: [
+            { valor: 'a', texto: 'Es la mezcla de agua e iones disueltos (como nitrato NO₃⁻, amonio NH₄⁺ y potasio K⁺) presentes en los poros.', correcta: true, fragmento: 'La solución del suelo es la mezcla de agua e iones disueltos —como nitrato (NO₃⁻), amonio (NH₄⁺) y potasio (K⁺)— que ocupan los poros; las raíces absorben esos iones disueltos.' },
+            { valor: 'b', texto: 'Es una masa sólida de minerales secos que la planta come de forma directa.' },
+            { valor: 'c', texto: 'Es el conjunto de raíces y microorganismos que fabrican los minerales que la planta necesita.' }
+          ]
+        },
+        {
+          id: 'q3', tipo: 'opcion',
+          enunciado: 'Si las hojas más viejas de una planta se vuelven amarillas (clorosis), ¿qué nutriente esencial está faltando?',
+          ayuda: 'Elegí una sola opción.',
+          pista: 'El amarillamiento de las hojas viejas es clorosis.',
+          opciones: [
+            { valor: 'a', texto: 'Falta nitrógeno (N), que es el encargado de formar la clorofila y las proteínas del crecimiento.', correcta: true, fragmento: 'Si las hojas más viejas se vuelven amarillas (clorosis), falta nitrógeno (N), el nutriente encargado de formar la clorofila y las proteínas del crecimiento.' },
+            { valor: 'b', texto: 'Falta aluminio tóxico.' },
+            { valor: 'c', texto: 'Falta fósforo (P), que se encarga de transportar el agua desde la raíz.' }
+          ]
+        },
+        {
+          id: 'q4', tipo: 'opcion',
+          enunciado: '¿Qué ocurre si el suelo tiene un <span class="no-mayus">pH</span> alcalino (mayor a 7,5)?',
+          ayuda: 'Elegí una sola opción.',
+          pista: 'El <span class="no-mayus">pH</span> alcalino bloquea micronutrientes como el hierro.',
+          opciones: [
+            { valor: 'a', texto: 'Se bloquea la solubilidad de los micronutrientes (como hierro y zinc), impidiendo que la planta los absorba aunque estén presentes.', correcta: true, fragmento: 'Si el suelo tiene un <span class="no-mayus">pH</span> alcalino, mayor a 7,5, se bloquea la solubilidad de micronutrientes como el hierro y el zinc, y la planta no puede absorberlos aunque estén presentes.' },
+            { valor: 'b', texto: 'Los nutrientes se multiplican solos de forma automática.' },
+            { valor: 'c', texto: 'Aumenta la acidez del suelo y quema directamente las raíces de las hortalizas.' }
+          ]
+        },
+        {
+          id: 'q5', tipo: 'opcion',
+          enunciado: '¿Qué ventaja ambiental tienen el compost y la siembra de leguminosas frente a los fertilizantes sintéticos?',
+          ayuda: 'Elegí una sola opción.',
+          pista: 'El compost y las leguminosas alimentan el suelo sin contaminar.',
+          opciones: [
+            { valor: 'a', texto: 'El compost aporta materia orgánica de liberación lenta (mineralización) y las leguminosas fijan nitrógeno del aire sin provocar lixiviación de nitratos hacia las napas de agua.', correcta: true, fragmento: 'El compost aporta materia orgánica de liberación lenta mediante la mineralización, y las leguminosas fijan nitrógeno del aire sin provocar lixiviación de nitratos hacia las napas de agua.' },
+            { valor: 'b', texto: 'Que hacen crecer las plantas en un solo día sin agua.' },
+            { valor: 'c', texto: 'Aportan nutrientes de forma inmediata y pueden reemplazar el riego durante largos períodos.' }
+          ]
+        },
+        {
+          id: 'q6', tipo: 'recomendacion',
+          enunciado: 'Leé esta recomendación y decidí cómo incluirla en tu artículo:',
+          ayuda: 'Podés usar la recomendación sugerida o escribir tu propio consejo.',
+          recomendacion: 'Agregá compost casero, rotá los cultivos y sembrá leguminosas (habas o porotos) para alimentar la tierra de forma natural y duradera.',
+          fragmento: 'Agregá compost casero, rotá los cultivos y sembrá leguminosas (habas o porotos) para alimentar la tierra de forma natural y duradera.'
+        }
+      ],
+      parrafos: [
+        { id: 'p1', etiqueta: 'La solución del suelo', piezas: ['q2', 'q3'], placeholder: 'Acá aparecerá el párrafo sobre la solución del suelo y la clorosis.' },
+        { id: 'p2', etiqueta: 'El pH y los nutrientes', piezas: ['q4'], placeholder: 'Acá aparecerá el párrafo sobre el pH alcalino.' },
+        { id: 'p3', etiqueta: 'Compost y leguminosas', piezas: ['q5'], placeholder: 'Acá aparecerá el párrafo sobre el compost y las leguminosas.' },
+        { id: 'p4', etiqueta: 'Consejo para la huerta', piezas: ['q6'], placeholder: 'Acá aparecerá tu consejo para la huerta.', tipo: 'consejo' }
+      ]
+    }
+  ];
+
+  const EXPLICACIONES = {
+    '1:q2': 'El dióxido de carbono es la materia prima de la fotosíntesis: la planta lo toma del aire y libera oxígeno.',
+    '1:q3': 'Las raíces también respiran y necesitan oxígeno del suelo para obtener energía.',
+    '1:q4': 'Un suelo saludable combina aire y agua en sus poros; sin esa mezcla las raíces no pueden respirar ni absorber.',
+    '1:q5': 'Compactar o inundar el suelo expulsa el aire y deja a las raíces sin oxígeno.',
+    '2:q2': 'El agua transporta nutrientes, mantiene la planta firme y ayuda a regular su temperatura.',
+    '2:q3': 'La evapotranspiración suma el agua que se evapora del suelo y la que transpira la planta.',
+    '2:q4': 'El calor, el viento fuerte y el aire seco aumentan la pérdida de agua en nuestra zona.',
+    '2:q5': 'El riego por goteo lleva el agua directamente a la raíz y evita encharcar todo el suelo.',
+    '3:q2': 'El Sol llega por radiación y aporta la luz que la planta usa en la fotosíntesis.',
+    '3:q3': 'El fotoperíodo es la relación entre horas de luz y oscuridad que orienta la floración y el reposo.',
+    '3:q4': 'La temperatura se mide en grados Celsius; el calor es energía que se transfiere.',
+    '3:q5': 'El hielo rompe los tejidos de la planta y quema brotes y flores.',
+    '4:q2': 'Los valles de Río Negro reciben muy poca lluvia, por eso el riego artificial es indispensable.',
+    '4:q3': 'La cubierta del invernadero retiene calor y protege del viento, el granizo y el frío.',
+    '4:q4': 'Las cortinas rompevientos reducen la velocidad del viento y la deshidratación.',
+    '4:q5': 'Ventilar baja la temperatura y renueva el aire dentro del invernadero.',
+    '5:q2': 'La solución del suelo es agua con nutrientes disueltos; así las raíces pueden absorberlos.',
+    '5:q3': 'El nitrógeno forma clorofila y proteínas; su falta amarilla primero las hojas viejas.',
+    '5:q4': 'Un pH alcalino vuelve insolubles micronutrientes como el hierro y el zinc.',
+    '5:q5': 'El compost y las leguminosas aportan nutrientes sin contaminar las napas de agua.'
+  };
+
+  let estado = cargarEstado();
+  let timerGuardado = null;
+  let audioToken = 0;
+  let vozCache = null;
+  let pasoTutorial = 0;
+  const ui = { fragmentosPrevios: new Set(), animar: false, audioBtn: null };
+  const AUDIO_TUTORIAL = [
+    'La idea de esta actividad es que escribas tu propia guía de cultivos. Hay cinco capítulos. En cada uno vas a responder una pregunta por vez y tu artículo se va a ir armando con tus respuestas.',
+    'El objetivo es reconocer cómo el aire, el agua, el sol, el clima y el suelo afectan los cultivos. Con esas ideas vas a armar un artículo por capítulo y tu versión de la guía de cultivos.',
+    'Hay cinco capítulos y podés empezar por cualquiera. Cada capítulo tiene seis preguntas y arma un artículo diferente. La barra de avance muestra cuántos capítulos completaste.',
+    'En cada pregunta elegís una opción. Si es correcta, se agrega una idea al artículo. Si te equivocás, podés pedir ayuda o volver a intentar. El artículo se guarda automáticamente.',
+    'Al terminar un capítulo, tu artículo queda listo. Podés escucharlo, editarlo, copiarlo, descargarlo o imprimirlo. También podés sumarlo al libro del curso. Para empezar, activá el botón Comenzar la actividad.'
+  ];
+
+  function estadoInicial() {
+    return {
+      version: 1,
+      nombre: '',
+      capActual: null,
+      preguntaActual: 0,
+      respuestas: {},
+      completados: [],
+      textosEditados: {},
+      introVista: false,
+      imprenta: true
+    };
+  }
+
+  function cargarEstado() {
+    const base = estadoInicial();
+    try {
+      const raw = localStorage.getItem(CLAVE);
+      if (!raw) return base;
+      const data = JSON.parse(raw);
+      return {
+        ...base,
+        ...data,
+        respuestas: data.respuestas && typeof data.respuestas === 'object' ? data.respuestas : {},
+        completados: Array.isArray(data.completados) ? data.completados.map(Number) : [],
+        textosEditados: data.textosEditados && typeof data.textosEditados === 'object' ? data.textosEditados : {},
+        introVista: data.introVista === true,
+        imprenta: data.imprenta !== false
+      };
+    } catch (error) {
+      return base;
+    }
+  }
+
+  function guardarEstado() {
+    const indicador = $('#estadoGuardado');
+    try {
+      localStorage.setItem(CLAVE, JSON.stringify(estado));
+      if (indicador) indicador.textContent = 'Guardado automático · ' + new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+    } catch (error) {
+      if (indicador) indicador.textContent = 'No se pudo guardar en este dispositivo. La actividad sigue funcionando.';
+    }
+  }
+
+  function guardarDebounced() {
+    clearTimeout(timerGuardado);
+    timerGuardado = setTimeout(guardarEstado, 250);
+  }
+
+  function capPorId(id) {
+    return CAPITULOS.find(c => c.id === Number(id));
+  }
+
+  function explicacionDe(cap, p) {
+    return cap && p ? (EXPLICACIONES[cap.id + ':' + p.id] || '') : '';
+  }
+
+  function respuestasDe(id) {
+    const capId = Number(id);
+    if (!estado.respuestas[capId] || typeof estado.respuestas[capId] !== 'object') estado.respuestas[capId] = {};
+    return estado.respuestas[capId];
+  }
+
+  function escaparHTML(valor) {
+    return String(valor).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+
+  function textoPlano(html) {
+    const d = document.createElement('div');
+    d.innerHTML = html;
+    return (d.textContent || '').replace(/\s+/g, ' ').trim();
+  }
+
+  function paraAudio(texto) {
+    return textoPlano(texto)
+      .replace(/CO₂/g, 'dióxido de carbono')
+      .replace(/O₂/g, 'oxígeno')
+      .replace(/NO₃⁻/g, 'nitrato')
+      .replace(/NH₄⁺/g, 'amonio')
+      .replace(/K⁺/g, 'potasio')
+      .replace(/°C/g, 'grados Celsius')
+      .replace(/\bmm\b/g, 'milímetros')
+      .replace(/%/g, 'por ciento')
+      .replace(/\bpH\b/g, 'pe hache');
+  }
+
+  function letra(i) {
+    return String.fromCharCode(65 + i);
+  }
+
+  function semillaTexto(texto) {
+    let semilla = 2166136261;
+    for (let i = 0; i < texto.length; i++) {
+      semilla ^= texto.charCodeAt(i);
+      semilla = Math.imul(semilla, 16777619);
+    }
+    return semilla >>> 0;
+  }
+
+  function opcionesVisibles(p) {
+    if (!p || p.tipo !== 'opcion') return p ? p.opciones : [];
+    const opciones = p.opciones.slice();
+    const salto = semillaTexto((estado.capActual || 0) + ':' + p.id) % opciones.length;
+    if (!salto) return opciones;
+    return opciones.slice(salto).concat(opciones.slice(0, salto));
+  }
+
+  function nombreEstudiante() {
+    return estado.nombre.trim() || 'Estudiante';
+  }
+
+  function bylineTexto() {
+    return 'Por: ' + nombreEstudiante() + ' — ESRN Rural Virtual';
+  }
+
+  function bylineSeguro() {
+    return escaparHTML(bylineTexto());
+  }
+
+  function respuestaCorrecta(p, r) {
+    if (!p || p.tipo !== 'opcion') return false;
+    return p.opciones.some(o => o.correcta && o.valor === r[p.id]);
+  }
+
+  function recoValida(reco) {
+    return !!reco && (reco.modo === 'sugerida' || (reco.modo === 'propia' && String(reco.texto || '').trim().length >= 15));
+  }
+
+  function preguntaRespondida(p, r) {
+    if (!p) return false;
+    if (p.tipo === 'titulo') return !!r[p.id];
+    if (p.tipo === 'opcion') return respuestaCorrecta(p, r);
+    if (p.tipo === 'recomendacion') return recoValida(r[p.id]);
+    return false;
+  }
+
+  function capituloCompleto(capId) {
+    const cap = capPorId(capId);
+    if (!cap) return false;
+    const r = respuestasDe(cap.id);
+    return cap.preguntas.every(p => preguntaRespondida(p, r));
+  }
+
+  function contarFragmentos(capId) {
+    const cap = capPorId(capId);
+    if (!cap) return 0;
+    const r = respuestasDe(cap.id);
+    let n = 0;
+    cap.preguntas.forEach(p => {
+      if (p.tipo === 'opcion' && respuestaCorrecta(p, r)) n++;
+      if (p.tipo === 'recomendacion' && recoValida(r[p.id])) n++;
+    });
+    return n;
+  }
+
+  function tieneRespuestas(capId) {
+    const r = respuestasDe(capId);
+    return Object.keys(r).some(k => !k.startsWith('_') && r[k] !== undefined && r[k] !== null && r[k] !== '');
+  }
+
+  function actualizarCompletados() {
+    estado.completados = CAPITULOS.filter(c => capituloCompleto(c.id)).map(c => c.id);
+    guardarDebounced();
+  }
+
+  function proximoIndice(cap) {
+    const r = respuestasDe(cap.id);
+    for (let i = 0; i < cap.preguntas.length; i++) {
+      if (!preguntaRespondida(cap.preguntas[i], r)) return i;
+    }
+    return cap.preguntas.length - 1;
+  }
+
+  function tituloArticulo(capId) {
+    const cap = capPorId(capId);
+    if (!cap) return '';
+    const r = respuestasDe(cap.id);
+    const q1 = cap.preguntas.find(p => p.tipo === 'titulo');
+    if (!q1 || !r.q1) return 'Tu título aparecerá acá';
+    const opt = q1.opciones.find(o => o.valor === r.q1);
+    return opt ? opt.texto : 'Tu título aparecerá acá';
+  }
+
+  function piezaDe(cap, r, qid) {
+    const p = cap.preguntas.find(x => x.id === qid);
+    if (!p) return null;
+    if (p.tipo === 'opcion') {
+      if (!respuestaCorrecta(p, r)) return null;
+      const o = p.opciones.find(op => op.correcta && op.valor === r[p.id]);
+      return o ? { qid, texto: o.fragmento || '', custom: false } : null;
+    }
+    if (p.tipo === 'recomendacion') {
+      if (!recoValida(r[p.id])) return null;
+      const reco = r[p.id];
+      const texto = reco.modo === 'propia' ? String(reco.texto || '').trim() : p.fragmento;
+      return { qid, texto, custom: reco.modo === 'propia' };
+    }
+    return null;
+  }
+
+  function parrafosHTML(capId) {
+    const cap = capPorId(capId);
+    if (!cap) return '';
+    const r = respuestasDe(cap.id);
+    const visibles = cap.parrafos.filter(par => par.piezas.some(qid => !!piezaDe(cap, r, qid)));
+    if (!visibles.length) return '<p class="articulo-vacio">Tu artículo empieza con tu primera respuesta.</p>';
+    return visibles.map(par => {
+      const piezas = par.piezas.map(qid => piezaDe(cap, r, qid)).filter(Boolean);
+      const faltan = par.piezas.filter(qid => !piezaDe(cap, r, qid));
+      let contenido = '';
+      if (!piezas.length) {
+        contenido = '<p class="placeholder">' + par.placeholder + '</p>';
+      } else {
+        const partes = piezas.map(pieza => {
+          const nuevo = ui.animar && !ui.fragmentosPrevios.has(pieza.qid);
+          const texto = pieza.custom ? escaparHTML(pieza.texto) : pieza.texto;
+          return '<span class="fragmento' + (nuevo ? ' recien-agregado' : '') + '" data-frag="' + pieza.qid + '">' + texto + '</span>';
+        });
+        if (par.tipo === 'consejo') {
+          contenido = '<p class="consejo"><strong>Consejo para la huerta:</strong> ' + partes.join(' ') + '</p>';
+        } else {
+          contenido = '<p>' + partes.join(' ') + '</p>';
+        }
+        if (faltan.length) {
+          const nums = faltan.map(qid => cap.preguntas.findIndex(p => p.id === qid) + 1);
+          contenido += '<p class="pendiente">Falta responder la pregunta ' + nums.join(' y ') + ' para completar este párrafo.</p>';
+        }
+      }
+      return '<section class="parrafo-articulo" data-par="' + par.id + '">' + contenido + '</section>';
+    }).join('');
+  }
+
+  function parrafosTexto(capId) {
+    const cap = capPorId(capId);
+    if (!cap) return [];
+    const r = respuestasDe(cap.id);
+    return cap.parrafos.map(par => {
+      const piezas = par.piezas.map(qid => piezaDe(cap, r, qid)).filter(Boolean).map(pieza => pieza.custom ? pieza.texto : textoPlano(pieza.texto));
+      if (!piezas.length) return '';
+      if (par.tipo === 'consejo') return 'Consejo para la huerta: ' + piezas.join(' ');
+      return piezas.join(' ');
+    }).filter(Boolean);
+  }
+
+  function textoParaImpresion(capId) {
+    const cap = capPorId(capId);
+    if (!cap) return { titulo: '', byline: '', parrafos: [] };
+    const editado = String(estado.textosEditados[capId] || '').trim();
+    if (editado) {
+      const bloques = editado.split(/\n{2,}/).map(s => s.trim()).filter(Boolean);
+      let titulo = tituloArticulo(cap.id);
+      let byline = bylineTexto();
+      let parrafos = bloques;
+      if (bloques.length >= 2 && /^por\s*:/i.test(bloques[1])) {
+        titulo = bloques[0];
+        byline = bloques[1];
+        parrafos = bloques.slice(2);
+      }
+      return { titulo, byline, parrafos };
+    }
+    return { titulo: tituloArticulo(cap.id), byline: bylineTexto(), parrafos: parrafosTexto(cap.id) };
+  }
+
+  function textoArticuloPlano(capId) {
+    const { titulo, byline, parrafos } = textoParaImpresion(capId);
+    return titulo + '\n' + byline + (parrafos.length ? '\n\n' + parrafos.join('\n\n') : '');
+  }
+
+  function textoLibroPlano() {
+    const completos = CAPITULOS.filter(c => capituloCompleto(c.id));
+    const year = new Date().getFullYear();
+    let out = 'GUÍA DE CULTIVOS DEL CURSO\n';
+    out += 'ESRN Rural Virtual — Taller de Educación Científica y Tecnológica\n';
+    out += bylineTexto() + '\nAño ' + year + '\n';
+    completos.forEach(cap => {
+      out += '\n' + '='.repeat(56) + '\n';
+      out += 'CAPÍTULO ' + cap.id + ' — ' + cap.titulo + '\n';
+      out += '='.repeat(56) + '\n\n';
+      out += textoArticuloPlano(cap.id) + '\n';
+    });
+    return out;
+  }
+
+  function anunciar(mensaje) {
+    const el = $('#anuncio');
+    if (!el) return;
+    el.textContent = '';
+    setTimeout(() => { el.textContent = mensaje; }, 30);
+  }
+
+  function mostrarFeedback(tipo, texto) {
+    const fb = $('#feedbackPregunta');
+    if (!fb) return;
+    const icono = tipo === 'ok' ? '✓' : tipo === 'mal' ? '✗' : '!';
+    fb.className = 'feedback ' + tipo;
+    fb.innerHTML = '<span class="icono" aria-hidden="true">' + icono + '</span><span>' + texto + '</span>';
+  }
+
+  function seleccionarVoz() {
+    if (!('speechSynthesis' in window)) return;
+    const voces = speechSynthesis.getVoices().filter(v => v.lang && v.lang.toLowerCase().startsWith('es'));
+    const fem = voces.filter(v => /femenina|female|paulina|monica|mónica|helena|sabina|elena/i.test(v.name || ''));
+    vozCache = fem[0] || voces[0] || null;
+  }
+
+  function vozPreferida() {
+    if (!vozCache) seleccionarVoz();
+    return vozCache;
+  }
+
+  function dividirTexto(texto, maximo) {
+    const limpio = String(texto).replace(/\s+/g, ' ').trim();
+    if (!limpio) return [];
+    const oraciones = limpio.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [limpio];
+    const partes = [];
+    let actual = '';
+    oraciones.forEach(o => {
+      if ((actual + ' ' + o).trim().length > maximo && actual) {
+        partes.push(actual.trim());
+        actual = o;
+      } else {
+        actual += ' ' + o;
+      }
+    });
+    if (actual.trim()) partes.push(actual.trim());
+    return partes;
+  }
+
+  function hablar(texto, btn) {
+    if (!('speechSynthesis' in window)) {
+      anunciar('Este navegador no tiene lectura en voz alta.');
+      return;
+    }
+    const mismoBoton = ui.audioBtn === btn;
+    audioToken++;
+    const token = audioToken;
+    try { speechSynthesis.cancel(); } catch (error) {}
+    $$('.btn-audio.activo, .btn-mini-audio.activo').forEach(b => {
+      b.classList.remove('activo');
+      b.setAttribute('aria-pressed', 'false');
+    });
+    ui.audioBtn = null;
+    if (mismoBoton) return;
+    const partes = dividirTexto(texto, 220);
+    if (!partes.length) return;
+    ui.audioBtn = btn;
+    if (btn) {
+      btn.classList.add('activo');
+      btn.setAttribute('aria-pressed', 'true');
+    }
+    let i = 0;
+    const limpiar = () => {
+      if (btn) {
+        btn.classList.remove('activo');
+        btn.setAttribute('aria-pressed', 'false');
+      }
+      if (ui.audioBtn === btn) ui.audioBtn = null;
+    };
+    const siguiente = () => {
+      if (token !== audioToken) return;
+      if (i >= partes.length) { limpiar(); return; }
+      const u = new SpeechSynthesisUtterance(partes[i++]);
+      u.lang = 'es-AR';
+      u.rate = 0.95;
+      const voz = vozPreferida();
+      if (voz) u.voice = voz;
+      u.onend = () => { if (token === audioToken) setTimeout(siguiente, 70); };
+      u.onerror = () => { if (token === audioToken) limpiar(); };
+      speechSynthesis.speak(u);
+    };
+    siguiente();
+  }
+
+  function audioPregunta(p) {
+    let t = p.enunciado + '. ';
+    if (p.tipo === 'titulo' || p.tipo === 'opcion') {
+      t += 'Opciones: ' + opcionesVisibles(p).map((o, i) => letra(i) + '. ' + o.texto).join(' ');
+    }
+    if (p.tipo === 'recomendacion') {
+      t += 'Recomendación sugerida: ' + p.recomendacion + '. ';
+      t += 'Podés usar esta recomendación o escribir la tuya.';
+    }
+    return paraAudio(t);
+  }
+
+  function mostrarPantalla(nombre, opciones) {
+    const opts = opciones || {};
+    $$('.pantalla').forEach(s => s.classList.toggle('activa', s.id === 'pantalla-' + nombre));
+    actualizarBotonImprimir();
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    const id = nombre === 'inicio' ? 'h-inicio' : nombre === 'menu' ? 'h-menu' : nombre === 'capitulo' ? 'h-capitulo' : 'h-libro';
+    const titulo = document.getElementById(id);
+    if (titulo && opts.focus !== false) setTimeout(() => titulo.focus(), 60);
+  }
+
+  function mostrarPasoTutorial(n, opciones) {
+    const opts = opciones || {};
+    const pasos = $$('.tutorial-paso');
+    if (!pasos.length) return;
+    pasoTutorial = Math.max(0, Math.min(pasos.length - 1, Number(n) || 0));
+    pasos.forEach(p => p.classList.toggle('activo', Number(p.dataset.paso) === pasoTutorial));
+    const tutorial = $('#tutorial');
+    if (tutorial) tutorial.dataset.paso = String(pasoTutorial);
+    const prog = $('#tutorialProgreso');
+    if (prog) prog.textContent = 'Paso ' + (pasoTutorial + 1) + ' de ' + pasos.length;
+    const anterior = $('#btnTutorialAnterior');
+    if (anterior) anterior.hidden = pasoTutorial === 0;
+    const siguiente = $('#btnTutorialSiguiente');
+    if (siguiente) siguiente.hidden = pasoTutorial === pasos.length - 1;
+    const comenzar = $('#btnComenzar');
+    if (comenzar) comenzar.hidden = pasoTutorial !== pasos.length - 1;
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    const activo = pasos[pasoTutorial];
+    const titulo = activo.querySelector('h1,h2');
+    if (titulo && opts.focus !== false) setTimeout(() => titulo.focus(), 60);
+  }
+
+  function aplicarImprenta() {
+    const activa = estado.imprenta !== false;
+    document.body.classList.toggle('imprenta', activa);
+    const btn = $('#btnMayus');
+    if (btn) {
+      btn.textContent = 'Imprenta mayúscula: ' + (activa ? 'sí' : 'no');
+      btn.setAttribute('aria-pressed', activa ? 'true' : 'false');
+      btn.classList.toggle('activo', activa);
+    }
+  }
+
+  function actualizarBotonImprimir() {
+    const btn = $('#btnImprimir');
+    if (!btn) return;
+    const activa = $('.pantalla.activa');
+    const completos = CAPITULOS.filter(c => capituloCompleto(c.id)).length;
+    if (activa && activa.id === 'pantalla-capitulo') {
+      const cap = capPorId(estado.capActual);
+      const listo = cap && capituloCompleto(cap.id);
+      btn.hidden = !listo;
+      btn.textContent = 'Imprimir artículo';
+    } else {
+      btn.hidden = completos === 0;
+      btn.textContent = 'Imprimir libro';
+    }
+    const barra = $('.barra');
+    if (barra) barra.classList.toggle('sin-imprimir', btn.hidden);
+  }
+
+  function renderMenu() {
+    actualizarCompletados();
+    const completos = estado.completados.length;
+    const prog = $('#progMenu');
+    if (prog) { prog.value = completos; prog.textContent = completos + ' de 5'; }
+    const txt = $('#progMenuTexto');
+    if (txt) txt.textContent = completos + ' de 5 capítulos';
+    const lista = $('#listaCapitulos');
+    if (lista) {
+      lista.innerHTML = CAPITULOS.map(c => {
+        const completo = capituloCompleto(c.id);
+        const enCurso = tieneRespuestas(c.id);
+        const agregadas = contarFragmentos(c.id);
+        const accion = completo ? 'Listo' : enCurso ? 'Seguir' : 'Empezar';
+        return '<button class="tarjeta-cap ' + c.color + (completo ? ' completo' : '') + '" type="button" data-cap="' + c.id + '" aria-label="Capítulo ' + c.id + ': ' + escaparHTML(c.titulo) + '. ' + escaparHTML(c.subtitulo) + '. ' + accion + '. ' + agregadas + ' de 5 ideas agregadas. Abrir capítulo.">' +
+          '<span class="cap-icono" aria-hidden="true"><svg class="ico"><use href="#' + c.icono + '"></use></svg></span>' +
+          '<span class="cap-info"><span class="cap-num">Capítulo ' + c.id + '</span><span class="cap-tit">' + c.titulo + '</span><span class="cap-sub">' + c.subtitulo + '</span></span>' +
+          '<span class="cap-accion"><span class="cap-accion-texto">' + accion + '</span> <b aria-hidden="true">›</b></span>' +
+          '</button>';
+      }).join('');
+      $$('#listaCapitulos .tarjeta-cap').forEach(btn => {
+        btn.addEventListener('click', () => abrirCapitulo(Number(btn.dataset.cap)));
+      });
+    }
+    const btnLibro = $('#btnLibro');
+    if (btnLibro) {
+      btnLibro.disabled = false;
+      btnLibro.removeAttribute('aria-disabled');
+      btnLibro.title = 'Ver el libro del curso';
+    }
+    const nombre = $('#nombre');
+    if (nombre) nombre.value = estado.nombre;
+    const guardado = $('#estadoGuardado');
+    if (guardado && !guardado.textContent.includes('No se pudo')) guardado.textContent = 'Guardado automático';
+    actualizarBotonImprimir();
+  }
+
+  function renderCapitulo() {
+    const cap = capPorId(estado.capActual);
+    if (!cap) return;
+    const etiqueta = $('#capEtiqueta');
+    if (etiqueta) etiqueta.textContent = 'Capítulo ' + cap.id;
+    const h = $('#h-capitulo');
+    if (h) h.textContent = cap.titulo;
+    const icono = $('#capIcono');
+    if (icono) icono.innerHTML = '<svg class="ico" aria-hidden="true"><use href="#' + cap.icono + '"></use></svg>';
+    const prog = $('#progCapitulo');
+    if (prog) prog.max = cap.preguntas.length;
+    renderPregunta({ focus: false, animar: false });
+  }
+
+  function formularioHTML(p, r, respondida) {
+    if (p.tipo === 'titulo') {
+      const opciones = p.opciones.map((o, i) => {
+        const sel = r.q1 === o.valor;
+        return '<label class="opcion' + (sel ? ' sel' : '') + '">' +
+          '<input type="radio" name="titulo" value="' + o.valor + '"' + (sel ? ' checked' : '') + '>' +
+          '<span class="opcion-texto"><span class="letra" aria-hidden="true">' + letra(i) + '</span> ' + o.texto + '</span>' +
+          (sel ? '<span class="marca-ok" aria-hidden="true">✓</span>' : '') +
+          '</label>';
+      }).join('');
+      return '<fieldset class="grupo-opciones"><legend class="sr-only">Elegí el título de tu artículo</legend>' + opciones + '</fieldset>';
+    }
+    if (p.tipo === 'opcion') {
+      const seleccionada = r[p.id];
+      const opciones = opcionesVisibles(p).map((o, i) => {
+        const sel = seleccionada === o.valor;
+        const esCorrecta = !!o.correcta;
+        const clase = 'opcion' + (sel ? ' sel' : '') + (respondida && esCorrecta ? ' correcta' : '');
+        return '<label class="' + clase + '">' +
+          '<input type="radio" name="opcion" value="' + o.valor + '"' + (sel ? ' checked' : '') + (respondida ? ' disabled' : '') + '>' +
+          '<span class="opcion-texto"><span class="letra" aria-hidden="true">' + letra(i) + '</span> ' + o.texto + '</span>' +
+          (respondida && esCorrecta ? '<span class="marca-ok" aria-hidden="true">✓</span>' : '') +
+          '</label>';
+      }).join('');
+      const intentos = (r._intentos && r._intentos[p.id]) || 0;
+      const pistaAbierta = intentos > 0;
+      let extra = '<div class="pista-caja">' +
+        '<button type="button" class="btn-pista" data-accion="pista" aria-expanded="' + (pistaAbierta ? 'true' : 'false') + '" aria-controls="pista-' + p.id + '">' + (pistaAbierta ? 'Ocultar ayuda' : 'Necesito una mano') + '</button>' +
+        '<p id="pista-' + p.id + '" class="pista"' + (pistaAbierta ? '' : ' hidden') + '>' + p.pista + '</p>' +
+        '</div>';
+      if (!respondida && intentos >= 2) {
+        extra += '<button type="button" class="btn-revelar" data-accion="revelar" aria-label="Mostrame la respuesta y por qué">Mostrame la respuesta y por qué</button>';
+      }
+      return '<fieldset class="grupo-opciones"><legend class="sr-only">Opciones de respuesta</legend>' + opciones + '</fieldset>' + extra;
+    }
+    if (p.tipo === 'recomendacion') {
+      const reco = r[p.id] || {};
+      const modo = reco.modo || '';
+      const texto = reco.texto || '';
+      const sugerida = modo === 'sugerida';
+      const propia = modo === 'propia';
+      const valido = recoValida(reco);
+      return '<blockquote class="reco-card"><p class="reco-label">Recomendación sugerida</p><p>' + p.recomendacion + '</p></blockquote>' +
+        '<fieldset class="grupo-opciones grupo-reco"><legend class="sr-only">¿Cómo querés incluir la recomendación?</legend>' +
+        '<label class="opcion' + (sugerida ? ' sel' : '') + '">' +
+        '<input type="radio" name="reco" value="sugerida"' + (sugerida ? ' checked' : '') + '>' +
+        '<span class="opcion-texto">Usar esta recomendación</span>' +
+        (sugerida ? '<span class="marca-ok" aria-hidden="true">✓</span>' : '') +
+        '</label>' +
+        '<label class="opcion' + (propia ? ' sel' : '') + '">' +
+        '<input type="radio" name="reco" value="propia"' + (propia ? ' checked' : '') + '>' +
+        '<span class="opcion-texto">Escribir mi propio consejo</span>' +
+        (propia && valido ? '<span class="marca-ok" aria-hidden="true">✓</span>' : '') +
+        '</label></fieldset>' +
+        '<div class="campo-propio" id="campoPropio"' + (propia ? '' : ' hidden') + '>' +
+        '<label for="textoPropio">Tu consejo para la huerta:</label>' +
+        '<textarea id="textoPropio" maxlength="280" rows="3" placeholder="Escribí tu consejo...">' + escaparHTML(texto) + '</textarea>' +
+        '<p class="contador" id="contadorPropio">' + texto.trim().length + ' de 280 caracteres · mínimo 15</p>' +
+        '</div>';
+    }
+    return '';
+  }
+
+  function renderPregunta(opciones) {
+    const opts = opciones || {};
+    const cap = capPorId(estado.capActual);
+    if (!cap) return;
+    const idx = Math.min(Math.max(Number(estado.preguntaActual) || 0, 0), cap.preguntas.length - 1);
+    estado.preguntaActual = idx;
+    const p = cap.preguntas[idx];
+    const r = respuestasDe(cap.id);
+    const respondida = preguntaRespondida(p, r);
+    const prog = $('#progCapitulo');
+    if (prog) { prog.value = idx + 1; prog.textContent = 'Pregunta ' + (idx + 1) + ' de ' + cap.preguntas.length; }
+    const progTxt = $('#progCapituloTexto');
+    if (progTxt) progTxt.textContent = 'Pregunta ' + (idx + 1) + ' de ' + cap.preguntas.length;
+    const h = $('#h-pregunta');
+    if (h) h.innerHTML = p.enunciado;
+    const ayuda = $('#ayudaPregunta');
+    if (ayuda) ayuda.textContent = p.tipo === 'opcion' ? '' : (p.ayuda || '');
+    const glosario = $('#glosarioCapitulo');
+    const glosarioLista = $('#glosarioLista');
+    if (glosario && glosarioLista) {
+      const terminos = Array.isArray(cap.glosario) ? cap.glosario : [];
+      glosario.hidden = terminos.length === 0;
+      glosarioLista.innerHTML = terminos.map(t => '<div class="glosario-item"><dt>' + escaparHTML(t.t) + '</dt><dd>' + escaparHTML(t.d) + '</dd></div>').join('');
+    }
+    const form = $('#formPregunta');
+    if (form) form.innerHTML = formularioHTML(p, r, respondida);
+
+    const fb = $('#feedbackPregunta');
+    if (fb) {
+      fb.className = 'feedback';
+      fb.innerHTML = '';
+      if (respondida) {
+        const exp = explicacionDe(cap, p);
+        if (p.tipo === 'titulo') {
+          mostrarFeedback('ok', 'Título elegido. Ya podés verlo en tu artículo.');
+        } else if (p.tipo === 'recomendacion') {
+          mostrarFeedback('ok', 'Consejo agregado. Tu artículo cierra con una recomendación concreta.');
+        } else if (r._reveladas && r._reveladas[p.id]) {
+          const idxCorrecta = opcionesVisibles(p).findIndex(o => o.correcta);
+          mostrarFeedback('aviso', 'La respuesta es ' + letra(idxCorrecta) + '. ' + (exp ? exp + ' ' : '') + 'La idea se agregó con ayuda.');
+        } else {
+          mostrarFeedback('ok', exp ? '¡Bien! ' + exp + ' La idea ya está en tu artículo.' : '¡Bien! Idea agregada.');
+        }
+      } else if (p.tipo === 'opcion' && r._intentos && r._intentos[p.id]) {
+        mostrarFeedback('aviso', 'Esa opción no es la correcta. Podés abrir una pista o intentar de nuevo.');
+      }
+    }
+
+    const completo = capituloCompleto(cap.id);
+    const esUltima = idx === cap.preguntas.length - 1;
+    const btnSig = $('#btnSiguiente');
+    if (btnSig) {
+      btnSig.disabled = !respondida;
+      btnSig.textContent = esUltima ? (completo ? 'Ver mi artículo' : 'Terminar artículo') : 'Siguiente →';
+      btnSig.title = respondida ? (esUltima && completo ? 'Ir al artículo terminado' : '') : (p.tipo === 'recomendacion' ? 'Completá el consejo para terminar' : 'Respondé correctamente para continuar');
+    }
+    const btnAnt = $('#btnAnterior');
+    if (btnAnt) btnAnt.disabled = idx === 0;
+    const banner = $('#bannerCompleto');
+    if (banner) banner.hidden = !completo;
+
+    renderArticulo({ animar: !!opts.animar });
+    actualizarBotonImprimir();
+
+    if (opts.focus === 'feedback') {
+      setTimeout(() => { const el = $('#feedbackPregunta'); if (el) el.focus(); }, 50);
+    } else if (opts.focus === 'next') {
+      setTimeout(() => { const el = $('#btnSiguiente'); if (el) el.focus(); }, 50);
+    } else if (opts.focus === 'pregunta') {
+      setTimeout(() => { const el = $('#h-pregunta'); if (el) el.focus(); }, 50);
+    } else if (opts.focus === 'textoPropio') {
+      setTimeout(() => { const el = $('#textoPropio'); if (el) el.focus(); }, 80);
+    }
+  }
+
+  function renderArticulo(opciones) {
+    const opts = opciones || {};
+    const cap = capPorId(estado.capActual);
+    if (!cap) return;
+    const r = respuestasDe(cap.id);
+    ui.animar = !!opts.animar;
+    const titulo = tituloArticulo(cap.id);
+    const h = $('#h-articulo');
+    if (h) h.textContent = titulo;
+    const by = $('#byline');
+    if (by) by.textContent = bylineTexto();
+    const n = contarFragmentos(cap.id);
+    const prog = $('#progArticulo');
+    if (prog) { prog.value = n; prog.textContent = n + ' de 5'; }
+    const progTxt = $('#progArticuloTexto');
+    if (progTxt) progTxt.textContent = n + ' de 5 ideas';
+    const parrafos = $('#articuloParrafos');
+    if (parrafos) parrafos.innerHTML = parrafosHTML(cap.id);
+
+    const q1ok = !!r.q1;
+    const checklist = $('#checklistArticulo');
+    if (checklist) {
+      let html = '<li class="' + (q1ok ? 'hecho' : '') + '"><span aria-hidden="true">' + (q1ok ? '✓' : '○') + '</span> Título ' + (q1ok ? 'completo' : 'pendiente') + '</li>';
+      cap.parrafos.forEach((par, i) => {
+        const total = par.piezas.length;
+        const hechas = par.piezas.filter(qid => !!piezaDe(cap, r, qid)).length;
+        const ok = hechas === total;
+        html += '<li class="' + (ok ? 'hecho' : '') + '"><span aria-hidden="true">' + (ok ? '✓' : '○') + '</span> Párrafo ' + (i + 1) + ' (' + hechas + '/' + total + ')</li>';
+      });
+      checklist.innerHTML = html;
+    }
+
+    const completo = capituloCompleto(cap.id);
+    const etiquetaArticulo = $('#panelArticulo .etiqueta');
+    if (etiquetaArticulo) etiquetaArticulo.textContent = completo ? 'Mi artículo terminado' : 'Mi artículo en construcción';
+    const acciones = $('#accionesArticulo');
+    const editorCont = $('#editorContenedor');
+    if (acciones) {
+      acciones.hidden = !completo;
+      if (completo) {
+        const editando = editorCont ? !editorCont.hidden : false;
+        acciones.innerHTML = '<p class="completo-titulo">✓ Artículo terminado</p>' +
+          '<div class="acciones-fila">' +
+          '<button class="btn btn-primario" type="button" data-accion="editar">' + (editando ? 'Ocultar editor' : 'Editar') + '</button>' +
+          '<button class="btn btn-sec" type="button" data-accion="escuchar-articulo">Escuchar</button>' +
+          '<button class="btn btn-sec" type="button" data-accion="copiar">Copiar</button>' +
+          '<button class="btn btn-sec" type="button" data-accion="descargar">Descargar .txt</button>' +
+          '<button class="btn btn-sec" type="button" data-accion="imprimir">Imprimir</button>' +
+          '<button class="btn btn-texto" type="button" data-accion="volver-menu">Volver al menú</button>' +
+          '</div>';
+        if (estado.textosEditados[cap.id]) {
+          acciones.innerHTML += '<button class="btn btn-texto" type="button" data-accion="regenerar">Volver al texto generado</button>';
+        }
+      }
+    }
+    if (editorCont) {
+      if (!completo) {
+        editorCont.hidden = true;
+      } else if (!editorCont.hidden) {
+        const ta = $('#editorArticulo');
+        if (ta) ta.value = estado.textosEditados[cap.id] || textoArticuloPlano(cap.id);
+      }
+    }
+    const banner = $('#bannerCompleto');
+    if (banner) banner.hidden = !completo;
+
+    const ids = new Set();
+    cap.parrafos.forEach(par => par.piezas.forEach(qid => { if (piezaDe(cap, r, qid)) ids.add(qid); }));
+    ui.fragmentosPrevios = ids;
+    ui.animar = false;
+  }
+
+  function abrirCapitulo(id) {
+    const cap = capPorId(id);
+    if (!cap) return;
+    estado.capActual = cap.id;
+    const idx = capituloCompleto(cap.id) ? cap.preguntas.length - 1 : proximoIndice(cap);
+    estado.preguntaActual = idx;
+    ui.fragmentosPrevios = new Set();
+    ui.animar = false;
+    guardarDebounced();
+    renderCapitulo();
+    mostrarPantalla('capitulo');
+    anunciar('Capítulo ' + cap.id + ': ' + cap.titulo + '.');
+  }
+
+  function irMenu(opciones) {
+    actualizarCompletados();
+    renderMenu();
+    mostrarPantalla('menu', opciones);
+    anunciar('Menú principal.');
+  }
+
+  function abrirLibro() {
+    actualizarCompletados();
+    renderLibro();
+    mostrarPantalla('libro');
+    const completos = CAPITULOS.filter(c => capituloCompleto(c.id)).length;
+    anunciar(completos ? 'Libro del curso.' : 'Libro vacío. Completá un capítulo para empezar a armarlo.');
+  }
+
+  function renderLibro() {
+    actualizarCompletados();
+    const completos = CAPITULOS.filter(c => capituloCompleto(c.id));
+    const cont = $('#libroContenido');
+    const btnImp = $('#btnImprimirLibro');
+    const btnDesc = $('#btnDescargarLibro');
+    const btnCop = $('#btnCopiarLibro');
+    if (!completos.length) {
+      if (cont) cont.innerHTML = '<div class="libro-vacio"><p><strong>Todavía no terminaste ningún capítulo.</strong></p><p>Completá al menos uno para armar el libro del curso.</p></div>';
+      if (btnImp) btnImp.disabled = true;
+      if (btnDesc) btnDesc.disabled = true;
+      if (btnCop) btnCop.disabled = true;
+      actualizarBotonImprimir();
+      return;
+    }
+    const year = new Date().getFullYear();
+    let html = '<section class="libro-portada"><p class="etiqueta">ESRN Rural Virtual</p><h2>Guía de Cultivos del Curso</h2><p class="libro-sub">Taller de Educación Científica y Tecnológica</p><p class="byline" id="bylineLibro">' + bylineSeguro() + '</p><p>Año ' + year + '</p></section>';
+    if (completos.length < CAPITULOS.length) {
+      const faltan = CAPITULOS.length - completos.length;
+      html += '<p class="libro-nota">Este libro incluye los capítulos completados. Falta' + (faltan === 1 ? '' : 'n') + ' ' + faltan + ' capítulo' + (faltan === 1 ? '' : 's') + ' para completar la guía.</p>';
+    }
+    completos.forEach(cap => {
+      const datos = textoParaImpresion(cap.id);
+      html += '<article class="libro-capitulo"><p class="etiqueta">Capítulo ' + cap.id + ' · ' + cap.fuente + '</p><h2>' + escaparHTML(datos.titulo) + '</h2><p class="byline">' + escaparHTML(datos.byline) + '</p>' +
+        datos.parrafos.map(p => '<p>' + escaparHTML(p) + '</p>').join('') + '</article>';
+    });
+    if (cont) cont.innerHTML = html;
+    if (btnImp) btnImp.disabled = false;
+    if (btnDesc) btnDesc.disabled = false;
+    if (btnCop) btnCop.disabled = false;
+    actualizarBotonImprimir();
+  }
+
+  function htmlParaImpresionCapitulo(capId) {
+    const datos = textoParaImpresion(capId);
+    return '<section class="print-capitulo"><p class="print-etiqueta">ESRN Rural Virtual · Clase N.º 16</p><h1>' + escaparHTML(datos.titulo) + '</h1><p class="byline">' + escaparHTML(datos.byline) + '</p>' +
+      datos.parrafos.map(p => '<p>' + escaparHTML(p) + '</p>').join('') + '</section>';
+  }
+
+  function htmlParaImpresionLibro() {
+    const completos = CAPITULOS.filter(c => capituloCompleto(c.id));
+    const year = new Date().getFullYear();
+    let html = '<section class="print-portada"><p class="print-etiqueta">ESRN Rural Virtual</p><h1 class="print-libro-titulo">Guía de Cultivos del Curso</h1><p class="print-libro-sub">Taller de Educación Científica y Tecnológica</p><p class="byline">' + bylineSeguro() + '</p><p>Año ' + year + '</p></section>';
+    completos.forEach(cap => {
+      const datos = textoParaImpresion(cap.id);
+      html += '<section class="print-capitulo"><p class="print-capitulo-label">Capítulo ' + cap.id + ' · ' + cap.fuente + '</p><h1>' + escaparHTML(datos.titulo) + '</h1><p class="byline">' + escaparHTML(datos.byline) + '</p>' +
+        datos.parrafos.map(p => '<p>' + escaparHTML(p) + '</p>').join('') + '</section>';
+    });
+    return html;
+  }
+
+  function imprimirHTML(html) {
+    const area = $('#printArea');
+    if (!area) return;
+    area.innerHTML = html;
+    document.body.classList.add('print-activo');
+    let limpio = false;
+    const limpiar = () => {
+      if (limpio) return;
+      limpio = true;
+      document.body.classList.remove('print-activo');
+      area.innerHTML = '';
+      window.removeEventListener('afterprint', limpiar);
+    };
+    window.addEventListener('afterprint', limpiar);
+    try {
+      window.print();
+    } catch (error) {
+      limpiar();
+    }
+    setTimeout(limpiar, 60000);
+  }
+
+  function imprimirCapitulo() {
+    const cap = capPorId(estado.capActual);
+    if (!cap || !capituloCompleto(cap.id)) { anunciar('Terminá el artículo antes de imprimirlo.'); return; }
+    imprimirHTML(htmlParaImpresionCapitulo(cap.id));
+  }
+
+  function imprimirLibro() {
+    actualizarCompletados();
+    if (!CAPITULOS.some(c => capituloCompleto(c.id))) { anunciar('Todavía no hay capítulos completos para imprimir.'); return; }
+    imprimirHTML(htmlParaImpresionLibro());
+  }
+
+  function descargarTexto(nombre, texto) {
+    const blob = new Blob([texto], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = nombre;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1200);
+  }
+
+  function copiarTexto(texto) {
+    const fallback = () => {
+      const ta = document.createElement('textarea');
+      ta.value = texto;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy');
+        anunciar('Texto copiado.');
+      } catch (error) {
+        anunciar('No se pudo copiar. Seleccioná el texto y copialo manualmente.');
+      }
+      ta.remove();
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(texto).then(() => anunciar('Texto copiado.')).catch(fallback);
+    } else {
+      fallback();
+    }
+  }
+
+  function descargarCapitulo() {
+    const cap = capPorId(estado.capActual);
+    if (!cap || !capituloCompleto(cap.id)) { anunciar('Terminá el artículo antes de descargarlo.'); return; }
+    descargarTexto('guia-cultivos-capitulo-' + cap.id + '.txt', textoArticuloPlano(cap.id));
+    anunciar('Artículo descargado.');
+  }
+
+  function copiarCapitulo() {
+    const cap = capPorId(estado.capActual);
+    if (!cap || !capituloCompleto(cap.id)) { anunciar('Terminá el artículo antes de copiarlo.'); return; }
+    copiarTexto(textoArticuloPlano(cap.id));
+  }
+
+  function alternarEditor() {
+    const cap = capPorId(estado.capActual);
+    if (!cap || !capituloCompleto(cap.id)) return;
+    const cont = $('#editorContenedor');
+    if (!cont) return;
+    const abrir = cont.hidden;
+    cont.hidden = !abrir;
+    if (abrir) {
+      const ta = $('#editorArticulo');
+      if (ta) {
+        ta.value = estado.textosEditados[cap.id] || textoArticuloPlano(cap.id);
+        ta.focus();
+      }
+    }
+    renderArticulo({ animar: false });
+    anunciar(abrir ? 'Editor abierto.' : 'Editor cerrado.');
+  }
+
+  function regenerarTexto() {
+    const cap = capPorId(estado.capActual);
+    if (!cap || !capituloCompleto(cap.id)) return;
+    delete estado.textosEditados[cap.id];
+    guardarEstado();
+    const ta = $('#editorArticulo');
+    if (ta) ta.value = textoArticuloPlano(cap.id);
+    renderArticulo({ animar: false });
+    anunciar('Texto generado restaurado.');
+  }
+
+  function escucharArticulo(btn) {
+    const cap = capPorId(estado.capActual);
+    if (!cap) return;
+    if (!contarFragmentos(cap.id)) { anunciar('Todavía no hay oraciones. Respondé la primera pregunta.'); return; }
+    hablar(paraAudio(textoArticuloPlano(cap.id)), btn || $('#btnEscucharArticulo'));
+  }
+
+  function escucharParrafo(parId, btn) {
+    const cap = capPorId(estado.capActual);
+    if (!cap) return;
+    const par = cap.parrafos.find(p => p.id === parId);
+    if (!par) return;
+    const r = respuestasDe(cap.id);
+    const piezas = par.piezas.map(qid => piezaDe(cap, r, qid)).filter(Boolean).map(pieza => pieza.custom ? pieza.texto : textoPlano(pieza.texto));
+    if (!piezas.length) { anunciar('Este párrafo todavía está vacío.'); return; }
+    const texto = (par.tipo === 'consejo' ? 'Consejo para la huerta: ' : '') + piezas.join(' ');
+    hablar(paraAudio(texto), btn);
+  }
+
+  function revelarRespuesta() {
+    const cap = capPorId(estado.capActual);
+    if (!cap) return;
+    const p = cap.preguntas[estado.preguntaActual];
+    if (!p || p.tipo !== 'opcion') return;
+    const correcta = p.opciones.find(o => o.correcta);
+    if (!correcta) return;
+    const r = respuestasDe(cap.id);
+    r[p.id] = correcta.valor;
+    if (!r._reveladas) r._reveladas = {};
+    r._reveladas[p.id] = true;
+    guardarDebounced();
+    actualizarCompletados();
+    renderPregunta({ focus: 'feedback', animar: true });
+    anunciar('Respuesta mostrada con ayuda. La idea se agregó al artículo.');
+  }
+
+  function manejarCambioPregunta(e) {
+    const cap = capPorId(estado.capActual);
+    if (!cap) return;
+    const p = cap.preguntas[estado.preguntaActual];
+    if (!p) return;
+    const r = respuestasDe(cap.id);
+    const t = e.target;
+    if (p.tipo === 'titulo' && t.name === 'titulo') {
+      r.q1 = t.value;
+      guardarDebounced();
+      actualizarCompletados();
+      renderPregunta({ focus: 'feedback', animar: false });
+      anunciar('Título elegido. El artículo se actualizó.');
+      return;
+    }
+    if (p.tipo === 'opcion' && t.name === 'opcion') {
+      const opt = p.opciones.find(o => o.valor === t.value);
+      if (!opt) return;
+      if (opt.correcta) {
+        r[p.id] = opt.valor;
+        if (r._intentos) delete r._intentos[p.id];
+        guardarDebounced();
+        actualizarCompletados();
+        renderPregunta({ focus: 'feedback', animar: true });
+        anunciar('¡Correcto! Se agregó una oración a tu artículo.');
+      } else {
+        if (!r._intentos) r._intentos = {};
+        r._intentos[p.id] = (r._intentos[p.id] || 0) + 1;
+        guardarDebounced();
+        $$('#formPregunta .opcion.incorrecta').forEach(label => {
+          label.classList.remove('incorrecta');
+          const input = label.querySelector('input');
+          if (input) input.removeAttribute('aria-invalid');
+          const marca = label.querySelector('.marca-mal');
+          if (marca) marca.remove();
+        });
+        const label = t.closest('.opcion');
+        if (label) {
+          label.classList.add('incorrecta');
+          t.setAttribute('aria-invalid', 'true');
+          if (!label.querySelector('.marca-mal')) {
+            const marca = document.createElement('span');
+            marca.className = 'marca-mal';
+            marca.setAttribute('aria-hidden', 'true');
+            marca.textContent = '✗';
+            label.appendChild(marca);
+          }
+        }
+        mostrarFeedback('mal', 'Esa opción no es la correcta. Revisá la pregunta, abrí una pista o probá otra vez.');
+        if (r._intentos[p.id] >= 2 && !$('[data-accion="revelar"]')) {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'btn-revelar';
+          btn.dataset.accion = 'revelar';
+          btn.textContent = 'Mostrame la respuesta y por qué';
+          btn.setAttribute('aria-label', 'Mostrame la respuesta y por qué');
+          const form = $('#formPregunta');
+          if (form) form.appendChild(btn);
+        }
+        anunciar('Respuesta incorrecta. Podés abrir una pista o intentar de nuevo.');
+      }
+      return;
+    }
+    if (p.tipo === 'recomendacion' && t.name === 'reco') {
+      if (!r.q6) r.q6 = { modo: '', texto: '' };
+      r.q6.modo = t.value;
+      if (t.value === 'sugerida') r.q6.texto = '';
+      guardarDebounced();
+      actualizarCompletados();
+      renderPregunta({ focus: t.value === 'propia' ? 'textoPropio' : 'feedback', animar: false });
+      anunciar(t.value === 'sugerida' ? 'Recomendación agregada a tu artículo.' : 'Escribí tu propio consejo.');
+    }
+  }
+
+  function manejarEntradaPregunta(e) {
+    if (e.target.id !== 'textoPropio') return;
+    const cap = capPorId(estado.capActual);
+    if (!cap) return;
+    const p = cap.preguntas[estado.preguntaActual];
+    if (!p || p.tipo !== 'recomendacion') return;
+    const r = respuestasDe(cap.id);
+    if (!r.q6) r.q6 = { modo: 'propia', texto: '' };
+    r.q6.modo = 'propia';
+    r.q6.texto = e.target.value;
+    guardarDebounced();
+    actualizarCompletados();
+    const cont = $('#contadorPropio');
+    if (cont) cont.textContent = e.target.value.trim().length + ' de 280 caracteres · mínimo 15';
+    const btn = $('#btnSiguiente');
+    if (btn) {
+      btn.disabled = !preguntaRespondida(p, r);
+      btn.title = btn.disabled ? 'Escribí al menos 15 caracteres para terminar' : 'Ir al artículo terminado';
+      btn.textContent = btn.disabled ? 'Terminar artículo' : 'Ver mi artículo';
+    }
+    const banner = $('#bannerCompleto');
+    if (banner) banner.hidden = !capituloCompleto(cap.id);
+    renderArticulo({ animar: false });
+    actualizarBotonImprimir();
+    if (preguntaRespondida(p, r)) {
+      mostrarFeedback('ok', 'Consejo agregado.');
+    } else {
+      mostrarFeedback('aviso', 'Escribí al menos 15 caracteres.');
+    }
+  }
+
+  function siguientePregunta() {
+    const cap = capPorId(estado.capActual);
+    if (!cap) return;
+    const p = cap.preguntas[estado.preguntaActual];
+    const r = respuestasDe(cap.id);
+    const esUltima = estado.preguntaActual === cap.preguntas.length - 1;
+    if (esUltima) { finalizarCapitulo(); return; }
+    if (preguntaRespondida(p, r)) {
+      estado.preguntaActual++;
+      guardarDebounced();
+      renderPregunta({ focus: 'pregunta', animar: false });
+    }
+  }
+
+  function finalizarCapitulo() {
+    const cap = capPorId(estado.capActual);
+    if (!cap) return;
+    if (!capituloCompleto(cap.id)) {
+      mostrarFeedback('aviso', 'Todavía falta completar una respuesta.');
+      return;
+    }
+    actualizarCompletados();
+    guardarEstado();
+    renderPregunta({ focus: false, animar: false });
+    const banner = $('#bannerCompleto');
+    if (banner) banner.hidden = false;
+    anunciar('¡Artículo terminado! Ya podés escucharlo, editarlo, copiarlo, descargarlo o imprimirlo.');
+    setTimeout(() => {
+      const panel = $('#panelArticulo');
+      if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const h = $('#h-articulo');
+      if (h) h.focus();
+    }, 150);
+  }
+
+  function comenzarActividad() {
+    estado.introVista = true;
+    guardarEstado();
+    renderMenu();
+    mostrarPantalla('menu');
+    anunciar('Actividad iniciada. Elegí un capítulo.');
+  }
+
+  function reiniciarTodo() {
+    try { localStorage.removeItem(CLAVE); } catch (error) {}
+    estado = estadoInicial();
+    ui.fragmentosPrevios = new Set();
+    ui.animar = false;
+    const conf = $('#confirmarReinicio');
+    if (conf) conf.hidden = true;
+    aplicarImprenta();
+    renderMenu();
+    mostrarPantalla('inicio');
+    mostrarPasoTutorial(0, { focus: false });
+    anunciar('Todo borrado. Podés empezar de nuevo.');
+  }
+
+  function iniciar() {
+    aplicarImprenta();
+    renderMenu();
+    const tieneProgreso = Object.values(estado.respuestas || {}).some(r => r && Object.keys(r).length) || (estado.completados || []).length > 0;
+    const verIntro = !estado.introVista && !tieneProgreso;
+    mostrarPantalla(verIntro ? 'inicio' : 'menu', { focus: false });
+    if (verIntro) mostrarPasoTutorial(0, { focus: false });
+    const nombre = $('#nombre');
+    if (nombre) {
+      nombre.addEventListener('input', e => {
+        estado.nombre = e.target.value;
+        guardarDebounced();
+        const by = $('#byline');
+        if (by) by.textContent = bylineTexto();
+        const byLibro = $('#bylineLibro');
+        if (byLibro) byLibro.textContent = bylineTexto();
+      });
+    }
+    const btnMayus = $('#btnMayus');
+    if (btnMayus) btnMayus.addEventListener('click', () => {
+      estado.imprenta = !(estado.imprenta !== false);
+      aplicarImprenta();
+      guardarDebounced();
+      anunciar('Imprenta mayúscula ' + (estado.imprenta ? 'activada' : 'desactivada') + '.');
+    });
+    const btnImprimir = $('#btnImprimir');
+    if (btnImprimir) btnImprimir.addEventListener('click', () => {
+      const activa = $('.pantalla.activa');
+      if (activa && activa.id === 'pantalla-capitulo') { imprimirCapitulo(); return; }
+      if (activa && activa.id === 'pantalla-libro') { imprimirLibro(); return; }
+      actualizarCompletados();
+      if (estado.completados.length) { abrirLibro(); setTimeout(imprimirLibro, 120); }
+      else anunciar('Completá al menos un capítulo para imprimir.');
+    });
+    const btnInicio = $('#btnInicio');
+    if (btnInicio) btnInicio.addEventListener('click', () => {
+      const activa = $('.pantalla.activa');
+      if (activa && activa.id === 'pantalla-inicio') { comenzarActividad(); return; }
+      irMenu();
+    });
+    const btnTutorialSiguiente = $('#btnTutorialSiguiente');
+    if (btnTutorialSiguiente) btnTutorialSiguiente.addEventListener('click', () => mostrarPasoTutorial(pasoTutorial + 1));
+    const btnTutorialAnterior = $('#btnTutorialAnterior');
+    if (btnTutorialAnterior) btnTutorialAnterior.addEventListener('click', () => mostrarPasoTutorial(pasoTutorial - 1));
+    const btnComenzar = $('#btnComenzar');
+    if (btnComenzar) btnComenzar.addEventListener('click', comenzarActividad);
+    const btnEscucharInicio = $('#btnEscucharInicio');
+    if (btnEscucharInicio) btnEscucharInicio.addEventListener('click', () => {
+      hablar(paraAudio(AUDIO_TUTORIAL[pasoTutorial] || AUDIO_TUTORIAL[0]), btnEscucharInicio);
+    });
+    const btnAyudaAudio = $('#btnAyudaAudio');
+    if (btnAyudaAudio) btnAyudaAudio.addEventListener('click', () => {
+      hablar(paraAudio('Ayuda. Elegí un capítulo. Respondé una pregunta por vez. Cada respuesta correcta agrega una parte de tu artículo. Podés usar las flechas y la tecla Enter para elegir opciones. Si te equivocás, podés pedir ayuda o resolver la pregunta paso a paso. Al terminar, podés escuchar, editar, copiar, descargar e imprimir tu artículo.'), btnAyudaAudio);
+    });
+    const btnEscucharMenu = $('#btnEscucharMenu');
+    if (btnEscucharMenu) btnEscucharMenu.addEventListener('click', () => {
+      hablar(paraAudio('Bienvenido y bienvenida a la Guía de Cultivos del Curso. Elegí un capítulo. Cada respuesta correcta va a agregar una parte de tu artículo. Podés escuchar, editar, descargar e imprimir cuando termines.'), btnEscucharMenu);
+    });
+    const btnPreguntaAudio = $('#btnEscucharPregunta');
+    if (btnPreguntaAudio) btnPreguntaAudio.addEventListener('click', () => {
+      const cap = capPorId(estado.capActual);
+      if (!cap) return;
+      const p = cap.preguntas[estado.preguntaActual];
+      if (!p) return;
+      hablar(audioPregunta(p), btnPreguntaAudio);
+    });
+    const btnArticuloAudio = $('#btnEscucharArticulo');
+    if (btnArticuloAudio) btnArticuloAudio.addEventListener('click', () => escucharArticulo(btnArticuloAudio));
+    const btnAnterior = $('#btnAnterior');
+    if (btnAnterior) btnAnterior.addEventListener('click', () => {
+      if (estado.preguntaActual > 0) {
+        estado.preguntaActual--;
+        guardarDebounced();
+        renderPregunta({ focus: 'pregunta', animar: false });
+      }
+    });
+    const btnSiguiente = $('#btnSiguiente');
+    if (btnSiguiente) btnSiguiente.addEventListener('click', siguientePregunta);
+    const btnGuardarSalir = $('#btnGuardarSalir');
+    if (btnGuardarSalir) btnGuardarSalir.addEventListener('click', () => { guardarEstado(); irMenu(); anunciar('Progreso guardado.'); });
+    const btnVolverMenu = $('#btnVolverMenu');
+    if (btnVolverMenu) btnVolverMenu.addEventListener('click', () => { guardarEstado(); irMenu(); });
+    const btnVolverMenuLibro = $('#btnVolverMenuLibro');
+    if (btnVolverMenuLibro) btnVolverMenuLibro.addEventListener('click', () => irMenu());
+    const btnLibro = $('#btnLibro');
+    if (btnLibro) btnLibro.addEventListener('click', abrirLibro);
+    const btnReiniciar = $('#btnReiniciar');
+    if (btnReiniciar) btnReiniciar.addEventListener('click', () => {
+      const conf = $('#confirmarReinicio');
+      if (conf) conf.hidden = false;
+      const btn = $('#btnConfirmarReinicio');
+      if (btn) btn.focus();
+      anunciar('Confirmación para borrar todo.');
+    });
+    const btnConfirmar = $('#btnConfirmarReinicio');
+    if (btnConfirmar) btnConfirmar.addEventListener('click', reiniciarTodo);
+    const btnCancelar = $('#btnCancelarReinicio');
+    if (btnCancelar) btnCancelar.addEventListener('click', () => {
+      const conf = $('#confirmarReinicio');
+      if (conf) conf.hidden = true;
+      const btn = $('#btnReiniciar');
+      if (btn) btn.focus();
+    });
+    const btnImpLibro = $('#btnImprimirLibro');
+    if (btnImpLibro) btnImpLibro.addEventListener('click', imprimirLibro);
+    const btnDescLibro = $('#btnDescargarLibro');
+    if (btnDescLibro) btnDescLibro.addEventListener('click', () => { descargarTexto('guia-cultivos-libro.txt', textoLibroPlano()); anunciar('Libro descargado.'); });
+    const btnCopLibro = $('#btnCopiarLibro');
+    if (btnCopLibro) btnCopLibro.addEventListener('click', () => copiarTexto(textoLibroPlano()));
+    const form = $('#formPregunta');
+    if (form) {
+      form.addEventListener('change', manejarCambioPregunta);
+      form.addEventListener('input', manejarEntradaPregunta);
+    }
+    const editor = $('#editorArticulo');
+    if (editor) {
+      editor.addEventListener('input', e => {
+        const cap = capPorId(estado.capActual);
+        if (!cap) return;
+        estado.textosEditados[cap.id] = e.target.value;
+        guardarDebounced();
+      });
+    }
+    document.addEventListener('click', e => {
+      const btn = e.target.closest('[data-accion]');
+      if (!btn) return;
+      const accion = btn.dataset.accion;
+      if (accion === 'pista') {
+        const pista = document.getElementById(btn.getAttribute('aria-controls'));
+        if (!pista) return;
+        const abrir = pista.hidden;
+        pista.hidden = !abrir;
+        btn.setAttribute('aria-expanded', abrir ? 'true' : 'false');
+        btn.textContent = abrir ? 'Ocultar ayuda' : 'Necesito una mano';
+        return;
+      }
+      if (accion === 'revelar') { revelarRespuesta(); return; }
+      if (accion === 'editar') { alternarEditor(); return; }
+      if (accion === 'regenerar') { regenerarTexto(); return; }
+      if (accion === 'copiar') { copiarCapitulo(); return; }
+      if (accion === 'descargar') { descargarCapitulo(); return; }
+      if (accion === 'imprimir') { imprimirCapitulo(); return; }
+      if (accion === 'volver-menu') { irMenu(); return; }
+      if (accion === 'escuchar-articulo') { escucharArticulo(btn); return; }
+      if (accion === 'escuchar-parrafo') { escucharParrafo(btn.dataset.par, btn); return; }
+    });
+    if ('speechSynthesis' in window) {
+      speechSynthesis.onvoiceschanged = seleccionarVoz;
+      seleccionarVoz();
+    } else {
+      $$('.btn-audio').forEach(b => { b.disabled = true; b.title = 'Este navegador no tiene lectura en voz alta'; });
+    }
+    window.addEventListener('beforeunload', guardarEstado);
+  }
+
+  iniciar();
+})();
+</script>
+</body>
+</html>
