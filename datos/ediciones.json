@@ -5807,6 +5807,365 @@
         "",
         "Laguna Blanca — Buenos días. Compartimos una foto del cuadro que realizamos, y de fondo nuestra escuela. Las islas Malvinas se encuentran a 1461 Km de nuestra sede. Saludos profes!!"
       ]
+    },
+    {
+      "id": "viaje-bariloche-el-cain",
+      "seccion": "voces",
+      "titulo": "El viaje de El Caín a Bariloche: una experiencia para contar",
+      "bajada": "Los estudiantes de la sede El Caín viajaron a Bariloche y comparten lo que vivieron.",
+      "autor": "Estudiantes de El Caín",
+      "rol": "Estudiantes 4.º año",
+      "sede": "El Caín",
+      "fecha": "Diciembre 2026",
+      "fecha_iso": "2026-12-01",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "Los estudiantes de la sede El Caín emprendieron un viaje a Bariloche y nos cuentan su experiencia. En este video comparten lo que significó para ellos recorrer nuevos paisajes, compartir días juntos y vivir una salida que quedará en la memoria de todo el grupo."
+        },
+        {
+          "t": "p",
+          "v": "Compartimos algunas de las fotos que sacamos durante esos días: la salida, el camino, los paisajes y los momentos que vivimos juntos."
+        },
+        {
+          "t": "slides",
+          "v": "Fotos del viaje a Bariloche · pasá las imágenes con las flechas"
+        },
+        {
+          "t": "video",
+          "v": "https://drive.google.com/file/d/1jWi-RDJaz6Z2M1N7eHyiUa9dnT5urPvu/preview",
+          "clase": "video--destacado",
+          "cap": "Viaje de los estudiantes de El Caín a Bariloche."
+        }
+      ],
+      "epigrafes": [
+        "Estudiantes de El Caín durante el viaje a Bariloche."
+      ],
+      "fotos": [
+        "foto-01.jpg"
+      ],
+      "anio": "4.º año",
+      "tutora": "Fernanda Ranileo",
+      "fotos_disposicion": [
+        "portada"
+      ],
+      "slides": [
+        "galeria/slide-01.jpg",
+        "galeria/slide-02.jpg",
+        "galeria/slide-03.jpg",
+        "galeria/slide-04.jpg",
+        "galeria/slide-05.jpg",
+        "galeria/slide-06.jpg",
+        "galeria/slide-07.jpg",
+        "galeria/slide-08.jpg",
+        "galeria/slide-09.jpg",
+        "galeria/slide-10.jpg",
+        "galeria/slide-11.jpg",
+        "galeria/slide-12.jpg",
+        "galeria/slide-13.jpg",
+        "galeria/slide-14.jpg",
+        "galeria/slide-15.jpg",
+        "galeria/slide-16.jpg",
+        "galeria/slide-17.jpg",
+        "galeria/slide-18.jpg",
+        "galeria/slide-19.jpg",
+        "galeria/slide-20.jpg",
+        "galeria/slide-21.jpg",
+        "galeria/slide-22.jpg",
+        "galeria/slide-23.jpg",
+        "galeria/slide-24.jpg",
+        "galeria/slide-25.jpg",
+        "galeria/slide-26.jpg",
+        "galeria/slide-27.jpg",
+        "galeria/slide-28.jpg",
+        "galeria/slide-29.jpg",
+        "galeria/slide-30.jpg",
+        "galeria/slide-31.jpg",
+        "galeria/slide-32.jpg",
+        "galeria/slide-33.jpg",
+        "galeria/slide-34.jpg",
+        "galeria/slide-35.jpg",
+        "galeria/slide-36.jpg",
+        "galeria/slide-37.jpg",
+        "galeria/slide-38.jpg",
+        "galeria/slide-39.jpg",
+        "galeria/slide-40.jpg",
+        "galeria/slide-41.jpg",
+        "galeria/slide-42.jpg",
+        "galeria/slide-43.jpg",
+        "galeria/slide-44.jpg",
+        "galeria/slide-45.jpg",
+        "galeria/slide-46.jpg",
+        "galeria/slide-47.jpg"
+      ]
+    },
+    {
+      "id": "el-condor-balneario-y-ecosistema",
+      "seccion": "territorio",
+      "titulo": "El Cóndor: nuestro lugar mirado con los ojos de la ciencia",
+      "bajada": "En Científica y Tecnológica estudiamos los ecosistemas y los niveles de organización de los seres vivos. Con eso en la cabeza, miramos el balneario donde vivimos.",
+      "autor": "Francisco Casanoba, Mateo Lefinir y Randi Piccinini Ramos",
+      "rol": "Estudiantes 1.º año",
+      "sede": "El Cóndor",
+      "anio": "1.º año",
+      "fecha": "Diciembre 2026",
+      "fecha_iso": "2026-12-01",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Alguna vez miraste tu propio pueblo con los ojos de la ciencia?"
+        },
+        {
+          "t": "p",
+          "v": "En Científica y Tecnológica aprendimos sobre los ecosistemas y los niveles de organización de los seres vivos. Por eso miramos nuestro lugar usando lo que aprendimos, y esto es lo que encontramos."
+        },
+        {
+          "t": "h3",
+          "v": "El origen del nombre"
+        },
+        {
+          "t": "p",
+          "v": "El nombre «Cóndor» pertenecía a un buque danés que en 1881 encalló en nuestras costas. Los sobrevivientes del naufragio se asentaron en la zona junto a otra familia danesa que ya vivía en una estancia de aquí, y la población fue creciendo."
+        },
+        {
+          "t": "h3",
+          "v": "Dónde estamos"
+        },
+        {
+          "t": "p",
+          "v": "El Balneario El Cóndor se ubica a 30 km de Viedma, la capital de Río Negro, en la desembocadura del río Negro en el Mar Argentino."
+        },
+        {
+          "t": "h3",
+          "v": "Lo que mostramos a quien nos visita"
+        },
+        {
+          "t": "p",
+          "v": "El Cóndor es un destino turístico. Estamos orgullosos de nuestras playas, los acantilados, la desembocadura del río Negro, el faro más antiguo de la Patagonia, el monumento a Ceferino Namuncurá y nuestro Memorial de Malvinas."
+        },
+        {
+          "t": "fig",
+          "f": "foto-01.jpg",
+          "clase": "fig--g8"
+        },
+        {
+          "t": "h3",
+          "v": "Un ecosistema de transición costero"
+        },
+        {
+          "t": "p",
+          "v": "El ecosistema de El Cóndor es único porque combina varios ambientes a la vez:"
+        },
+        {
+          "t": "li",
+          "b": "Estepa:",
+          "v": "el paisaje abierto y seco de la Patagonia."
+        },
+        {
+          "t": "li",
+          "b": "Acantilados costeros:",
+          "v": "las paredes altas que caen sobre el mar."
+        },
+        {
+          "t": "li",
+          "b": "Dunas:",
+          "v": "la arena que el viento mueve y acumula."
+        },
+        {
+          "t": "li",
+          "b": "Marismas:",
+          "v": "las zonas bajas que la marea cubre y descubre."
+        },
+        {
+          "t": "fig",
+          "f": "foto-02.jpg",
+          "clase": "fig--g8"
+        },
+        {
+          "t": "h3",
+          "v": "La flora"
+        },
+        {
+          "t": "p",
+          "v": "La vegetación es típica de la estepa patagónica: pastizales halófilos (resistentes al suelo con sal), arbustos bajos adaptados al clima frío y plantas halófitas, que crecen donde hay mucha salinidad cerca de la costa."
+        },
+        {
+          "t": "h3",
+          "v": "La fauna"
+        },
+        {
+          "t": "p",
+          "v": "El Cóndor tiene más de 200 especies de aves y una buena variedad de fauna costera y esteparia: loros barranqueros, gaviotas, lobos marinos, delfines, orcas, maras, zorros, choiques, ovejas, tortugas terrestres y zorrinos."
+        },
+        {
+          "t": "fig",
+          "f": "foto-03.jpg",
+          "clase": "fig--g8"
+        },
+        {
+          "t": "h3",
+          "v": "Dos espacios protegidos"
+        },
+        {
+          "t": "p",
+          "v": "En la zona tenemos dos espacios protegidos para resguardar la naturaleza y las especies:"
+        },
+        {
+          "t": "li",
+          "b": "Reserva Natural Municipal Acantilado de Los Loros:",
+          "v": "resguarda los acantilados donde nidifican los loros barranqueros."
+        },
+        {
+          "t": "li",
+          "b": "Punta Bermeja («La Lobería»):",
+          "v": "protege a los lobos marinos."
+        },
+        {
+          "t": "h3",
+          "v": "El loro barranquero, el ave emblemática"
+        },
+        {
+          "t": "p",
+          "v": "El loro barranquero (Cyanoliseus patagonus) es el ave típica y más emblemática del balneario. ¡El Cóndor tiene la colonia de loros barranqueros más grande del mundo!"
+        },
+        {
+          "t": "h3",
+          "v": "El artículo original"
+        },
+        {
+          "t": "p",
+          "v": "Así quedó armado el trabajo que presentamos en Científica y Tecnológica, con las fotos y el diseño que hicimos en clase."
+        },
+        {
+          "t": "fig",
+          "f": "articulo-original.png",
+          "clase": "fig--mediana"
+        },
+        {
+          "t": "firma",
+          "v": "Francisco Casanoba, Mateo Lefinir y Randi Piccinini Ramos · 1.º año · Sede El Cóndor"
+        }
+      ],
+      "fotos": [
+        "foto-01.jpg",
+        "foto-02.jpg",
+        "foto-03.jpg"
+      ],
+      "fotos_disposicion": [
+        "fig",
+        "fig",
+        "fig"
+      ],
+      "epigrafes": [
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": "hablamos-con-un-veterano-kakel-huincul",
+      "seccion": "voces",
+      "titulo": "Hablamos con un veterano cerca de Kakel Huincul",
+      "bajada": "Visitamos a don Marcial Torres, un gaucho de la Línea Sur que vive en Cerro Cura Uf: cómo se prepara para el invierno, cómo cuida a sus animales y qué les pide a las generaciones que vienen.",
+      "autor": "Sosa Torres Marcial",
+      "rol": "Estudiante · Clase 10",
+      "sede": "Colán Conhue",
+      "fecha": "Diciembre 2026",
+      "fecha_iso": "2026-12-01",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Conocías a gente de esta zona? Entérate de cómo sobrevive con sus animales y cómo se prepara antes del invierno."
+        },
+        {
+          "t": "cita",
+          "v": "Aprender de ellos es saber valorar sus trabajos de manera digna y sin rencores."
+        },
+        {
+          "t": "p",
+          "v": "Visitamos a don Marcial Torres, un gaucho como cualquiera pero no de cualquier lugar. Él está ubicado junto a su familia en la Línea Sur, específicamente en el 25 de Mayo, cerca de Kakel Huincul. Al presentarnos nos cuenta lo que le ha tocado vivir: empezó a trabajar a los 7 años y hoy tiene 77 años de experiencia, y nunca se fue de este paraje llamado Cerro Cura Uf. Ha vivido cosas que hoy ya no son las mismas, por suerte: dificultades climáticas, despoblación de animales, problemas de construcción a causa de los ventarrones."
+        },
+        {
+          "t": "h3",
+          "v": "Prepararse antes del invierno"
+        },
+        {
+          "t": "p",
+          "v": "Hasta el día de hoy lo sigue sobrellevando con estos fríos grandes. Nos cuenta cómo se preparan antes del invierno: traen los recursos necesarios como mercadería (harina, yerba, fideos, arroz), leña, gas y forraje para los animales. Además, sueltan los castrones y carneros en el mes de mayo, refuerzan los corrales y las ramadas para guardar a los caballos, las chivas y las ovejas, y se abastecen de ropa para las bajas temperaturas, iluminación para la casa y linternas para la noche."
+        },
+        {
+          "t": "h3",
+          "v": "La salud de los animales"
+        },
+        {
+          "t": "p",
+          "v": "Como están cerca de la época de parición, le preguntamos por las medidas de seguridad para los animales. Nos dice que solo usan bañaderas y vacunas en caso de garrapatas, boquera y sarna. No suelen aparecer otras enfermedades, así que solo compran esos remedios. Para la boquera usan remedios caseros como aceite comestible; y si les agarra a los corderos machos se les pela la cola, y a las corderas la panza, para que no se siga propagando. Solo si no tienen los remedios que se compran —pietín, pedero o pododermatitis— recurren a ellos."
+        },
+        {
+          "t": "h3",
+          "v": "Los chivos y los yeguarizos"
+        },
+        {
+          "t": "p",
+          "v": "Con los chivos no es común que se enfermen, a menos que les agarre colitis o se pulguen: solo usan agua dulce, porque no se compran remedios para ese tipo de enfermedades. Por eso nos dice que los animales cabríos son más llevaderos. Los yeguarizos solo se desparasitan con vacunas o inyectables, pero no más que eso."
+        },
+        {
+          "t": "h3",
+          "v": "La parición"
+        },
+        {
+          "t": "p",
+          "v": "En el tiempo de parición también se preparan, a fines de septiembre, más que nada con los chivos. Con estas lluvias viven situaciones malas, como que se les muera una cría de frío al no poder encontrar dónde nació. Lo que los ayuda es la ramada hecha con techo de chapas y bien forrada con nailon y maderas, dividida en tres partes: para apartar las chivas recién paridas, las que están por tener cría y las que ya tenían cría. Así se organizan mejor. Al sacarlas por la mañana uno tiene que salir a pastorearlas y traer uno o dos chivitos; si hay más que traer, tienen que salir tres, y así se hace más fácil."
+        },
+        {
+          "t": "fig",
+          "f": "foto-02.jpg",
+          "clase": "fig--g8"
+        },
+        {
+          "t": "h3",
+          "v": "Convivir con los animales salvajes"
+        },
+        {
+          "t": "p",
+          "v": "Queremos saber si se puede sostener el equilibrio con los animales salvajes como zorros, pumas o zorrinos, y nos dice:"
+        },
+        {
+          "t": "cita",
+          "v": "«Por suerte no nos ha tocado eso de las plagas, porque este lugar es llano, por eso no paran acá esos animales. También es que se anda mucho en estos lugares, ya que es un cuadro (alambrado) chico y por eso no vienen acá.»"
+        },
+        {
+          "t": "p",
+          "v": "Fuera del diálogo nos cuenta también que usan métodos simples, como andar siempre con perras, y por eso no los atacan de manera fácil. Parece que la sufren mucho en estos casos, pero por eso no piden veterinarios ni cazadores: van acompañados de lo que les dejaron los mayores."
+        },
+        {
+          "t": "h3",
+          "v": "Su mensaje para los que vienen"
+        },
+        {
+          "t": "cita",
+          "v": "«Lo único que les voy a decir a los que vienen este año es que aprendan lo que les enseñan y valoren los trabajos que hacemos, pero nunca olviden lo que nos dejaron nuestros ancestros.»"
+        },
+        {
+          "t": "firma",
+          "v": "Sosa Torres Marcial · Sede Colán Conhue (Anexo ESRN N.º 36) · Tutor: Maicol Carballo"
+        }
+      ],
+      "fotos": [
+        "foto-01.jpg",
+        "foto-02.jpg"
+      ],
+      "fotos_disposicion": [
+        "portada",
+        "fig"
+      ],
+      "epigrafes": [
+        "",
+        ""
+      ]
     }
   ]
 }

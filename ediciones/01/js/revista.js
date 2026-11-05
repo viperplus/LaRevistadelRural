@@ -1180,3 +1180,90 @@
     cuenta();
   }
 })();
+
+/* ------------------------------------------------------------------ */
+/* Galería deslizable: <figure class="slides" data-slides>             */
+/* ------------------------------------------------------------------ */
+(function () {
+  var figs = document.querySelectorAll("[data-slides]");
+  if (!figs.length) return;
+
+  Array.prototype.forEach.call(figs, function (fig) {
+    var img = fig.querySelector("[data-slides-img]");
+    var num = fig.querySelector("[data-slides-num]");
+    var datos = fig.querySelector("[data-slides-datos]");
+    var prev = fig.querySelector(".slides__nav--prev");
+    var next = fig.querySelector(".slides__nav--next");
+    if (!img || !datos) return;
+
+    var fotos;
+    try { fotos = JSON.parse(datos.textContent || "[]"); } catch (e) { return; }
+    if (!fotos.length) return;
+
+    var total = fotos.length;
+    var actual = 0;
+    var cache = {};
+
+    function precargar(n) {
+      n = ((n % total) + total) % total;
+      var f = fotos[n];
+      if (cache[f]) return;
+      cache[f] = 1;
+      var p = new Image();
+      p.src = f;
+    }
+
+    function pintar(n) {
+      actual = ((n % total) + total) % total;
+      var f = fotos[actual];
+      if (num) num.textContent = (actual + 1) + " / " + total;
+      precargar(actual + 1);
+      precargar(actual - 1);
+      if (img.getAttribute("src") === f) return;
+      img.setAttribute("data-cambiando", "1");
+      var prox = new Image();
+      prox.onload = function () {
+        img.src = f;
+        img.removeAttribute("data-cambiando");
+      };
+      prox.onerror = function () {
+        img.src = f;
+        img.removeAttribute("data-cambiando");
+      };
+      prox.src = f;
+    }
+
+    function ir(n) { pintar(n); }
+
+    if (prev) prev.addEventListener("click", function () { ir(actual - 1); });
+    if (next) next.addEventListener("click", function () { ir(actual + 1); });
+
+    fig.addEventListener("keydown", function (ev) {
+      if (ev.key === "ArrowLeft") { ir(actual - 1); ev.preventDefault(); }
+      else if (ev.key === "ArrowRight") { ir(actual + 1); ev.preventDefault(); }
+      else if (ev.key === "Home") { ir(0); ev.preventDefault(); }
+      else if (ev.key === "End") { ir(total - 1); ev.preventDefault(); }
+    });
+
+    /* Deslizar con el dedo o el mouse */
+    var x0 = null, y0 = null, activo = false;
+    fig.addEventListener("pointerdown", function (ev) {
+      if (ev.target.closest("button")) return;
+      x0 = ev.clientX; y0 = ev.clientY; activo = true;
+    });
+    fig.addEventListener("pointerup", function (ev) {
+      if (!activo) return;
+      activo = false;
+      if (x0 === null) return;
+      var dx = ev.clientX - x0, dy = ev.clientY - y0;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+        ir(actual + (dx < 0 ? 1 : -1));
+      }
+      x0 = null;
+    });
+    fig.addEventListener("pointercancel", function () { activo = false; x0 = null; });
+
+    precargar(1);
+    if (num) num.textContent = "1 / " + total;
+  });
+})();

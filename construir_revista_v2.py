@@ -610,6 +610,31 @@ def render_cuerpo(art, fotos_paths, solo_bloques=False):
                     'referrerpolicy="strict-origin-when-cross-origin" playsinline '
                     'allowfullscreen title="Video del articulo"></iframe>%s</div>'
                     % (vc, esc(video_src(v)), pie))
+        elif t == "slides":
+            # Galeria deslizable. Las fotos salen del bloque ("fotos") o del
+            # articulo ("slides"), como nombres relativos a su carpeta. La
+            # primera se carga ya; el resto lo hace el JS al deslizar, asi el
+            # articulo no arranca bajando 40 fotos.
+            fotos_slides = b.get("fotos") or art.get("slides") or []
+            if fotos_slides:
+                datos = json.dumps(fotos_slides, ensure_ascii=False).replace("</", "<\\/")
+                pie = esc(b.get("v") or "")
+                cuerpo_html.append(
+                    '<figure class="slides" data-slides tabindex="0" '
+                    'aria-label="Galería de fotos">'
+                    '<div class="slides__marco">'
+                    '<img class="slides__img" src="%s" data-slides-img alt="" decoding="async">'
+                    '</div>'
+                    '<button class="slides__nav slides__nav--prev" type="button" '
+                    'aria-label="Foto anterior">&#8249;</button>'
+                    '<button class="slides__nav slides__nav--next" type="button" '
+                    'aria-label="Foto siguiente">&#8250;</button>'
+                    '<figcaption class="slides__pie">'
+                    '<span class="slides__num" data-slides-num>1 / %d</span>%s</figcaption>'
+                    '<script type="application/json" data-slides-datos>%s</script>'
+                    '</figure>' % (esc(fotos_slides[0]), len(fotos_slides),
+                                   ("<span class=\"slides__texto\">%s</span>" % pie) if pie else "",
+                                   datos))
         else:
             cuerpo_html.append("<p class='txt-parrafo'>%s</p>" % md(v))
     if en_lista:
