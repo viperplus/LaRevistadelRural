@@ -122,6 +122,9 @@ FOTOS_EGRESADOS = {
     ("Paillalef Parra", "Benjamín Gonzalo"): "villa_llanquin_benjamin_paillalef.png",
     ("Calluhuequi", "Enzo Leonel"): "yaminue_enzo_calluhuequi.png",
     ("Quichan", "Carlos Lisandro"): "yaminue_carlos_quichan.png",
+    ("Miranda Rodríguez", "Jeremías Leonardo"): "el_manso_geremias_miranda.png",
+    ("Monsalbe", "Leonel Uriel"): "el_manso_leonel_monsalbe.png",
+    ("Ulloa", "Sol Antonella"): "el_manso_sol_ulloa.png",
 }
 
 # Collage de la promoción: (archivo, leyenda, sede, tamaño). "lg" grande, "w" horizontal, "t" vertical.
@@ -142,6 +145,9 @@ FOTOS_COLLAGE = [
     ("villa_llanquin_benjamin_paillalef.png", "Benjamín Paillalef", "Villa Llanquín", ""),
     ("yaminue_carlos_quichan.png", "Carlos Quichan", "Yaminué", "t"),
     ("yaminue_enzo_calluhuequi.png", "Enzo Calluhuequi", "Yaminué", ""),
+    ("el_manso_leonel_monsalbe.png", "Leonel Monsalbe", "El Manso", ""),
+    ("el_manso_sol_ulloa.png", "Sol Ulloa", "El Manso", ""),
+    ("el_manso_geremias_miranda.png", "Geremías Miranda", "El Manso", ""),
 ]
 
 
@@ -934,9 +940,13 @@ def meta_descripcion(bajada):
 
 
 def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
-    css = '<link rel="stylesheet" href="%srevista.css">' % cssdir
+    # La version en la consulta rompe la cache del navegador cuando cambian
+    # los estaticos: sin esto, un lector que ya entro seguia viendo el JS
+    # viejo (por ejemplo, una galeria sin las flechas funcionando).
+    ver = "?v=20261104"
+    css = '<link rel="stylesheet" href="%srevista.css%s">' % (cssdir, ver)
     # Visor de fotos: mismos niveles que la hoja de estilos (css/ -> js/).
-    js = '<script src="%srevista.js" defer></script>' % cssdir.replace("css/", "js/")
+    js = '<script src="%srevista.js%s" defer></script>' % (cssdir.replace("css/", "js/"), ver)
     # Accesibilidad: script chico que reaplica los ajustes del lector
     # (tamaño de letra, contraste alto, modo nocturno...) antes del
     # primer pintado, para que no haya destello del tema anterior.

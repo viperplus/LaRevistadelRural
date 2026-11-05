@@ -2668,7 +2668,7 @@ html[data-contraste] main a, html[data-contraste] .pie a {
   font-size: 1.6rem;
   line-height: 1;
   cursor: pointer;
-  opacity: 0;
+  opacity: .92;
   transition: opacity .15s ease, background .15s ease;
 }
 .slides:hover .slides__nav,
