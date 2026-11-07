@@ -45,12 +45,6 @@
       "bajada": "Arte, fotografía, paisajes y costumbres desde el territorio."
     },
     {
-      "id": "futuro",
-      "n": "07",
-      "titulo": "Futuro",
-      "bajada": "Cuidar el presente para pensar el futuro: ambiente y proyectos de vida."
-    },
-    {
       "id": "proyectos",
       "titulo": "Proyectos",
       "bajada": "Encuentros, proyectos y vivencias que se corren del aula y llegan muy lejos.",
@@ -2378,7 +2372,7 @@
       "autor": "Gabriela Seco",
       "sede": "Aguada de Guerra",
       "anio": "4.º año",
-      "seccion": "futuro",
+      "seccion": "territorio",
       "fecha": "Noviembre 2026",
       "fecha_iso": "2026-11-01",
       "fotos": [
