@@ -6166,6 +6166,75 @@
         "",
         ""
       ]
+    },
+    {
+      "id": "a-rodar-escuelas-2026",
+      "seccion": "voces",
+      "titulo": "La ESRN Rural Virtual dijo presente en A Rodar Escuelas 2026",
+      "bajada": "Dos cortometrajes del Taller de Creaciones Audiovisuales participaron del programa provincial: «Raíces que sueñan», de Cona Niyeu, y «Acá me quedo», de Laguna Blanca, que recibió una Mención Especial del Jurado.",
+      "autor": "Taller de Creaciones Audiovisuales",
+      "rol": "Estudiantes",
+      "sede": "Cona Niyeu y Laguna Blanca",
+      "fecha": "Diciembre 2026",
+      "fecha_iso": "2026-12-01",
+      "anio": "2026",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "Durante 2026, la ESRN Rural Virtual participó en el programa provincial A Rodar Escuelas con dos cortometrajes. Las producciones formaron parte de las propuestas desarrolladas en el marco del Taller de Creaciones Audiovisuales, un espacio que promueve la expresión, la creatividad y el trabajo colectivo a través del lenguaje audiovisual."
+        },
+        {
+          "t": "p",
+          "v": "Raíces que sueñan, realizado por estudiantes de Cona Niyeu, participó del encuentro zonal realizado en Sierra Grande, compartiendo su producción con otras escuelas de la zona; recibieron certificado por su participación y un trípode para su sede. Acá me quedo, producido por estudiantes de Laguna Blanca, fue presentado en Comallo y recibió una Mención Especial del Jurado, reconocimiento que incluyó certificados para sus realizadores, un trípode y una cámara digital para la sede."
+        },
+        {
+          "t": "p",
+          "v": "Ambos cortometrajes abordan con sensibilidad y profundidad temas vinculados a la identidad, el arraigo y el sentido de pertenencia, poniendo en valor las historias, los paisajes, las comunidades y las experiencias de las juventudes que habitan el territorio rural rionegrino."
+        },
+        {
+          "t": "p",
+          "v": "A continuación, compartimos estas dos producciones audiovisuales realizadas íntegramente por estudiantes de la ESRN Rural Virtual."
+        },
+        {
+          "t": "h3",
+          "v": "Raíces que sueñan"
+        },
+        {
+          "t": "video",
+          "v": "https://www.youtube.com/embed/pgiABTaywsw",
+          "cap": "Raíces que sueñan · Cona Niyeu"
+        },
+        {
+          "t": "p",
+          "v": "Raíces que sueñan es una producción audiovisual realizada por estudiantes de Cona Niyeu que invita a recorrer la vida de la comunidad donde la memoria, las tradiciones y la educación se entrelazan. A través de sus propias voces e imágenes, el corto retrata la riqueza cultural del territorio, el valor de las raíces y los sueños de una juventud que construye su futuro sin olvidar de dónde viene."
+        },
+        {
+          "t": "h3",
+          "v": "Acá me quedo"
+        },
+        {
+          "t": "video",
+          "v": "https://www.youtube.com/embed/Gp-cVNNZdZY",
+          "cap": "Acá me quedo · Laguna Blanca"
+        },
+        {
+          "t": "p",
+          "v": "Acá me quedo es un relato audiovisual creado por estudiantes de Laguna Blanca que recupera la historia de su escuela y reflexiona sobre el presente de las nuevas generaciones. A través de sus propias voces, imágenes y experiencias, el cortometraje pone en valor la identidad, el arraigo y el sentido de pertenencia, destacando el papel de la ESRN Rural Virtual como una oportunidad para estudiar, crecer y proyectar un futuro sin tener que abandonar el lugar donde están sus raíces, sus familias y su comunidad."
+        }
+      ],
+      "fotos": [
+        "foto-01.jpg",
+        "foto-02.jpg"
+      ],
+      "fotos_disposicion": [
+        "portada",
+        "seccion-m"
+      ],
+      "epigrafes": [
+        "",
+        ""
+      ]
     }
   ]
 }
