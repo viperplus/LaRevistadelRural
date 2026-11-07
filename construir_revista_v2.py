@@ -944,7 +944,7 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
     # La version en la consulta rompe la cache del navegador cuando cambian
     # los estaticos: sin esto, un lector que ya entro seguia viendo el JS
     # viejo (por ejemplo, una galeria sin las flechas funcionando).
-    ver = "?v=20261107b"
+    ver = "?v=20261108"
     css = '<link rel="stylesheet" href="%srevista.css%s">' % (cssdir, ver)
     # Visor de fotos: mismos niveles que la hoja de estilos (css/ -> js/).
     js = '<script src="%srevista.js%s" defer></script>' % (cssdir.replace("css/", "js/"), ver)
@@ -1139,14 +1139,31 @@ def main():
     sec_cards += ("<article class='sec_card grid-4' data-sec='egresados'>"
                   "<h3 class='sec_card__titulo'><a href='egresados.html'>Egresados</a></h3>"
                   "<p class='sec_card__bajada'>Graduados de la promoción</p></article>")
+    editorial_txt = [
+        "Desde nuestra institución queremos darles la más cálida bienvenida a una nueva edición de la Revista del Rural 2026.",
+        "Un espacio donde las voces, las experiencias y los aprendizajes de nuestras comunidades se encuentran para compartir y construir conocimiento. Porque estudiar en la ruralidad es también aprender desde nuestro territorio, valorar nuestras raíces y descubrir que, aun a la distancia, la educación nos une y nos abre caminos hacia nuevos horizontes.",
+    ]
+    editorial = (
+        '<section class="editorial" aria-labelledby="editorial-t">\n'
+        '<h2 id="editorial-t" class="editorial__t">Mensaje editorial</h2>\n'
+        '<div class="editorial__cuerpo">\n'
+        '<div class="editorial__texto">%s</div>\n'
+        '<div class="editorial__firmas" role="group" aria-label="Coordinación">\n'
+        '<figure class="editorial__autor"><img src="editorial-viviana.png" alt="Viviana Huentemil" loading="lazy" decoding="async">'
+        '<figcaption><strong>Viviana Huentemil</strong><span>Coordinadora ESRN Rural Virtual</span></figcaption></figure>\n'
+        '<figure class="editorial__autor"><img src="editorial-lautaro.png" alt="Lautaro Rost" loading="lazy" decoding="async">'
+        '<figcaption><strong>Lautaro Rost</strong><span>Subcoordinador ESRN Rural Virtual</span></figcaption></figure>\n'
+        '</div>\n</div>\n</section>\n'
+        % "".join("<p>%s</p>" % esc(p) for p in editorial_txt))
     body = ('<section class="portada" aria-labelledby="portada-titulo">\n'
             '<p class="portada__sec">%s</p>\n'
             '<h1 id="portada-titulo" class="portada__h1">%s</h1>\n'
             '<p class="portada__bajada">%s</p>\n</section>\n'
+            '%s'
             '<nav class="sumario" aria-label="Sumario">\n'
             '<p class="sumario__cabecera">Sumario · %s</p>\n<ul class="sumario__lista">\n%s\n</ul>\n</nav>\n'
             '<p class="todos__enlace"><a href="articulos.html">Ver los %d artículos de esta edición</a></p>'
-            % (esc(ed_etiqueta), esc(REV), esc(SUBNOMBRE), esc(ed_etiqueta), sumario, len(articulos)))
+            % (esc(ed_etiqueta), esc(REV), esc(SUBNOMBRE), editorial, esc(ed_etiqueta), sumario, len(articulos)))
     open(os.path.join(EDIT, "index.html"), "w", encoding="utf-8").write(
         pagina("La Revista del Rural · %s" % ed_etiqueta, SUBNOMBRE, ed_etiqueta, nav_html(""),
                body, "index.html", "css/", "favicon.svg"))
