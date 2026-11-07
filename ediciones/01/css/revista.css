@@ -427,7 +427,7 @@ a:hover { color: var(--bermellon); }
 .editorial__firmas {
   flex: 0 0 auto;
   display: flex;
-  gap: var(--sp-5);
+  gap: var(--sp-3);
   align-items: flex-start;
   justify-content: center;
 }
@@ -474,7 +474,7 @@ a:hover { color: var(--bermellon); }
 }
 @media (max-width: 34rem) {
   .editorial { padding: var(--sp-4); }
-  .editorial__firmas { gap: var(--sp-4); }
+  .editorial__firmas { gap: var(--sp-3); }
   .editorial__autor { max-width: 8.5rem; }
   .editorial__autor img { width: 6rem; height: 6rem; }
 }
