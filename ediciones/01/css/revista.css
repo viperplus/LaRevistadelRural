@@ -2190,19 +2190,25 @@ a:hover { color: var(--bermellon); }
 .collage {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
-  grid-auto-rows: 12.5rem;
   grid-auto-flow: dense;
   gap: .9rem;
   margin-top: 1.2rem;
 }
 .collage__item {
   position: relative; margin: 0;
+  /* Todas las fotos comparten el mismo alto: un retrato 2:3. Antes habia
+     celdas de 1, 2 y 4 cuadros y las caras quedaban de tamanos muy
+     distintos; ahora solo las fotos apaisadas ocupan doble ancho. */
+  aspect-ratio: 2 / 3;
   border-radius: var(--r-m); overflow: hidden;
   box-shadow: var(--sombra-s);
   background: var(--verde-fondo);
 }
 .collage__item img {
   width: 100%; height: 100%; object-fit: cover; display: block;
+  /* En los retratos muy verticales se recorta un poco de arriba y de
+     abajo: este corrimiento deja las caras dentro del cuadro. */
+  object-position: center 25%;
   transition: transform .45s var(--trans);
 }
 .collage__item:hover img { transform: scale(1.06); }
@@ -2216,12 +2222,13 @@ a:hover { color: var(--bermellon); }
   display: block; font-size: .66rem; font-weight: 700;
   text-transform: uppercase; letter-spacing: .06em; opacity: .85;
 }
-.collage__item--lg { grid-column: span 2; grid-row: span 2; }
-.collage__item--lg img { object-fit: contain; }
-.collage__item--w { grid-column: span 2; }
-.collage__item--t { grid-row: span 2; }
+/* Las apaisadas ocupan dos columnas. El 11:8 las deja del mismo alto que
+   un retrato 2:3 de una columna (2 columnas + separación ≈ 1,375). */
+.collage__item--lg,
+.collage__item--w { grid-column: span 2; aspect-ratio: 11 / 8; }
+.collage__item--t { aspect-ratio: 2 / 3; }
 @media (max-width: 34rem) {
-  .collage { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 9.5rem; }
+  .collage { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* Mapa */

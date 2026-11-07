@@ -127,23 +127,24 @@ FOTOS_EGRESADOS = {
     ("Ulloa", "Sol Antonella"): "el_manso_sol_ulloa.png",
 }
 
-# Collage de la promoción: (archivo, leyenda, sede, tamaño). "lg" grande, "w" horizontal, "t" vertical.
+# Collage de la promoción: (archivo, leyenda, sede, tamaño). "w" horizontal
+# (doble ancho, para fotos apaisadas o grupales); el resto va en retrato 2:3.
 FOTOS_COLLAGE = [
-    ("el_cain_rocio_lincopan.png", "Rocío Abigail Lincopan", "Mencué", "t"),
-    ("aguada_cecilio_anto_contrera.png", "Sol Antonella Contrera", "Aguada Cecilio", "t"),
-    ("cerro_policia_grupo.png", "Milagros, Lucila, Lázaro y Agustín", "Cerro Policía", "lg"),
+    ("el_cain_rocio_lincopan.png", "Rocío Abigail Lincopan", "Mencué", ""),
+    ("aguada_cecilio_anto_contrera.png", "Sol Antonella Contrera", "Aguada Cecilio", ""),
+    ("cerro_policia_grupo.png", "Milagros, Lucila, Lázaro y Agustín", "Cerro Policía", "w"),
     ("corralito_faustino_vergaramayer.png", "Faustino Vergara Mayer", "Corralito", ""),
     ("colan_conhue_cecilia_lopez.png", "Cecilia López Amacio", "Colan Conhué", "w"),
-    ("el_cain_isaias_nanco.png", "Isaías Ñanco", "Mencué", "t"),
+    ("el_cain_isaias_nanco.png", "Isaías Ñanco", "Mencué", ""),
     ("el_cain_ludmila_montre.png", "Ludmila Montre Arias", "Mencué", ""),
-    ("aguada_cecilio_milagros_canumil.png", "Milagros Cañumil", "Aguada Cecilio", "lg"),
-    ("laguna_blanca_leonel_maliqueo.png", "Leonel Maliqueo", "Laguna Blanca", "t"),
+    ("aguada_cecilio_milagros_canumil.png", "Milagros Cañumil", "Aguada Cecilio", "w"),
+    ("laguna_blanca_leonel_maliqueo.png", "Leonel Maliqueo", "Laguna Blanca", ""),
     ("laguna_blanca_selene_varnes.png", "Selene Varnes", "Laguna Blanca", ""),
-    ("laguna_blanca_yordan_montecinos.png", "Yordan Montecinos", "Laguna Blanca", "t"),
+    ("laguna_blanca_yordan_montecinos.png", "Yordan Montecinos", "Laguna Blanca", ""),
     ("penas_blancas_fernando_gauna.png", "Fernando Gauna", "Peñas Blancas", ""),
-    ("penas_blancas_zaida_calle_torrez.png", "Zaida Calle Torrez", "Peñas Blancas", "t"),
+    ("penas_blancas_zaida_calle_torrez.png", "Zaida Calle Torrez", "Peñas Blancas", ""),
     ("villa_llanquin_benjamin_paillalef.png", "Benjamín Paillalef", "Villa Llanquín", ""),
-    ("yaminue_carlos_quichan.png", "Carlos Quichan", "Yaminué", "t"),
+    ("yaminue_carlos_quichan.png", "Carlos Quichan", "Yaminué", ""),
     ("yaminue_enzo_calluhuequi.png", "Enzo Calluhuequi", "Yaminué", ""),
     ("el_manso_leonel_monsalbe.png", "Leonel Monsalbe", "El Manso", ""),
     ("el_manso_sol_ulloa.png", "Sol Ulloa", "El Manso", ""),
@@ -943,7 +944,7 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
     # La version en la consulta rompe la cache del navegador cuando cambian
     # los estaticos: sin esto, un lector que ya entro seguia viendo el JS
     # viejo (por ejemplo, una galeria sin las flechas funcionando).
-    ver = "?v=20261104"
+    ver = "?v=20261107b"
     css = '<link rel="stylesheet" href="%srevista.css%s">' % (cssdir, ver)
     # Visor de fotos: mismos niveles que la hoja de estilos (css/ -> js/).
     js = '<script src="%srevista.js%s" defer></script>' % (cssdir.replace("css/", "js/"), ver)
