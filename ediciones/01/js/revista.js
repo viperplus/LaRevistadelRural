@@ -729,13 +729,14 @@
     { v: "140", txt: "A+++" }
   ];
   var AJUSTES = [
-    { k: "escala",    etq: "Tamaño de letra", tipo: "escala" },
-    { k: "contraste", etq: "Contraste alto",  v: "1" },
-    { k: "tema",      etq: "Modo nocturno",   v: "oscuro" },
-    { k: "subrayar",  etq: "Enlaces subrayados", v: "1" },
-    { k: "calma",     etq: "Movimiento calmo",  v: "1" },
-    { k: "dislexia",  etq: "Letras más claras", v: "1" },
-    { k: "voz",       etq: "Leer en voz alta",  v: "1" }
+    { k: "escala",     etq: "Tamaño de letra",     tipo: "escala" },
+    { k: "contraste",  etq: "Contraste alto",      v: "1" },
+    { k: "tema",       etq: "Modo nocturno",       v: "oscuro" },
+    { k: "subrayar",   etq: "Enlaces subrayados",  v: "1" },
+    { k: "calma",      etq: "Movimiento calmo",    v: "1" },
+    { k: "dislexia",   etq: "Letras más claras",   v: "1" },
+    { k: "mayusculas", etq: "Textos en mayúsculas", v: "1" },
+    { k: "voz",        etq: "Leer en voz alta",    v: "1" }
   ];
 
   function leer() {

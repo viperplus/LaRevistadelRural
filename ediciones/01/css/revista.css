@@ -2631,6 +2631,12 @@ html[data-dislexia] p, html[data-dislexia] li, html[data-dislexia] figcaption {
   letter-spacing: .04em; word-spacing: .12em;
   text-align: left; text-indent: 0; line-height: 1.8;
 }
+/* Mayúsculas: opción de accesibilidad que pone todo el texto en caja alta. */
+html[data-mayusculas] body, html[data-mayusculas] button,
+html[data-mayusculas] input, html[data-mayusculas] select,
+html[data-mayusculas] textarea {
+  text-transform: uppercase !important;
+}
 
 /* --- Modo nocturno: papel oscuro cálido, tinta crema y colores de
        sección más claros --sobre-sec se vuelve casi negra para que
