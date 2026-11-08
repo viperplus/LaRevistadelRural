@@ -1149,9 +1149,9 @@ def main():
         '<div class="editorial__cuerpo">\n'
         '<div class="editorial__texto">%s</div>\n'
         '<div class="editorial__firmas" role="group" aria-label="Coordinación">\n'
-        '<figure class="editorial__autor"><img src="editorial-viviana.png" alt="Viviana Huentemil" loading="lazy" decoding="async">'
+        '<figure class="editorial__autor"><img src="editorial-viviana.jpg" alt="Viviana Huentemil" loading="lazy" decoding="async">'
         '<figcaption><strong>Viviana Huentemil</strong><span>Coordinadora ESRN Rural Virtual</span></figcaption></figure>\n'
-        '<figure class="editorial__autor"><img src="editorial-lautaro.png" alt="Lautaro Rost" loading="lazy" decoding="async">'
+        '<figure class="editorial__autor"><img src="editorial-lautaro.jpg" alt="Lautaro Rost" loading="lazy" decoding="async">'
         '<figcaption><strong>Lautaro Rost</strong><span>Subcoordinador ESRN Rural Virtual</span></figcaption></figure>\n'
         '</div>\n</div>\n</section>\n'
         % "".join("<p>%s</p>" % esc(p) for p in editorial_txt))
