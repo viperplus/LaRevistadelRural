@@ -1168,10 +1168,110 @@ def main():
             '<nav class="sumario" aria-label="Sumario">\n'
             '<p class="sumario__cabecera">Sumario · %s</p>\n<ul class="sumario__lista">\n%s\n</ul>\n</nav>\n'
             '<p class="todos__enlace"><a href="articulos.html">Ver los %d artículos de esta edición</a></p>'
+            '<p class="todos__enlace"><a href="revista.pdf">Descargar la revista en PDF</a></p>'
             % (esc(ed_etiqueta), esc(REV), esc(SUBNOMBRE), editorial, esc(ed_etiqueta), sumario, len(articulos)))
     open(os.path.join(EDIT, "index.html"), "w", encoding="utf-8").write(
         pagina("La Revista del Rural · %s" % ed_etiqueta, SUBNOMBRE, ed_etiqueta, nav_html(""),
                body, "index.html", "css/", "favicon.svg"))
+
+    # ---- vista de impresion: revista completa para PDF ---------------------
+    ver = "?v=20261113e"
+    def _imp_art(art):
+        uid = art["id"]
+        fotos = art.get("fotos") or []
+        prefixed = ["%s/%s" % (uid, f) for f in fotos]
+        cuerpo = (render_album(art, prefixed) if art.get("tipo") == "album"
+                  else render_cuerpo(art, prefixed))
+        cuerpo = cuerpo.replace('loading="lazy"', 'loading="eager"')
+        sec = next((s for s in secciones if s["id"] == art.get("seccion")), None)
+        sec_nom = sec["titulo"] if sec else "Voces"
+        autor = (art.get("autor") or "").strip()
+        sede = (art.get("sede") or "").strip()
+        fecha = (art.get("fecha") or "").strip()
+        byline = " · ".join(p for p in [
+            ("Por %s" % esc(autor)) if autor else "",
+            ("Sede: %s" % esc(sede)) if sede else "",
+            esc(fecha) if fecha else "",
+            esc(sec_nom),
+        ] if p)
+        return (
+            '<article class="imp-articulo">\n'
+            '<h3 class="imp-art-titulo">%s</h3>\n'
+            '<p class="imp-bajada">%s</p>\n'
+            '<p class="imp-meta">%s</p>\n'
+            '<div class="imp-cuerpo">%s</div>\n'
+            '</article>\n'
+            % (md(art.get("titulo", uid)), md(art.get("bajada", "")),
+               byline, cuerpo))
+
+    imp_parts = []
+    imp_parts.append(
+        '<section class="imp-portada">\n'
+        '<p class="imp-marca">La Revista del Rural</p>\n'
+        '<h1 class="imp-titulo">La Revista del Rural</h1>\n'
+        '<p class="imp-edicion">%s</p>\n'
+        '<p class="imp-sub">%s</p>\n'
+        '<div class="imp-editorial">\n'
+        '<h2 class="imp-editorial-t">Mensaje editorial</h2>\n'
+        '%s\n'
+        '<div class="imp-firmas">\n'
+        '<figure><img src="editorial-viviana.jpg" alt="Viviana Huentemil"><figcaption><strong>Viviana Huentemil</strong><br>Coordinadora ESRN Rural Virtual</figcaption></figure>\n'
+        '<figure><img src="editorial-lautaro.jpg" alt="Lautaro Rost"><figcaption><strong>Lautaro Rost</strong><br>Subcoordinador ESRN Rural Virtual</figcaption></figure>\n'
+        '</div>\n</div>\n</section>\n'
+        % (esc(ed_etiqueta), esc(SUBNOMBRE),
+           "".join("<p>%s</p>" % esc(p) for p in editorial_txt)))
+    toc = []
+    for i, s in enumerate(secciones):
+        arts = [a for a in articulos if a.get("seccion") == s["id"]]
+        toc.append('<li class="imp-toc-sec"><span class="imp-toc-num">%02d</span> '
+                   '<span class="imp-toc-nombre">%s</span></li>' % (i + 1, esc(s["titulo"])))
+        for a in arts:
+            toc.append('<li class="imp-toc-art"><span class="imp-toc-art-nombre">%s</span></li>'
+                       % esc(a.get("titulo", "")))
+    imp_parts.append(
+        '<section class="imp-indice">\n'
+        '<h2 class="imp-indice-t">Índice</h2>\n'
+        '<ul class="imp-toc">\n%s\n</ul>\n</section>\n' % "\n".join(toc))
+    for i, s in enumerate(secciones):
+        arts = [a for a in articulos if a.get("seccion") == s["id"]]
+        if not arts:
+            continue
+        imp_parts.append(
+            '<section class="imp-seccion" id="sec-%s">\n'
+            '<div class="imp-seccion-portada">\n'
+            '<p class="imp-sec-num">%02d / %02d</p>\n'
+            '<h2 class="imp-sec-titulo">%s</h2>\n'
+            '<p class="imp-sec-desc">%s</p>\n'
+            '</div>\n'
+            '%s\n</section>\n'
+            % (s["id"], i + 1, len(secciones), esc(s["titulo"]), esc(s.get("bajada", "")),
+               "\n".join(_imp_art(a) for a in arts)))
+    imp_parts.append(
+        '<section class="imp-album-nota">\n'
+        '<h2>Álbum de figuritas</h2>\n'
+        '<p>El álbum reúne 282 figuritas de 27 sedes. Por su tamaño, se disfruta mejor en la versión web, donde se puede pasar página por página.</p>\n'
+        '<p><a href="https://viperplus.github.io/LaRevistadelRural/ediciones/01/album-figuritas/index.html">Ver el álbum completo en la web</a></p>\n'
+        '</section>\n')
+    imp_parts.append(
+        '<footer class="imp-creditos">\n'
+        '<p>La Revista del Rural · %s · %s · %s</p>\n'
+        '<p>Escrita, ilustrada y fotografiada por estudiantes de la ESRN Rural Virtual.</p>\n'
+        '</footer>\n' % (esc(REV), esc(SUBNOMBRE), esc(ed_etiqueta)))
+    imp_html = (
+        '<!doctype html>\n<html lang="es" dir="ltr">\n<head>\n'
+        '<meta charset="utf-8">\n'
+        '<meta name="viewport" content="width=device-width,initial-scale=1">\n'
+        '<title>La Revista del Rural · %s · Versión para imprimir</title>\n'
+        '<link rel="icon" href="favicon.svg" type="image/svg+xml">\n'
+        '<link rel="preconnect" href="https://fonts.googleapis.com">\n'
+        '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+        '<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,700;0,800;1,400&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&amp;display=swap" rel="stylesheet">\n'
+        '<link rel="stylesheet" href="css/revista.css%s">\n'
+        '<link rel="stylesheet" href="css/impresion.css%s">\n'
+        '</head>\n<body class="imp-body">\n%s\n</body>\n</html>\n'
+        % (esc(ed_etiqueta), ver, ver, "\n".join(imp_parts)))
+    open(os.path.join(EDIT, "impresion.html"), "w", encoding="utf-8").write(imp_html)
+    print("impresion.html -> %d secciones, %d articulos" % (len(secciones), len(articulos)))
 
     # ---- egresados ---------------------------------------------------------
     n_egr = len(EGRESADOS)
