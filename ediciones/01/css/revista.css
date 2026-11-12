@@ -262,6 +262,9 @@ a:hover { color: var(--bermellon); }
               box-shadow .2s var(--trans);
 }
 .nav-ed a[data-sec="presentacion"] { --sc: var(--verde); }
+/* El botón Índice va primero y con color propio, para que se distinga
+   del resto de las secciones. */
+.nav-ed a[data-sec="indice"] { --sc: var(--ocre-texto); }
 .nav-ed a[data-sec="ciencia"] { --sc: var(--sec-ciencia); }
 .nav-ed a[data-sec="territorio"] { --sc: var(--sec-territorio); }
 .nav-ed a[data-sec="cultura"] { --sc: var(--sec-cultura); }

@@ -944,7 +944,7 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
     # La version en la consulta rompe la cache del navegador cuando cambian
     # los estaticos: sin esto, un lector que ya entro seguia viendo el JS
     # viejo (por ejemplo, una galeria sin las flechas funcionando).
-    ver = "?v=20261109"
+    ver = "?v=20261112"
     css = '<link rel="stylesheet" href="%srevista.css%s">' % (cssdir, ver)
     # Visor de fotos: mismos niveles que la hoja de estilos (css/ -> js/).
     js = '<script src="%srevista.js%s" defer></script>' % (cssdir.replace("css/", "js/"), ver)
@@ -992,11 +992,15 @@ def main():
             optimizar_imagen(ruta)
 
     def nav_html(pre=""):
+        # "Índice" vuelve siempre a la portada de la edición (la página
+        # principal del sitio), desde cualquier artículo o sección.
+        indice = ("<li><a href='%sindex.html' data-sec='indice' "
+                  "class='nav-ed__indice'>Índice</a></li>" % pre)
         pre_link = "<li><a href='%spresentacion.html' data-sec='presentacion'>Presentación</a></li>" % pre
         lis = "".join("<li><a href='%ssecciones/%s.html' data-sec='%s'>%s</a></li>" %
                       (pre, s["id"], s["id"], esc(s["titulo"])) for s in secciones)
         egr = "<li><a href='%segresados.html' data-sec='egresados'>Egresados</a></li>" % pre
-        return "<ul class='nav-ed__lista'>%s%s%s</ul>" % (pre_link, lis, egr)
+        return "<ul class='nav-ed__lista'>%s%s%s%s</ul>" % (indice, pre_link, lis, egr)
 
     art_por_sec = {}
     for a in articulos:
