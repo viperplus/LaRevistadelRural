@@ -729,14 +729,22 @@
     { v: "140", txt: "A+++" }
   ];
   var AJUSTES = [
-    { k: "escala",     etq: "Tamaño de letra",     tipo: "escala" },
-    { k: "contraste",  etq: "Contraste alto",      v: "1" },
-    { k: "tema",       etq: "Modo nocturno",       v: "oscuro" },
-    { k: "subrayar",   etq: "Enlaces subrayados",  v: "1" },
-    { k: "calma",      etq: "Movimiento calmo",    v: "1" },
-    { k: "dislexia",   etq: "Letras más claras",   v: "1" },
-    { k: "mayusculas", etq: "Textos en mayúsculas", v: "1" },
-    { k: "voz",        etq: "Leer en voz alta",    v: "1" }
+    { k: "escala",     etq: "Tamaño de letra",     tipo: "escala",
+      ic: '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><text x="12" y="17" text-anchor="middle" font-family="Archivo,system-ui,sans-serif" font-size="13" font-weight="800" fill="currentColor">Aa</text></svg>' },
+    { k: "contraste",  etq: "Contraste alto",      v: "1",
+      ic: '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg>' },
+    { k: "tema",       etq: "Modo nocturno",       v: "oscuro",
+      ic: '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' },
+    { k: "subrayar",   etq: "Enlaces subrayados",  v: "1",
+      ic: '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><text x="12" y="15" text-anchor="middle" font-family="Archivo,system-ui,sans-serif" font-size="13" font-weight="800" fill="currentColor">A</text><line x1="4" y1="20" x2="20" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' },
+    { k: "calma",      etq: "Movimiento calmo",    v: "1",
+      ic: '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M12 3c-4 4-6 8-6 12a6 6 0 0 0 12 0c0-4-2-8-6-12z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>' },
+    { k: "dislexia",   etq: "Letras más claras",   v: "1",
+      ic: '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><text x="12" y="17" text-anchor="middle" font-family="Archivo,system-ui,sans-serif" font-size="12" font-weight="800" fill="currentColor" letter-spacing="2">Ab</text></svg>' },
+    { k: "mayusculas", etq: "Textos en mayúsculas", v: "1",
+      ic: '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><text x="12" y="17" text-anchor="middle" font-family="Archivo,system-ui,sans-serif" font-size="12" font-weight="800" fill="currentColor">AA</text></svg>' },
+    { k: "voz",        etq: "Leer en voz alta",    v: "1",
+      ic: '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M3 9h4l5-4v14l-5-4H3zM16 8a4 4 0 0 1 0 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' }
   ];
 
   function leer() {
@@ -768,7 +776,8 @@
   function grupo(a) {
     var i, h;
     if (a.tipo === "escala") {
-      h = '<span class="acc__etq" id="acc-etq-' + a.k + '">' + a.etq +
+      h = '<span class="acc__etq" id="acc-etq-' + a.k + '"><span class="acc__icon">' +
+        (a.ic || "") + "</span>" + a.etq +
         '</span><div class="acc__fila" role="group" aria-labelledby="acc-etq-' +
         a.k + '">';
       for (i = 0; i < ESCALAS.length; i++) {
@@ -776,9 +785,10 @@
       }
       return h + "</div>";
     }
-    /* Los demás son una fila entera: nombre a la izquierda y el
+    /* Los demás son una fila entera: ícono y nombre a la izquierda y el
        estado a la derecha, para que se lea prendido/apagado */
-    return boton(a.k, a.v, a.etq + '<span class="acc__estado">Apagado</span>', false);
+    return boton(a.k, a.v, '<span class="acc__icon">' + (a.ic || "") +
+      "</span>" + a.etq + '<span class="acc__estado">Apagado</span>', false);
   }
 
   var html = '<button type="button" class="acc__btn" aria-expanded="false"' +
@@ -1614,7 +1624,11 @@
     lanzador.type = "button";
     lanzador.className = "acc__t acc__t--reset";
     lanzador.setAttribute("data-tuto", "1");
-    lanzador.textContent = "Ver el tutorial";
+    lanzador.innerHTML = '<span class="acc__icon">' +
+      '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">' +
+      '<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>' +
+      '<path d="M12 8v.01M10 12h2v4h2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
+      "</span>Ver el tutorial";
     panelo.appendChild(lanzador);
   }
 

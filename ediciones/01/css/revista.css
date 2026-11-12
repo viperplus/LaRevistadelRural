@@ -2681,7 +2681,9 @@ html[data-calma] .tuto__anillo { transition: none; }
 .acc__panelo {
   position: absolute; right: 0; bottom: 3.85rem;
   width: min(19.5rem, calc(100vw - 2rem));
-  padding: 1.05rem 1.05rem 1.15rem;
+  max-height: calc(100vh - 5rem);
+  overflow-y: auto;
+  padding: .8rem .85rem .9rem;
   background: var(--papel-alt);
   border: 1px solid var(--linea);
   border-radius: var(--r-l);
@@ -2689,18 +2691,24 @@ html[data-calma] .tuto__anillo { transition: none; }
 }
 .acc__panelo[hidden] { display: none; }
 .acc__titulo {
-  margin: 0 0 .9rem; font-size: var(--k-tam); font-weight: 800;
+  margin: 0 0 .6rem; font-size: .7rem; font-weight: 800;
   letter-spacing: var(--k-track); text-transform: uppercase; color: var(--tinta-2);
 }
 .acc__etq {
-  display: block; margin: 0 0 .35rem;
-  font-size: .68rem; font-weight: 700; letter-spacing: .1em;
+  display: flex; align-items: center; gap: .35rem;
+  margin: 0 0 .25rem;
+  font-size: .62rem; font-weight: 700; letter-spacing: .1em;
   text-transform: uppercase; color: var(--tinta-3);
 }
-.acc__fila { display: flex; flex-wrap: wrap; gap: .38rem; margin: 0 0 .95rem; }
+.acc__icon {
+  flex: none; width: 1rem; height: 1rem;
+  display: inline-grid; place-items: center;
+  color: var(--verde-texto);
+}
+.acc__fila { display: flex; flex-wrap: wrap; gap: .3rem; margin: 0 0 .6rem; }
 .acc__t {
-  font-family: var(--titulos); font-size: .78rem; font-weight: 700;
-  padding: .38rem .7rem; cursor: pointer; line-height: 1.2;
+  font-family: var(--titulos); font-size: .74rem; font-weight: 700;
+  padding: .32rem .6rem; cursor: pointer; line-height: 1.2;
   color: var(--tinta); background: var(--papel);
   border: 1px solid var(--linea); border-radius: var(--r-full);
   transition: background .18s var(--trans), color .18s var(--trans),
@@ -2713,11 +2721,13 @@ html[data-calma] .tuto__anillo { transition: none; }
 }
 .acc__t--escala { min-width: 2.6rem; text-align: center; padding-inline: .5rem; }
 .acc__t--fila {
-  width: 100%; justify-content: space-between; align-items: center;
-  gap: .6rem; text-align: left; border-radius: var(--r-s); font-weight: 600;
+  width: 100%; justify-content: flex-start; align-items: center;
+  gap: .5rem; text-align: left; border-radius: var(--r-s); font-weight: 600;
+  padding: .32rem .6rem;
 }
 .acc__estado {
-  font-size: .66rem; font-weight: 700; letter-spacing: .08em;
+  margin-left: auto;
+  font-size: .6rem; font-weight: 700; letter-spacing: .08em;
   text-transform: uppercase; opacity: .72;
 }
 .acc__t--fila[aria-pressed="true"] .acc__estado { opacity: 1; }

@@ -944,7 +944,7 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
     # La version en la consulta rompe la cache del navegador cuando cambian
     # los estaticos: sin esto, un lector que ya entro seguia viendo el JS
     # viejo (por ejemplo, una galeria sin las flechas funcionando).
-    ver = "?v=20261113d"
+    ver = "?v=20261113e"
     css = '<link rel="stylesheet" href="%srevista.css%s">' % (cssdir, ver)
     # Visor de fotos: mismos niveles que la hoja de estilos (css/ -> js/).
     js = '<script src="%srevista.js%s" defer></script>' % (cssdir.replace("css/", "js/"), ver)
