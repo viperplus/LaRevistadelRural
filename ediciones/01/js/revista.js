@@ -1270,65 +1270,89 @@
 })();
 
 /* ============ Tutorial de navegación ============
-   La primera vez que alguien entra, un cartel breve explica cómo
-   moverse por la revista y dónde quedan las herramientas de
-   accesibilidad. Se cierra con "Listo, a leer", con Escape o
-   tocando afuera, y no vuelve a aparecer: queda anotado en
-   localStorage. Para recuperarlo hay un enlace en el pie y un
-   botón en el panel de accesibilidad. */
+   Recorrido guiado para la primera visita. En vez de pasar
+   pantallas de texto, oscurece la página y recorta un halo sobre
+   el elemento real del que habla (el menú, el sumario, el artículo
+   o el botón de accesibilidad); el cartel se apoya al lado con una
+   flecha y se reubica solo al cambiar de paso, al scrollear o al
+   redimensionar. Se cierra con Escape, con la cruz o tocando
+   afuera, y no vuelve a aparecer. Para recuperarlo hay un enlace
+   en el pie y un botón en el panel de accesibilidad. */
 (function () {
   "use strict";
   if (!document.body) return;
 
   var CLAVE = "rev.tuto";
-  var PASOS = [
-    {
-      t: "El menú de arriba",
-      v: "<strong>Índice</strong> te devuelve siempre a esta portada. " +
-         "Al lado están las secciones: Escuela, Ciencia y tecnología, " +
-         "Territorio, Voces, Estudiantes, Cultura y Proyectos. " +
-         "Al final, <strong>Egresados</strong>.",
-      p: "En el celular, el menú se desliza de costado."
-    },
-    {
-      t: "De la portada al artículo",
-      v: "El <strong>sumario</strong> lista las secciones de la edición. " +
-         "Adentro de cada una están los artículos, con fotos, audios y " +
-         "videos. Al pie de cada artículo, <strong>Volver</strong> te deja " +
-         "en la sección.",
-      p: "¿Buscás algo puntual? Al final del sumario está el enlace con todos los artículos de la edición."
-    },
-    {
-      t: "Si te cuesta leer",
-      v: "El botón verde de la esquina —el símbolo de la persona— abre las " +
-         "<strong>herramientas de accesibilidad</strong>: tamaño de letra, " +
-         "contraste alto, modo nocturno, enlaces subrayados, movimiento " +
-         "calmo, letras para dislexia, textos en mayúsculas y lectura en " +
-         "voz alta.",
-      p: "La revista recuerda tus ajustes la próxima vez que entres.",
-      demo: true
-    }
-  ];
-
-  var icono =
+  var ICONO =
     '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"' +
     ' focusable="false"><circle cx="12" cy="4.3" r="2.1"/>' +
     '<path d="M3.6 8.3h16.8M12 8.3v6.5M12 14.8l-3.5 6.5M12 14.8l3.5 6.5"' +
     ' fill="none" stroke="currentColor" stroke-width="2"' +
     ' stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-  var pasosHtml = "", puntosHtml = "", i;
-  for (i = 0; i < PASOS.length; i++) {
-    pasosHtml +=
-      '<div class="tuto__paso" data-paso="' + i + '"' + (i ? " hidden" : "") + ">" +
-      '<h3 class="tuto__h"><span class="tuto__num" aria-hidden="true">' + (i + 1) +
-      "</span>" + PASOS[i].t + "</h3>" +
-      '<p class="tuto__p" id="tuto-p-' + i + '">' + PASOS[i].v + "</p>" +
-      (PASOS[i].demo
-        ? '<p class="tuto__demo"><span class="tuto__demo-btn">' + icono +
-          '</span><span>Herramientas de accesibilidad</span></p>'
-        : "") +
-      '<p class="tuto__pista">' + PASOS[i].p + "</p></div>";
+  /* Cada paso apunta a un elemento de la página (sel). Sin sel es
+     la bienvenida, que va centrada y sin halo. Los pasos se arman
+     según la página: la portada tiene sumario, el artículo tiene
+     cuerpo, la sección tiene listado. */
+  var PASOS = [{
+    t: "Cómo navegar la revista",
+    v: "Un recorrido corto por el menú, el contenido y las herramientas " +
+       "de accesibilidad. Te muestro dónde está cada cosa.",
+    p: "Podés salir cuando quieras con Escape."
+  }, {
+    sel: ".nav-ed",
+    t: "El menú de arriba",
+    v: "<strong>Índice</strong> te devuelve a la portada. Al lado, las " +
+       "secciones agrupan los artículos: Escuela, Ciencia y tecnología, " +
+       "Territorio, Voces, Estudiantes, Cultura y Proyectos.",
+    p: "En el celular, el menú se desliza de costado."
+  }];
+
+  if (document.querySelector(".sumario")) {
+    PASOS.push({
+      sel: ".sumario",
+      t: "El sumario",
+      v: "Cada línea es una sección con su número, su nombre y una " +
+         "descripción. Tocá una para entrar: adentro están todos sus " +
+         "artículos.",
+      p: "Al final del sumario está el enlace con todos los artículos de la edición."
+    });
+  } else if (document.querySelector(".articulo__cuerpo")) {
+    PASOS.push({
+      sel: ".articulo__cuerpo",
+      t: "El artículo",
+      v: "Acá está el texto con sus fotos, audios y videos. Al final de " +
+         "cada nota, <strong>Volver</strong> te deja en la sección de " +
+         "donde viniste.",
+      p: "Si la nota tiene galería, tocá una foto para verla en grande."
+    });
+  } else if (document.querySelector(".sec-listado")) {
+    PASOS.push({
+      sel: ".sec-listado",
+      t: "Los artículos de la sección",
+      v: "Cada tarjeta es un artículo: la foto, el título y la bajada. " +
+         "Tocá cualquiera para leerlo completo.",
+      p: "El número junto al título indica la sección dentro de la edición."
+    });
+  }
+
+  PASOS.push({
+    sel: ".acc__btn",
+    t: "Si te cuesta leer",
+    v: "El botón verde de la esquina abre las <strong>herramientas de " +
+       "accesibilidad</strong>: tamaño de letra, contraste alto, modo " +
+       "nocturno, enlaces subrayados, movimiento calmo, letras para " +
+       "dislexia, textos en mayúsculas y lectura en voz alta.",
+    p: "La revista recuerda tus ajustes la próxima vez que entres.",
+    acc: true
+  });
+
+  var mapaHtml = ["Portada", "Secciones", "Artículos", "Accesibilidad"]
+    .map(function (t) { return "<span>" + t + "</span>"; })
+    .join("<i aria-hidden=\"true\">\u2192</i>");
+
+  var puntosHtml = "";
+  for (var i = 0; i < PASOS.length; i++) {
     puntosHtml += '<span class="tuto__punto" data-punto="' + i + '"></span>';
   }
 
@@ -1336,18 +1360,28 @@
   capa.className = "tuto";
   capa.hidden = true;
   capa.innerHTML =
+    '<div class="tuto__anillo" aria-hidden="true"></div>' +
+    '<div class="tuto__flecha" aria-hidden="true" hidden></div>' +
     '<div class="tuto__caja" role="dialog" aria-modal="true"' +
-    ' aria-labelledby="tuto-t" tabindex="-1">' +
+    ' aria-labelledby="tuto-t" aria-describedby="tuto-v" tabindex="-1">' +
     '<button type="button" class="tuto__cerrar" aria-label="Cerrar el tutorial">' +
     '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"' +
     ' focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none"' +
     ' stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>' +
     '<p class="tuto__marca">La Revista del Rural</p>' +
-    '<h2 class="tuto__t" id="tuto-t">Cómo navegar la revista</h2>' +
-    '<div class="tuto__pasos">' + pasosHtml + "</div>" +
+    '<div class="tuto__texto" aria-live="polite">' +
+    '<p class="tuto__prog" data-prog>Paso 1 de ' + PASOS.length + "</p>" +
+    '<h2 class="tuto__t" id="tuto-t"></h2>' +
+    '<div class="tuto__mapa" data-mapa>' + mapaHtml + "</div>" +
+    '<p class="tuto__v" id="tuto-v"></p>' +
+    '<p class="tuto__demo" data-demo hidden><span class="tuto__demo-btn">' +
+    ICONO + "</span><span>Herramientas de accesibilidad</span></p>" +
+    '<button type="button" class="tuto__probar" data-probar="acc" hidden>' +
+    "Abrir las herramientas</button>" +
+    '<p class="tuto__pista" data-pista></p>' +
+    "</div>" +
     '<div class="tuto__pie">' +
     '<span class="tuto__puntos" aria-hidden="true">' + puntosHtml + "</span>" +
-    '<p class="tuto__prog" data-prog aria-live="polite">Paso 1 de ' + PASOS.length + "</p>" +
     '<span class="tuto__acciones">' +
     '<button type="button" class="tuto__b" data-nav="-1">Anterior</button>' +
     '<button type="button" class="tuto__b tuto__b--prin" data-nav="1">Siguiente</button>' +
@@ -1355,27 +1389,137 @@
   document.body.appendChild(capa);
 
   var caja = capa.querySelector(".tuto__caja");
-  var pasos = capa.querySelectorAll(".tuto__paso");
-  var puntos = capa.querySelectorAll(".tuto__punto");
+  var anillo = capa.querySelector(".tuto__anillo");
+  var flecha = capa.querySelector(".tuto__flecha");
+  var tTitulo = capa.querySelector(".tuto__t");
+  var tTexto = capa.querySelector(".tuto__v");
+  var tPista = capa.querySelector("[data-pista]");
+  var tMapa = capa.querySelector("[data-mapa]");
+  var tDemo = capa.querySelector("[data-demo]");
+  var tProbar = capa.querySelector("[data-probar]");
+  var prog = capa.querySelector("[data-prog]");
   var bAnt = capa.querySelector('[data-nav="-1"]');
   var bSig = capa.querySelector('[data-nav="1"]');
-  var prog = capa.querySelector("[data-prog]");
-  var actual = 0;
+  var puntos = capa.querySelectorAll(".tuto__punto");
+  var indice = 0;
   var previo = null;
+
+  function calma() {
+    return document.documentElement.hasAttribute("data-calma");
+  }
+
+  function objetivo() {
+    var p = PASOS[indice];
+    var el = p && p.sel ? document.querySelector(p.sel) : null;
+    if (!el) return null;
+    /* Si el elemento es más alto que media pantalla (el sumario o el
+       cuerpo de un artículo), el halo cubriría todo el viewport y el
+       cartel quedaría encima del contenido. En ese caso se recorta a
+       una parte representativa: la cabecera del sumario, el título del
+       artículo o el título de la sección. */
+    var vh = window.innerHeight;
+    if (el.getBoundingClientRect().height > vh * 0.4) {
+      var alt = el.querySelector(".sumario__cabecera, .articulo__h1");
+      if (!alt && p.sel === ".articulo__cuerpo") alt = document.querySelector(".articulo__h1");
+      if (!alt) alt = document.querySelector(".sec-portada__h1");
+      if (alt) el = alt;
+    }
+    return el;
+  }
+
+  /* Deja el elemento a la vista antes de medir: si está fuera de
+     pantalla (el sumario en la portada, el cuerpo en un artículo),
+     lo lleva al centro. */
+  function centrar(el) {
+    if (!el || el.classList.contains("acc__btn")) return;
+    var r = el.getBoundingClientRect();
+    if (r.top >= 8 && r.bottom <= window.innerHeight - 8) return;
+    try {
+      el.scrollIntoView({ block: "center", behavior: calma() ? "auto" : "smooth" });
+    } catch (e) {
+      el.scrollIntoView();
+    }
+  }
+
+  function ubicar() {
+    if (capa.hidden) return;
+    var vw = window.innerWidth;
+    var vh = window.innerHeight;
+    var tw = caja.offsetWidth;
+    var th = caja.offsetHeight;
+    var el = objetivo();
+
+    if (!el) {
+      caja.style.left = Math.round((vw - tw) / 2) + "px";
+      caja.style.top = Math.round((vh - th) / 2) + "px";
+      caja.classList.remove("tuto__caja--arriba");
+      anillo.hidden = true;
+      flecha.hidden = true;
+      return;
+    }
+
+    var r = el.getBoundingClientRect();
+    var pad = 8;
+    var x = Math.max(6, r.left - pad);
+    var y = Math.max(6, r.top - pad);
+    var w = Math.min(vw - 12, r.width + pad * 2);
+    var h = Math.min(vh - 12, r.height + pad * 2);
+
+    anillo.hidden = false;
+    anillo.style.left = x + "px";
+    anillo.style.top = y + "px";
+    anillo.style.width = w + "px";
+    anillo.style.height = h + "px";
+
+    var m = 12;
+    var abajo = y + h + m + th <= vh - 8;
+    var arriba = y - m - th >= 8;
+    var top, conFlecha = true;
+    if (abajo) top = y + h + m;
+    else if (arriba) top = y - m - th;
+    else { top = 8; conFlecha = false; }
+
+    var left = Math.min(Math.max(8, r.left + r.width / 2 - tw / 2), vw - tw - 8);
+    caja.style.left = left + "px";
+    caja.style.top = top + "px";
+    caja.classList.toggle("tuto__caja--arriba", !abajo && arriba);
+
+    if (!conFlecha) { flecha.hidden = true; return; }
+    var ax = Math.min(Math.max(16, r.left + r.width / 2 - left), tw - 16);
+    flecha.hidden = false;
+    flecha.style.left = (left + ax - 7) + "px";
+    flecha.style.top = (abajo ? top - 7 : top + th - 7) + "px";
+    flecha.classList.toggle("tuto__flecha--abajo", !abajo);
+  }
 
   function ir(n) {
     if (n < 0) n = 0;
     if (n > PASOS.length - 1) n = PASOS.length - 1;
-    actual = n;
-    for (var j = 0; j < pasos.length; j++) pasos[j].hidden = j !== n;
-    for (j = 0; j < puntos.length; j++) {
+    indice = n;
+    var p = PASOS[n];
+
+    capa.classList.toggle("tuto--intro", !p.sel);
+    anillo.hidden = !p.sel;
+    flecha.hidden = true;
+    tTitulo.textContent = p.t;
+    tTexto.innerHTML = p.v;
+    tPista.textContent = p.p || "";
+    tPista.hidden = !p.p;
+    tMapa.hidden = !!p.sel;
+    tDemo.hidden = !p.acc;
+    tProbar.hidden = !p.acc;
+    prog.textContent = "Paso " + (n + 1) + " de " + PASOS.length;
+    bAnt.disabled = n === 0;
+    bSig.textContent = n === PASOS.length - 1
+      ? "Listo, a leer" : (n === 0 ? "Empezar" : "Siguiente");
+    for (var j = 0; j < puntos.length; j++) {
       if (j === n) puntos[j].setAttribute("aria-current", "step");
       else puntos[j].removeAttribute("aria-current");
     }
-    bAnt.disabled = n === 0;
-    bSig.textContent = n === PASOS.length - 1 ? "Listo, a leer" : "Siguiente";
-    prog.textContent = "Paso " + (n + 1) + " de " + PASOS.length;
-    caja.setAttribute("aria-describedby", "tuto-p-" + n);
+
+    var el = objetivo();
+    if (el) centrar(el);
+    ubicar();
   }
 
   function abrir() {
@@ -1385,10 +1529,6 @@
     if (accBtn && accBtn.getAttribute("aria-expanded") === "true") accBtn.click();
     previo = document.activeElement;
     capa.hidden = false;
-    /* el fondo no se mueve mientras dura el tutorial */
-    var ancho = window.innerWidth - document.documentElement.clientWidth;
-    document.body.style.overflow = "hidden";
-    if (ancho > 0) document.body.style.paddingRight = ancho + "px";
     ir(0);
     caja.focus();
   }
@@ -1396,8 +1536,7 @@
   function cerrar() {
     if (capa.hidden) return;
     capa.hidden = true;
-    document.body.style.overflow = "";
-    document.body.style.paddingRight = "";
+    capa.classList.remove("tuto--intro");
     try { localStorage.setItem(CLAVE, "1"); } catch (e) {}
     try { sessionStorage.setItem(CLAVE, "1"); } catch (e) {}
     if (previo && previo.focus && document.contains(previo)) previo.focus();
@@ -1413,8 +1552,17 @@
     var b = ev.target.closest ? ev.target.closest("[data-nav]") : null;
     if (b) {
       var d = parseInt(b.getAttribute("data-nav"), 10);
-      if (d > 0 && actual === PASOS.length - 1) { cerrar(); return; }
-      ir(actual + d);
+      if (d > 0 && indice === PASOS.length - 1) { cerrar(); return; }
+      ir(indice + d);
+      return;
+    }
+    var pr = ev.target.closest ? ev.target.closest("[data-probar]") : null;
+    if (pr) {
+      cerrar();
+      window.setTimeout(function () {
+        var a = document.querySelector(".acc__btn");
+        if (a) a.click();
+      }, 160);
       return;
     }
     if (ev.target === capa) cerrar();
@@ -1424,9 +1572,11 @@
   document.addEventListener("keydown", function (ev) {
     if (capa.hidden) return;
     if (ev.key === "Escape") { ev.preventDefault(); cerrar(); return; }
+    if (ev.key === "ArrowRight") { ev.preventDefault(); ir(indice + 1); return; }
+    if (ev.key === "ArrowLeft") { ev.preventDefault(); ir(indice - 1); return; }
     if (ev.key !== "Tab") return;
-    var f = caja.querySelectorAll('button:not([disabled]), [href], input,' +
-      ' select, textarea, [tabindex]:not([tabindex="-1"])');
+    var f = caja.querySelectorAll('button:not([disabled]):not([hidden]), [href],' +
+      ' input, select, textarea, [tabindex]:not([tabindex="-1"])');
     if (!f.length) return;
     var prim = f[0], ult = f[f.length - 1];
     if (ev.shiftKey && (document.activeElement === prim || document.activeElement === caja)) {
@@ -1435,6 +1585,20 @@
       ev.preventDefault(); prim.focus();
     }
   });
+
+  /* Al scrollear o redimensionar, el halo y el cartel siguen al
+     elemento; se recalcula una vez por cuadro. */
+  var pendiente = false;
+  function reubicar() {
+    if (pendiente) return;
+    pendiente = true;
+    window.requestAnimationFrame(function () {
+      pendiente = false;
+      ubicar();
+    });
+  }
+  window.addEventListener("scroll", reubicar, { passive: true });
+  window.addEventListener("resize", reubicar);
 
   /* lanzadores: enlace del pie y botón del panel de accesibilidad */
   document.addEventListener("click", function (ev) {

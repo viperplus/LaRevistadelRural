@@ -2449,35 +2449,72 @@ html.visor-on { overflow: hidden; }
 }
 
 /* ============ TUTORIAL DE NAVEGACIÓN ============
-   Cartel de bienvenida que aparece una sola vez (ver revista.js).
-   Es un diálogo modal: fondo oscurecido, foco atrapado adentro y
-   cierre con Escape, con la cruz o tocando afuera. Usa las mismas
-   variables que el resto, así respeta modo nocturno y contraste. */
+   Recorrido guiado de la primera visita. La página se oscurece y
+   un halo recorta el elemento que se explica; el cartel se apoya
+   al lado con una flecha. Las posiciones las calcula revista.js
+   (el halo y el cartel son fixed); acá solo viven los estilos.
+   Usa las mismas variables que el resto, así respeta modo
+   nocturno, contraste, escala de letra y movimiento calmo. */
 .tuto {
   position: fixed; inset: 0; z-index: 80;
-  display: grid; place-items: center;
-  padding: 1rem;
-  background: rgba(8, 22, 16, .62);
   font-family: var(--titulos);
 }
 .tuto[hidden] { display: none; }
+.tuto--intro { background: rgba(8, 22, 16, .62); }
+
+/* El halo: borde claro + sombra enorme que oscurece todo lo demás */
+.tuto__anillo {
+  position: fixed; z-index: 1;
+  border-radius: 14px;
+  border: 2px solid rgba(255, 255, 255, .9);
+  box-shadow: 0 0 0 9999px rgba(8, 22, 16, .72);
+  pointer-events: none;
+  transition: left .28s var(--trans), top .28s var(--trans),
+              width .28s var(--trans), height .28s var(--trans);
+}
+.tuto__anillo[hidden] { display: none; }
+.tuto__anillo::after {
+  content: ""; position: absolute; inset: -7px; border-radius: inherit;
+  border: 2px solid var(--ocre-suave); opacity: .75;
+  animation: tuto-latido 2.4s ease-in-out infinite;
+}
+@keyframes tuto-latido {
+  0%, 100% { transform: scale(1); opacity: .75; }
+  50%      { transform: scale(1.03); opacity: .25; }
+}
+
+/* La flecha es un cuadrado girado 45°: apunta al elemento */
+.tuto__flecha {
+  position: fixed; z-index: 2;
+  width: 14px; height: 14px;
+  background: var(--papel-alt);
+  border-left: 1px solid var(--linea);
+  border-top: 1px solid var(--linea);
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+.tuto__flecha[hidden] { display: none; }
+.tuto__flecha--abajo {
+  border-left: 0; border-top: 0;
+  border-right: 1px solid var(--linea);
+  border-bottom: 1px solid var(--linea);
+}
+
 .tuto__caja {
-  position: relative;
-  width: min(35rem, 100%);
-  max-height: calc(100vh - 2rem);
-  overflow: auto;
-  padding: clamp(1.25rem, 3.2vw, 2.1rem);
+  position: fixed; z-index: 3;
+  width: min(23rem, calc(100vw - 1.4rem));
+  padding: 1rem 1.15rem 1.05rem;
   background: var(--papel-alt);
   border: 1px solid var(--linea);
-  border-top: 5px solid var(--verde);
-  border-radius: var(--r-l);
+  border-top: 4px solid var(--verde);
+  border-radius: var(--r-m);
   box-shadow: var(--sombra-lift);
 }
 .tuto__caja:focus { outline: none; }
 .tuto__caja:focus-visible { outline: 3px solid var(--ocre); outline-offset: 3px; }
 .tuto__cerrar {
-  position: absolute; top: .65rem; right: .65rem;
-  width: 2.1rem; height: 2.1rem; padding: 0;
+  position: absolute; top: .45rem; right: .45rem;
+  width: 1.9rem; height: 1.9rem; padding: 0;
   display: grid; place-items: center;
   border: 1px solid transparent; border-radius: var(--r-full);
   background: transparent; color: var(--tinta-2); cursor: pointer;
@@ -2486,68 +2523,83 @@ html.visor-on { overflow: hidden; }
 .tuto__cerrar:hover { background: var(--papel-calido); color: var(--tinta); }
 .tuto__cerrar:focus-visible { outline: 3px solid var(--ocre); outline-offset: 2px; }
 .tuto__marca {
-  margin: 0 0 .35rem; font-size: var(--k-tam); font-weight: 800;
-  letter-spacing: var(--k-track); text-transform: uppercase; color: var(--ocre-texto);
+  margin: 0 0 .15rem; font-size: .64rem; font-weight: 800;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--ocre-texto);
+}
+.tuto__prog {
+  margin: 0 0 .25rem; font-size: .66rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-3);
 }
 .tuto__t {
-  margin: 0 0 1.15rem; font-size: var(--t-3); line-height: 1.15;
-  color: var(--verde-osc);
+  margin: 0 0 .5rem; padding-right: 1.7rem;
+  font-size: 1.16rem; line-height: 1.2; color: var(--verde-osc);
 }
-.tuto__paso[hidden] { display: none; }
-.tuto__h {
-  display: flex; align-items: center; gap: .65rem;
-  margin: 0 0 .5rem; font-size: var(--t-2); line-height: 1.2; color: var(--tinta);
+.tuto__v {
+  margin: 0 0 .55rem; font-family: var(--texto);
+  font-size: .95rem; line-height: 1.55; color: var(--tinta);
 }
-.tuto__num {
-  flex: none; width: 2rem; height: 2rem;
-  display: grid; place-items: center;
-  border-radius: var(--r-full);
+.tuto__v strong { color: var(--verde-osc); }
+.tuto__mapa {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: .3rem; margin: .1rem 0 .8rem;
+}
+.tuto__mapa[hidden] { display: none; }
+.tuto__mapa span {
+  font-size: .68rem; font-weight: 700;
+  padding: .22rem .55rem; border-radius: var(--r-full);
   background: var(--verde-fondo); color: var(--verde-osc);
-  font-size: .95rem; font-weight: 800;
 }
-.tuto__p {
-  margin: 0 0 .75rem; font-family: var(--texto);
-  font-size: 1.02rem; line-height: 1.6; color: var(--tinta);
-}
-.tuto__p strong { color: var(--verde-osc); }
-.tuto__pista {
-  margin: 0 0 1rem; padding: .5rem .75rem;
-  border-left: 3px solid var(--verde-suave);
-  background: var(--papel-calido);
-  border-radius: 0 var(--r-s) var(--r-s) 0;
-  font-size: .85rem; line-height: 1.45; color: var(--tinta-2);
-}
+.tuto__mapa i { font-style: normal; font-size: .7rem; color: var(--tinta-3); }
 .tuto__demo {
-  display: flex; align-items: center; gap: .6rem;
-  margin: 0 0 .9rem; font-size: .88rem; font-weight: 700; color: var(--tinta-2);
+  display: flex; align-items: center; gap: .55rem;
+  margin: 0 0 .55rem; font-size: .8rem; font-weight: 700; color: var(--tinta-2);
 }
+.tuto__demo[hidden] { display: none; }
 .tuto__demo-btn {
-  flex: none; width: 2.5rem; height: 2.5rem;
+  flex: none; width: 2.2rem; height: 2.2rem;
   display: grid; place-items: center;
   border-radius: var(--r-full);
   background: var(--verde); color: var(--sobre-sec);
   box-shadow: var(--sombra-m);
 }
+.tuto__probar {
+  display: block; width: 100%; margin: 0 0 .6rem;
+  padding: .45rem .8rem; cursor: pointer;
+  font-family: var(--titulos); font-size: .8rem; font-weight: 700;
+  color: var(--verde-texto); background: var(--verde-fondo);
+  border: 1px solid var(--verde-suave); border-radius: var(--r-s);
+  transition: background .18s var(--trans), color .18s var(--trans),
+              border-color .18s var(--trans);
+}
+.tuto__probar:hover {
+  background: var(--verde); color: var(--sobre-sec); border-color: var(--verde);
+}
+.tuto__probar:focus-visible { outline: 3px solid var(--ocre); outline-offset: 2px; }
+.tuto__probar[hidden] { display: none; }
+.tuto__pista {
+  margin: 0; padding: .42rem .65rem;
+  border-left: 3px solid var(--verde-suave);
+  background: var(--papel-calido);
+  border-radius: 0 var(--r-s) var(--r-s) 0;
+  font-size: .78rem; line-height: 1.4; color: var(--tinta-2);
+}
+.tuto__pista[hidden] { display: none; }
 .tuto__pie {
-  display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem;
-  margin-top: .4rem; padding-top: 1rem;
+  display: flex; align-items: center; gap: .5rem;
+  margin-top: .3rem; padding-top: .7rem;
   border-top: 1px solid var(--linea-suave);
 }
-.tuto__puntos { display: flex; gap: .35rem; }
+.tuto__puntos { display: flex; gap: .3rem; }
 .tuto__punto {
-  width: .5rem; height: .5rem; border-radius: var(--r-full);
-  background: var(--linea); transition: background .18s var(--trans);
+  width: .42rem; height: .42rem; border-radius: var(--r-full);
+  background: var(--linea);
+  transition: background .18s var(--trans);
 }
 .tuto__punto[aria-current="step"] { background: var(--verde); }
-.tuto__prog {
-  margin: 0; flex: 1 1 auto;
-  font-size: .72rem; font-weight: 700; letter-spacing: .08em;
-  text-transform: uppercase; color: var(--tinta-3);
-}
-.tuto__acciones { display: flex; gap: .45rem; margin-left: auto; }
+.tuto__acciones { display: flex; gap: .4rem; margin-left: auto; }
 .tuto__b {
-  font-family: var(--titulos); font-size: .82rem; font-weight: 700;
-  padding: .5rem .95rem; cursor: pointer;
+  font-family: var(--titulos); font-size: .78rem; font-weight: 700;
+  padding: .42rem .8rem; cursor: pointer;
   color: var(--tinta); background: var(--papel);
   border: 1px solid var(--linea); border-radius: var(--r-full);
   transition: background .18s var(--trans), color .18s var(--trans),
@@ -2561,14 +2613,19 @@ html.visor-on { overflow: hidden; }
 }
 .tuto__b--prin:hover { background: var(--verde-osc); color: var(--sobre-sec); }
 @media (max-width: 30rem) {
-  .tuto { padding: .7rem; }
-  .tuto__caja { max-height: calc(100vh - 1.4rem); padding: 1.15rem 1rem 1.25rem; }
-  .tuto__t { font-size: var(--t-2); padding-right: 1.8rem; }
-  .tuto__p { font-size: .98rem; }
+  .tuto__caja { padding: .95rem .9rem 1rem; }
+  .tuto__t { font-size: 1.06rem; }
+  .tuto__v { font-size: .92rem; }
   .tuto__puntos { display: none; }
-  .tuto__acciones { width: 100%; }
+  .tuto__acciones { margin-left: 0; width: 100%; }
   .tuto__b { flex: 1; }
 }
+@media (prefers-reduced-motion: reduce) {
+  .tuto__anillo { transition: none; }
+  .tuto__anillo::after { animation: none; }
+}
+html[data-calma] .tuto__anillo::after { animation: none; }
+html[data-calma] .tuto__anillo { transition: none; }
 
 /* ============ IMPRESION ============ */
 @media print {
