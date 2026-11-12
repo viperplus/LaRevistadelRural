@@ -6229,6 +6229,53 @@
         "",
         ""
       ]
+    },
+    {
+      "id": "el-patio-de-todos-mencue",
+      "seccion": "ciencia",
+      "titulo": "El patio de todos: Mencué",
+      "bajada": "¿Cómo nos organizamos con la limpieza de nuestro pueblo? Le invitamos a conocer cómo nos organizamos con la limpieza de nuestro pueblo.",
+      "autor": "Luciana y Milagros Calfupan",
+      "rol": "Estudiantes 4° año — Sede Mencué",
+      "sede": "Mencué",
+      "anio": "4° año",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-12",
+      "foto_principal": "ciencia/el-patio-de-todos-mencue/foto-01.jpg",
+      "fotos": [
+        "foto-01.jpg",
+        "foto-02.jpg"
+      ],
+      "fotos_disposicion": [
+        "portada",
+        "galeria"
+      ],
+      "epigrafes": [
+        "",
+        ""
+      ],
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "Durante estos últimos años, la limpieza de nuestro pueblo ha mejorado muchísimo. No solo porque la cantidad de basura en las calles se redujo, sino porque entre los pobladores, la Escuela y la Comisión de Fomento nos propusimos tener un patio más limpio."
+        },
+        {
+          "t": "p",
+          "v": "Para que esto suceda, contamos con la ayuda de los trabajadores de la Comisión de Fomento, quienes pasan a retirar la basura de nuestros domicilios. En casa, vamos juntando los residuos en el tacho, con bolsas de consorcio, para luego llevarlos al basurero local. Además, algunos vecinos se ocupan de llevar su propia basura directamente al basurero."
+        },
+        {
+          "t": "p",
+          "v": "En este año, la Comisión de Fomento se propuso limpiar y mantener la plaza principal, así como los terrenos públicos e institucionales. También salieron a recorrer los cerros para juntar nylos y bolsas que estaban desparramados."
+        },
+        {
+          "t": "p",
+          "v": "Por su parte, la Escuela Primaria realizó una jornada sobre cómo cuidar nuestro medio ambiente y dejó a disposición cuatro cestos de basura en la plaza principal, donde se separan por sector: botellas, latas, tapitas."
+        },
+        {
+          "t": "pregunta",
+          "v": "Y si vinieras a nuestro pueblo, sabiendo cómo se maneja la limpieza... ¿Te sumarías a nuestras ideas, por el bien de tu localidad?"
+        }
+      ]
     }
   ]
 }
