@@ -1268,3 +1268,195 @@
     if (num) num.textContent = "1 / " + total;
   });
 })();
+
+/* ============ Tutorial de navegación ============
+   La primera vez que alguien entra, un cartel breve explica cómo
+   moverse por la revista y dónde quedan las herramientas de
+   accesibilidad. Se cierra con "Listo, a leer", con Escape o
+   tocando afuera, y no vuelve a aparecer: queda anotado en
+   localStorage. Para recuperarlo hay un enlace en el pie y un
+   botón en el panel de accesibilidad. */
+(function () {
+  "use strict";
+  if (!document.body) return;
+
+  var CLAVE = "rev.tuto";
+  var PASOS = [
+    {
+      t: "El menú de arriba",
+      v: "<strong>Índice</strong> te devuelve siempre a esta portada. " +
+         "Al lado están las secciones: Escuela, Ciencia y tecnología, " +
+         "Territorio, Voces, Estudiantes, Cultura y Proyectos. " +
+         "Al final, <strong>Egresados</strong>.",
+      p: "En el celular, el menú se desliza de costado."
+    },
+    {
+      t: "De la portada al artículo",
+      v: "El <strong>sumario</strong> lista las secciones de la edición. " +
+         "Adentro de cada una están los artículos, con fotos, audios y " +
+         "videos. Al pie de cada artículo, <strong>Volver</strong> te deja " +
+         "en la sección.",
+      p: "¿Buscás algo puntual? Al final del sumario está el enlace con todos los artículos de la edición."
+    },
+    {
+      t: "Si te cuesta leer",
+      v: "El botón verde de la esquina —el símbolo de la persona— abre las " +
+         "<strong>herramientas de accesibilidad</strong>: tamaño de letra, " +
+         "contraste alto, modo nocturno, enlaces subrayados, movimiento " +
+         "calmo, letras para dislexia, textos en mayúsculas y lectura en " +
+         "voz alta.",
+      p: "La revista recuerda tus ajustes la próxima vez que entres.",
+      demo: true
+    }
+  ];
+
+  var icono =
+    '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"' +
+    ' focusable="false"><circle cx="12" cy="4.3" r="2.1"/>' +
+    '<path d="M3.6 8.3h16.8M12 8.3v6.5M12 14.8l-3.5 6.5M12 14.8l3.5 6.5"' +
+    ' fill="none" stroke="currentColor" stroke-width="2"' +
+    ' stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  var pasosHtml = "", puntosHtml = "", i;
+  for (i = 0; i < PASOS.length; i++) {
+    pasosHtml +=
+      '<div class="tuto__paso" data-paso="' + i + '"' + (i ? " hidden" : "") + ">" +
+      '<h3 class="tuto__h"><span class="tuto__num" aria-hidden="true">' + (i + 1) +
+      "</span>" + PASOS[i].t + "</h3>" +
+      '<p class="tuto__p" id="tuto-p-' + i + '">' + PASOS[i].v + "</p>" +
+      (PASOS[i].demo
+        ? '<p class="tuto__demo"><span class="tuto__demo-btn">' + icono +
+          '</span><span>Herramientas de accesibilidad</span></p>'
+        : "") +
+      '<p class="tuto__pista">' + PASOS[i].p + "</p></div>";
+    puntosHtml += '<span class="tuto__punto" data-punto="' + i + '"></span>';
+  }
+
+  var capa = document.createElement("div");
+  capa.className = "tuto";
+  capa.hidden = true;
+  capa.innerHTML =
+    '<div class="tuto__caja" role="dialog" aria-modal="true"' +
+    ' aria-labelledby="tuto-t" tabindex="-1">' +
+    '<button type="button" class="tuto__cerrar" aria-label="Cerrar el tutorial">' +
+    '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"' +
+    ' focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none"' +
+    ' stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>' +
+    '<p class="tuto__marca">La Revista del Rural</p>' +
+    '<h2 class="tuto__t" id="tuto-t">Cómo navegar la revista</h2>' +
+    '<div class="tuto__pasos">' + pasosHtml + "</div>" +
+    '<div class="tuto__pie">' +
+    '<span class="tuto__puntos" aria-hidden="true">' + puntosHtml + "</span>" +
+    '<p class="tuto__prog" data-prog aria-live="polite">Paso 1 de ' + PASOS.length + "</p>" +
+    '<span class="tuto__acciones">' +
+    '<button type="button" class="tuto__b" data-nav="-1">Anterior</button>' +
+    '<button type="button" class="tuto__b tuto__b--prin" data-nav="1">Siguiente</button>' +
+    "</span></div></div>";
+  document.body.appendChild(capa);
+
+  var caja = capa.querySelector(".tuto__caja");
+  var pasos = capa.querySelectorAll(".tuto__paso");
+  var puntos = capa.querySelectorAll(".tuto__punto");
+  var bAnt = capa.querySelector('[data-nav="-1"]');
+  var bSig = capa.querySelector('[data-nav="1"]');
+  var prog = capa.querySelector("[data-prog]");
+  var actual = 0;
+  var previo = null;
+
+  function ir(n) {
+    if (n < 0) n = 0;
+    if (n > PASOS.length - 1) n = PASOS.length - 1;
+    actual = n;
+    for (var j = 0; j < pasos.length; j++) pasos[j].hidden = j !== n;
+    for (j = 0; j < puntos.length; j++) {
+      if (j === n) puntos[j].setAttribute("aria-current", "step");
+      else puntos[j].removeAttribute("aria-current");
+    }
+    bAnt.disabled = n === 0;
+    bSig.textContent = n === PASOS.length - 1 ? "Listo, a leer" : "Siguiente";
+    prog.textContent = "Paso " + (n + 1) + " de " + PASOS.length;
+    caja.setAttribute("aria-describedby", "tuto-p-" + n);
+  }
+
+  function abrir() {
+    if (!capa.hidden) return;
+    /* si el panel de accesibilidad estaba abierto, se cierra */
+    var accBtn = document.querySelector(".acc__btn");
+    if (accBtn && accBtn.getAttribute("aria-expanded") === "true") accBtn.click();
+    previo = document.activeElement;
+    capa.hidden = false;
+    /* el fondo no se mueve mientras dura el tutorial */
+    var ancho = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = "hidden";
+    if (ancho > 0) document.body.style.paddingRight = ancho + "px";
+    ir(0);
+    caja.focus();
+  }
+
+  function cerrar() {
+    if (capa.hidden) return;
+    capa.hidden = true;
+    document.body.style.overflow = "";
+    document.body.style.paddingRight = "";
+    try { localStorage.setItem(CLAVE, "1"); } catch (e) {}
+    try { sessionStorage.setItem(CLAVE, "1"); } catch (e) {}
+    if (previo && previo.focus && document.contains(previo)) previo.focus();
+  }
+
+  function visto() {
+    try { if (localStorage.getItem(CLAVE) === "1") return true; } catch (e) {}
+    try { if (sessionStorage.getItem(CLAVE) === "1") return true; } catch (e) {}
+    return false;
+  }
+
+  capa.addEventListener("click", function (ev) {
+    var b = ev.target.closest ? ev.target.closest("[data-nav]") : null;
+    if (b) {
+      var d = parseInt(b.getAttribute("data-nav"), 10);
+      if (d > 0 && actual === PASOS.length - 1) { cerrar(); return; }
+      ir(actual + d);
+      return;
+    }
+    if (ev.target === capa) cerrar();
+  });
+  capa.querySelector(".tuto__cerrar").addEventListener("click", cerrar);
+
+  document.addEventListener("keydown", function (ev) {
+    if (capa.hidden) return;
+    if (ev.key === "Escape") { ev.preventDefault(); cerrar(); return; }
+    if (ev.key !== "Tab") return;
+    var f = caja.querySelectorAll('button:not([disabled]), [href], input,' +
+      ' select, textarea, [tabindex]:not([tabindex="-1"])');
+    if (!f.length) return;
+    var prim = f[0], ult = f[f.length - 1];
+    if (ev.shiftKey && (document.activeElement === prim || document.activeElement === caja)) {
+      ev.preventDefault(); ult.focus();
+    } else if (!ev.shiftKey && document.activeElement === ult) {
+      ev.preventDefault(); prim.focus();
+    }
+  });
+
+  /* lanzadores: enlace del pie y botón del panel de accesibilidad */
+  document.addEventListener("click", function (ev) {
+    var b = ev.target.closest ? ev.target.closest("[data-tuto]") : null;
+    if (!b) return;
+    ev.preventDefault();
+    abrir();
+  });
+
+  var panelo = document.querySelector(".acc__panelo");
+  if (panelo) {
+    var lanzador = document.createElement("button");
+    lanzador.type = "button";
+    lanzador.className = "acc__t acc__t--reset";
+    lanzador.setAttribute("data-tuto", "1");
+    lanzador.textContent = "Ver el tutorial";
+    panelo.appendChild(lanzador);
+  }
+
+  /* ?tuto=1 permite volver a verlo sin borrar los datos del navegador */
+  var forzar = /[?&]tuto=1(?:&|$)/.test(window.location.search);
+  if (!visto() || forzar) {
+    window.setTimeout(function () { abrir(); }, 700);
+  }
+})();

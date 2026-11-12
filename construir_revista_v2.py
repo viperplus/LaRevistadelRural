@@ -944,7 +944,7 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
     # La version en la consulta rompe la cache del navegador cuando cambian
     # los estaticos: sin esto, un lector que ya entro seguia viendo el JS
     # viejo (por ejemplo, una galeria sin las flechas funcionando).
-    ver = "?v=20261112"
+    ver = "?v=20261113"
     css = '<link rel="stylesheet" href="%srevista.css%s">' % (cssdir, ver)
     # Visor de fotos: mismos niveles que la hoja de estilos (css/ -> js/).
     js = '<script src="%srevista.js%s" defer></script>' % (cssdir.replace("css/", "js/"), ver)
@@ -969,6 +969,7 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
             '<main id="contenido" class="contenedor">\n%s\n</main>\n'
             '<footer class="pie" role="contentinfo">\n  <div class="pie__interior contenedor">\n'
             '    <p class="pie__credito">%s · %s · %s. Escrita, ilustrada y fotografiada por estudiantes de la ESRN Rural Virtual.</p>\n'
+            '    <p class="pie__ayuda"><button type="button" class="pie__tuto" data-tuto="1">Cómo navegar la revista</button></p>\n'
             '  </div>\n</footer>\n</body>\n</html>\n') % (
         acc, esc(etiqueta_titulo(titulo)), esc(meta_descripcion(bajada)), faviq, FONTS, css, js, body_class, pie_note,
         esc(REV), nav, body, esc(REV), esc(SUBNOMBRE), esc(ed))
