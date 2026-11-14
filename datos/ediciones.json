@@ -6276,6 +6276,34 @@
           "v": "Y si vinieras a nuestro pueblo, sabiendo cómo se maneja la limpieza... ¿Te sumarías a nuestras ideas, por el bien de tu localidad?"
         }
       ]
+    },
+    {
+      "id": "collage-del-pueblo-mencue",
+      "seccion": "cultura",
+      "titulo": "Collage: presentando el pueblo",
+      "bajada": "Salimos a tomar fotografías y armamos un collage presentando el pueblo de Mencué.",
+      "autor": "Sebastián Lonconan Marcelo Painel",
+      "rol": "Estudiantes 4° año",
+      "sede": "Mencué",
+      "anio": "4° año",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-13",
+      "foto_principal": "cultura/collage-del-pueblo-mencue/foto-01.jpg",
+      "fotos": [
+        "foto-01.jpg"
+      ],
+      "fotos_disposicion": [
+        "portada"
+      ],
+      "epigrafes": [
+        ""
+      ],
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "Salimos a tomar fotografías y armamos un collage presentando el pueblo."
+        }
+      ]
     }
   ]
 }
