@@ -6304,6 +6304,104 @@
           "v": "Salimos a tomar fotografías y armamos un collage presentando el pueblo."
         }
       ]
+    },
+    {
+      "id": "maquetas-de-ecosistemas",
+      "seccion": "ciencia",
+      "titulo": "Aprender haciendo, creando y compartiendo",
+      "bajada": "En la sede de El Caín y Río Chico, los estudiantes construyeron maquetas para representar una cadena alimentaria y tipos de ecosistemas.",
+      "autor": "Estudiantes de 1° año",
+      "rol": "Estudiantes 1° año",
+      "sede": "El Caín y Río Chico",
+      "anio": "1° año",
+      "tutora": "Fernanda y Ariel",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-18",
+      "foto_principal": "ciencia/maquetas-de-ecosistemas/foto-01.png",
+      "fotos": [
+        "foto-01.png",
+        "foto-02.png",
+        "foto-03.png",
+        "foto-04.png",
+        "foto-05.png",
+        "foto-06.png"
+      ],
+      "fotos_disposicion": [
+        "portada",
+        "galeria",
+        "galeria",
+        "galeria",
+        "galeria",
+        "galeria"
+      ],
+      "epigrafes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "¡Aprender haciendo, creando y compartiendo también es una manera de construir conocimientos!"
+        },
+        {
+          "t": "p",
+          "v": "En la sede de El Caín y Río Chico, los estudiantes llevaron a la práctica los contenidos trabajados en las últimas clases a través de una propuesta creativa y enriquecedora: la construcción de una maqueta para representar una cadena alimentaria y tipos de ecosistemas."
+        },
+        {
+          "t": "p",
+          "v": "Con el acompañamiento permanente de los docentes Fernanda y Ariel, utilizaron materiales concretos y accesibles para representar los componentes de un ecosistema y las relaciones de alimentación que se establecen entre los seres vivos."
+        },
+        {
+          "t": "p",
+          "v": "A través de esta experiencia, pudieron recuperar y aplicar los conocimientos aprendidos, identificando productores y consumidores, y comprendiendo cómo se relacionan los organismos dentro de un ambiente."
+        },
+        {
+          "t": "fig",
+          "f": "foto-01.png",
+          "clase": "fig--par"
+        },
+        {
+          "t": "fig",
+          "f": "foto-02.png",
+          "clase": "fig--par"
+        },
+        {
+          "t": "firma",
+          "v": "Maqueta realizada por estudiante I.D.M, sede El Caín"
+        },
+        {
+          "t": "fig",
+          "f": "foto-03.png",
+          "clase": "fig--par"
+        },
+        {
+          "t": "fig",
+          "f": "foto-04.png",
+          "clase": "fig--par"
+        },
+        {
+          "t": "firma",
+          "v": "Maqueta realizada por estudiante LL.S.E, sede El Caín"
+        },
+        {
+          "t": "fig",
+          "f": "foto-05.png",
+          "clase": "fig--par"
+        },
+        {
+          "t": "fig",
+          "f": "foto-06.png",
+          "clase": "fig--par"
+        },
+        {
+          "t": "firma",
+          "v": "Maqueta realizada por estudiante M.B.A, sede Río Chico"
+        }
+      ]
     }
   ]
 }
