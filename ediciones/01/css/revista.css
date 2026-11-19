@@ -2740,6 +2740,29 @@ html[data-calma] .tuto__anillo { transition: none; }
   .musica { display: none !important; }
 }
 
+.musica__popup-btn {
+  display: block; width: 100%; margin: .3rem 0 0;
+  padding: .35rem .6rem; cursor: pointer;
+  font-family: var(--titulos); font-size: .72rem; font-weight: 700;
+  color: var(--verde-texto); background: var(--verde-fondo);
+  border: 1px solid var(--verde-suave); border-radius: var(--r-s);
+  transition: background .18s var(--trans), color .18s var(--trans);
+}
+.musica__popup-btn:hover {
+  background: var(--verde); color: var(--sobre-sec); border-color: var(--verde);
+}
+.musica__popup-btn:focus-visible { outline: 3px solid var(--ocre); outline-offset: 2px; }
+.musica--popup-abierto .musica__panel { display: none; }
+.musica--popup-abierto .musica__btn::after {
+  content: ""; position: absolute; top: .2rem; right: .2rem;
+  width: .5rem; height: .5rem; border-radius: var(--r-full);
+  background: var(--verde-suave);
+}
+.musica__ayuda {
+  margin: .8rem 0 0; font-size: .78rem; color: var(--tinta-3);
+  text-align: center; line-height: 1.4;
+}
+
 /* ============ IMPRESION ============ */
 @media print {
   .visor, .tuto, .acc, .voz { display: none !important; }
