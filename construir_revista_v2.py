@@ -450,10 +450,12 @@ def _es_imagen(p):
     return os.path.splitext(p or "")[1].lower() in EXT_IMAGEN
 
 
-def render_cuerpo(art, fotos_paths, solo_bloques=False):
+def render_cuerpo(art, fotos_paths, solo_bloques=False, prefijo=""):
     """Convierte bloques + fotos a HTML. fotos_paths son relativos al article folder.
     solo_bloques=True devuelve solamente el texto del articulo, sin repartir
-    fotos: lo usa render_album, que dispone las suyas a su manera."""
+    fotos: lo usa render_album, que dispone las suyas a su manera.
+    prefijo se usa en la vista de impresion: las fotos fijadas a mano ("f")
+    necesitan el nombre del articulo delante para resolver bien la ruta."""
     cuerpo_html = []
     cuerpo = art.get("cuerpo") or []
     en_lista = None
@@ -475,17 +477,28 @@ def render_cuerpo(art, fotos_paths, solo_bloques=False):
     # Bloques 'fig' con "f": nombran la foto a mano, así se le puede dar más o
     # menos peso a una sin tocar el orden de las demás. No consumen la
     # secuencia y sus fotos quedan fuera del reparto automático del pie.
-    fijas = {b.get("f") for b in cuerpo if b.get("t") == "fig" and b.get("f")}
+    fijas = {os.path.basename(b.get("f")) for b in cuerpo
+             if b.get("t") == "fig" and b.get("f")}
+
+    def _resolver(nombre):
+        """Ruta real de una foto fijada a mano, en la web o en el PDF."""
+        base = os.path.basename(nombre)
+        for p in fotos_paths:
+            if os.path.basename(p) == base:
+                return p
+        return prefijo + base if prefijo else nombre
+
     # Sólo lo que un navegador sabe dibujar: si mandaron un .pdf en la lista
     # de fotos, entraría como <img> y se vería roto.
-    libres = [p for p in fotos_paths if p not in fijas and _es_imagen(p)]
+    libres = [p for p in fotos_paths
+              if os.path.basename(p) not in fijas and _es_imagen(p)]
     # Índice original de cada foto, para buscar su epígrafe aunque la
     # secuencia se haya movido por las fotos fijas.
     pos_de = {}
     for _i, _p in enumerate(fotos_paths):
-        pos_de.setdefault(_p, _i)
+        pos_de.setdefault(os.path.basename(_p), _i)
     for _i, _p in enumerate(fotos_paths):
-        if _p in fijas or not _es_imagen(_p):
+        if os.path.basename(_p) in fijas or not _es_imagen(_p):
             consumidas.add(_i)
     consumidas.discard(-1)
 
@@ -527,16 +540,17 @@ def render_cuerpo(art, fotos_paths, solo_bloques=False):
             fijo = b.get("f")
             if fijo:
                 # Foto nombrada a mano: ocupa este lugar exacto del texto.
-                cuerpo_html.append(_fig(fijo, _ep(pos_de.get(fijo, -1)),
+                cuerpo_html.append(_fig(_resolver(fijo),
+                                        _ep(pos_de.get(os.path.basename(fijo), -1)),
                                         b.get("clase") or "fig--g8"))
                 continue
             # Figura en posicion exacta dentro del texto: consume la
             # proxima foto libre en orden.
             if fig_index < len(libres):
                 p = libres[fig_index]
-                cuerpo_html.append(_fig(p, _ep(pos_de.get(p, -1)),
+                cuerpo_html.append(_fig(p, _ep(pos_de.get(os.path.basename(p), -1)),
                                         b.get("clase") or "fig--g8"))
-                consumidas.add(pos_de.get(p, -1))
+                consumidas.add(pos_de.get(os.path.basename(p), -1))
                 fig_index += 1
             continue
         if t in ("li", "ol"):
@@ -929,7 +943,7 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
     # La version en la consulta rompe la cache del navegador cuando cambian
     # los estaticos: sin esto, un lector que ya entro seguia viendo el JS
     # viejo (por ejemplo, una galeria sin las flechas funcionando).
-    ver = "?v=20261119d"
+    ver = "?v=20261119e"
     css = '<link rel="stylesheet" href="%srevista.css%s">' % (cssdir, ver)
     # Visor de fotos: mismos niveles que la hoja de estilos (css/ -> js/).
     js = '<script src="%srevista.js%s" defer></script>' % (cssdir.replace("css/", "js/"), ver)
@@ -1160,13 +1174,13 @@ def main():
                body, "index.html", "css/", "favicon.svg"))
 
     # ---- vista de impresion: revista completa para PDF ---------------------
-    ver = "?v=20261119d"
+    ver = "?v=20261119e"
     def _imp_art(art):
         uid = art["id"]
         fotos = art.get("fotos") or []
         prefixed = ["%s/%s" % (uid, f) for f in fotos]
         cuerpo = (render_album(art, prefixed) if art.get("tipo") == "album"
-                  else render_cuerpo(art, prefixed))
+                  else render_cuerpo(art, prefixed, prefijo="%s/" % uid))
         cuerpo = cuerpo.replace('loading="lazy"', 'loading="eager"')
         # En papel los videos no se reproducen: se reemplazan por un aviso
         # con el enlace, para no dejar iframes rotos ni huecos.

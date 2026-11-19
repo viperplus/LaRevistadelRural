@@ -178,6 +178,8 @@
 .imp-cuerpo .fig--portada img {
   width: 100%; max-height: 95mm; object-fit: cover;
 }
+.imp-cuerpo .fig--retrato { margin-inline: auto; text-align: center; }
+.imp-cuerpo .fig--retrato img { width: auto; max-width: 70mm; margin-inline: auto; }
 .imp-cuerpo .figs-par {
   column-span: all; columns: 2; column-gap: 4mm; margin: 4mm 0;
 }

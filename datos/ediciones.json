@@ -6531,6 +6531,11 @@
           "v": "En el aula de la ESRN Rural Virtual, compartiendo unos mates, entrevistamos a nuestra compañera Anahir Carus, jugadora de la Selección de Río Negro, y a su entrenador, Lucas Carus, quienes nos contaron cómo viven el fútbol desde nuestro pueblo, a más de cien kilómetros de la ruta."
         },
         {
+          "t": "fig",
+          "f": "foto-01.jpg",
+          "clase": "fig--retrato"
+        },
+        {
           "t": "h3",
           "v": "La palabra de Anahir Carus"
         },
@@ -6579,6 +6584,11 @@
           "v": "«Entreno hace 5 o 6 años y Anahir empezó conmigo a los 10. Antes era muy chiquita y quería gambetear a todos; hoy creció en lo físico, juega más de pase, prueba al arco y marca muy bien. Es una jugadora completa.»"
         },
         {
+          "t": "fig",
+          "f": "foto-02.jpg",
+          "clase": "fig--retrato"
+        },
+        {
           "t": "pregunta",
           "v": "¿Qué dificultades hay en la zona rural y qué se necesita para crecer?"
         },
@@ -6602,10 +6612,6 @@
       "fotos": [
         "foto-01.jpg",
         "foto-02.jpg"
-      ],
-      "fotos_disposicion": [
-        "portada",
-        "fig"
       ],
       "epigrafes": [
         "Anahir Carus celebrando con la camiseta n.º 14.",

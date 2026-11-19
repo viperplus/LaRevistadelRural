@@ -1050,6 +1050,10 @@ a:hover { color: var(--bermellon); }
   margin-left: -1.35rem;
 }
 .fig--mediana { max-width: 31rem; margin-block: var(--sp-6); margin-inline: auto; }
+/* Fotos chicas que llegan en baja resolución: se muestran cerca de su
+   tamaño real para que no se vean borrosas ni ocupen media pantalla. */
+.fig--retrato { max-width: 19rem; margin-block: var(--sp-6); margin-inline: auto; }
+.fig--retrato figcaption { text-align: center; }
 /* Figura destacada: más ancha que la columna de lectura y con más sombra,
    para que una foto pese más que las que la rodean. Los desbordes arrancan
    recién cuando sobra lugar: a 64rem quedan 4.2rem libres de cada lado,
