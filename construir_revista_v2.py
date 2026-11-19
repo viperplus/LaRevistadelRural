@@ -1168,6 +1168,12 @@ def main():
         cuerpo = (render_album(art, prefixed) if art.get("tipo") == "album"
                   else render_cuerpo(art, prefixed))
         cuerpo = cuerpo.replace('loading="lazy"', 'loading="eager"')
+        # En papel los videos no se reproducen: se reemplazan por un aviso
+        # con el enlace, para no dejar iframes rotos ni huecos.
+        import re as _re
+        cuerpo = _re.sub(r'<div class="video[^"]*">.*?</div>',
+                         '<p class="txt-parrafo"><em>[Video disponible en la versi\u00f3n web del art\u00edculo.]</em></p>',
+                         cuerpo, flags=_re.DOTALL)
         sec = next((s for s in secciones if s["id"] == art.get("seccion")), None)
         sec_nom = sec["titulo"] if sec else "Voces"
         autor = (art.get("autor") or "").strip()
