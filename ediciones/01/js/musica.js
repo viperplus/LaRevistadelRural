@@ -155,12 +155,13 @@
 
   function reproducir() {
     Tone.start().then(function () {
-      Tone.Transport.start();
+      try { Tone.Transport.start(); } catch (e) { console.error("TS err:", e && e.message); }
       estado.playing = true;
       guardar();
       actualizarBotones();
       estadoEl.textContent = "Reproduciendo...";
     }).catch(function (e) {
+      console.error("Tone.start rejected:", e && e.message);
       estadoEl.textContent = "Error de audio";
     });
   }
@@ -186,10 +187,10 @@
     panel.hidden = true;
     btn.setAttribute("aria-expanded", "false");
   });
-  playBtn.addEventListener("click", function () {
+  playBtn.onclick = function () {
     if (cargando) return;
     if (estado.playing) pausar(); else reproducir();
-  });
+  };
   cont.querySelector('[data-act="ant"]').addEventListener("click", function () { anterior(); });
   cont.querySelector('[data-act="sig"]').addEventListener("click", function () { siguiente(); });
 
