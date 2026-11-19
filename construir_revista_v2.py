@@ -190,19 +190,43 @@ def egresados_body():
            esc(nombre), esc(nombre), esc(sede))
         for arch, nombre, sede, cls in FOTOS_COLLAGE)
 
-    dedicatoria = ("Hoy se egresa. Cada uno lo hizo desde su pueblo, su valle, "
-                   "su ruta — y muchos desde la cocina, con la compu apoyada en "
-                   "una mesa y la familia alrededor. Esta página es para decirles, "
-                   "de frente y sin apuro, lo orgullosos que estamos.")
+    dedicatoria = ("Hoy se egresa.\n\n"
+                   "Hoy veintiún pueblos de Río Negro celebran la misma alegría: "
+                   "que ustedes llegaron hasta el final de la secundaria, cada uno "
+                   "desde su lugar y su tierra —entre valles, mesetas, ríos y rutas "
+                   "largas—, con el viento de siempre como testigo y el esfuerzo "
+                   "callado de todos los días.\n\n"
+                   "Decía el Martín Fierro que «el que sabe más, más vale», y ustedes "
+                   "lo entendieron de la mejor manera: defendiendo su derecho a estudiar "
+                   "en su propia tierra. Terminar la secundaria en la ruralidad tiene "
+                   "otro peso y otro valor. No es solo aprobar materias; es sostener el "
+                   "estudio entre los tiempos del campo, las distancias que hay que "
+                   "andar, el frío de la mañana y el abrazo de una familia que empujó "
+                   "desde cerca —porque, como enseñan nuestros versos criollos, cuando "
+                   "los de adentro están unidos, no hay viento de afuera que los "
+                   "dobleigue—.\n\n"
+                   "Quienes los acompañamos en este recorrido sabemos bien todo lo que "
+                   "pusieron para estar hoy acá. Nos enseñaron que cuando hay ganas de "
+                   "aprender no hay distancia que alcance: vimos cómo se animaron a más "
+                   "año tras año, y hoy nos toca celebrar lo lejos que llegaron. Esta "
+                   "página es para detenernos un momento, mirarlos de frente y "
+                   "decirles, sin apuro, el orgullo enorme que nos da verlos cerrar "
+                   "esta etapa.\n\n"
+                   "¡Felicidades, promoción 2026!")
 
-    cierre = ("No se despidan: apenas están empezando. Gracias por estudiar lejos, "
-              "por insistir, por quedarse. Gracias por dejar la escuela un poco "
-              "mejor de como la encontraron.")
+    cierre = ("No se despidan: lo que empieza ahora lleva todo lo que construyeron "
+              "acá.\n\n"
+              "Recuerden siempre que el trabajo es la mejor prenda y que no hay camino "
+              "largo cuando se anda con convicción y buen corazón. Gracias por "
+              "permitirnos acompañarlos, por insistir cuando la huella se hacía "
+              "pesada y por ponerle cuerpo y ganas a cada año de secundario. Gracias "
+              "por dejar esta escuela un poco más viva y un poco mejor de como la "
+              "encontraron.\n\n"
+              "Con cariño, sus docentes de la ESRN Rural Virtual")
 
     return ('<div class="pres__bloque egr__apertura">\n'
             '<h2 class="pres__h2">Para la promoción 2026</h2>\n'
-            '<p class="egr__dedicatoria">%s</p>\n'
-            '<p class="egr__firma">¡Felicidades!</p>\n</div>\n'
+            '<p class="egr__dedicatoria">%s</p>\n</div>\n'
             '<div class="pres__bloque">\n'
             '<h2 class="pres__h2">La promoción, en fotos</h2>\n'
             '<p class="pres__p">Algunas caras de quienes llegan al final de esta etapa, '
@@ -216,47 +240,8 @@ def egresados_body():
             '<div class="egr__sedes">\n%s\n</div>\n</div>\n'
             '<div class="pres__bloque egr__cierre">\n'
             '<h2 class="pres__h2">Gracias</h2>\n'
-            '<p class="egr__dedicatoria">%s</p>\n'
-            '<p class="egr__firma">Con cariño, la ESRN Rural Virtual</p>\n</div>') % (
+            '<p class="egr__dedicatoria">%s</p>\n</div>') % (
                 dedicatoria, collage, "".join(bloques), cierre)
-
-    collage = "".join(
-        "<figure class='collage__item%s'>"
-        "<img src='%s' alt='%s' loading='lazy'>"
-        "<figcaption><strong>%s</strong><span>%s</span></figcaption></figure>"
-        % ((" collage__item--" + cls) if cls else "", esc(img_local("egresados/" + arch)),
-           esc(nombre), esc(nombre), esc(sede))
-        for arch, nombre, sede, cls in FOTOS_COLLAGE)
-
-    dedicatoria = ("Hoy se egresa. Cada uno lo hizo desde su pueblo, su valle, "
-                   "su ruta — y muchos desde la cocina, con la compu apoyada en "
-                   "una mesa y la familia alrededor. Esta página es para decirles, "
-                   "de frente y sin apuro, lo orgullosos que estamos.")
-
-    cierre = ("No se despidan: apenas están empezando. Gracias por estudiar lejos, "
-              "por insistir, por quedarse. Gracias por dejar la escuela un poco "
-              "mejor de como la encontraron.")
-
-    return ('<div class="pres__bloque egr__apertura">\n'
-            '<h2 class="pres__h2">Para la promoción 2026</h2>\n'
-            '<p class="egr__dedicatoria">%s</p>\n'
-            '<p class="egr__firma">¡Felicidades!</p>\n</div>\n'
-            '<div class="pres__bloque">\n'
-            '<h2 class="pres__h2">La promoción, en fotos</h2>\n'
-            '<p class="pres__p">Algunas caras de quienes llegan al final de esta etapa, '
-            'con la mejor sonrisa.</p>\n'
-            '<div class="collage">\n%s\n</div>\n</div>\n'
-            '<div class="pres__bloque">\n'
-            '<h2 class="pres__h2">Las y los egresados</h2>\n'
-            '<p class="pres__p pres__ancho">Veintiún sedes de Río Negro, veintiún viajes '
-            'distintos. Estos son los nombres de la promoción, con el lugar del que vienen.</p>\n'
-            '<div class="egr__sedes">\n%s\n</div>\n</div>\n'
-            '<div class="pres__bloque egr__cierre">\n'
-            '<h2 class="pres__h2">Gracias</h2>\n'
-            '<p class="egr__dedicatoria">%s</p>\n'
-            '<p class="egr__firma">Con cariño, la ESRN Rural Virtual</p>\n</div>') % (
-                dedicatoria, collage, "".join(bloques), cierre)
-
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
          '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
@@ -1163,13 +1148,13 @@ def main():
     body = ('<section class="portada" aria-labelledby="portada-titulo">\n'
             '<p class="portada__sec">%s</p>\n'
             '<h1 id="portada-titulo" class="portada__h1">%s</h1>\n'
-            '<p class="portada__bajada">%s</p>\n</section>\n'
+            '</section>\n'
             '%s'
             '<nav class="sumario" aria-label="Sumario">\n'
             '<p class="sumario__cabecera">Sumario · %s</p>\n<ul class="sumario__lista">\n%s\n</ul>\n</nav>\n'
             '<p class="todos__enlace"><a href="articulos.html">Ver los %d artículos de esta edición</a></p>'
             '<p class="todos__enlace"><a href="revista.pdf">Descargar la revista en PDF</a></p>'
-            % (esc(ed_etiqueta), esc(REV), esc(SUBNOMBRE), editorial, esc(ed_etiqueta), sumario, len(articulos)))
+            % (esc(ed_etiqueta), esc(REV), editorial, esc(ed_etiqueta), sumario, len(articulos)))
     open(os.path.join(EDIT, "index.html"), "w", encoding="utf-8").write(
         pagina("La Revista del Rural · %s" % ed_etiqueta, SUBNOMBRE, ed_etiqueta, nav_html(""),
                body, "index.html", "css/", "favicon.svg"))
