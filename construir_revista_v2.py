@@ -929,10 +929,17 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
     # La version en la consulta rompe la cache del navegador cuando cambian
     # los estaticos: sin esto, un lector que ya entro seguia viendo el JS
     # viejo (por ejemplo, una galeria sin las flechas funcionando).
-    ver = "?v=20261113f"
+    ver = "?v=20261119b"
     css = '<link rel="stylesheet" href="%srevista.css%s">' % (cssdir, ver)
     # Visor de fotos: mismos niveles que la hoja de estilos (css/ -> js/).
     js = '<script src="%srevista.js%s" defer></script>' % (cssdir.replace("css/", "js/"), ver)
+    # Musica de fondo (MIDI): Tone.js + parser MIDI + reproductor.
+    libdir = cssdir.replace("css/", "lib/")
+    jsdir = cssdir.replace("css/", "js/")
+    musica_js = ('<script src="%stone.js%s" defer></script>\n'
+                 '<script src="%smidi.js%s" defer></script>\n'
+                 '<script src="%smusica.js%s" defer></script>') % (
+        libdir, ver, libdir, ver, jsdir, ver)
     # Accesibilidad: script chico que reaplica los ajustes del lector
     # (tamaño de letra, contraste alto, modo nocturno...) antes del
     # primer pintado, para que no haya destello del tema anterior.
@@ -947,7 +954,7 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
             # el error 153 y no carga el video (issue del 2025).
             '<meta name="referrer" content="strict-origin-when-cross-origin">\n%s\n'
             "<title>%s</title>\n<meta name=\"description\" content=\"%s\">\n"
-            "<link rel=\"icon\" href=\"%s\" type=\"image/svg+xml\">\n%s\n%s\n%s\n</head>\n<body%s>\n"
+            "<link rel=\"icon\" href=\"%s\" type=\"image/svg+xml\">\n%s\n%s\n%s\n%s\n</head>\n<body%s>\n"
             '<a class="salto" href="#contenido">Salto al contenido</a>\n'
             '<header class="masthead contenedor" role="banner">\n  <p class="masthead__marca"><a href="%s">%s</a></p>\n'
             '  <nav aria-label="Secciones" class="nav-ed">%s</nav>\n</header>\n'
@@ -956,7 +963,7 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
             '    <p class="pie__credito">%s · %s · %s. Escrita, ilustrada y fotografiada por estudiantes de la ESRN Rural Virtual.</p>\n'
             '    <p class="pie__ayuda"><button type="button" class="pie__tuto" data-tuto="1">Cómo navegar la revista</button></p>\n'
             '  </div>\n</footer>\n</body>\n</html>\n') % (
-        acc, esc(etiqueta_titulo(titulo)), esc(meta_descripcion(bajada)), faviq, FONTS, css, js, body_class, pie_note,
+        acc, esc(etiqueta_titulo(titulo)), esc(meta_descripcion(bajada)), faviq, FONTS, css, js, musica_js, body_class, pie_note,
         esc(REV), nav, body, esc(REV), esc(SUBNOMBRE), esc(ed))
 
 
@@ -1160,7 +1167,7 @@ def main():
                body, "index.html", "css/", "favicon.svg"))
 
     # ---- vista de impresion: revista completa para PDF ---------------------
-    ver = "?v=20261113f"
+    ver = "?v=20261119b"
     def _imp_art(art):
         uid = art["id"]
         fotos = art.get("fotos") or []
