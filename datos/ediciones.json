@@ -62,7 +62,6 @@
       "rol": "Estudiante 4.º año — Taller de Educación Científica y Tecnológica",
       "sede": "Aguada de Guerra",
       "fecha": "Noviembre 2026",
-      "foto_principal": "ciencia/el-chip-en-la-cancha/foto_01.png",
       "fotos": [
         "foto-01.jpg",
         "foto-02.png"
@@ -114,7 +113,9 @@
         }
       ],
       "odt": "clase_9_art_culo_para_la_revista_milton_",
-      "anio": "4.º año"
+      "anio": "4.° año",
+      "fecha_iso": "2026-11-01",
+      "tutora": ""
     },
     {
       "id": "el-partido-por-el-ambiente",
@@ -125,7 +126,6 @@
       "rol": "Estudiantes de 1.º, 3.º, 4.º y 5.º año",
       "sede": "ESRN Rural Anexo 21 — Río Chico",
       "fecha": "Noviembre 2026",
-      "foto_principal": "ciencia/el-partido-por-el-ambiente/foto_01.jpg",
       "fotos": [
         "foto-01.jpg",
         "foto-02.jpg"
@@ -174,7 +174,10 @@
           "v": "Ser cuidadosos con nuestras canchas siempre nos ayudará a jugar, compartir y divertirnos de manera más tranquila, segura y saludable. Cuidar estos espacios es una responsabilidad de todos. Porque cuando cuidamos nuestra cancha, también cuidamos a quienes la disfrutan y a nuestro planeta. Cada pequeña acción cuenta."
         }
       ],
-      "odt": "el_partido_por_el_ambiente"
+      "odt": "el_partido_por_el_ambiente",
+      "fecha_iso": "2026-11-01",
+      "tutora": "",
+      "anio": ""
     },
     {
       "id": "la-fiesta-del-paraje-treneta",
@@ -185,7 +188,6 @@
       "rol": "Comunidad y estudiantes",
       "sede": "Paraje Treneta",
       "fecha": "Febrero (edición especial)",
-      "foto_principal": "territorio/fiestas-y-tradiciones-mundialistas/foto_01.jpg",
       "fotos": [
         "foto-04.jpg",
         "foto-02.jpg",
@@ -245,7 +247,10 @@
           "t": "fig"
         }
       ],
-      "odt": "fiestas_y_tradiciones_mundialistas"
+      "odt": "fiestas_y_tradiciones_mundialistas",
+      "fecha_iso": "2026-02-01",
+      "tutora": "",
+      "anio": ""
     },
     {
       "id": "próxima-parada-atractivos-mundialistas",
@@ -254,9 +259,8 @@
       "bajada": "Un recorrido por los puntos más interesantes que esperan ser visitados en la gran cita deportiva.",
       "autor": "Estudiantes 4.º año",
       "rol": "Taller de Educación Científica y Tecnológica",
-      "sede": "ESRN Rural",
+      "sede": "ESRN Rural Virtual",
       "fecha": "Noviembre 2026",
-      "foto_principal": "territorio/proxima-parada-atractivos-mundialistas/foto_02.png",
       "fotos": [
         "foto-01.jpg",
         "foto-02.jpg",
@@ -290,7 +294,10 @@
           "t": "p",
           "v": "Cada parada incluye un dato curioso, una recomendación y una foto. Así, la revista se transforma en una herramienta para conocer el país a través del mundial, uniendo propuestas turísticas, cultura y deporte."
         }
-      ]
+      ],
+      "fecha_iso": "2026-11-01",
+      "tutora": "",
+      "anio": ""
     },
     {
       "id": "potabilizacion-aguada-guzman",
@@ -373,7 +380,8 @@
         "../imagenes/potabilizacion-aguada-guzman/image4.jpeg"
       ],
       "anio": "",
-      "tutora": ""
+      "tutora": "",
+      "fecha_iso": "2026-11-01"
     },
     {
       "id": "una-mirada-sobre-la-realidad",
@@ -446,7 +454,9 @@
         "foto-05.jpeg",
         "foto-06.jpeg"
       ],
-      "anio": "4.º año"
+      "anio": "4.° año",
+      "fecha_iso": "2026-11-01",
+      "tutora": ""
     },
     {
       "id": "los-festejos-de-una-localidad",
@@ -526,12 +536,14 @@
         "foto-02.jpg",
         "foto-03.jpg"
       ],
-      "anio": "1.º a 5.º año",
+      "anio": "1.° a 5.° año",
       "fotos_disposicion": [
         "seccion",
         "seccion",
         "seccion"
-      ]
+      ],
+      "fecha_iso": "2026-11-01",
+      "tutora": ""
     },
     {
       "id": "medio-ambiente-sierra-paileman",
@@ -587,10 +599,12 @@
       "fotos": [
         "foto-01.jpeg"
       ],
-      "anio": "4.º año",
+      "anio": "4.° año",
       "fotos_disposicion": [
         "seccion"
-      ]
+      ],
+      "fecha_iso": "2026-11-01",
+      "tutora": ""
     },
     {
       "id": "la-llegada-de-la-primavera",
@@ -599,7 +613,7 @@
       "bajada": "Una obra colectiva: un árbol que se llena de vida y mariposas para anunciar nuevos comienzos.",
       "autor": "Fernanda Taquí · Jazmín Cardozo · Katerina Maggioni · Deysi Taquí · Agostina Schivndt · Aixa Cardozo · Noelia Gabriel · Kiara Mamaní",
       "rol": "Estudiantes — Taller de Educación Científica y Tecnológica",
-      "sede": "ESRN Rural",
+      "sede": "ESRN Rural Virtual",
       "fecha": "Noviembre 2026",
       "odt": "la_llegada_de_la_primavera",
       "cuerpo": [
@@ -636,7 +650,10 @@
       ],
       "fotos": [
         "foto-01.jpeg"
-      ]
+      ],
+      "fecha_iso": "2026-11-01",
+      "tutora": "",
+      "anio": ""
     },
     {
       "id": "gol-de-ciencia",
@@ -703,7 +720,7 @@
       "fotos": [
         "../imagenes/gol-de-ciencia/est1.jpg"
       ],
-      "anio": "4.º año",
+      "anio": "4.° año",
       "tutora": "",
       "fecha_iso": "2026-11-01",
       "body": null
@@ -759,7 +776,10 @@
       "epigrafes": [],
       "fotos": [
         "Agua-Medio-Ambiente-1.jpg"
-      ]
+      ],
+      "fecha_iso": "2026-11-01",
+      "tutora": "",
+      "anio": ""
     },
     {
       "id": "tecnologia-mundialista",
@@ -808,7 +828,10 @@
       "epigrafes": [],
       "fotos": [
         "FIFA-copa-del-mundo-2026-mundial-tecnologia-IA.jpg"
-      ]
+      ],
+      "fecha_iso": "2026-11-01",
+      "tutora": "",
+      "anio": ""
     },
     {
       "id": "la-contaminacion",
@@ -857,7 +880,10 @@
       "epigrafes": [],
       "fotos": [
         "6278658.jpg"
-      ]
+      ],
+      "fecha_iso": "2026-11-01",
+      "tutora": "",
+      "anio": ""
     },
     {
       "id": "que-pasaria-sin-agua",
@@ -927,11 +953,13 @@
         "foto-01.png",
         "foto-02.png"
       ],
-      "anio": "4.º año",
+      "anio": "4.° año",
       "fotos_disposicion": [
         "seccion-m",
         "seccion-m"
-      ]
+      ],
+      "fecha_iso": "2026-11-01",
+      "tutora": ""
     },
     {
       "id": "monoxido-de-carbono-aguada-cecilio",
@@ -996,7 +1024,7 @@
         "foto-02.png",
         "foto-03.jpg"
       ],
-      "anio": "4.º año",
+      "anio": "4.° año",
       "tutora": "César Casas",
       "fecha_iso": "2026-11-01"
     },
@@ -1068,11 +1096,13 @@
         "",
         ""
       ],
-      "anio": "4.º año",
+      "anio": "4.° año",
       "fotos_disposicion": [
         "seccion",
         "seccion"
-      ]
+      ],
+      "fecha_iso": "2026-11-01",
+      "tutora": ""
     },
     {
       "id": "hay-algo-mas-en-las-fotos",
@@ -1135,11 +1165,12 @@
         "foto-02.png"
       ],
       "tutora": "Natalia Cerro",
-      "anio": "4.º año",
+      "anio": "4.° año",
       "fotos_disposicion": [
         "seccion",
         "seccion"
-      ]
+      ],
+      "fecha_iso": "2026-11-01"
     },
     {
       "id": "no-a-la-basura",
@@ -1217,11 +1248,13 @@
         "foto-01.jpg",
         "foto-02.png"
       ],
-      "anio": "4.º año",
+      "anio": "4.° año",
       "fotos_disposicion": [
         "seccion",
         "final"
-      ]
+      ],
+      "fecha_iso": "2026-11-01",
+      "tutora": ""
     },
     {
       "id": "yaminue-conexion-naturaleza",
@@ -1291,7 +1324,11 @@
         "",
         ""
       ],
-      "anio": "4.º año"
+      "anio": "4.° año",
+      "fecha_iso": "2026-11-01",
+      "autor": "",
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "la_primera_ley_de_newton",
@@ -1352,7 +1389,9 @@
         ""
       ],
       "sede": "Peñas Blancas",
-      "anio": "4.º año"
+      "anio": "4.° año",
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "latido_del_equilibrio_ambiental_en_naupa_huen",
@@ -1405,11 +1444,13 @@
         ""
       ],
       "sede": "Naupa Huén",
-      "anio": "1.º año",
+      "anio": "1.° año",
       "fotos_disposicion": [
         "seccion-m",
         "seccion-m"
-      ]
+      ],
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "acciones_peque_as_para_un_mundo_grande",
@@ -1476,10 +1517,12 @@
         ""
       ],
       "sede": "Peñas Blancas",
-      "anio": "1.º año",
+      "anio": "1.° año",
       "fotos_disposicion": [
         "seccion"
-      ]
+      ],
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "reflexi_n_a_trav_s_de_fotograf_a",
@@ -1535,7 +1578,9 @@
         "seccion"
       ],
       "sede": "Aguada Cecilio",
-      "anio": "1.º año"
+      "anio": "1.° año",
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "arroyo_los_berros",
@@ -1623,7 +1668,8 @@
       ],
       "rol": "2.º año · Taller de Educación Científica y Tecnológica",
       "sede": "Arroyo Los Berros",
-      "anio": "2.º año"
+      "anio": "2.° año",
+      "tutora": ""
     },
     {
       "id": "clase_n_10_cient_fica_y_tecnol_gica",
@@ -1686,7 +1732,9 @@
         ""
       ],
       "sede": "Chelforo",
-      "anio": "1.º año"
+      "anio": "1.° año",
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "nueva_carpeta_12",
@@ -1761,7 +1809,9 @@
         "Artefacto de calefacción con revestimiento de madera."
       ],
       "sede": "Peñas Blancas",
-      "anio": "1.º año"
+      "anio": "1.° año",
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "nueva_carpeta_2",
@@ -1820,7 +1870,9 @@
         "El arquero Pickford solicitando la pausa de hidratación."
       ],
       "sede": "Peñas Blancas",
-      "anio": "1.º y 2.º año"
+      "anio": "1.° y 2.° año",
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "nueva_carpeta_3",
@@ -1910,7 +1962,9 @@
         ""
       ],
       "sede": "Mencué",
-      "anio": "1.º año"
+      "anio": "1.° año",
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "clase_n_10_espacio_curricular_ed_cient_fica_y_tecn",
@@ -1962,13 +2016,14 @@
       ],
       "sede": "Arroyo Los Berros",
       "tutora": "Nazarena",
-      "anio": "1.º año",
+      "anio": "1.° año",
       "fotos_disposicion": [
         "seccion",
         "seccion",
         "galeria",
         "galeria"
-      ]
+      ],
+      "rol": ""
     },
     {
       "id": "clase_n_10_cient_fica_y_tecnol_gicaintegrantes_agu",
@@ -2037,7 +2092,9 @@
         ""
       ],
       "sede": "Peñas Blancas",
-      "anio": "1.º año"
+      "anio": "1.° año",
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "nueva_carpeta_8",
@@ -2088,16 +2145,17 @@
         "Panorámica del camino hacia Santa Lucía, las bardas y la estepa."
       ],
       "sede": "Cerro Policía",
-      "anio": "1.º y 2.º año",
-      "tutora": "Antonela Verón"
+      "anio": "1.° y 2.° año",
+      "tutora": "Antonela Verón",
+      "rol": ""
     },
     {
       "id": "como-hacer-tortas-fritas",
       "titulo": "Cómo hacer tortas fritas",
       "bajada": "De la cocina de El Cándor: ingredientes, materiales y el procedimiento paso a paso para hacer tortas fritas.",
       "autor": "Emanuel Prost y Bruno Tomás Lagarrigue",
-      "sede": "El Cándor",
-      "anio": "2.º año",
+      "sede": "El Cóndor",
+      "anio": "2.° año",
       "seccion": "cultura",
       "fecha": "Noviembre 2026",
       "fecha_iso": "2026-11-01",
@@ -2202,7 +2260,9 @@
           "t": "p",
           "v": "Hasta aquí llega el artículo sobre la receta de las tortas fritas y espero que les haya servido."
         }
-      ]
+      ],
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "cuando-vemos-mas-alla-de-lo-superficial",
@@ -2210,7 +2270,7 @@
       "bajada": "La meseta parece vacía, pero si se mira más allá de lo superficial hay vida en cada rincón: animales, plantas y uno de los cielos más limpios del lugar.",
       "autor": "Debora Lleiful",
       "sede": "El Caín, Anexo N° 22",
-      "anio": "2.º año",
+      "anio": "2.° año",
       "seccion": "territorio",
       "fecha": "Noviembre 2026",
       "fecha_iso": "2026-11-01",
@@ -2265,7 +2325,9 @@
           "t": "p",
           "v": "En la noche la meseta tiene uno de los cielos más lindos porque al no estar contaminado por luces se ven claramente las estrellas en su mayor esplendor."
         }
-      ]
+      ],
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "cuidar-el-ambiente-tambien-esta-en-nuestras-manos",
@@ -2273,7 +2335,7 @@
       "bajada": "Qué problemas ambientales nos afectan y qué acciones sencillas podemos realizar todos los días, también desde la escuela.",
       "autor": "Milena Kral",
       "sede": "Lago Pellegrini",
-      "anio": "4.º año",
+      "anio": "4.° año",
       "seccion": "ciencia",
       "fecha": "Noviembre 2026",
       "fecha_iso": "2026-11-01",
@@ -2363,7 +2425,9 @@
           "t": "p",
           "v": "Cuidar el ambiente no depende solamente de grandes acciones. Cada pequeño cambio puede hacer una diferencia. Si aprendemos a utilizar los recursos de manera responsable y ayudamos a que otras personas también lo hagan, estaremos colaborando para construir un ambiente más limpio y saludable para todos."
         }
-      ]
+      ],
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "cuidar-nuestro-ambiente-es-cuidar-nuestro-futuro",
@@ -2371,7 +2435,7 @@
       "bajada": "Agua, suelo, aire y residuos: cuatro cuidados sencillos que reachan a toda la comunidad y a las generaciones que vienen.",
       "autor": "Gabriela Seco",
       "sede": "Aguada de Guerra",
-      "anio": "4.º año",
+      "anio": "4.° año",
       "seccion": "territorio",
       "fecha": "Noviembre 2026",
       "fecha_iso": "2026-11-01",
@@ -2421,7 +2485,9 @@
       ],
       "fotos_disposicion": [
         "portada"
-      ]
+      ],
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "cuidemos-nuestro-ambiente",
@@ -2429,7 +2495,7 @@
       "bajada": "Reciclar, ahorrar y reducir: cinco ideas para cuidar el ambiente todos los días, y entenderse con la sostenibilidad.",
       "autor": "Saira Linares",
       "sede": "Lago Pellegrini",
-      "anio": "4.º año",
+      "anio": "4.° año",
       "seccion": "ciencia",
       "fecha": "Noviembre 2026",
       "fecha_iso": "2026-11-01",
@@ -2480,7 +2546,9 @@
           "t": "p",
           "v": "Cada persona puede contribuir realizando pequeños cambios en su vida cotidiana. Si todos asumimos responsabilidad y trabajamos juntos, podemos disminuir la contaminación y construir un ambiente más saludable y sostenible."
         }
-      ]
+      ],
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "pequenas-acciones-grandes-cambios",
@@ -2489,7 +2557,7 @@
       "autor": "Maia Osés",
       "sede": "Lago Pellegrini",
       "tutora": "Lucrecia Angeli",
-      "anio": "4.º año",
+      "anio": "4.° año",
       "seccion": "ciencia",
       "fecha": "Noviembre 2026",
       "fecha_iso": "2026-11-01",
@@ -2544,7 +2612,8 @@
           "t": "cita",
           "v": "¡Cuidar el planeta hoy es cuidar nuestro futuro!"
         }
-      ]
+      ],
+      "rol": ""
     },
     {
       "id": "el-monoxido-de-carbono",
@@ -2553,7 +2622,7 @@
       "autor": "Pame Loncoman",
       "sede": "Mencué",
       "tutora": "Carlos Guarino",
-      "anio": "4.º año",
+      "anio": "4.° año",
       "seccion": "ciencia",
       "fecha": "Noviembre 2026",
       "fecha_iso": "2026-11-01",
@@ -2674,7 +2743,8 @@
           "t": "cita",
           "v": "El monóxido de carbono es un peligro real, ¡pero se puede prevenir!"
         }
-      ]
+      ],
+      "rol": ""
     },
     {
       "id": "el-enemigo-invisible-de-invierno",
@@ -2683,7 +2753,7 @@
       "autor": "Agustina Pedrero",
       "sede": "Lago Pellegrini",
       "tutora": "Profe Marco",
-      "anio": "2.º año",
+      "anio": "2.° año",
       "seccion": "ciencia",
       "fecha": "Noviembre 2026",
       "fecha_iso": "2026-11-01",
@@ -2728,7 +2798,8 @@
       "fotos_disposicion": [
         "galeria",
         "galeria"
-      ]
+      ],
+      "rol": ""
     },
     {
       "id": "sierra-paileman-el-pueblo-y-su-escuela",
@@ -2736,7 +2807,7 @@
       "bajada": "Río Negro, la meseta de Somuncurá y la Escuela Rural N.º 69: el paraje contado por una estudiante de la ESRN Rural Virtual.",
       "autor": "Araceli Nahuel",
       "sede": "Sierra Pailemán",
-      "anio": "2.º año",
+      "anio": "2.° año",
       "seccion": "territorio",
       "cuerpo": [
         {
@@ -2788,7 +2859,9 @@
         "seccion",
         "seccion",
         "seccion"
-      ]
+      ],
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "la-ciencia-detras-del-mundial",
@@ -2796,7 +2869,7 @@
       "bajada": "Colágeno, polímeros, caucho y sudor: qué hay detrás del equipamiento de los jugadores.",
       "autor": "Nicolás Antenao",
       "sede": "Sierra Pailemán",
-      "anio": "2.º año",
+      "anio": "2.° año",
       "seccion": "ciencia",
       "cuerpo": [
         {
@@ -2829,7 +2902,9 @@
       "fotos_disposicion": [
         "seccion",
         "galeria"
-      ]
+      ],
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "cuidar-el-ambiente-en-sierra-paileman",
@@ -2837,7 +2912,7 @@
       "bajada": "Siete acciones, cuatro propuestas comunitarias y una reflexión para mantener limpio el entorno del paraje.",
       "autor": "Agustín Huinca",
       "sede": "Sierra Pailemán",
-      "anio": "2.º año",
+      "anio": "2.° año",
       "seccion": "ciencia",
       "cuerpo": [
         {
@@ -2911,7 +2986,9 @@
       ],
       "fotos_disposicion": [
         "galeria"
-      ]
+      ],
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "incendios-forestales-una-realidad",
@@ -2919,7 +2996,7 @@
       "bajada": "Un incendio no solo quema árboles: destruye plantas, afecta a los animales y pone en riesgo a las personas. Conoce sus causas y cómo prevenirlo.",
       "autor": "Alexis Rosas",
       "sede": "Río Chico",
-      "anio": "2.º año",
+      "anio": "2.° año",
       "seccion": "ciencia",
       "fecha": "Noviembre 2026",
       "fotos": [
@@ -2989,7 +3066,10 @@
           "t": "cita",
           "v": "Prevenir los incendios forestales es responsabilidad de todos. Cuidar la naturaleza también es cuidar nuestra comunidad."
         }
-      ]
+      ],
+      "fecha_iso": "2026-11-01",
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "la-contaminacion-un-problema-que-nos-afecta",
@@ -2997,7 +3077,7 @@
       "bajada": "La contaminación afecta el agua, el aire y el suelo. Conocé sus causas y las pequeñas acciones diarias que ayudan a cuidar el ambiente.",
       "autor": "Guadalupe Centeno",
       "sede": "Lago Pellegrini",
-      "anio": "4.º año",
+      "anio": "4.° año",
       "seccion": "ciencia",
       "fecha": "Noviembre 2026",
       "fotos": [
@@ -3078,7 +3158,10 @@
           "t": "cita",
           "v": "¡Cuidar el planeta es cuidar nuestro futuro!"
         }
-      ]
+      ],
+      "fecha_iso": "2026-11-01",
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "la-copa-del-mundo-mucho-mas-que-un-trofeo",
@@ -3086,7 +3169,7 @@
       "bajada": "El trofeo más famoso del fútbol no es oro macizo: mide 36,5 centímetros, pesa 6,175 kilos y esconde mucha química. Descubrí por qué se eligió el oro.",
       "autor": "Antonela Ancatruz · Thaiel Cayul · Mauro Cayu",
       "sede": "Laguna Blanca",
-      "anio": "2.º año",
+      "anio": "2.° año",
       "seccion": "ciencia",
       "fecha": "Noviembre 2026",
       "fotos": [
@@ -3153,7 +3236,10 @@
           "t": "firma",
           "v": "Antonela Ancatruz · Thaiel Cayul · Mauro Cayu · Sede Laguna Blanca"
         }
-      ]
+      ],
+      "fecha_iso": "2026-11-01",
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "potabilizacion-en-el-paraje-treneta",
@@ -3162,7 +3248,7 @@
       "bajada": "En Treneta encontramos plantas, tierra, animales y agua: conocemos de dónde sale el agua que tomamos y cómo la tierra fértil sostiene nuestros cultivos.",
       "autor": "Dylan y Segundo",
       "sede": "Paraje Treneta",
-      "anio": "1.º y 2.º año",
+      "anio": "1.° y 2.° año",
       "fecha": "Noviembre 2026",
       "fecha_iso": "2026-11-01",
       "fotos": [
@@ -3214,7 +3300,9 @@
           "t": "p",
           "v": "Nuestro paraje tiene una tierra muy fértil y el arroyo es muy bueno para regar los cultivos; se pueden cultivar diferentes tipos de plantas y verduras, por ejemplo papa, zapallo y lechuga."
         }
-      ]
+      ],
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "pausa-de-hidratacion",
@@ -3223,7 +3311,7 @@
       "bajada": "Todos necesitamos nuestro cooling break: lo que el Mundial nos está enseñando sobre el cuerpo.",
       "autor": "Lautaro José Cayunao",
       "sede": "Aguada de Guerra",
-      "anio": "2.º año",
+      "anio": "2.° año",
       "fecha": "Noviembre 2026",
       "fecha_iso": "2026-11-01",
       "fotos": [
@@ -3268,7 +3356,9 @@
           "t": "li",
           "v": "**Carbohidratos:** devuelven la energía a los músculos durante esos tres minutos de pausa."
         }
-      ]
+      ],
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "como-entrena-la-seleccion-con-calor",
@@ -3277,7 +3367,7 @@
       "bajada": "En el Mundial 2026 hubo temperaturas de hasta 46 °C. Adidas creó una tecnología para que los jugadores puedan entrenar sin complicaciones.",
       "autor": "Milton Chico",
       "sede": "Aguada de Guerra",
-      "anio": "4.º año",
+      "anio": "4.° año",
       "fecha": "Noviembre 2026",
       "fecha_iso": "2026-11-01",
       "fotos": [
@@ -3313,7 +3403,9 @@
           "t": "p",
           "v": "Además, usaban zapatillas de modelos ligeros y ultra respirables. La Ciencia nos demuestra que nada es imposible: solo usando la mente podemos hacer cosas grandes."
         }
-      ]
+      ],
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "un-enemigo-silencioso",
@@ -3322,7 +3414,7 @@
       "bajada": "El monóxido de carbono puede causar tragedias en el hogar: consejos para prevenirlas.",
       "autor": "Juan Cruz Ávila · Gabriel Parra",
       "sede": "Cerro Policía",
-      "anio": "2.º año",
+      "anio": "2.° año",
       "fecha": "Noviembre 2026",
       "fecha_iso": "2026-11-01",
       "fotos": [
@@ -3386,7 +3478,9 @@
           "t": "p",
           "v": "En fin, siempre hay que tener cuidado al momento de usar algo que produzca monóxido de carbono."
         }
-      ]
+      ],
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "un-problema-que-nos-afecta-a-todos",
@@ -3396,7 +3490,7 @@
       "autor": "Isaías Raninqueo · Isaías Quiroga · Sofía Achares",
       "sede": "Cerro Policía",
       "tutora": "Antonela Verón",
-      "anio": "1.º y 2.º año",
+      "anio": "1.° y 2.° año",
       "fecha": "Noviembre 2026",
       "fecha_iso": "2026-11-01",
       "fotos": [
@@ -3450,7 +3544,8 @@
           "t": "p",
           "v": "Nosotros creemos que el basurero debería recibir el tratamiento que necesita para evitar que la basura siga trayendo problemas. También es importante no generar tantos residuos y no tirar la basura en cualquier lado. El basurero de Cerro Policía no es solamente un problema de la basura, sino un problema que afecta al ambiente y a toda nuestra comunidad: por eso es importante que busquemos una solución y que cuidemos entre todos el lugar donde vivimos."
         }
-      ]
+      ],
+      "rol": ""
     },
     {
       "id": "te-invito-a-visitar-mi-paraje",
@@ -3459,7 +3554,7 @@
       "bajada": "Un lugar tranquilo con un arroyo y paisajes que se disfrutan en verano.",
       "autor": "Zaira Guaiquian",
       "sede": "Yaminué",
-      "anio": "2.º año",
+      "anio": "2.° año",
       "fecha": "Noviembre 2026",
       "fecha_iso": "2026-11-01",
       "fotos": [
@@ -3489,7 +3584,9 @@
           "t": "cita",
           "v": "¡Te invito a visitar mi paraje!"
         }
-      ]
+      ],
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "ilustracion-del-planeta-tierra",
@@ -3497,7 +3594,7 @@
       "bajada": "El planeta Tierra rodeado de símbolos ecológicos: reciclaje, energía limpia, tacho de residuos y prohibido de plásticos.",
       "autor": "Lucas Orellano",
       "sede": "El Cáin",
-      "anio": "1.º año",
+      "anio": "1.° año",
       "seccion": "cultura",
       "fecha": "Noviembre 2026",
       "fecha_iso": "2026-11-01",
@@ -3519,7 +3616,9 @@
           "t": "cita",
           "v": "“La naturaleza es la parte más increíble de la vida.”"
         }
-      ]
+      ],
+      "rol": "",
+      "tutora": ""
     },
     {
       "id": "la-ciencia-detras-del-mundial-xiomara-soto",
@@ -3748,7 +3847,7 @@
         "../imagenes/cuidemos-el-medio-ambiente-en-blancura-centro/blanc4.jpg",
         "../imagenes/cuidemos-el-medio-ambiente-en-blancura-centro/blanc5.jpg"
       ],
-      "anio": "2.º año",
+      "anio": "2.° año",
       "tutora": "Laura Moyano",
       "fecha_iso": "2026-11-01"
     },
@@ -3779,7 +3878,7 @@
       "fotos_disposicion": [
         "portada"
       ],
-      "anio": "4.º año",
+      "anio": "4.° año",
       "tutora": "Fernanda Ranileo",
       "fecha_iso": "2026-11-01"
     },
@@ -3790,7 +3889,7 @@
       "bajada": "¿Pensaste alguna vez en la fuerza que tienen los jugadores para poder hacer rodar la pelota? Detrás de cada corrida y cada pase hay mucha ciencia.",
       "autor": "Gaspar Reinao",
       "rol": "Estudiantes 4.º año",
-      "sede": "Naupa Huen",
+      "sede": "Naupa Huén",
       "fecha": "Noviembre 2026",
       "odt": null,
       "cuerpo": [
@@ -3819,7 +3918,7 @@
       "fotos": [
         "VIKYzcM6C_720x0__1.jpg"
       ],
-      "anio": "4.º año",
+      "anio": "4.° año",
       "tutora": "",
       "fecha_iso": "2026-11-01"
     },
@@ -3834,7 +3933,6 @@
       "sede": "Todas las sedes",
       "fecha": "Abril 2026",
       "fecha_iso": "2026-04-02",
-      "foto_principal": "territorio/2-de-abril-mujeres-en-malvinas/foto-01.png",
       "fotos": [
         "foto-01.jpg",
         "foto-02.png",
@@ -3953,7 +4051,8 @@
           "v": "La propuesta era escribirle a una mujer que participó en la Guerra de Malvinas (como enfermera, instrumentadora, comunicadora o colaboradora) con el fin de hacerle llegar las cartas que están prontas a ser recibidas por dos de ellas en el mes de octubre."
         }
       ],
-      "anio": ""
+      "anio": "",
+      "tutora": ""
     },
     {
       "id": "24-marzo-floreceran-panuelos",
@@ -3966,7 +4065,6 @@
       "sede": "Todas las sedes",
       "fecha": "Marzo 2026",
       "fecha_iso": "2026-03-24",
-      "foto_principal": "estudiantes/24-marzo-floreceran-panuelos/foto-01.jpeg",
       "fotos": [
         "foto-01.jpeg",
         "foto-02.jpeg",
@@ -4047,7 +4145,8 @@
           "v": "Realizamos pañuelos blancos con materiales a mano para intervenirlos con frases, símbolos, dibujos y flores dibujadas para que florezcan historias en todos los rincones del país. Esos pañuelos podían compartirlo en alguna parte de la escuela, la plaza, negocios o cualquier espacio visible."
         }
       ],
-      "anio": ""
+      "anio": "",
+      "tutora": ""
     },
     {
       "id": "escritura-fantastica",
@@ -4060,7 +4159,6 @@
       "sede": "Todas las sedes",
       "fecha": "Noviembre 2026",
       "fecha_iso": "2026-11-01",
-      "foto_principal": "cultura/escritura-fantastica/foto-01.png",
       "fotos": [
         "foto-01.jpg",
         "foto-02.jpg",
@@ -4101,7 +4199,8 @@
           "v": "El propósito es aprender, a través de producciones escritas, a profundizar en la importancia de lo fantástico en el mundo de la literatura."
         }
       ],
-      "anio": ""
+      "anio": "",
+      "tutora": ""
     },
     {
       "id": "album-figuritas",
@@ -5119,7 +5218,10 @@
           "fondo": "#9dc6ed",
           "pagina": "#c9e3fb"
         }
-      }
+      },
+      "rol": "",
+      "tutora": "",
+      "anio": ""
     },
     {
       "id": "bienvenidos-ciclo-lectivo-2026",
@@ -5132,7 +5234,6 @@
       "sede": "ESRN Rural Virtual",
       "fecha": "Febrero 2026",
       "fecha_iso": "2026-02-12",
-      "foto_principal": "foto-02.jpg",
       "fotos": [
         "foto-02.jpg",
         "foto-01.jpg",
@@ -5451,7 +5552,8 @@
       ],
       "odt": "",
       "anio": "",
-      "mosaico": true
+      "mosaico": true,
+      "tutora": ""
     },
     {
       "id": "antartida",
@@ -5641,7 +5743,10 @@
         "Base Esperanza vista general",
         "Base Esperanza, Antártida Argentina",
         "Base Esperanza, Antártida Argentina"
-      ]
+      ],
+      "rol": "",
+      "tutora": "",
+      "anio": ""
     },
     {
       "id": "malvinas",
@@ -5798,9 +5903,11 @@
         "ESRN RV 37 — Blancura Centro. Juan Cruz Epullan, Joaquín Gallardo. «El honor y el valor no se olvidan».",
         "Cerro Policía                                                            Estudiantes: Agustín Criban - Milagros Martiarena - Lucila Pelliza - Keila Pelliza -  Lázaro Faria - Yair Navarrete - Lautaro Figueredo — Hola, les compartimos el cuadro que hicimos con piedras pintadas. Este cuadro lo vamos a colgar en una de nuestras aulas como homenaje a nuestros HÉROES de Malvinas.",
         "Faustino Vergara 5to año,  Anexo N°12 Corralito — Hola, comparto el dibujo  que realice de las Islas Malvinas, se encuentra en el aula de la sede y quedara ahí hasta que el tiempo lo decida como homenaje a nuestros héroes que dieron la vida por la Patria.\n\nSaludos!!",
-        "",
         "Laguna Blanca — Buenos días. Compartimos una foto del cuadro que realizamos, y de fondo nuestra escuela. Las islas Malvinas se encuentran a 1461 Km de nuestra sede. Saludos profes!!"
-      ]
+      ],
+      "rol": "",
+      "tutora": "",
+      "anio": ""
     },
     {
       "id": "viaje-bariloche-el-cain",
@@ -5839,7 +5946,7 @@
       "fotos": [
         "foto-01.jpg"
       ],
-      "anio": "4.º año",
+      "anio": "4.° año",
       "tutora": "Fernanda Ranileo",
       "fotos_disposicion": [
         "portada"
@@ -5902,7 +6009,7 @@
       "autor": "Francisco Casanoba, Mateo Lefinir y Randi Piccinini Ramos",
       "rol": "Estudiantes 1.º año",
       "sede": "El Cóndor",
-      "anio": "1.º año",
+      "anio": "1.° año",
       "fecha": "Diciembre 2026",
       "fecha_iso": "2026-12-01",
       "odt": null,
@@ -6056,7 +6163,8 @@
         "",
         "",
         ""
-      ]
+      ],
+      "tutora": ""
     },
     {
       "id": "hablamos-con-un-veterano-kakel-huincul",
@@ -6159,7 +6267,9 @@
       "epigrafes": [
         "",
         ""
-      ]
+      ],
+      "tutora": "",
+      "anio": ""
     },
     {
       "id": "a-rodar-escuelas-2026",
@@ -6228,7 +6338,8 @@
       "epigrafes": [
         "",
         ""
-      ]
+      ],
+      "tutora": ""
     },
     {
       "id": "el-patio-de-todos-mencue",
@@ -6238,10 +6349,9 @@
       "autor": "Luciana y Milagros Calfupan",
       "rol": "Estudiantes 4° año — Sede Mencué",
       "sede": "Mencué",
-      "anio": "4° año",
+      "anio": "4.° año",
       "fecha": "Noviembre 2026",
       "fecha_iso": "2026-11-12",
-      "foto_principal": "ciencia/el-patio-de-todos-mencue/foto-01.jpg",
       "fotos": [
         "foto-01.jpg",
         "foto-02.jpg"
@@ -6275,7 +6385,8 @@
           "t": "pregunta",
           "v": "Y si vinieras a nuestro pueblo, sabiendo cómo se maneja la limpieza... ¿Te sumarías a nuestras ideas, por el bien de tu localidad?"
         }
-      ]
+      ],
+      "tutora": ""
     },
     {
       "id": "collage-del-pueblo-mencue",
@@ -6285,10 +6396,9 @@
       "autor": "Sebastián Lonconan Marcelo Painel",
       "rol": "Estudiantes 4° año",
       "sede": "Mencué",
-      "anio": "4° año",
+      "anio": "4.° año",
       "fecha": "Noviembre 2026",
       "fecha_iso": "2026-11-13",
-      "foto_principal": "cultura/collage-del-pueblo-mencue/foto-01.jpg",
       "fotos": [
         "foto-01.jpg"
       ],
@@ -6303,7 +6413,8 @@
           "t": "p",
           "v": "Salimos a tomar fotografías y armamos un collage presentando el pueblo."
         }
-      ]
+      ],
+      "tutora": ""
     },
     {
       "id": "maquetas-de-ecosistemas",
@@ -6313,11 +6424,10 @@
       "autor": "Estudiantes de 1° año",
       "rol": "Estudiantes 1° año",
       "sede": "El Caín y Río Chico",
-      "anio": "1° año",
+      "anio": "1.° año",
       "tutora": "Fernanda y Ariel",
       "fecha": "Noviembre 2026",
       "fecha_iso": "2026-11-18",
-      "foto_principal": "ciencia/maquetas-de-ecosistemas/foto-01.png",
       "fotos": [
         "foto-01.png",
         "foto-02.png",
