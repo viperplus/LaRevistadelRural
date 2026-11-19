@@ -190,12 +190,12 @@ def egresados_body():
            esc(nombre), esc(nombre), esc(sede))
         for arch, nombre, sede, cls in FOTOS_COLLAGE)
 
-    dedicatoria = ("Hoy se egresa.\n\n"
+    dedicatoria = ("Hoy se egresa.<br><br>"
                    "Hoy veintiún pueblos de Río Negro celebran la misma alegría: "
                    "que ustedes llegaron hasta el final de la secundaria, cada uno "
                    "desde su lugar y su tierra —entre valles, mesetas, ríos y rutas "
                    "largas—, con el viento de siempre como testigo y el esfuerzo "
-                   "callado de todos los días.\n\n"
+                   "callado de todos los días.<br><br>"
                    "Decía el Martín Fierro que «el que sabe más, más vale», y ustedes "
                    "lo entendieron de la mejor manera: defendiendo su derecho a estudiar "
                    "en su propia tierra. Terminar la secundaria en la ruralidad tiene "
@@ -204,24 +204,24 @@ def egresados_body():
                    "andar, el frío de la mañana y el abrazo de una familia que empujó "
                    "desde cerca —porque, como enseñan nuestros versos criollos, cuando "
                    "los de adentro están unidos, no hay viento de afuera que los "
-                   "dobleigue—.\n\n"
+                   "dobleigue—.<br><br>"
                    "Quienes los acompañamos en este recorrido sabemos bien todo lo que "
                    "pusieron para estar hoy acá. Nos enseñaron que cuando hay ganas de "
                    "aprender no hay distancia que alcance: vimos cómo se animaron a más "
                    "año tras año, y hoy nos toca celebrar lo lejos que llegaron. Esta "
                    "página es para detenernos un momento, mirarlos de frente y "
                    "decirles, sin apuro, el orgullo enorme que nos da verlos cerrar "
-                   "esta etapa.\n\n"
+                   "esta etapa.<br><br>"
                    "¡Felicidades, promoción 2026!")
 
     cierre = ("No se despidan: lo que empieza ahora lleva todo lo que construyeron "
-              "acá.\n\n"
+              "acá.<br><br>"
               "Recuerden siempre que el trabajo es la mejor prenda y que no hay camino "
               "largo cuando se anda con convicción y buen corazón. Gracias por "
               "permitirnos acompañarlos, por insistir cuando la huella se hacía "
               "pesada y por ponerle cuerpo y ganas a cada año de secundario. Gracias "
               "por dejar esta escuela un poco más viva y un poco mejor de como la "
-              "encontraron.\n\n"
+              "encontraron.<br><br>"
               "Con cariño, sus docentes de la ESRN Rural Virtual")
 
     return ('<div class="pres__bloque egr__apertura">\n'
