@@ -997,6 +997,14 @@ def main():
         extra = " art_card__img--arriba" if art.get("foto_portada_pos") == "arriba" else ""
         return "art_card__img%s" % extra
 
+    def _thumb_estilo(art):
+        # Encuadre por articulo. "arriba" se resuelve con la clase de CSS;
+        # cualquier otro valor es una posicion CSS (por ejemplo "center 24%").
+        pos = art.get("foto_portada_pos")
+        if not pos or pos == "arriba":
+            return ""
+        return " style='object-position: %s'" % pos
+
     def nav_html(pre=""):
         # "Índice" vuelve siempre a la portada de la edición (la página
         # principal del sitio), desde cualquier artículo o sección.
@@ -1100,8 +1108,8 @@ def main():
             fotos = a.get("fotos", [])
             foto_html = ""
             if fotos:
-                foto_html = "<img src='../%s/%s' alt='' class='%s'>" % (
-                    a["id"], fotos[0], _thumb_clase(a))
+                foto_html = "<img src='../%s/%s' alt='' class='%s'%s>" % (
+                    a["id"], fotos[0], _thumb_clase(a), _thumb_estilo(a))
             else:
                 foto_html = "<div class='art_card__img art_card__img--vacio' aria-hidden='true'></div>"
             
@@ -1304,8 +1312,8 @@ def main():
         sec = next((s for s in secciones if s["id"] == a.get("seccion")), None)
         sec_tit = sec["titulo"] if sec else "Voces"
         fotos = a.get("fotos") or []
-        thumb = ("<img src='%s/%s' alt='' class='%s' loading='lazy'>" % (
-                     a["id"], fotos[0], _thumb_clase(a))
+        thumb = ("<img src='%s/%s' alt='' class='%s'%s loading='lazy'>" % (
+                     a["id"], fotos[0], _thumb_clase(a), _thumb_estilo(a))
                  if fotos else "<div class='art_card__img art_card__img--vacio' aria-hidden='true'></div>")
         todos.append(
             "<article class='art_card grid-6' data-sec='%s'>"

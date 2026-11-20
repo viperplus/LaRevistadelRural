@@ -1450,7 +1450,8 @@
         "seccion-m"
       ],
       "rol": "",
-      "tutora": ""
+      "tutora": "",
+      "foto_portada_pos": "center 32%"
     },
     {
       "id": "acciones_peque_as_para_un_mundo_grande",
@@ -2327,7 +2328,8 @@
         }
       ],
       "rol": "",
-      "tutora": ""
+      "tutora": "",
+      "foto_portada_pos": "center 20%"
     },
     {
       "id": "cuidar-el-ambiente-tambien-esta-en-nuestras-manos",
@@ -3920,7 +3922,8 @@
       ],
       "anio": "4.° año",
       "tutora": "",
-      "fecha_iso": "2026-11-01"
+      "fecha_iso": "2026-11-01",
+      "foto_portada_pos": "center 2%"
     },
     {
       "id": "2-de-abril-mujeres-en-malvinas",
@@ -5221,7 +5224,8 @@
       },
       "rol": "",
       "tutora": "",
-      "anio": ""
+      "anio": "",
+      "foto_portada_pos": "center 24%"
     },
     {
       "id": "bienvenidos-ciclo-lectivo-2026",
@@ -5553,7 +5557,8 @@
       "odt": "",
       "anio": "",
       "mosaico": true,
-      "tutora": ""
+      "tutora": "",
+      "foto_portada_pos": "center 22%"
     },
     {
       "id": "antartida",
@@ -6762,7 +6767,8 @@
         "",
         "",
         ""
-      ]
+      ],
+      "foto_portada_pos": "arriba"
     },
     {
       "id": "expresiones-artisticas-lago-pellegrini",
