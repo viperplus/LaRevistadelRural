@@ -6813,27 +6813,12 @@
         },
         {
           "t": "p",
-          "v": "Florencia María Alsina tiene 40 años, vive en El Cañón y se dedica al hilado artesanal. Aprendió el oficio desde muy chica, observando a su abuela, y hoy lo lleva adelante hace unos diez años."
+          "v": "Florencia María Alsina vive en El Cañón y tiene 40 años. Aprendió a hilar de su abuela, cuando era chica, y hoy lleva unos diez años dedicada al hilado artesanal."
         },
         {
           "t": "fig",
           "f": "foto-01.jpg",
           "clase": "fig--retrato"
-        },
-        {
-          "t": "tarjeta",
-          "titulo": "Edad",
-          "texto": "40 años"
-        },
-        {
-          "t": "tarjeta",
-          "titulo": "Lugar",
-          "texto": "El Cañón"
-        },
-        {
-          "t": "tarjeta",
-          "titulo": "Actividad",
-          "texto": "Hilado artesanal"
         },
         {
           "t": "h3",
@@ -6926,7 +6911,7 @@
         },
         {
           "t": "p",
-          "v": "Abraham Álvarez tiene 19 años y se dedica a la panadería. Hace cuatro años que vende pan y dice que este emprendimiento es su fuente de trabajo y le da independencia."
+          "v": "Abraham Álvarez tiene 19 años y hace cuatro que vende pan. Aprendió el oficio en familia, de su madre, y dice que este emprendimiento es su fuente de trabajo y le da independencia."
         },
         {
           "t": "fig",
