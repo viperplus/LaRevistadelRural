@@ -27,9 +27,8 @@ ODT_POR_ID = {
     "próxima-parada-atractivos-mundialistas": "pr_xima_parada__atractivos_mundialistas_",
 }
 
-FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
-         '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-         '<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,700;0,800;1,400&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&amp;display=swap" rel="stylesheet">')
+# Generador histórico: las fuentes ya se sirven desde ediciones/01/fuentes/
+# mediante @font-face en css/revista.css. No reintroducir Google Fonts.
 
 
 def esc(t):
@@ -89,15 +88,15 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq):
     return ('<!doctype html>\n<html lang="es" dir="ltr">\n<head>\n'
             '<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n'
             "<title>%s · %s</title>\n<meta name=\"description\" content=\"%s\">\n"
-            "<link rel=\"icon\" href=\"%s\" type=\"image/svg+xml\">\n%s\n%s\n</head>\n<body>\n"
+            "<link rel=\"icon\" href=\"%s\" type=\"image/svg+xml\">\n%s\n</head>\n<body>\n"
             '<a class="salto" href="#contenido">Salto al contenido</a>\n'
-            '<header class="masthead contenedor" role="banner">\n  <p class="masthead__marca"><a href="%s">%s</a></p>\n'
+            '<header class="masthead contenedor">\n  <p class="masthead__marca"><a href="%s">%s</a></p>\n'
             '  <nav aria-label="Secciones" class="nav-ed">%s</nav>\n</header>\n'
             '<main id="contenido" class="contenedor">\n%s\n</main>\n'
-            '<footer class="pie" role="contentinfo">\n  <div class="pie__interior contenedor">\n'
+            '<footer class="pie">\n  <div class="pie__interior contenedor">\n'
             '    <p class="pie__credito">%s · %s · %s. Escrita, ilustrada y fotografiada por estudiantes de la ESRN Rural Virtual.</p>\n'
             '  </div>\n</footer>\n</body>\n</html>\n') % (
-        esc(titulo), esc(REV), esc(bajada), faviq, FONTS, css, pie_note,
+        esc(titulo), esc(REV), esc(bajada), faviq, css, pie_note,
         esc(REV), nav, body, esc(REV), esc(SUBNOMBRE), esc(ed))
 
 

@@ -25,9 +25,7 @@ TEMPLATE_ART = """<!doctype html>
 <meta name="description" content="{BAJADA}">
 <meta name="generator" content="Rural · {EDICION}">
 <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,700;0,800;1,400&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&amp;display=swap" rel="stylesheet">
+<!-- Tipografías servidas localmente desde ediciones/01/fuentes/ (@font-face). -->
 <link rel="stylesheet" href="../../css/editorial.css">
 <link rel="stylesheet" href="../../css/componentes-2.css">
 </head>
@@ -82,9 +80,7 @@ TEMPLATE_SECCION = """<!doctype html>
 <meta name="description" content="{SEC_DESCRIP}">
 <meta name="generator" content="Rural · {EDICION}">
 <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,700;0,800;1,400&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&amp;display=swap" rel="stylesheet">
+<!-- Tipografías servidas localmente desde ediciones/01/fuentes/ (@font-face). -->
 <link rel="stylesheet" href="../../css/editorial.css">
 <link rel="stylesheet" href="../../css/componentes-2.css">
 </head>
@@ -131,9 +127,7 @@ TEMPLATE_INDEX = """<!doctype html>
   ciencia y territorios de la ESRN Rural Virtual, escrito por estudiantes.">
 <meta name="generator" content="Rural · {EDICION}">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,700;0,800;1,400&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&amp;display=swap" rel="stylesheet">
+<!-- Tipografías servidas localmente desde ediciones/01/fuentes/ (@font-face). -->
 <link rel="stylesheet" href="css/editorial.css">
 <link rel="stylesheet" href="css/componentes-2.css">
 </head>
