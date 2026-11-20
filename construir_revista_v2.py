@@ -20,6 +20,9 @@ EDIT = os.path.join(BASE, "ediciones", "01")
 
 REV = "La Revista del Rural"
 SUBNOMBRE = "Revista digital de la ESRN Rural Virtual"
+# Base publica de la edicion: los enlaces del PDF tienen que ser absolutos,
+# porque si no quedan atados al servidor local que se usa para generarlo.
+URL_PUBLICA = "https://viperplus.github.io/LaRevistadelRural/ediciones/01/"
 
 ODT_POR_ID = {
     "el-chip-en-la-cancha": "clase_9_art_culo_para_la_revista_milton_",
@@ -616,16 +619,20 @@ def render_cuerpo(art, fotos_paths, solo_bloques=False, prefijo=""):
             # que al reproductor normal, para cuando el video es lo importante.
             vc = (" " + b.get("clase")) if b.get("clase") else ""
             if ruta.endswith((".mp4", ".webm", ".ogv", ".ogg")):
+                # En la vista de impresion las rutas salen de ediciones/01/,
+                # no de la carpeta del articulo: el video local necesita el
+                # mismo prefijo que ya reciben las fotos.
+                va = (prefijo + str(v).lstrip("/")) if prefijo else v
                 cuerpo_html.append(
                     '<div class="video%s"><video class="video__archivo" controls '
                     'preload="metadata" playsinline src="%s">'
                     'Tu navegador no puede reproducir este video. '
                     '<a href="%s">Descargalo</a>.</video>%s</div>'
-                    % (vc, esc(v), esc(v), pie))
+                    % (vc, esc(va), esc(va), pie))
             else:
                 cuerpo_html.append(
                     '<div class="video%s"><iframe src="%s" '
-                    'allow="accelerometer; autoplay; clipboard-write; encrypted-media; '
+                    'allow="accelerometer; clipboard-write; encrypted-media; '
                     'gyroscope; picture-in-picture; web-share" '
                     'referrerpolicy="strict-origin-when-cross-origin" playsinline '
                     'allowfullscreen title="Video del articulo"></iframe>%s</div>'
@@ -955,11 +962,12 @@ def render_album(art, fotos_paths):
         '<span class="album__progreso-n">0 / %d</span></p>'
         '<span class="album__progreso-barra">'
         '<span class="album__progreso-i"></span></span></div>'
-        '<input type="range" class="album__rango" min="1" max="%d" value="1" step="1" aria-label="Ir a la página">'
+        '<input type="range" class="album__rango" min="1" max="%d" value="1" step="1" '
+        'aria-label="Ir a la página" aria-valuetext="Portada, página 1 de %d">'
         '<label class="album__ir-et"><span class="solo-lector">Ir a una sede</span>'
-        '<select class="album__ir" aria-label="Ir a una sede">'
+        '<select class="album__ir">'
         '<option value="">Ir a una sede…</option>%s</select></label>'
-        '</div>' % (total, n_figu, total, opciones))
+        '</div>' % (total, n_figu, total, total, opciones))
 
     partes.append('<div class="album" data-total="%d">%s'
                   '<div class="album__pantalla">%s</div>'
@@ -997,7 +1005,7 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
     # La version en la consulta rompe la cache del navegador cuando cambian
     # los estaticos: sin esto, un lector que ya entro seguia viendo el JS
     # viejo (por ejemplo, una galeria sin las flechas funcionando).
-    ver = "?v=20261120g"
+    ver = "?v=20261120h"
     css = '<link rel="stylesheet" href="%srevista.css%s">' % (cssdir, ver)
     # Visor de fotos: mismos niveles que la hoja de estilos (css/ -> js/).
     js = '<script src="%srevista.js%s" defer></script>' % (cssdir.replace("css/", "js/"), ver)
@@ -1165,10 +1173,12 @@ def main():
                 "<article class='art_card grid-6' data-sec='%s'>"
                 "%s"
                 "<div class='art_card__contenido'>"
+                "<p class='art_card__sec'>%s</p>"
                 "<h3><a href='../%s/index.html'>%s</a></h3>"
                 "<p>%s</p>"
                 "</div></article>" % (
-                    a.get("seccion", "voces"), foto_html, a["id"], esc(a.get("titulo", a["id"])), esc(a.get("bajada", ""))))
+                    a.get("seccion", "voces"), foto_html, esc(s["titulo"]),
+                    a["id"], esc(a.get("titulo", a["id"])), esc(a.get("bajada", ""))))
         cards = "".join(cards)
         if not cards:
             cards = "<p class='txt-parrafo'>Sección en construcción: sumá tu artículo.</p>"
@@ -1222,28 +1232,37 @@ def main():
         '<figcaption><strong>Lautaro Rost</strong><span>Subcoordinador ESRN Rural Virtual</span></figcaption></figure>\n'
         '</div>\n</div>\n</section>\n'
         % "".join("<p>%s</p>" % esc(p) for p in editorial_txt))
+    portada_bajada = ed.get("subtitulo") or SUBNOMBRE
     body = ('<section class="portada" aria-labelledby="portada-titulo">\n'
             '<p class="portada__sec">%s</p>\n'
             '<h1 id="portada-titulo" class="portada__h1">%s</h1>\n'
+            '<p class="portada__bajada">%s</p>\n'
             '</section>\n'
             '%s'
             '<nav class="sumario" aria-label="Sumario">\n'
             '<p class="sumario__cabecera">Sumario · %s</p>\n<ul class="sumario__lista">\n%s\n</ul>\n</nav>\n'
             '<p class="todos__enlace"><a href="articulos.html">Ver los %d artículos de esta edición</a></p>'
             '<p class="todos__enlace"><a href="revista.pdf">Descargar la revista en PDF</a></p>'
-            % (esc(ed_etiqueta), esc(REV), editorial, esc(ed_etiqueta), sumario, len(articulos)))
+            % (esc(ed_etiqueta), esc(REV), esc(portada_bajada), editorial,
+               esc(ed_etiqueta), sumario, len(articulos)))
     open(os.path.join(EDIT, "index.html"), "w", encoding="utf-8").write(
         pagina("La Revista del Rural · %s" % ed_etiqueta, SUBNOMBRE, ed_etiqueta, nav_html(""),
                body, "index.html", "css/", "favicon.svg"))
 
     # ---- vista de impresion: revista completa para PDF ---------------------
-    ver = "?v=20261120g"
+    ver = "?v=20261120h"
     def _imp_art(art):
         uid = art["id"]
         fotos = art.get("fotos") or []
         prefixed = ["%s/%s" % (uid, f) for f in fotos]
-        cuerpo = (render_album(art, prefixed) if art.get("tipo") == "album"
-                  else render_cuerpo(art, prefixed, prefijo="%s/" % uid))
+        if art.get("tipo") == "album":
+            # En papel va sólo el texto: el álbum interactivo se disfruta en
+            # la web y el .imp-album-nota final ya lo enlaza. Inyectarlo acá
+            # deja 63 páginas ocultas (sin .album__cara ni JS) y 282 imágenes
+            # eager que sólo retrasan la generación del PDF.
+            cuerpo = render_cuerpo(art, [], solo_bloques=True)
+        else:
+            cuerpo = render_cuerpo(art, prefixed, prefijo="%s/" % uid)
         cuerpo = cuerpo.replace('loading="lazy"', 'loading="eager"')
         # En papel los videos no se reproducen: se reemplazan por un aviso
         # con el enlace, para no dejar iframes rotos ni huecos.
@@ -1255,6 +1274,10 @@ def main():
             if not u:
                 u = _re.search(r'<video[^>]*src="([^"]+)"', html)
             enlace = video_link_desde_embed(u.group(1)) if u else ""
+            if enlace and not enlace.startswith(("http://", "https://", "mailto:")):
+                # Video local: ruta relativa a la carpeta del articulo. En el
+                # PDF hay que dejar la URL publica, no la del servidor temporal.
+                enlace = URL_PUBLICA + enlace.lstrip("/")
             if not enlace:
                 return ('<p class="txt-parrafo"><em>[Video disponible en la versi\u00f3n '
                         'web del art\u00edculo.]</em></p>')
@@ -1425,7 +1448,7 @@ def main():
             '<h2 class="pres__h2">Somos la ESRN RURAL VIRTUAL</h2>\n'
             '<p class="pres__p pres__lead">%s</p>\n'
             '<figure class="pres__foto">\n'
-            '<img src="%s" alt="" loading="lazy" decoding="async">\n'
+            '<img src="%s" alt="Foto del grupo de la ESRN Rural Virtual" loading="lazy" decoding="async">\n'
             '</figure>\n'
             '</div>\n'
             '<div class="pres__bloque">\n'
@@ -1439,7 +1462,7 @@ def main():
             '<div class="pres__doble">\n'
             '<div>\n%s\n</div>\n'
             '<figure class="pres__foto">\n'
-            '<img src="%s" alt="" loading="lazy" decoding="async">\n'
+            '<img src="%s" alt="Foto de ejemplares impresos de La Revista del Rural" loading="lazy" decoding="async">\n'
             '</figure>\n'
             '</div>\n'
             '</div>\n'

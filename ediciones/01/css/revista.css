@@ -1260,7 +1260,9 @@ a:hover { color: var(--bermellon); }
 }
 .album__controles {
   position: sticky;
-  top: .4rem;
+  /* El masthead también es sticky (top:0, z-index:50) y mide ~7,5rem:
+     si los controles se detienen en .4rem quedan detrás de él. */
+  top: 7.5rem;
   z-index: 6;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
@@ -1606,20 +1608,22 @@ a:hover { color: var(--bermellon); }
   margin: 0;
   font-family: var(--titulos); font-size: .68rem; font-weight: 700;
   letter-spacing: .13em; text-transform: uppercase;
-  color: var(--sede, var(--verde));
+  /* El color de sede queda en la franja y el borde; el texto va a tinta
+     para pasar AA sobre cualquiera de los 27 fondos. */
+  color: var(--tinta);
 }
 .album__cab--indice .album__cab-ord { color: var(--arg-azul); }
 .album__cab-n {
   margin: 0; align-self: center;
   font-family: var(--titulos); font-size: .74rem; font-weight: 600;
-  color: var(--tinta-2);
+  color: var(--tinta);
 }
 .album__cab-t {
   grid-column: 1 / -1;
   margin: .05rem 0 0;
   font-family: var(--titulos); font-size: clamp(1.24rem, 3.4vw, 1.7rem);
   font-weight: 800; letter-spacing: .01em; line-height: 1.12;
-  color: var(--sede, var(--verde-osc));
+  color: var(--tinta);
 }
 .album__cab--indice .album__cab-t { color: var(--arg-azul); }
 /* ---- la grilla de fichas de esa página ----
@@ -1735,7 +1739,7 @@ a:hover { color: var(--bermellon); }
   border-top: 1px dashed var(--linea);
   font-family: var(--titulos); font-size: .67rem; font-weight: 600;
   letter-spacing: .07em; text-transform: uppercase;
-  color: var(--sede, var(--tinta-3));
+  color: var(--tinta);
 }
 /* ---- índice de sedes: cada fila con el color de su sede ---- */
 .album__toc {
@@ -1751,7 +1755,7 @@ a:hover { color: var(--bermellon); }
   width: 100%;
   display: flex; align-items: center; gap: .45rem;
   font-family: var(--titulos); font-size: .76rem; font-weight: 600;
-  color: var(--sede);
+  color: var(--tinta);
   background: var(--sede-fondo);
   border: 1px solid transparent;
   border-left: 3px solid var(--sede);

@@ -207,4 +207,4 @@
 
 /* ---------- ocultar cromo web ---------- */
 .imp-body .salto, .imp-body .masthead, .imp-body .pie, .imp-body .acc, .imp-body .voz,
-.imp-body .tuto { display: none !important; }
+.imp-body .tuto, .imp-body .album { display: none !important; }

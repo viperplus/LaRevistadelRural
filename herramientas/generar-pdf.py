@@ -60,7 +60,7 @@ def main():
                 footer_template=(
                     '<div style="font-size:8px;width:100%;text-align:center;'
                     'color:#6b6b6b;font-family:system-ui,sans-serif;">'
-                    'La Revista del Rural · Edición N.º 01 · '
+                    'La Revista del Rural · Edición N.º 01 — Diciembre 2026 · '
                     'Página <span class="pageNumber"></span> de '
                     '<span class="totalPages"></span></div>'),
                 margin={"top": "18mm", "bottom": "18mm",

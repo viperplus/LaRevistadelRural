@@ -78,6 +78,17 @@
     if (lista.length) abrir((i + d + lista.length) % lista.length);
   }
 
+  function abrirDesde(img) {
+    if (!util(img)) return false;
+    var cont = img.closest(".articulo__cuerpo, .collage") || img.closest("figure").parentNode;
+    if (!cont) return false;
+    lista = recuento(cont);
+    var n = lista.indexOf(img);
+    if (n < 0) return false;
+    abrir(n);
+    return true;
+  }
+
   document.addEventListener("click", function (e) {
     if (!e.target.closest) return;
     var o = e.target.closest(SEL);
@@ -86,15 +97,27 @@
       var fig = e.target.closest(SEL_FIG);
       if (fig) o = fig.querySelector("img");
     }
-    if (!util(o)) return;
-    var cont = o.closest(".articulo__cuerpo, .collage") || o.closest("figure").parentNode;
-    if (!cont) return;
-    lista = recuento(cont);
-    var n = lista.indexOf(o);
-    if (n < 0) return;
-    e.preventDefault();
-    abrir(n);
+    if (abrirDesde(o)) e.preventDefault();
   });
+
+  /* El visor también se abre con teclado: las fotos son botones de facto. */
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
+    if (!e.target.matches || !e.target.matches(SEL)) return;
+    if (abrirDesde(e.target)) e.preventDefault();
+  });
+
+  function marcarFocables() {
+    Array.prototype.forEach.call(document.querySelectorAll(SEL), function (img) {
+      if (!util(img) || img.hasAttribute("tabindex")) return;
+      img.setAttribute("tabindex", "0");
+      img.setAttribute("role", "button");
+      img.setAttribute("aria-label", "Ampliar foto: " + (img.alt || "imagen"));
+    });
+  }
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", marcarFocables);
+  else marcarFocables();
 
   dlg.querySelector(".visor__cerrar").addEventListener("click", function () {
     dlg.close();
@@ -320,7 +343,12 @@
        sale de su proporción, así que ninguna se deforma. */
     var figLista = false;
     function ajustarFig(forzar) {
-      if (!alb || (figLista && !forzar)) return;
+      if (!alb) return;
+      /* Un resize fuerza la medición: aunque la vista actual no tenga
+         grilla (portada, índice o cierre) hay que soltar la marca, para
+         que la próxima hoja con figuritas vuelva a medir. */
+      if (forzar) figLista = false;
+      else if (figLista) return;
       var v = vistas[mostrada];
       if (!v) return;
       var pag = null;
@@ -390,7 +418,11 @@
       if (num) num.textContent = (i + 1) + " / " + vistas.length;
       if (ant) ant.disabled = i === 0;
       if (sig) sig.disabled = i >= vistas.length - 1;
-      if (rango && String(i + 1) !== rango.value) rango.value = i + 1;
+      if (rango) {
+        if (String(i + 1) !== rango.value) rango.value = i + 1;
+        rango.setAttribute("aria-valuetext",
+          titulo(v) + ", página " + (i + 1) + " de " + vistas.length);
+      }
       if (punto) {
         var c = "";
         v.paginas.forEach(function (p) {
@@ -404,11 +436,13 @@
       }
       if (ir) {
         var propio = "";
-        Object.keys(primera).forEach(function (s) {
-          if (propio) return;
-          if (v.paginas.indexOf(pags[primera[s]]) >= 0) propio = s;
+        // En pliego doble manda la cara derecha: es la hoja recién abierta.
+        // La cara izquierda puede ser la última página de la sede anterior.
+        v.paginas.forEach(function (p, k) {
+          if (!p || !p.dataset || !p.dataset.sede) return;
+          if (!propio || (doble && k === 1)) propio = p.dataset.sede;
         });
-        ir.value = propio ? String(primera[propio]) : "";
+        ir.value = propio && primera[propio] != null ? String(primera[propio]) : "";
       }
     }
 
@@ -425,6 +459,10 @@
         var ves = n === mostrada;
         x.v.classList.toggle("es-actual", ves);
         x.v.classList.remove("es-debajo");
+        // Las hojas ocultas no deben recibir el foco (índice, cierre,
+        // figuritas de otros pliegos). inert es gradual: si el navegador
+        // no lo soporta, aria-hidden sigue haciendo su parte.
+        x.v.inert = !ves;
         x.v.setAttribute("aria-hidden", ves ? "false" : "true");
       });
       pintarBarra();
