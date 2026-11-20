@@ -6840,51 +6840,51 @@
           "v": "Preguntas y respuestas"
         },
         {
-          "t": "pregunta",
+          "t": "h4",
           "v": "¿Cómo aprendiste a realizar hilado y quién te enseñó?"
         },
         {
-          "t": "cita",
+          "t": "p",
           "v": "«Aprendí a realizar este trabajo desde muy chica, observando a mi abuela.»"
         },
         {
-          "t": "pregunta",
+          "t": "h4",
           "v": "¿Hace cuánto tiempo se dedica a esta actividad?"
         },
         {
-          "t": "cita",
+          "t": "p",
           "v": "«Me dedico a esta actividad desde hace 10 años aproximadamente.»"
         },
         {
-          "t": "pregunta",
+          "t": "h4",
           "v": "¿Qué materiales utiliza para realizar sus hilados?"
         },
         {
-          "t": "cita",
+          "t": "p",
           "v": "«Lo que utilizo para poder realizar el hilado es la lana de oveja que primero lavo y preparo y después la hilo con el huso o también con la rueca.»"
         },
         {
-          "t": "pregunta",
+          "t": "h4",
           "v": "¿Qué significa para usted mantener esta tradición?"
         },
         {
-          "t": "cita",
+          "t": "p",
           "v": "«Para mí significa mantener viva una tradición de nuestros antepasados.»"
         },
         {
-          "t": "pregunta",
+          "t": "h4",
           "v": "¿Qué productos realiza con la lana hilada?"
         },
         {
-          "t": "cita",
+          "t": "p",
           "v": "«Con la lana hilada hago diferentes tejidos como camperas, chalecos, medias y también tejidos a telar.»"
         },
         {
-          "t": "pregunta",
+          "t": "h4",
           "v": "¿Qué le gustaría transmitir a las nuevas generaciones sobre este oficio?"
         },
         {
-          "t": "cita",
+          "t": "p",
           "v": "«Me gustaría enseñar y compartir lo que aprendí, para que más personas valoren nuestras tradiciones y que sigan transmitiéndolas, para que este oficio no se pierda.»"
         },
         {
@@ -6904,7 +6904,8 @@
       "epigrafes": [
         "Florencia María Alsina, de El Cañón.",
         "El artículo, tal como lo prepararon los estudiantes."
-      ]
+      ],
+      "foto_portada_pos": "arriba"
     },
     {
       "id": "abraham-alvarez-panadero",
@@ -6937,60 +6938,60 @@
           "v": "Preguntas y respuestas"
         },
         {
-          "t": "pregunta",
+          "t": "h4",
           "v": "¿Cómo comenzó a dedicarse a la panadería y quién le enseñó?"
         },
         {
-          "t": "cita",
+          "t": "p",
           "v": "«Empecé gracias a mi familia. Mi madre fue quien me enseñó.»"
         },
         {
-          "t": "pregunta",
+          "t": "h4",
           "v": "¿Hace cuánto tiempo realiza esta actividad?"
         },
         {
-          "t": "cita",
+          "t": "p",
           "v": "«Hace 4 años que vendo pan.»"
         },
         {
-          "t": "pregunta",
+          "t": "h4",
           "v": "¿Qué producto de panadería suele elaborar?"
         },
         {
-          "t": "cita",
+          "t": "p",
           "v": "«Pan, tortas fritas, etc.»"
         },
         {
-          "t": "pregunta",
+          "t": "h4",
           "v": "¿Cuál es el producto que más le gusta preparar y por qué?"
         },
         {
-          "t": "cita",
+          "t": "p",
           "v": "«El pan de panadería, porque es el más vendido.»"
         },
         {
-          "t": "pregunta",
+          "t": "h4",
           "v": "¿Qué significa tener este emprendimiento?"
         },
         {
-          "t": "cita",
+          "t": "p",
           "v": "«Es mi fuente de trabajo y me da independencia.»"
         },
         {
-          "t": "pregunta",
+          "t": "h4",
           "v": "¿Qué le gustaría transmitir a las nuevas generaciones sobre el arte de hacer pan y otros productos caseros?"
         },
         {
-          "t": "cita",
+          "t": "p",
           "v": "«Que no dejen de aprender oficios.»"
+        },
+        {
+          "t": "p",
+          "v": "«El trabajo también es una forma de libertad.»"
         },
         {
           "t": "cita",
           "v": "La panadería es más que un trabajo, es una tradición que se hereda."
-        },
-        {
-          "t": "cita",
-          "v": "El trabajo también es una forma de libertad."
         },
         {
           "t": "fig",
@@ -7005,7 +7006,8 @@
       "epigrafes": [
         "Abraham Álvarez, panadero.",
         "El artículo, tal como lo prepararon los estudiantes."
-      ]
+      ],
+      "foto_portada_pos": "arriba"
     }
   ]
 }

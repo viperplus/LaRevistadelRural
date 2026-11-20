@@ -943,7 +943,7 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
     # La version en la consulta rompe la cache del navegador cuando cambian
     # los estaticos: sin esto, un lector que ya entro seguia viendo el JS
     # viejo (por ejemplo, una galeria sin las flechas funcionando).
-    ver = "?v=20261119e"
+    ver = "?v=20261120a"
     css = '<link rel="stylesheet" href="%srevista.css%s">' % (cssdir, ver)
     # Visor de fotos: mismos niveles que la hoja de estilos (css/ -> js/).
     js = '<script src="%srevista.js%s" defer></script>' % (cssdir.replace("css/", "js/"), ver)
@@ -990,6 +990,12 @@ def main():
         if os.path.isfile(ruta) and os.path.splitext(nombre)[1].lower() in (
                 ".jpg", ".jpeg", ".png", ".webp"):
             optimizar_imagen(ruta)
+
+    def _thumb_clase(art):
+        # Retratos muy altos: el recorte por defecto de la tarjeta cae en
+        # el pecho. Esta clase sube el encuadre hasta la cara.
+        extra = " art_card__img--arriba" if art.get("foto_portada_pos") == "arriba" else ""
+        return "art_card__img%s" % extra
 
     def nav_html(pre=""):
         # "Índice" vuelve siempre a la portada de la edición (la página
@@ -1094,7 +1100,8 @@ def main():
             fotos = a.get("fotos", [])
             foto_html = ""
             if fotos:
-                foto_html = "<img src='../%s/%s' alt='' class='art_card__img'>" % (a["id"], fotos[0])
+                foto_html = "<img src='../%s/%s' alt='' class='%s'>" % (
+                    a["id"], fotos[0], _thumb_clase(a))
             else:
                 foto_html = "<div class='art_card__img art_card__img--vacio' aria-hidden='true'></div>"
             
@@ -1174,7 +1181,7 @@ def main():
                body, "index.html", "css/", "favicon.svg"))
 
     # ---- vista de impresion: revista completa para PDF ---------------------
-    ver = "?v=20261119e"
+    ver = "?v=20261120a"
     def _imp_art(art):
         uid = art["id"]
         fotos = art.get("fotos") or []
@@ -1297,7 +1304,8 @@ def main():
         sec = next((s for s in secciones if s["id"] == a.get("seccion")), None)
         sec_tit = sec["titulo"] if sec else "Voces"
         fotos = a.get("fotos") or []
-        thumb = ("<img src='%s/%s' alt='' class='art_card__img' loading='lazy'>" % (a["id"], fotos[0])
+        thumb = ("<img src='%s/%s' alt='' class='%s' loading='lazy'>" % (
+                     a["id"], fotos[0], _thumb_clase(a))
                  if fotos else "<div class='art_card__img art_card__img--vacio' aria-hidden='true'></div>")
         todos.append(
             "<article class='art_card grid-6' data-sec='%s'>"

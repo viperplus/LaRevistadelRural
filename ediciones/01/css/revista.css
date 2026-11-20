@@ -755,6 +755,8 @@ a:hover { color: var(--bermellon); }
   margin-bottom: 0;
   border-bottom: 4px solid var(--sec-color, var(--verde));
 }
+/* Retratos muy altos: el recorte centrado caía en el pecho. Se sube al rostro. */
+.art_card__img--arriba { object-position: center 8%; }
 .art_card__img--vacio {
   width: 100%;
   height: clamp(9.6rem, 13vw, 12.2rem);
