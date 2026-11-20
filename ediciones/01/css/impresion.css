@@ -190,6 +190,11 @@
 .imp-cuerpo .tarjeta__p { font-size: 9pt; margin: 0; color: var(--tinta-2); }
 .imp-cuerpo .video { column-span: all; margin: 4mm 0; }
 
+/* En papel entra sólo la primera foto de la galería. El contador "1 / 47"
+   engaña: mejor aclarar que la recorrida completa está en la versión web. */
+.imp-body .slides__num { display: none; }
+.imp-body .slides__pie::after { content: " · Galería completa en la versión web."; }
+
 /* ---------- album (nota) ---------- */
 .imp-album-nota {
   page-break-before: always; padding-top: 20mm;

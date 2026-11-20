@@ -6898,7 +6898,8 @@
         }
       ],
       "fotos": [],
-      "epigrafes": []
+      "epigrafes": [],
+      "foto_portada": "foto-portada.jpg"
     },
     {
       "id": "florencia-alsina-hilado-artesanal",
@@ -7135,7 +7136,8 @@
         }
       ],
       "fotos": [],
-      "epigrafes": []
+      "epigrafes": [],
+      "foto_portada": "foto-portada.jpg"
     }
   ]
 }

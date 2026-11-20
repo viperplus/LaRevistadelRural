@@ -10,13 +10,14 @@ La página que sirve de entrada al número es `ediciones/01/index.html`; tambié
 
 ## Reconstruir la revista
 
-El sitio se genera desde los datos de `datos/ediciones.json`:
+El sitio se genera desde los datos de `datos/ediciones.json` con **un solo generador activo**:
 
 ```sh
 python construir_revista_v2.py
+python herramientas/generar-pdf.py   # opcional: regenera la revista en PDF
 ```
 
-El generador vuelca todo en `ediciones/01/` (HTML de portada, secciones, artículos, presentación y egresados).
+El generador vuelca todo en `ediciones/01/` (HTML de portada, secciones, artículos, presentación y egresados). Los scripts sueltos y `generador/` son herramientas históricas: no se usan para publicar.
 
 El mapa de sedes se genera por separado:
 
@@ -33,6 +34,11 @@ python generar_mapa.py
 | `datos/` | `ediciones.json`: textos y metadatos de los artículos |
 | `extras/` | Utilidades de mantenimiento de los datos |
 | `images/` | Imágenes de sección |
+| `ediciones/01/fuentes/` | Archivo y Source Serif 4 en `.woff2`, servidos desde el repo (sin Google Fonts) |
+
+## Videos externos
+
+Nueve artículos insertan videos alojados en Google Drive (6) o YouTube (3). Se mantienen embebidos para no redistribuir material audiovisual de estudiantes sin autorización explícita. La edición impresa reemplaza cada reproductor por un enlace «Ver el video». Traerlos al repo exigiría permisos de los titulares y recodificar varios archivos por debajo de 100 MB: dos superan ese límite (el documental de Malvinas pesa 778 MB) y el total dejaría al sitio por encima del máximo de 1 GB de GitHub Pages.
 
 ## Datos personales
 
