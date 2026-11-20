@@ -6618,6 +6618,394 @@
         "Anahir Carus junto a su entrenador Lucas Carus."
       ],
       "tutora": ""
+    },
+    {
+      "id": "aniversario-de-comico",
+      "seccion": "territorio",
+      "titulo": "Aniversario de Comicó: dos días de tradición y comunidad",
+      "bajada": "Cada año, el paraje celebra su aniversario con acto protocolar, desfile, almuerzo popular, destrezas criollas, baile campero y doma: una fiesta que reúne a vecinos y visitantes y mantiene vivas las costumbres del lugar.",
+      "autor": "ESRN Rural Virtual, Anexo 06 Comicó",
+      "rol": "Comunidad y estudiantes",
+      "sede": "Comicó",
+      "anio": "",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-20",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Cómo se celebra el aniversario en tu paraje?"
+        },
+        {
+          "t": "p",
+          "v": "En la localidad de Comicó, todos los años se celebra el Aniversario de Comicó, una festividad tradicional que conmemora un año más de vida del paraje. Generalmente, los festejos se llevan a cabo durante dos días, sábado y domingo, y reúnen a los habitantes de la comunidad y a personas que llegan de otros lugares para compartir y disfrutar de las distintas actividades."
+        },
+        {
+          "t": "h3",
+          "v": "El primer día: acto, desfile y almuerzo"
+        },
+        {
+          "t": "p",
+          "v": "Durante el primer día se realiza un acto protocolar y un desfile en el que participan las instituciones del paraje y diferentes puestos, con jinetes que desfilan a caballo. También se organiza un almuerzo popular para compartir entre los presentes, donde se acostumbra comer carnes tradicionales de la zona, como cordero, vaca y potro."
+        },
+        {
+          "t": "h3",
+          "v": "Bingos, destrezas y baile campero"
+        },
+        {
+          "t": "p",
+          "v": "A lo largo de la jornada se realizan bingos y destrezas criollas en la cancha de doma, donde se ponen en valor las costumbres y habilidades propias de la tradición rural. Por la noche, la celebración continúa con un baile campero, acompañado por orquestas regionales que interpretan chamamé y cumbia campera, géneros muy presentes en este tipo de encuentros."
+        },
+        {
+          "t": "h3",
+          "v": "El domingo, día de doma"
+        },
+        {
+          "t": "p",
+          "v": "El domingo generalmente se lleva a cabo la doma, una de las actividades centrales de la celebración, que convoca a vecinos y visitantes. Con esta actividad se da por finalizado el aniversario."
+        },
+        {
+          "t": "p",
+          "v": "El Aniversario de Comicó es una celebración muy importante para la comunidad, ya que permite reunirse con familiares, amigos y vecinos, compartir comidas y momentos de alegría, y mantener vivas las tradiciones, la cultura y la identidad del paraje. Además, es una oportunidad para celebrar su historia y fortalecer los vínculos entre sus habitantes."
+        }
+      ],
+      "fotos": [
+        "foto-01.jpg",
+        "foto-02.jpg",
+        "foto-03.jpg",
+        "foto-04.jpg",
+        "foto-05.jpg",
+        "foto-06.jpg",
+        "foto-07.jpg"
+      ],
+      "fotos_disposicion": [
+        "portada",
+        "galeria",
+        "galeria",
+        "galeria",
+        "galeria",
+        "galeria",
+        "galeria"
+      ],
+      "epigrafes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": "aniversario-de-mencue",
+      "seccion": "territorio",
+      "titulo": "Aniversario de Mencué: nuestra tradición gaucha",
+      "bajada": "Cada noviembre el pueblo festeja su aniversario con acto protocolar, desfile, almuerzo popular, jineteadas, payadas, bingo y bailanta campera.",
+      "autor": "ESRN Rural Virtual, Anexo 11 Mencué",
+      "rol": "Comunidad y estudiantes",
+      "sede": "Mencué",
+      "anio": "",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-20",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Qué se hace en tu pueblo cuando llega su aniversario?"
+        },
+        {
+          "t": "p",
+          "v": "Cada mes de noviembre se festeja el aniversario de nuestro pueblo, haciendo que se mantengan vivas nuestras tradiciones y costumbres gauchas."
+        },
+        {
+          "t": "h3",
+          "v": "El acto y el desfile"
+        },
+        {
+          "t": "p",
+          "v": "Comenzamos con un acto protocolar con palabras alusivas de autoridades y docentes, dando lugar a nuestras banderas. Luego, ellas son acompañadas en el desfile por caballos y habitantes del pueblo."
+        },
+        {
+          "t": "h3",
+          "v": "Almuerzo, doma y payadas"
+        },
+        {
+          "t": "p",
+          "v": "Para los invitados y los habitantes del pueblo, se los invita a compartir de un gran almuerzo popular. Luego se abren las puertas del campo de doma, donde podrán apreciar y disfrutar jineteadas con buenos reservados y destrezas con participantes de otros lugares; todo esto es acompañado por payadas realizadas por payadores muy conocidos."
+        },
+        {
+          "t": "video",
+          "v": "https://drive.google.com/file/d/1SrhzJzbE5FkS4pvIfJv8cpMU7OjacR_A/view?usp=sharing",
+          "cap": "Destrezas del aniversario de Mencué."
+        },
+        {
+          "t": "h3",
+          "v": "La noche: bingo, peña y bailanta"
+        },
+        {
+          "t": "p",
+          "v": "Llegada la noche se realiza el bingo con grandes premios, peña y un gran cierre con bailanta campera a cargo de grandes músicos."
+        }
+      ],
+      "fotos": [
+        "foto-01.jpg",
+        "foto-02.jpg",
+        "foto-03.jpg"
+      ],
+      "fotos_disposicion": [
+        "portada",
+        "galeria",
+        "galeria"
+      ],
+      "epigrafes": [
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": "expresiones-artisticas-lago-pellegrini",
+      "seccion": "cultura",
+      "titulo": "Un espacio para la expresión artística en Lago Pellegrini",
+      "bajada": "Estudiantes de 1.º, 2.º y 3.º año comparten sus producciones: dibujos, pinturas, poemas, canciones, historias, esculturas y otras creaciones hechas en la escuela.",
+      "autor": "Estudiantes de 1.º, 2.º y 3.º año",
+      "rol": "ESRN Rural Virtual, sede Lago Pellegrini",
+      "sede": "Lago Pellegrini",
+      "anio": "1.º a 3.º año",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-20",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "p",
+          "v": "La escuela es también un lugar para crear. Desde Lago Pellegrini compartimos este aporte para la revista digital, pensado como un espacio de expresión artística donde los estudiantes pueden mostrar lo que hacen."
+        },
+        {
+          "t": "p",
+          "v": "Los estudiantes pueden presentar dibujos, pinturas, poemas, canciones, historias, esculturas o cualquier otra producción. La propuesta fue llevada adelante por estudiantes de 1.º, 2.º y 3.º año."
+        },
+        {
+          "t": "video",
+          "v": "https://drive.google.com/file/d/172ea6TLt2YMyttav6NwA8GBlAM7pnMMz/view",
+          "cap": "Producciones artísticas de los estudiantes de Lago Pellegrini."
+        }
+      ],
+      "fotos": [],
+      "epigrafes": []
+    },
+    {
+      "id": "florencia-alsina-hilado-artesanal",
+      "seccion": "voces",
+      "titulo": "El hilado artesanal de Florencia Alsina: tradición, trabajo y amor por la lana",
+      "bajada": "La emprendedora de El Cañón aprendió el oficio de su abuela y hoy lo comparte para que la tradición no se pierda.",
+      "autor": "Florencia María Alsina",
+      "rol": "Entrevista · Hilado artesanal",
+      "sede": "El Cañón",
+      "anio": "",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-20",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "cita",
+          "v": "Tradición, trabajo y amor por la lana."
+        },
+        {
+          "t": "p",
+          "v": "Florencia María Alsina tiene 40 años, vive en El Cañón y se dedica al hilado artesanal. Aprendió el oficio desde muy chica, observando a su abuela, y hoy lo lleva adelante hace unos diez años."
+        },
+        {
+          "t": "fig",
+          "f": "foto-01.jpg",
+          "clase": "fig--retrato"
+        },
+        {
+          "t": "tarjeta",
+          "titulo": "Edad",
+          "texto": "40 años"
+        },
+        {
+          "t": "tarjeta",
+          "titulo": "Lugar",
+          "texto": "El Cañón"
+        },
+        {
+          "t": "tarjeta",
+          "titulo": "Actividad",
+          "texto": "Hilado artesanal"
+        },
+        {
+          "t": "h3",
+          "v": "Preguntas y respuestas"
+        },
+        {
+          "t": "pregunta",
+          "v": "¿Cómo aprendiste a realizar hilado y quién te enseñó?"
+        },
+        {
+          "t": "cita",
+          "v": "«Aprendí a realizar este trabajo desde muy chica, observando a mi abuela.»"
+        },
+        {
+          "t": "pregunta",
+          "v": "¿Hace cuánto tiempo se dedica a esta actividad?"
+        },
+        {
+          "t": "cita",
+          "v": "«Me dedico a esta actividad desde hace 10 años aproximadamente.»"
+        },
+        {
+          "t": "pregunta",
+          "v": "¿Qué materiales utiliza para realizar sus hilados?"
+        },
+        {
+          "t": "cita",
+          "v": "«Lo que utilizo para poder realizar el hilado es la lana de oveja que primero lavo y preparo y después la hilo con el huso o también con la rueca.»"
+        },
+        {
+          "t": "pregunta",
+          "v": "¿Qué significa para usted mantener esta tradición?"
+        },
+        {
+          "t": "cita",
+          "v": "«Para mí significa mantener viva una tradición de nuestros antepasados.»"
+        },
+        {
+          "t": "pregunta",
+          "v": "¿Qué productos realiza con la lana hilada?"
+        },
+        {
+          "t": "cita",
+          "v": "«Con la lana hilada hago diferentes tejidos como camperas, chalecos, medias y también tejidos a telar.»"
+        },
+        {
+          "t": "pregunta",
+          "v": "¿Qué le gustaría transmitir a las nuevas generaciones sobre este oficio?"
+        },
+        {
+          "t": "cita",
+          "v": "«Me gustaría enseñar y compartir lo que aprendí, para que más personas valoren nuestras tradiciones y que sigan transmitiéndolas, para que este oficio no se pierda.»"
+        },
+        {
+          "t": "cita",
+          "v": "La lana no solo se hila, también se tejen historias y raíces."
+        },
+        {
+          "t": "fig",
+          "f": "foto-02.jpg",
+          "clase": "fig--mediana"
+        }
+      ],
+      "fotos": [
+        "foto-01.jpg",
+        "foto-02.jpg"
+      ],
+      "epigrafes": [
+        "Florencia María Alsina, de El Cañón.",
+        "El artículo, tal como lo prepararon los estudiantes."
+      ]
+    },
+    {
+      "id": "abraham-alvarez-panadero",
+      "seccion": "voces",
+      "titulo": "Abraham Álvarez: el pan también se hace con sueños y esfuerzo",
+      "bajada": "A los 19 años, este emprendedor vende pan desde hace cuatro años. Su historia muestra que el trabajo también es una forma de libertad.",
+      "autor": "Abraham Álvarez",
+      "rol": "Entrevista · Panadería",
+      "sede": "ESRN Rural Virtual",
+      "anio": "",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-20",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "cita",
+          "v": "El pan también se hace con sueños y esfuerzo."
+        },
+        {
+          "t": "p",
+          "v": "Abraham Álvarez tiene 19 años y se dedica a la panadería. Hace cuatro años que vende pan y dice que este emprendimiento es su fuente de trabajo y le da independencia."
+        },
+        {
+          "t": "fig",
+          "f": "foto-01.jpg",
+          "clase": "fig--retrato"
+        },
+        {
+          "t": "h3",
+          "v": "Preguntas y respuestas"
+        },
+        {
+          "t": "pregunta",
+          "v": "¿Cómo comenzó a dedicarse a la panadería y quién le enseñó?"
+        },
+        {
+          "t": "cita",
+          "v": "«Empecé gracias a mi familia. Mi madre fue quien me enseñó.»"
+        },
+        {
+          "t": "pregunta",
+          "v": "¿Hace cuánto tiempo realiza esta actividad?"
+        },
+        {
+          "t": "cita",
+          "v": "«Hace 4 años que vendo pan.»"
+        },
+        {
+          "t": "pregunta",
+          "v": "¿Qué producto de panadería suele elaborar?"
+        },
+        {
+          "t": "cita",
+          "v": "«Pan, tortas fritas, etc.»"
+        },
+        {
+          "t": "pregunta",
+          "v": "¿Cuál es el producto que más le gusta preparar y por qué?"
+        },
+        {
+          "t": "cita",
+          "v": "«El pan de panadería, porque es el más vendido.»"
+        },
+        {
+          "t": "pregunta",
+          "v": "¿Qué significa tener este emprendimiento?"
+        },
+        {
+          "t": "cita",
+          "v": "«Es mi fuente de trabajo y me da independencia.»"
+        },
+        {
+          "t": "pregunta",
+          "v": "¿Qué le gustaría transmitir a las nuevas generaciones sobre el arte de hacer pan y otros productos caseros?"
+        },
+        {
+          "t": "cita",
+          "v": "«Que no dejen de aprender oficios.»"
+        },
+        {
+          "t": "cita",
+          "v": "La panadería es más que un trabajo, es una tradición que se hereda."
+        },
+        {
+          "t": "cita",
+          "v": "El trabajo también es una forma de libertad."
+        },
+        {
+          "t": "fig",
+          "f": "foto-02.jpg",
+          "clase": "fig--mediana"
+        }
+      ],
+      "fotos": [
+        "foto-01.jpg",
+        "foto-02.jpg"
+      ],
+      "epigrafes": [
+        "Abraham Álvarez, panadero.",
+        "El artículo, tal como lo prepararon los estudiantes."
+      ]
     }
   ]
 }
