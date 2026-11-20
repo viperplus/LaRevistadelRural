@@ -56,6 +56,12 @@
   --t-5: 2.213rem;
   --t-6: 2.7rem;
 
+  /* Alias que usa el mensaje editorial de la portada. Antes no existian:
+     el titulo heredaba 17.5px y el filete izquierdo quedaba en 0. */
+  --fs-s: var(--t-06);
+  --fs-m: var(--t-2);
+  --verde-borde: var(--verde);
+
   /* Display: tapa > sección > artículo > corte interno. Cada escalón
      baja ~28% del anterior: se lee como una escala, no como tamaños sueltos */
   --dsp-tapa:  clamp(2.75rem, 1.55rem + 5.1vw, 5.85rem);
@@ -755,8 +761,8 @@ a:hover { color: var(--bermellon); }
   margin-bottom: 0;
   border-bottom: 4px solid var(--sec-color, var(--verde));
 }
-/* Retratos muy altos: el recorte centrado caía en el pecho. Se sube al rostro. */
-.art_card__img--arriba { object-position: center 8%; }
+/* Las miniaturas ya llegan encuadradas desde el generador (foto_portada):
+   aca solo se mantienen centradas, sin desplazamientos por articulo. */
 .art_card__img--vacio {
   width: 100%;
   height: clamp(9.6rem, 13vw, 12.2rem);

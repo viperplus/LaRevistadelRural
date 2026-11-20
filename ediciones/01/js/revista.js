@@ -1331,7 +1331,7 @@
     PASOS.push({
       sel: ".articulo__cuerpo",
       t: "El artículo",
-      v: "Acá está el texto con sus fotos, audios y videos. Al final de " +
+      v: "Acá está el texto con sus fotos y videos. Al final de " +
          "cada nota, <strong>Volver</strong> te deja en la sección de " +
          "donde viniste.",
       p: "Si la nota tiene galería, tocá una foto para verla en grande."

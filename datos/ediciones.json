@@ -5,7 +5,7 @@
     "subtitulo": "Revista digital de la ESRN Rural Virtual",
     "epigrafe": "Ciencia, territorio y comunidad desde los parajes de Río Negro",
     "fecha": "Diciembre 2026",
-    "edicion_etiqueta": "Edición N.º 05 — Diciembre 2026"
+    "edicion_etiqueta": "Edición N.º 01 — Diciembre 2026"
   },
   "secciones": [
     {
@@ -1451,7 +1451,7 @@
       ],
       "rol": "",
       "tutora": "",
-      "foto_portada_pos": "center 32%"
+      "foto_portada": "foto-portada.jpg"
     },
     {
       "id": "acciones_peque_as_para_un_mundo_grande",
@@ -2095,7 +2095,8 @@
       "sede": "Peñas Blancas",
       "anio": "1.° año",
       "rol": "",
-      "tutora": ""
+      "tutora": "",
+      "foto_portada": "foto-portada.jpg"
     },
     {
       "id": "nueva_carpeta_8",
@@ -2329,7 +2330,7 @@
       ],
       "rol": "",
       "tutora": "",
-      "foto_portada_pos": "center 20%"
+      "foto_portada": "foto-portada.jpg"
     },
     {
       "id": "cuidar-el-ambiente-tambien-esta-en-nuestras-manos",
@@ -3360,7 +3361,8 @@
         }
       ],
       "rol": "",
-      "tutora": ""
+      "tutora": "",
+      "foto_portada": "foto-portada.jpg"
     },
     {
       "id": "como-entrena-la-seleccion-con-calor",
@@ -3407,7 +3409,8 @@
         }
       ],
       "rol": "",
-      "tutora": ""
+      "tutora": "",
+      "foto_portada": "foto-portada.jpg"
     },
     {
       "id": "un-enemigo-silencioso",
@@ -3923,7 +3926,7 @@
       "anio": "4.° año",
       "tutora": "",
       "fecha_iso": "2026-11-01",
-      "foto_portada_pos": "center 2%"
+      "foto_portada": "foto-portada.jpg"
     },
     {
       "id": "2-de-abril-mujeres-en-malvinas",
@@ -4149,7 +4152,8 @@
         }
       ],
       "anio": "",
-      "tutora": ""
+      "tutora": "",
+      "foto_portada": "foto-portada.jpg"
     },
     {
       "id": "escritura-fantastica",
@@ -5225,7 +5229,7 @@
       "rol": "",
       "tutora": "",
       "anio": "",
-      "foto_portada_pos": "center 24%"
+      "foto_portada": "foto-portada.jpg"
     },
     {
       "id": "bienvenidos-ciclo-lectivo-2026",
@@ -5558,7 +5562,7 @@
       "anio": "",
       "mosaico": true,
       "tutora": "",
-      "foto_portada_pos": "center 22%"
+      "foto_portada": "foto-portada.jpg"
     },
     {
       "id": "antartida",
@@ -5751,7 +5755,8 @@
       ],
       "rol": "",
       "tutora": "",
-      "anio": ""
+      "anio": "",
+      "foto_portada": "foto-portada.jpg"
     },
     {
       "id": "malvinas",
@@ -6416,7 +6421,7 @@
       "cuerpo": [
         {
           "t": "p",
-          "v": "Salimos a tomar fotografías y armamos un collage presentando el pueblo."
+          "v": "Salimos a tomar fotografías y armamos un collage presentando el pueblo. El resultado es este retrato colectivo de Mencué."
         }
       ],
       "tutora": ""
@@ -6768,7 +6773,7 @@
         "",
         ""
       ],
-      "foto_portada_pos": "arriba"
+      "foto_portada": "foto-portada.jpg"
     },
     {
       "id": "expresiones-artisticas-lago-pellegrini",
@@ -6896,7 +6901,7 @@
         "Florencia María Alsina, de El Cañón.",
         "El artículo, tal como lo prepararon los estudiantes."
       ],
-      "foto_portada_pos": "arriba"
+      "foto_portada": "foto-portada.jpg"
     },
     {
       "id": "abraham-alvarez-panadero",
@@ -6998,7 +7003,44 @@
         "Abraham Álvarez, panadero.",
         "El artículo, tal como lo prepararon los estudiantes."
       ],
-      "foto_portada_pos": "arriba"
+      "foto_portada": "foto-portada.jpg"
+    },
+    {
+      "id": "hay-que-tener-cuidado",
+      "seccion": "ciencia",
+      "titulo": "Hay que tener cuidado",
+      "bajada": "Cuando la llama de una hornalla es roja hay un peligro que no se ve. Cómo detectar al monóxido de carbono.",
+      "autor": "Estudiantes de 4.º año",
+      "rol": "",
+      "sede": "Todas las sedes",
+      "anio": "4.º año",
+      "fecha": "Noviembre 2026",
+      "fecha_iso": "2026-11-01",
+      "odt": null,
+      "cuerpo": [
+        {
+          "t": "pregunta",
+          "v": "¿Sabías que una llama roja en tu hornalla puede ser señal de un peligro invisible?"
+        },
+        {
+          "t": "h3",
+          "v": "El problema con el monóxido de carbono"
+        },
+        {
+          "t": "p",
+          "v": "Cuando en una hornalla la llama sale roja, significa que está haciendo una mala combustión. La llama tiene que ser completamente azul."
+        },
+        {
+          "t": "p",
+          "v": "Cada año hay entre 200 y 250 muertes por intoxicación con monóxido de carbono."
+        },
+        {
+          "t": "cita",
+          "v": "Hay que tener cuidado."
+        }
+      ],
+      "fotos": [],
+      "epigrafes": []
     }
   ]
 }

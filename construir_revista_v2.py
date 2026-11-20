@@ -415,6 +415,18 @@ def video_link(v):
     return v
 
 
+def video_link_desde_embed(src):
+    """Del src del iframe al enlace que se puede pegar en el PDF."""
+    s = (src or "").strip()
+    m = re.search(r"youtube(?:-nocookie)?\.com/embed/([^\"?&/]+)", s)
+    if m:
+        return "https://www.youtube.com/watch?v=" + m.group(1)
+    m = re.search(r"drive\.google\.com/file/d/([^/]+)/preview", s)
+    if m:
+        return "https://drive.google.com/file/d/%s/view" % m.group(1)
+    return s
+
+
 def agrupar_mosaico(bloques):
     """Junta las figuras consecutivas en un <div class="mosaico">.
 
@@ -466,8 +478,10 @@ def render_cuerpo(art, fotos_paths, solo_bloques=False, prefijo=""):
     consumidas = set()
 
     def _fig(src, ep, clase="fig--g8"):
-        return ('<figure class="fig %s"><img src="%s" alt="" loading="lazy" decoding="async">'
-                '<figcaption>%s</figcaption></figure>') % (clase, src, ep)
+        base = esc(art.get("titulo") or art.get("id") or "")
+        texto_alt = base + (" — " + ep if ep else "")
+        return ('<figure class="fig %s"><img src="%s" alt="%s" loading="lazy" decoding="async">'
+                '<figcaption>%s</figcaption></figure>') % (clase, src, texto_alt, ep)
 
     def _ep(i):
         return esc(epigs[i] if 0 <= i < len(epigs) else "")
@@ -622,14 +636,19 @@ def render_cuerpo(art, fotos_paths, solo_bloques=False, prefijo=""):
             # primera se carga ya; el resto lo hace el JS al deslizar, asi el
             # articulo no arranca bajando 40 fotos.
             fotos_slides = b.get("fotos") or art.get("slides") or []
+            if prefijo and fotos_slides:
+                # En la vista de impresion las rutas salen de ediciones/01/,
+                # asi que cada foto de la galeria necesita el prefijo del articulo.
+                fotos_slides = [prefijo + str(f).lstrip("/") for f in fotos_slides]
             if fotos_slides:
                 datos = json.dumps(fotos_slides, ensure_ascii=False).replace("</", "<\\/")
                 pie = esc(b.get("v") or "")
+                alt_slides = esc((art.get("titulo") or art.get("id") or "") + " — galería de fotos")
                 cuerpo_html.append(
                     '<figure class="slides" data-slides tabindex="0" '
                     'aria-label="Galería de fotos">'
                     '<div class="slides__marco">'
-                    '<img class="slides__img" src="%s" data-slides-img alt="" decoding="async">'
+                    '<img class="slides__img" src="%s" data-slides-img alt="%s" decoding="async">'
                     '</div>'
                     '<button class="slides__nav slides__nav--prev" type="button" '
                     'aria-label="Foto anterior">&#8249;</button>'
@@ -638,7 +657,7 @@ def render_cuerpo(art, fotos_paths, solo_bloques=False, prefijo=""):
                     '<figcaption class="slides__pie">'
                     '<span class="slides__num" data-slides-num>1 / %d</span>%s</figcaption>'
                     '<script type="application/json" data-slides-datos>%s</script>'
-                    '</figure>' % (esc(fotos_slides[0]), len(fotos_slides),
+                    '</figure>' % (esc(fotos_slides[0]), alt_slides, len(fotos_slides),
                                    ("<span class=\"slides__texto\">%s</span>" % pie) if pie else "",
                                    datos))
         else:
@@ -657,8 +676,10 @@ def render_cuerpo(art, fotos_paths, solo_bloques=False, prefijo=""):
     disp = art.get("fotos_disposicion") or []
 
     def _fig(src, ep, clase="fig--g8"):
-        return ('<figure class="fig %s"><img src="%s" alt="" loading="lazy" decoding="async">'
-                '<figcaption>%s</figcaption></figure>') % (clase, src, ep)
+        base = esc(art.get("titulo") or art.get("id") or "")
+        texto_alt = base + (" — " + ep if ep else "")
+        return ('<figure class="fig %s"><img src="%s" alt="%s" loading="lazy" decoding="async">'
+                '<figcaption>%s</figcaption></figure>') % (clase, src, texto_alt, ep)
 
     def _ep(i):
         return esc(epigs[i] if len(epigs) > i else "")
@@ -943,7 +964,7 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
     # La version en la consulta rompe la cache del navegador cuando cambian
     # los estaticos: sin esto, un lector que ya entro seguia viendo el JS
     # viejo (por ejemplo, una galeria sin las flechas funcionando).
-    ver = "?v=20261120a"
+    ver = "?v=20261120b"
     css = '<link rel="stylesheet" href="%srevista.css%s">' % (cssdir, ver)
     # Visor de fotos: mismos niveles que la hoja de estilos (css/ -> js/).
     js = '<script src="%srevista.js%s" defer></script>' % (cssdir.replace("css/", "js/"), ver)
@@ -991,19 +1012,13 @@ def main():
                 ".jpg", ".jpeg", ".png", ".webp"):
             optimizar_imagen(ruta)
 
-    def _thumb_clase(art):
-        # Retratos muy altos: el recorte por defecto de la tarjeta cae en
-        # el pecho. Esta clase sube el encuadre hasta la cara.
-        extra = " art_card__img--arriba" if art.get("foto_portada_pos") == "arriba" else ""
-        return "art_card__img%s" % extra
+    def _thumb_src(art):
+        """Miniatura dedicada y ya encuadrada; si no hay, la primera foto."""
+        fotos = art.get("fotos") or []
+        return art.get("foto_portada") or (fotos[0] if fotos else "")
 
-    def _thumb_estilo(art):
-        # Encuadre por articulo. "arriba" se resuelve con la clase de CSS;
-        # cualquier otro valor es una posicion CSS (por ejemplo "center 24%").
-        pos = art.get("foto_portada_pos")
-        if not pos or pos == "arriba":
-            return ""
-        return " style='object-position: %s'" % pos
+    def _thumb_alt(art):
+        return esc("Portada de %s" % (art.get("titulo") or art.get("id", "")))
 
     def nav_html(pre=""):
         # "Índice" vuelve siempre a la portada de la edición (la página
@@ -1105,11 +1120,11 @@ def main():
         cards = []
         for a in art_por_sec.get(s["id"], []):
             # Buscar primera foto del artículo
-            fotos = a.get("fotos", [])
             foto_html = ""
-            if fotos:
-                foto_html = "<img src='../%s/%s' alt='' class='%s'%s>" % (
-                    a["id"], fotos[0], _thumb_clase(a), _thumb_estilo(a))
+            tsrc = _thumb_src(a)
+            if tsrc:
+                foto_html = ("<img src='../%s/%s' alt='%s' class='art_card__img' loading='lazy'>" %
+                             (a["id"], tsrc, _thumb_alt(a)))
             else:
                 foto_html = "<div class='art_card__img art_card__img--vacio' aria-hidden='true'></div>"
             
@@ -1189,7 +1204,7 @@ def main():
                body, "index.html", "css/", "favicon.svg"))
 
     # ---- vista de impresion: revista completa para PDF ---------------------
-    ver = "?v=20261120a"
+    ver = "?v=20261120b"
     def _imp_art(art):
         uid = art["id"]
         fotos = art.get("fotos") or []
@@ -1200,8 +1215,20 @@ def main():
         # En papel los videos no se reproducen: se reemplazan por un aviso
         # con el enlace, para no dejar iframes rotos ni huecos.
         import re as _re
-        cuerpo = _re.sub(r'<div class="video[^"]*">.*?</div>',
-                         '<p class="txt-parrafo"><em>[Video disponible en la versi\u00f3n web del art\u00edculo.]</em></p>',
+
+        def _aviso_video(match):
+            html = match.group(0)
+            u = _re.search(r'<iframe[^>]*src="([^"]+)"', html)
+            if not u:
+                u = _re.search(r'<video[^>]*src="([^"]+)"', html)
+            enlace = video_link_desde_embed(u.group(1)) if u else ""
+            if not enlace:
+                return ('<p class="txt-parrafo"><em>[Video disponible en la versi\u00f3n '
+                        'web del art\u00edculo.]</em></p>')
+            return ('<p class="txt-parrafo"><em>[Video disponible en la versi\u00f3n web '
+                    'del art\u00edculo.]</em> <a href="%s">Ver el video</a>.</p>') % esc(enlace)
+
+        cuerpo = _re.sub(r'<div class="video[^"]*">.*?</div>', _aviso_video,
                          cuerpo, flags=_re.DOTALL)
         sec = next((s for s in secciones if s["id"] == art.get("seccion")), None)
         sec_nom = sec["titulo"] if sec else "Voces"
@@ -1311,10 +1338,10 @@ def main():
     for a in articulos:
         sec = next((s for s in secciones if s["id"] == a.get("seccion")), None)
         sec_tit = sec["titulo"] if sec else "Voces"
-        fotos = a.get("fotos") or []
-        thumb = ("<img src='%s/%s' alt='' class='%s'%s loading='lazy'>" % (
-                     a["id"], fotos[0], _thumb_clase(a), _thumb_estilo(a))
-                 if fotos else "<div class='art_card__img art_card__img--vacio' aria-hidden='true'></div>")
+        tsrc = _thumb_src(a)
+        thumb = ("<img src='%s/%s' alt='%s' class='art_card__img' loading='lazy'>" % (
+                     a["id"], tsrc, _thumb_alt(a))
+                 if tsrc else "<div class='art_card__img art_card__img--vacio' aria-hidden='true'></div>")
         todos.append(
             "<article class='art_card grid-6' data-sec='%s'>"
             "%s"
