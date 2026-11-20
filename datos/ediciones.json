@@ -4232,6 +4232,10 @@
         },
         {
           "t": "p",
+          "v": "Las fotos de los lugares —el potrero de Aguada de Guerra, las canchas, el lago— vienen como postales a toda página: ocupan el lugar de dos figuritas para que se vean bien."
+        },
+        {
+          "t": "p",
           "v": "Están agrupadas por sede, como en cualquier álbum que se respete. Tocá cualquier figurita para verla en grande."
         },
         {
@@ -5231,7 +5235,93 @@
       "rol": "",
       "tutora": "",
       "anio": "",
-      "foto_portada": "foto-portada.jpg"
+      "foto_portada": "foto-portada.jpg",
+      "fichas_dobles": [
+        {
+          "n": 19,
+          "img": "fig-019-ancho.jpg",
+          "epigrafe": "Potrero de Aguada de Guerra",
+          "etiqueta": "El lugar"
+        },
+        {
+          "n": 66,
+          "img": "fig-066-ancho.jpg",
+          "epigrafe": "Cona Niyeu",
+          "etiqueta": "El lugar"
+        },
+        {
+          "n": 73,
+          "img": "fig-073-ancho.jpg",
+          "epigrafe": "Estadio de Cómico",
+          "etiqueta": "La cancha"
+        },
+        {
+          "n": 86,
+          "img": "fig-086-ancho.jpg",
+          "epigrafe": "Estadio de El Caín",
+          "etiqueta": "La cancha"
+        },
+        {
+          "n": 150,
+          "img": "fig-150-ancho.jpg",
+          "epigrafe": "Lago Pellegrini",
+          "etiqueta": "El lugar"
+        },
+        {
+          "n": 151,
+          "img": "fig-151-ancho.jpg",
+          "epigrafe": "Lago Pellegrini",
+          "etiqueta": "El lugar"
+        },
+        {
+          "n": 152,
+          "img": "fig-152-ancho.jpg",
+          "epigrafe": "Lago Pellegrini",
+          "etiqueta": "El lugar"
+        },
+        {
+          "n": 162,
+          "img": "fig-162-ancho.jpg",
+          "epigrafe": "Estadio de Laguna Blanca",
+          "etiqueta": "La cancha"
+        },
+        {
+          "n": 169,
+          "img": "fig-169-ancho.jpg",
+          "epigrafe": "Mencué",
+          "etiqueta": "El lugar"
+        },
+        {
+          "n": 194,
+          "img": "fig-194-ancho.jpg",
+          "epigrafe": "Nahupahuen",
+          "etiqueta": "El lugar"
+        },
+        {
+          "n": 211,
+          "img": "fig-211-ancho.jpg",
+          "epigrafe": "Peñas Blancas",
+          "etiqueta": "El lugar"
+        },
+        {
+          "n": 212,
+          "img": "fig-212-ancho.jpg",
+          "epigrafe": "Peñas Blancas",
+          "etiqueta": "El lugar"
+        },
+        {
+          "n": 213,
+          "img": "fig-213-ancho.jpg",
+          "epigrafe": "Peñas Blancas",
+          "etiqueta": "El lugar"
+        },
+        {
+          "n": 257,
+          "img": "fig-257-ancho.jpg",
+          "epigrafe": "Villa Llanquín",
+          "etiqueta": "El lugar"
+        }
+      ]
     },
     {
       "id": "bienvenidos-ciclo-lectivo-2026",

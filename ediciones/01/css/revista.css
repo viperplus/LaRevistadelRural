@@ -1623,13 +1623,13 @@ a:hover { color: var(--bermellon); }
 }
 .album__cab--indice .album__cab-t { color: var(--arg-azul); }
 /* ---- la grilla de fichas de esa página ----
-   Tres columnas por dos filas: seis figuritas por hoja. El ancho de la
-   pista es siempre --fig, así que ninguna ficha se achica ni se agranda
-   aunque una sede ocupe varias hojas. Si el ancho no da para tres, se
-   bajan a dos columnas sin tocar el tamaño de la figurita. */
+   Seis subcolumnas por dos filas. Cada figurita ocupa dos subcolumnas
+   (3 por fila) y la postal de un lugar ocupa cuatro (el lugar de dos
+   figuritas). Así las postales se agrandan sin deformar y la hoja sigue
+   cerrando en 6 casillas, con todas las fotos del mismo tamaño. */
 .album__grilla {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, var(--fig)));
+  grid-template-columns: repeat(6, minmax(0, calc((var(--fig) - var(--fig-g)) / 2)));
   justify-content: center;
   align-content: start;
   gap: var(--fig-g);
@@ -1640,6 +1640,7 @@ a:hover { color: var(--bermellon); }
 .album__ficha {
   position: relative;
   isolation: isolate;
+  grid-column: span 2;
   margin: 0;
   background: var(--papel-alt);
   border: 1px solid var(--linea);
@@ -1693,6 +1694,21 @@ a:hover { color: var(--bermellon); }
   transition: none;
 }
 .album__ficha img:hover { transform: none; box-shadow: none; }
+/* Las postales del lugar ocupan dos figuritas. La foto es un recorte real
+   (sin estirar) y su proporción compensa el doble de ancho para que la
+   ficha mida lo mismo de alto que una figurita común. */
+.album__ficha--doble { grid-column: span 4; }
+.album__ficha--doble img { aspect-ratio: 7 / 4; }
+.album__ficha-etiqueta {
+  position: absolute; right: .45rem; bottom: 2.9rem; z-index: 2;
+  padding: .16rem .42rem;
+  font-family: var(--titulos); font-size: .55rem; font-weight: 800;
+  letter-spacing: .09em; text-transform: uppercase;
+  color: var(--sobre-sec); background: var(--sede, var(--verde-osc));
+  border-radius: var(--r-full);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+  pointer-events: none;
+}
 /* El nombre va centrado, hasta dos renglones: si no, la grilla se desalinea */
 .album__ficha figcaption {
   font-family: var(--titulos);
@@ -1923,11 +1939,11 @@ a:hover { color: var(--bermellon); }
 /* Doble página angosta: la hoja queda demasiado estrecha para tres, así
    que se pasan a dos columnas (2x3). El pasaje de hojas sigue igual. */
 @media (min-width: 46rem) and (max-width: 65.99rem) {
-  .album__grilla { grid-template-columns: repeat(2, minmax(0, var(--fig))); }
+  .album__grilla { grid-template-columns: repeat(4, minmax(0, calc((var(--fig) - var(--fig-g)) / 2))); }
 }
 @media (max-width: 34rem) {
   /* Una sola hoja angosta: no entran tres. */
-  .album__grilla { grid-template-columns: repeat(2, minmax(0, var(--fig))); }
+  .album__grilla { grid-template-columns: repeat(4, minmax(0, calc((var(--fig) - var(--fig-g)) / 2))); }
   .album__pagina { padding: .9rem .9rem .8rem; }
   .album__cab { margin: -.9rem -.9rem 1rem; padding: .7rem .9rem; }
   .album__toc { grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); }

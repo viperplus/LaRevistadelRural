@@ -771,9 +771,9 @@ def slug(texto):
 
 
 # Figuritas por página del álbum: 3 columnas por 2 filas, como una hoja
-# de álbum de verdad. Todas las páginas llevan la misma cantidad, así
-# que las sedes con muchas figuritas consumen más de una hoja y ninguna
-# queda con fichas más grandes o más chicas que las demás.
+# de álbum de verdad. Las postales de lugar ocupan dos casillas (una
+# figurita doble), así que se pagina por casillas y no por cantidad de
+# fichas: la hoja sigue cerrando en 6 casillas y ninguna foto se achica.
 POR_PAGINA = 6
 
 
@@ -782,6 +782,10 @@ def paginar_album(art, fotos_paths):
     epigs = art.get("epigrafes") or []
     grupos = art.get("fotos_grupos") or []
     colores = art.get("album_colores") or {}
+    dobles = {int(d["n"]): d for d in (art.get("fichas_dobles") or []) if d.get("n")}
+
+    def peso(i):
+        return 2 if (i + 1) in dobles else 1
 
     # (sede, [índices]) en el orden en que vienen los datos.
     secciones = []
@@ -799,9 +803,23 @@ def paginar_album(art, fotos_paths):
         c = colores.get(g) or {}
         base = {"color": c.get("color", ""), "fondo": c.get("fondo", ""),
                 "pagina": c.get("pagina", "")}
-        n_pag = -(-len(idxs) // POR_PAGINA)
-        for k, ini in enumerate(range(0, len(idxs), POR_PAGINA)):
-            lote = idxs[ini:ini + POR_PAGINA]
+        # Se juntan fichas hasta llenar las 6 casillas. Cada hoja se arma
+        # con las postales al principio, para que empiecen una fila.
+        lotes, lote, unidades = [], [], 0
+        for i in idxs:
+            w = peso(i)
+            if lote and unidades + w > POR_PAGINA:
+                # La postal va primero en la hoja: así arranca una fila
+                # tanto con 3 columnas como con 2, sin filas de más.
+                lotes.append(sorted(lote, key=lambda i: -peso(i)))
+                lote, unidades = [], 0
+            lote.append(i)
+            unidades += w
+        if lote:
+            lotes.append(sorted(lote, key=lambda i: -peso(i)))
+
+        n_pag = len(lotes)
+        for k, lote in enumerate(lotes):
             paginas.append(dict(base, tipo="sede", sede=g, slug=slug(g),
                                 orden=orden, sedes_total=n_sede,
                                 pag_sede=k + 1, pags_sede=n_pag,
@@ -823,6 +841,7 @@ def render_album(art, fotos_paths):
     partes = [render_cuerpo(art, [], solo_bloques=True)]
     pags = paginar_album(art, fotos_paths)
     total = len(pags)
+    dobles = {int(d["n"]): d for d in (art.get("fichas_dobles") or []) if d.get("n")}
     cuerpo = []
 
     def _pie(titulo, n):
@@ -844,7 +863,7 @@ def render_album(art, fotos_paths):
                 '<article class="album__pagina album__pagina--portada"%s>'
                 '<div class="album__portada">'
                 '<p class="album__portada-marca">La Revista del Rural</p>'
-                '<p class="album__portada-ed">Edición 2025</p>'
+                '<p class="album__portada-ed">Edición 2026</p>'
                 '<h2 class="album__portada-t">Álbum de<br>figuritas</h2>'
                 '<p class="album__portada-sub">Figurita por figurita, sede por sede</p>'
                 '<p class="album__portada-dato"><b>%d</b> figuritas'
@@ -871,12 +890,26 @@ def render_album(art, fotos_paths):
                 '<footer class="album__pie"><span>Índice</span><span>%d / %d</span></footer>'
                 '</article>' % (atributos, p["sedes"], p["total"], filas, n + 1, total))
         elif t == "sede":
-            filas = "".join(
-                '<figure class="fig album__ficha" data-n="%d">'
-                '<img src="%s" alt="Figurita %d de %s" loading="lazy" decoding="async">'
-                '<figcaption>%s</figcaption></figure>'
-                % (num + 1, f, num + 1, esc(p["sede"]), esc(nombre or p["sede"]))
-                for f, nombre, num in zip(p["fotos"], p["nombres"], p["idxs"]))
+            def _ficha(f, nombre, num):
+                d = dobles.get(num + 1)
+                if d:
+                    clase = "album__ficha album__ficha--doble album__ficha--postal"
+                    f = d.get("img") or f
+                    nombre = d.get("epigrafe") or nombre
+                    alt = "Postal: %s" % esc(nombre)
+                    rotulo = ('<span class="album__ficha-etiqueta" aria-hidden="true">%s</span>'
+                              % esc(d.get("etiqueta") or "El lugar"))
+                else:
+                    clase = "album__ficha"
+                    alt = "Figurita %d de %s" % (num + 1, esc(p["sede"]))
+                    rotulo = ""
+                return ('<figure class="fig %s" data-n="%d">'
+                        '<img src="%s" alt="%s" loading="lazy" decoding="async">'
+                        '%s<figcaption>%s</figcaption></figure>'
+                        % (clase, num + 1, f, alt, rotulo, esc(nombre or p["sede"])))
+
+            filas = "".join(_ficha(f, nombre, num)
+                            for f, nombre, num in zip(p["fotos"], p["nombres"], p["idxs"]))
             cuerpo.append(
                 '<article class="album__pagina album__pagina--sede"%s>'
                 '<header class="album__cab" data-ord="%02d">'
@@ -964,7 +997,7 @@ def pagina(titulo, bajada, ed, nav, body, pie_note, cssdir, faviq, sec_id=None):
     # La version en la consulta rompe la cache del navegador cuando cambian
     # los estaticos: sin esto, un lector que ya entro seguia viendo el JS
     # viejo (por ejemplo, una galeria sin las flechas funcionando).
-    ver = "?v=20261120c"
+    ver = "?v=20261120g"
     css = '<link rel="stylesheet" href="%srevista.css%s">' % (cssdir, ver)
     # Visor de fotos: mismos niveles que la hoja de estilos (css/ -> js/).
     js = '<script src="%srevista.js%s" defer></script>' % (cssdir.replace("css/", "js/"), ver)
@@ -1204,7 +1237,7 @@ def main():
                body, "index.html", "css/", "favicon.svg"))
 
     # ---- vista de impresion: revista completa para PDF ---------------------
-    ver = "?v=20261120c"
+    ver = "?v=20261120g"
     def _imp_art(art):
         uid = art["id"]
         fotos = art.get("fotos") or []

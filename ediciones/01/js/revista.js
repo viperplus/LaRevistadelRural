@@ -310,8 +310,9 @@
       for (var k = 0; k < imgs.length; k++) imgs[k].setAttribute("loading", "eager");
     }
 
-    /* Las figuritas miden todas igual, pero el alto que hay para dos
-       filas depende de la pantalla y del encabezado de la sede. En vez
+    /* Las figuritas miden todas igual (las postales del lugar ocupan el
+       lugar de dos, pero miden lo mismo de alto), y el alto que hay para
+       dos filas depende de la pantalla y del encabezado de la sede. En vez
        de dejar un hueco abajo, se mide lo que hay y se calcula el ancho
        de la ficha que llena justamente esas dos filas; si por ancho no
        se puede llenar entero, se acorta el pliego hasta que sobre
@@ -328,7 +329,10 @@
       }
       if (!pag) return;
       var grilla = pag.querySelector(".album__grilla");
-      var card = grilla && grilla.querySelector(".album__ficha");
+      /* Se mide una figurita común: la postal es el doble de ancha y
+         tiraría el cálculo. Siempre hay alguna en la primera hoja. */
+      var card = grilla && (grilla.querySelector(".album__ficha:not(.album__ficha--doble)")
+                            || grilla.querySelector(".album__ficha"));
       var img = card && card.querySelector("img");
       if (!img || !img.offsetWidth || !img.offsetHeight) return;
 
@@ -350,9 +354,13 @@
       var alto = pag.clientHeight - cromo;
 
       var gs = getComputedStyle(grilla);
-      var col = (gs.gridTemplateColumns || "").trim().split(/\s+/).length;
+      /* La grilla tiene dos subcolumnas por figurita (cuatro por postal). */
+      var sub = (gs.gridTemplateColumns || "").trim().split(/\s+/).length;
+      var col = Math.round(sub / 2);
       if (col < 1) return;
-      var filas = Math.ceil(grilla.children.length / col) || 1;
+      var dobles = grilla.querySelectorAll(".album__ficha--doble").length;
+      var casillas = grilla.children.length + dobles;
+      var filas = Math.max(1, Math.ceil(casillas / col));
       var ritmoF = parseFloat(gs.rowGap) || 0;
       var altFicha = (alto - ritmoF * (filas - 1)) / filas;
 

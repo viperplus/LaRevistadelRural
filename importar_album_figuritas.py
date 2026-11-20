@@ -406,6 +406,7 @@ def armar_articulo(fotos, epigrafes, grupos_ord, grupos, colores):
     cuerpo = [
         {"t": "p", "v": "¿Te acordás de abrir el paquete y correr a mirar si te había tocado la que te faltaba? Ese gesto es el que armamos acá: un álbum para juntar figuritas, completar lugares y mirar quiénes están."},
         {"t": "p", "v": "Cada sede mandó sus figuritas, cada estudiante y cada tutor dejó la suya, y de a poquito el álbum se fue llenando hasta llegar a **%d figuritas repartidas en %d sedes**." % (n_figu, n_sede)},
+        {"t": "p", "v": "Las fotos de los lugares —el potrero de Aguada de Guerra, las canchas, el lago— vienen como postales a toda página: ocupan el lugar de dos figuritas para que se vean bien."},
         {"t": "p", "v": "Están agrupadas por sede, como en cualquier álbum que se respete. Tocá cualquier figurita para verla en grande."},
         {"t": "dato", "v": "%d sedes · %d figuritas · 1 solo álbum" % (n_sede, n_figu)},
     ]
