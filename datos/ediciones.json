@@ -2149,7 +2149,8 @@
       "sede": "Cerro Policía",
       "anio": "1.° y 2.° año",
       "tutora": "Antonela Verón",
-      "rol": ""
+      "rol": "",
+      "foto_portada": "foto-portada.jpg"
     },
     {
       "id": "como-hacer-tortas-fritas",
@@ -3305,7 +3306,8 @@
         }
       ],
       "rol": "",
-      "tutora": ""
+      "tutora": "",
+      "foto_portada": "foto-portada.jpg"
     },
     {
       "id": "pausa-de-hidratacion",
@@ -6349,7 +6351,8 @@
         "",
         ""
       ],
-      "tutora": ""
+      "tutora": "",
+      "foto_portada": "foto-portada.jpg"
     },
     {
       "id": "el-patio-de-todos-mencue",
@@ -6521,7 +6524,8 @@
           "t": "firma",
           "v": "Maqueta realizada por estudiante M.B.A, sede Río Chico"
         }
-      ]
+      ],
+      "foto_portada": "foto-portada.jpg"
     },
     {
       "id": "de-mencue-a-la-seleccion-de-rio-negro",
@@ -6627,7 +6631,8 @@
         "Anahir Carus celebrando con la camiseta n.º 14.",
         "Anahir Carus junto a su entrenador Lucas Carus."
       ],
-      "tutora": ""
+      "tutora": "",
+      "foto_portada": "foto-portada.jpg"
     },
     {
       "id": "aniversario-de-comico",
