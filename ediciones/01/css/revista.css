@@ -758,11 +758,13 @@ a:hover { color: var(--bermellon); }
   width: 100%;
   height: clamp(9.6rem, 13vw, 12.2rem);   /* antes 100px: se veían como miniaturas */
   object-fit: cover;
+  /* Las portadas ya vienen recortadas de la foto original (sin relleno).
+     En pantallas anchas el contenedor supera 3:1 y cover recorta por arriba
+     y abajo: este encuadre conserva el rostro, que queda en el tercio alto. */
+  object-position: center 8%;
   margin-bottom: 0;
   border-bottom: 4px solid var(--sec-color, var(--verde));
 }
-/* Las miniaturas ya llegan encuadradas desde el generador (foto_portada):
-   aca solo se mantienen centradas, sin desplazamientos por articulo. */
 .art_card__img--vacio {
   width: 100%;
   height: clamp(9.6rem, 13vw, 12.2rem);
